@@ -1,13 +1,13 @@
 package edu.cmu.lti.bic.sbs.ui.monitor;
 
-import com.googlecode.lanterna.gui.component.Panel;
+import javax.swing.*;
 
 /**
  * 
  * @author Guan Wang
  *
  */
-public class MonitorPanel extends Panel {
+public class MonitorPanel extends JPanel {
 
 	BloodPressurePanel bloodPressurePanel = null;
 	HeartRatePanel heartRatePanel = null;
@@ -19,10 +19,10 @@ public class MonitorPanel extends Panel {
 		heartRatePanel = new HeartRatePanel();
 		oxygenLevelPanel = new OxygenLevelPanel();
 		respiratoryRatePanel = new RespiratoryRatePanel();
-		this.addComponent(bloodPressurePanel);
-		this.addComponent(heartRatePanel);
-		this.addComponent(oxygenLevelPanel);
-		this.addComponent(respiratoryRatePanel);
+		this.add(bloodPressurePanel);
+		this.add(heartRatePanel);
+		this.add(oxygenLevelPanel);
+		this.add(respiratoryRatePanel);
 	}
 
 	public void setBloodPressure(int upperBloodPressureData,

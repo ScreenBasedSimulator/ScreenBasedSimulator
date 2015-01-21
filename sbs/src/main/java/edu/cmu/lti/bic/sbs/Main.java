@@ -1,5 +1,7 @@
-package edu.cmu.lti.bic.sbs.ui;
+package edu.cmu.lti.bic.sbs;
 
+import edu.cmu.lti.bic.sbs.engine.engineControler;
+import edu.cmu.lti.bic.sbs.ui.UserInterface;
 import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
 
 public class Main {
@@ -11,6 +13,7 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ui.show();
+		engineControler eng = new engineControler();
+		System.out.println("Finished Starting");
 	}
 }

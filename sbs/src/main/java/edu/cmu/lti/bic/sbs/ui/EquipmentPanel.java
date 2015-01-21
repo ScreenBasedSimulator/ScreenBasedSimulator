@@ -2,9 +2,7 @@ package edu.cmu.lti.bic.sbs.ui;
 
 import java.util.List;
 
-import com.googlecode.lanterna.gui.Action;
-import com.googlecode.lanterna.gui.component.*;
-import com.googlecode.lanterna.input.Key.Kind;
+import javax.swing.*;
 
 import edu.cmu.lti.bic.sbs.gson.Equipment;
 
@@ -13,28 +11,21 @@ import edu.cmu.lti.bic.sbs.gson.Equipment;
  * @author Xiao Han
  *
  */
-public class EquipmentPanel extends Panel {
+public class EquipmentPanel extends JPanel {
 
-	List<SingleEquipmentPanel> panelList = null;
+	List<JLabel> labelList = null;
 
 	public EquipmentPanel() {
-		this.addComponent(new Label("initializing..."));
+		this.add(new JLabel("initializing..."));
 	}
 
 	public void addEquipments(Equipment[] equipmentList) {
-		this.removeAllComponents();
 		for (Equipment equipment : equipmentList) {
-			SingleEquipmentPanel newPanel = new SingleEquipmentPanel(
-					equipment.getId(), equipment.getName(),
+			JLabel newLabel = new JLabel(
+					equipment.getId() +  equipment.getName() + 
 					equipment.getDescription());
 
-			newPanel.addShortcut(Kind.Enter, new Action() {
-				@Override
-				public void doAction() {
-					System.out.println("Equipment Selected");
-				}
-			});
-			this.addComponent(newPanel);
+			this.add(newLabel);
 		}
 	}
 

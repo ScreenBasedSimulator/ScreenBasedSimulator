@@ -1,41 +1,32 @@
 package edu.cmu.lti.bic.sbs.ui;
+import javax.swing.*;
 
-import com.googlecode.lanterna.gui.Border;
-import com.googlecode.lanterna.gui.component.*;
-import com.googlecode.lanterna.terminal.TerminalSize;
-
-public class PatientPanel extends Panel {
+public class PatientPanel extends JPanel {
     static int PANELSIZE = 70;
-    Panel basicPanel = new Panel(new Border.Bevel(true), Panel.Orientation.HORISONTAL);
-    Panel descriptionPanel = new Panel(new Border.Bevel(true), Panel.Orientation.HORISONTAL);
+    JPanel basicPanel = new JPanel();
+    JPanel descriptionPanel = new JPanel();
   
-    Label basicLabel = new Label();
-    Label descriptionLabel = new Label();
+    JLabel basicLabel = new JLabel();
+    JLabel descriptionLabel = new JLabel();
     
     String basic = "basic";
     String description = "description";
   
   public PatientPanel(){
-    super(new Border.Standard(), Panel.Orientation.VERTICAL);
-    super.setTitle("Patient Information");
     setBasicPanel();
-    super.addComponent(basicPanel);
+    super.add(basicPanel);
     setDescriptionPanel();
-    super.addComponent(descriptionPanel);
+    super.add(descriptionPanel);
   }
   
   public void setBasicPanel(){
-    basicPanel.setTitle("BASIC");
     basicLabel.setText(process(basic));
-    basicPanel.addComponent(basicLabel);
-    basicPanel.setPreferredSize(new TerminalSize(PANELSIZE,10));
+    basicPanel.add(basicLabel);
   }
   
   public void setDescriptionPanel(){
-    descriptionPanel.setTitle("DESCRIPTION");
     descriptionLabel.setText(process(description));
-    descriptionPanel.addComponent(descriptionLabel);
-    descriptionPanel.setPreferredSize(new TerminalSize(PANELSIZE,50));
+    descriptionPanel.add(descriptionLabel);
   }
   
   public String process(String str) {
