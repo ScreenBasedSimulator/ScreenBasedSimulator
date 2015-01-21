@@ -1,4 +1,4 @@
-package patient;
+package edu.cmu.lti.bic.sbs.simulator;
 
 
 enum Status{

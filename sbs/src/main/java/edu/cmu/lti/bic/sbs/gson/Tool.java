@@ -1,4 +1,4 @@
-package edu.cmu.lti.bic.sbs.evaluator;
+package edu.cmu.lti.bic.sbs.gson;
 
 /**
  * The Tool Class

@@ -1,4 +1,4 @@
-package patient;
+package edu.cmu.lti.bic.sbs.simulator;
 
 
 //communicate with engine, just like the controller of patient
