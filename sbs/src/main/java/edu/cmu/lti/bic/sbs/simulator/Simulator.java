@@ -1,5 +1,6 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
+import edu.cmu.lti.bic.sbs.gson.*;
 
 //communicate with engine, just like the controller of patient
 public class Simulator {
