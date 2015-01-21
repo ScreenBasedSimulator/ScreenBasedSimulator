@@ -1,35 +1,31 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import java.io.FileNotFoundException;
+import java.awt.EventQueue;
 
-import com.googlecode.lanterna.TerminalFacade;
-import com.googlecode.lanterna.gui.GUIScreen;
-import com.googlecode.lanterna.gui.GUIScreen.Position;
+import javax.swing.JFrame;
+
+import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.gson.Equipment;
 
 public class UserInterface {
 	DecisionEngine decisionEngine=null;
 	MainWindow myWindow = null;
-	GUIScreen textGUI = null;
+	private JFrame frame;
+	private Gson gson = new Gson();
+	
 	public UserInterface (DecisionEngine in) throws UserInterfaceInitializationException {
-		decisionEngine=in;
-		textGUI = TerminalFacade.createGUIScreen();
-		if (textGUI == null) {
-			throw new UserInterfaceInitializationException("Couldn't allocate a terminal");
-		}
-		try {
-			myWindow = new MainWindow("Demo");
-		} catch (FileNotFoundException e) {
-			throw new UserInterfaceInitializationException("File not found");
-		}
-	}
-	public void show() {
-		textGUI.getScreen().startScreen();
-		textGUI.showWindow(myWindow, Position.CENTER);
-	}
-	public void stop() {
-		textGUI.getScreen().stopScreen();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainWindow window = new MainWindow();
+
+					window.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	public void callCode(String code){
 		decisionEngine.callCode(code);
