@@ -1,13 +1,11 @@
 package edu.cmu.lti.bic.sbs;
 
-import edu.cmu.lti.bic.sbs.engine.engineControler;
-import edu.cmu.lti.bic.sbs.ui.UserInterface;
-import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
+import edu.cmu.lti.bic.sbs.engine.Engine;
 
 public class Main {
 	public static void main(String[] args) {
 		
-		engineControler eng = new engineControler();
+		Engine eng = new Engine();
 		System.out.println("Finished Starting");
 	}
 }

@@ -14,7 +14,7 @@ public class ClockPanel extends JPanel {
   int minute = 0;
   int hour = 0;
   
-  public void updateTime(int h, int m, int s){
+  public void setTime(int h, int m, int s){
     second = s;
     minute = m;
     hour = h;
@@ -26,6 +26,6 @@ public class ClockPanel extends JPanel {
 	timeLabel =  new JLabel();
     timeLabel.setText(0 + "");
     this.add(timeLabel);
-    this.updateTime(12, 0, 0);    
+    this.setTime(12, 0, 0);    
   }
 }
