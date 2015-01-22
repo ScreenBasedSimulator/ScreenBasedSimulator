@@ -5,7 +5,29 @@ import edu.cmu.lti.bic.sbs.gson.*;
 //communicate with engine, just like the controller of patient
 public class Simulator {
 	Patient pt;
+	
+	//adding default value for four parameter
+	float defaultBp;
+	float defaultHr;
+	float defaultOl;
+	float defaultRr;
 
+	
+	//the initialization function for engine to involve
+	public Patient initialPatient(){
+		
+		pt.getBp().setBpNum(defaultBp);
+		pt.getHr().setHrNum(defaultHr);
+		pt.getOl().setOlNum(defaultOl);
+		pt.getRr().setRrNum(defaultRr);
+		
+		return pt;
+		
+	}
+	
+	public Simulator(){
+		super();
+	}
 	
 	public Simulator(Patient pt) {
 		super();

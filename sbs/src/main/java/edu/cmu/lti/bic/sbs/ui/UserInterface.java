@@ -31,20 +31,20 @@ public class UserInterface {
 	}
 
 	public void callCode(String code) {
-		decisionEngine.callCode(code);
+		//decisionEngine.callCode(code);
 	}
 
 	public void connectMonitor() {
-		decisionEngine.connectMonitor();
+		//decisionEngine.connectMonitor();
 	}
 
 
 	public void useTool(Tool tool) {
-		decisionEngine.useTool(tool);
+		//decisionEngine.useTool(tool);
 	}
 
 	public void useDrug(Drug drug, Double dosage) {
-		decisionEngine.useDrug(drug, dosage);
+		//decisionEngine.useDrug(drug, dosage);
 	}
 
 //	public void setTime(LocalTime time) {
