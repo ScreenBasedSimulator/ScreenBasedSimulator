@@ -1,7 +1,8 @@
 package edu.cmu.lti.bic.sbs.engine;
 
-<<<<<<< HEAD
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
+import edu.cmu.lti.bic.sbs.gson.Drug;
+import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
 import edu.cmu.lti.bic.sbs.simulator.HeartRate;
 import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
@@ -13,7 +14,7 @@ import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
 
 /**
  * The Engine Class
- * @author Xiaoxu Lu <xiaoxulu@andrew.cmu.edu>
+ * @author Xiaoxu Lu <xiaoxul@andrew.cmu.edu>
  *
  */
 public class Engine {
@@ -24,15 +25,6 @@ public class Engine {
 	 */
 	public Engine() {
 		// User interface initialization
-=======
-import edu.cmu.lti.bic.sbs.gson.Drug;
-import edu.cmu.lti.bic.sbs.gson.Tool;
-import edu.cmu.lti.bic.sbs.ui.UserInterface;
-import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
-
-public class Engine {
-	public Engine() {
->>>>>>> 101ebd7ca963ed0898fa31b12c8d2f9b628daea7
 		UserInterface ui = null;
 		try {
 			System.out.println("Initializing the user interface");
