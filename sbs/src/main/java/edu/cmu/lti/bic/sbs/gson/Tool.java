@@ -1,4 +1,4 @@
-package edu.cmu.lti.bic.sbs.evaluator;
+package edu.cmu.lti.bic.sbs.gson;
 
 /**
  * The Tool Class
@@ -35,5 +35,4 @@ public class Tool {
 		this.id = id;
 		this.name = name;
 		this.description = description;
-	}
 }

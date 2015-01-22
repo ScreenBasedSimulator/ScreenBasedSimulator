@@ -7,16 +7,16 @@ import javax.swing.JFrame;
 
 import com.google.gson.Gson;
 
-import edu.cmu.lti.bic.sbs.gson.Equipment;
+
 import edu.cmu.lti.bic.sbs.gson.Patient;
 
 public class UserInterface {
-	DecisionEngine decisionEngine = null;
+	Engine decisionEngine = null;
 	MainWindow myWindow = null;
 	private JFrame frame;
 	private Gson gson = new Gson();
 
-	public UserInterface(DecisionEngine in)
+	public UserInterface(Engine in)
 			throws UserInterfaceInitializationException {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -72,7 +72,7 @@ public class UserInterface {
 	}
 
 	public void updateMonitor() {
-
+		
 	}
 
 	public void addPathography() {

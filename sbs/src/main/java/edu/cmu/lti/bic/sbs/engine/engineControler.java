@@ -14,7 +14,7 @@ public class engineControler {
 		
 	}
 	
-	public void useEquipment(Equipment equipment) {
+	public void useTool(Tool equipment) {
 		// TODO Auto-generated method stub
 		
 	}
