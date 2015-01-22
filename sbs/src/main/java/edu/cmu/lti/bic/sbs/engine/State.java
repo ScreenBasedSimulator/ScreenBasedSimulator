@@ -1,5 +1,5 @@
 package edu.cmu.lti.bic.sbs.engine;
 
-public class state {
+public class State {
 
 }

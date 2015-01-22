@@ -12,19 +12,19 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 
-import edu.cmu.lti.bic.sbs.gson.Equipment;
+import edu.cmu.lti.bic.sbs.gson.Tool;
 
 public class EquipmentTest {
 	static Gson gson = new Gson();
-	static Equipment[] equipments = null;
+	static Tool[] tools = null;
 
 	@BeforeClass
 	public static void setUp() throws FileNotFoundException {
 		FileReader fileReader = new FileReader(
 				"src/test/resources/cli/equipmentTest.json");
 
-		equipments = gson.fromJson(fileReader, Equipment[].class);
-		assertSame(equipments.length, 3);
+		tools = gson.fromJson(fileReader, Tool[].class);
+		assertSame(tools.length, 3);
 
 		System.out.println("setting up");
 	}
@@ -40,14 +40,14 @@ public class EquipmentTest {
 
 	@Test
 	public void testGetName() {
-		assertEquals(equipments[0].getName(), "ECMO");
+		assertEquals(tools[0].getName(), "ECMO");
 	}
 
 	@Test
 	public void testSetName() {
-		equipments[0].setName("TEST");
-		assertEquals(equipments[0].getName(), "TEST");
-		equipments[0].setName("ECMO");
+		tools[0].setName("TEST");
+		assertEquals(tools[0].getName(), "TEST");
+		tools[0].setName("ECMO");
 	}
 
 	//
@@ -63,14 +63,8 @@ public class EquipmentTest {
 	//
 	@Test
 	public void testGetId() {
-		assertEquals(equipments[0].getId(), "1");
+		assertEquals(tools[0].getId(), "1");
 	}
 
-	@Test
-	public void testSetId() {
-		equipments[0].setId("111");
-		assertEquals(equipments[0].getId(), "111");
-		equipments[0].setId("0");
-	}
 
 }

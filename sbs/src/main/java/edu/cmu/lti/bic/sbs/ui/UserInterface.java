@@ -7,8 +7,10 @@ import javax.swing.JFrame;
 
 import com.google.gson.Gson;
 
-
+import edu.cmu.lti.bic.sbs.engine.Engine;
+import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Patient;
+import edu.cmu.lti.bic.sbs.gson.Tool;
 
 public class UserInterface {
 	Engine decisionEngine = null;
@@ -39,17 +41,12 @@ public class UserInterface {
 		decisionEngine.connectMonitor();
 	}
 
-	public void disconnectMonitor() {
-		if (decisionEngine.isMonitorConnected()) {
-			decisionEngine.disconnectMonitor();
-		}
+
+	public void useTool(Tool tool) {
+		decisionEngine.useTool(tool);
 	}
 
-	public void useEquipment(Equipment equipment) {
-		decisionEngine.useEquipment(equipment);
-	}
-
-	public void useDrug(Drug drug, double dosage) {
+	public void useDrug(Drug drug, Double dosage) {
 		decisionEngine.useDrug(drug, dosage);
 	}
 

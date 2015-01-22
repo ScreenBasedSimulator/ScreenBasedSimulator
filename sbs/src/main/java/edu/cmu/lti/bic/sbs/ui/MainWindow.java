@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 
 import com.google.gson.Gson;
 
-import edu.cmu.lti.bic.sbs.gson.Equipment;
+import edu.cmu.lti.bic.sbs.gson.Tool;
 
 public class MainWindow {
 
@@ -55,9 +55,9 @@ public class MainWindow {
 		patientPanel.setBounds(101, 128, 200, 50);
 		frame.getContentPane().add(patientPanel);
 		
-		EquipmentPanel equipmentPanel = new EquipmentPanel();
-		equipmentPanel.setBounds(182, 218, 200, 50);
-		frame.getContentPane().add(equipmentPanel);
+		ToolPanel toolPanel = new ToolPanel();
+		toolPanel.setBounds(182, 218, 200, 50);
+		frame.getContentPane().add(toolPanel);
 		FileReader fileReader = null;
 		try {
 			fileReader = new FileReader(
@@ -66,8 +66,8 @@ public class MainWindow {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Equipment[] equipments = null;
-		equipments = gson.fromJson(fileReader, Equipment[].class);
-		equipmentPanel.addEquipments(equipments);
+		Tool[] tools = null;
+		tools = gson.fromJson(fileReader, Tool[].class);
+		toolPanel.addTools(tools);
 	}
 }

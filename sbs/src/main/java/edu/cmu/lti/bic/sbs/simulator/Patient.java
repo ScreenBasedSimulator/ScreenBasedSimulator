@@ -59,12 +59,12 @@ public class Patient {
 	}
 	
 
-	public void updateWithEquipments(Equipment eq){
+	public void updateWithTool(Tool tool){
 		//set four parameters
 	}
 	
 	
-	public void updateWithDrugs(Drug drug, float dose ){
+	public void updateWithDrugs(Drug drug, float dose){
 		//set four parameters
 	}
 	
