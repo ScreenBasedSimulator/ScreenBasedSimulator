@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.evaluator;
 
 import edu.cmu.lti.bic.sbs.gson.Medicine;
+import edu.cmu.lti.bic.sbs.gson.Tool;
 
 /**
  * The Step Class
@@ -23,6 +24,6 @@ public class Step {
 	Step() {
 		medUsed = new Medicine();
 		timeUsed = new Timer();
-		toolUsed = new Tool();
+		toolUsed = new Tool("","","");
 	}
 }
