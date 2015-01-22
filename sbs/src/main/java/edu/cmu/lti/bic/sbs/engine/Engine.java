@@ -36,6 +36,7 @@ public class Engine {
 		
 		// Patient and Simulator initialization 
 		// Raw data should be loaded by file input later...
+		
 		BloodPressure bp = new BloodPressure(100.0f);
 		HeartRate hr = new HeartRate(80.0f);
 		OxygenLevel ol = new OxygenLevel(50.0f);
@@ -46,7 +47,7 @@ public class Engine {
 		Simulator sim = new Simulator(pt);
 		
 		// Evaluator initialization
-		//Evaluator eval = new Evaluator();
+		Evaluator eval = new Evaluator();
 	}
 	
 	public void callCode(String code) {

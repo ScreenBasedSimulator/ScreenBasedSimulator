@@ -15,7 +15,7 @@ public class Evaluator {
 		return "The score is " + score; 
 	}
 	
-	Evaluator() {
+	public Evaluator() {
 		score = 0;
 	}
 }
