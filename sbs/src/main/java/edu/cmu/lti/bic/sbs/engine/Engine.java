@@ -18,14 +18,19 @@ import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
  *
  */
 public class Engine {
-
+	UserInterface ui = null;
+	Simulator sim = null;
+	Evaluator eval = null;
+	Scenario scen = null;
+	
 	/*
 	 * Constructor function, responsible for creating UserInterface,
 	 * Simulator and Evaluator
 	 */
 	public Engine() {
+		scen = new Scenario();
+		
 		// User interface initialization
-		UserInterface ui = null;
 		try {
 			System.out.println("Initializing the user interface");
 			ui = new UserInterface(this);
@@ -44,25 +49,17 @@ public class Engine {
 		RepositoryRate rr = new RepositoryRate(60.0f);
 		
 		Patient pt = new Patient(bp, hr, ol, rr);
-		Simulator sim = new Simulator(pt);
+		sim = new Simulator(pt);
 		
 		// Evaluator initialization
-		Evaluator eval = new Evaluator();
+		eval = new Evaluator();
+	}
+	/*
+	 * process() start a scenario simulation
+	 */
+	public void process(){
+		String code = "code blue";
+	//	scen.callCode(code);
 	}
 	
-	public void callCode(String code) {
-		
-	}
-	
-	public void connectMonitor() {
-		
-	}
-	
-	public void useTool(Tool tool){
-		
-	}
-	
-	public void useDrug(Drug drug, Double dose) {
-		
-	}
 }
