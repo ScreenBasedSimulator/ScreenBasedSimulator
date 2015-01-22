@@ -14,7 +14,7 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 
 public class UserInterface {
 	Engine decisionEngine = null;
-	MainWindow myWindow = null;
+	MainWindow window = null;
 	private JFrame frame;
 	private Gson gson = new Gson();
 
@@ -23,7 +23,7 @@ public class UserInterface {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainWindow window = new MainWindow();
+					window = new MainWindow();
 
 					window.setVisible(true);
 				} catch (Exception e) {
@@ -51,13 +51,18 @@ public class UserInterface {
 	}
 
 	public void setTime(LocalTime time) {
+		assert(time != null);
+		window.setTime(time.getHour(), time.getMinute(), time.getSecond());
 	}
 
 	public void setPatientInfo(Patient patient) {
+		assert(patient != null);
+		window.setPatient(patient.getBasic(), patient.getDescription());
 	}
 
 	public void addDrug(Drug drug) {
-		
+		assert(drug != null);
+		window.addDrug(drug.getId(), drug.getName());
 	}
 
 	public void addTool() {
@@ -72,7 +77,8 @@ public class UserInterface {
 		
 	}
 
-	public void addPathography() {
+	public void addPathography(String feedback) {
+		
 	}
 
 }

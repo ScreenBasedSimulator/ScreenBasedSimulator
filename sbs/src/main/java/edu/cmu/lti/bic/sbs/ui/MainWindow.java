@@ -1,6 +1,5 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import java.awt.EventQueue;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -13,24 +12,15 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 public class MainWindow {
 
 	private JFrame frame;
+	private ClockPanel clockPanel;
+	private PatientPanel patientPanel;
+	private ToolPanel toolPanel;
 	private Gson gson = new Gson();
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindow window = new MainWindow();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 	public void setVisible(boolean isVisible) {
 		frame.setVisible(isVisible);
 	}
+
 	/**
 	 * Create the application.
 	 */
@@ -46,16 +36,16 @@ public class MainWindow {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		ClockPanel clockPanel = new ClockPanel();
+
+		clockPanel = new ClockPanel();
 		clockPanel.setBounds(125, 32, 200, 50);
 		frame.getContentPane().add(clockPanel);
-		
-		PatientPanel patientPanel = new PatientPanel();
+
+		patientPanel = new PatientPanel();
 		patientPanel.setBounds(101, 128, 200, 50);
 		frame.getContentPane().add(patientPanel);
-		
-		ToolPanel toolPanel = new ToolPanel();
+
+		toolPanel = new ToolPanel();
 		toolPanel.setBounds(182, 218, 200, 50);
 		frame.getContentPane().add(toolPanel);
 		FileReader fileReader = null;
@@ -69,5 +59,18 @@ public class MainWindow {
 		Tool[] tools = null;
 		tools = gson.fromJson(fileReader, Tool[].class);
 		toolPanel.addTools(tools);
+	}
+
+	public void setTime(Integer h, Integer m, Integer s) {
+		clockPanel.setTime(h, m, s);
+	}
+	
+	public void setPatient(String basic, String description) {
+		patientPanel.setBasic(basic);
+		patientPanel.setDescription(description);
+	}
+	
+	public void addDrug(String id, String name) {
+		
 	}
 }
