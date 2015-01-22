@@ -24,6 +24,6 @@ public class Step {
 	Step() {
 		medUsed = new Medicine();
 		timeUsed = new Timer();
-		toolUsed = new Tool();
+		toolUsed = new Tool("","","");
 	}
 }

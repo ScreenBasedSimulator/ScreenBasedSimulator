@@ -21,12 +21,12 @@ public class Simulator {
 		this.pt = pt;
 	}
 	
-	public void simEquipments(Equipment eq){
+	public void simulateWithTool(Tool eq){
 		//set the parameters according to the equipment from engine
 	}
 	
 	
-	public void simWithDrugs(Drug drug , float does ){
+	public void simWithDrugs(Drug drug , float dose ){
 		//set the parameters according to the drug from engine
 	}
 }
