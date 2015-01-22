@@ -28,6 +28,7 @@ public class Engine {
 	 * Simulator and Evaluator
 	 */
 	public Engine() {
+		// Scenario initialization
 		scen = new Scenario();
 		
 		// User interface initialization
@@ -58,8 +59,16 @@ public class Engine {
 	 * process() start a scenario simulation
 	 */
 	public void process(){
+		
 		String code = "code blue";
-	//	scen.callCode(code);
+		scen.callCode(code);
+		
+		scen.connectMonitor();
+		
+		scen.useDrug(drug, dose);
+		
+		Tool tool = new Tool();
+		scen.useTool(tool);
 	}
 	
 }

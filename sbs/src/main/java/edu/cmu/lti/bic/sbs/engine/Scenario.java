@@ -12,28 +12,43 @@ public class Scenario {
 		System.out.println("I am a new Scenario~~~");
 	}
 	public Scenario(int id, String name){
-		ScenId = id;
-		ScenName = name;
+		this.ScenId = id;
+		this.ScenName = name;
 		//just for test
 		System.out.println("I am a new Scenario~~~");
 		System.out.println("My id is " + ScenId);
 		System.out.println("My neam is " + ScenName);
 	}
+	public int getId() {
+		return ScenId;
+	}
 	
+	public String getName() {
+		return ScenName;
+	}
 	
+	public void setName(String name) {
+		this.ScenName = name;
+	}
+	
+	public String toString() {
+		return "The Scenario is " + ScenName;
+	}
+	
+
 	/*
 	 * Interaction functions with all other packages
 	 */
 	public void callCode(String code) {
-
+		// send ui : callCode to display
 	}
 
 	public void connectMonitor() {
-
+		// send ui to connect monitor
 	}
 
 	public void useTool(Tool tool) {
-
+		
 	}
 
 	public void useDrug(Drug drug, Double dose) {
