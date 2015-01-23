@@ -19,7 +19,7 @@ public class MonitorPanel extends JPanel{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -30,13 +30,13 @@ public class MonitorPanel extends JPanel{
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the application.
 	 */
 	public MonitorPanel()  {
-		setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
+		//this.setBorder(new EtchedBorder(EtchedBorder.RAISED, null, null));
 		initialize();
 	}
 
@@ -51,57 +51,68 @@ public class MonitorPanel extends JPanel{
 	JLabel respiratoryRateLabel; 
 	private void initialize() {
 		/*frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 60, 450, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		*/
-		/*JPanel monitorPanel = new JPanel();
-		monitorPanel.setBounds(327, 52, 100, 130);
+		
+		JPanel monitorPanel = new JPanel();
+		monitorPanel.setBorder(new TitledBorder(null, "Monitor", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		monitorPanel.setBounds(327, 61, 100, 230);
 		frame.getContentPane().add(monitorPanel);
 		monitorPanel.setLayout(null);*/
+		this.setBorder(new TitledBorder(null, "Monitor", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		this.setBounds(327, 61, 100, 230);
+		//this.setSize(100, 230);
+		//frame.getContentPane().add(monitorPanel);
+		this.setLayout(null);
 		
 		bloodPressurePanel = new JPanel();
-		bloodPressurePanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		bloodPressurePanel.setBounds(6, 6, 90, 25);
+		bloodPressurePanel.setBorder(new TitledBorder(null, "BP", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		bloodPressurePanel.setBounds(6, 20, 90, 50);
 		this.add(bloodPressurePanel);
+		//monitorPanel.add(bloodPressurePanel);
 		
 		heartRatePanel = new JPanel();
-		heartRatePanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		heartRatePanel.setBounds(6, 37, 90, 25);
+		heartRatePanel.setBorder(new TitledBorder(null, "HR", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		heartRatePanel.setBounds(6, 70, 90, 50);
 		this.add(heartRatePanel);
+		//monitorPanel.add(heartRatePanel);
 		
 		JPanel oxygenLevelPanel = new JPanel();
-		oxygenLevelPanel.setBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "123", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0))));
-		oxygenLevelPanel.setBounds(6, 70, 90, 25);
+		oxygenLevelPanel.setBorder(new TitledBorder(null, "SpO2", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		oxygenLevelPanel.setBounds(6, 120, 90, 50);
 		this.add(oxygenLevelPanel);
+		//monitorPanel.add(oxygenLevelPanel);
 		
 		JPanel respiratoryRatePanel = new JPanel();
-		respiratoryRatePanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		respiratoryRatePanel.setBounds(6, 100, 90, 25);
+		respiratoryRatePanel.setBorder(new TitledBorder(null, "RR", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		respiratoryRatePanel.setBounds(6, 170, 90, 50);
 		this.add(respiratoryRatePanel);
+		//monitorPanel.add(respiratoryRatePanel);
 		
-		bloodPressureLabel = new JLabel("BP: ?/? mmHg");
+		
+		bloodPressureLabel = new JLabel("?/? mmHg");
 		bloodPressurePanel.add(bloodPressureLabel);
 		
-		heartRateLabel = new JLabel("HR: ? bpm");
+		heartRateLabel = new JLabel("? bpm");
 		heartRatePanel.add(heartRateLabel);
 		
-		oxygenLevelLabel = new JLabel("SpO2: ? %");
+		oxygenLevelLabel = new JLabel("? %");
 		oxygenLevelPanel.add(oxygenLevelLabel);
 		
-		respiratoryRateLabel = new JLabel("RR: ?");
+		respiratoryRateLabel = new JLabel("?");
 		respiratoryRatePanel.add(respiratoryRateLabel);
 	}
 	public void setBloodPressure(int bloodPressureUpperBound,int bloodPressureLowerBound){
-		bloodPressureLabel.setText("BP: "+bloodPressureUpperBound+"/"+bloodPressureLowerBound+" mmHg");
+		bloodPressureLabel.setText(bloodPressureUpperBound+"/"+bloodPressureLowerBound+" mmHg");
 	}
 	public void setHeartRate(int heartRate){
-		heartRateLabel.setText("HR: "+heartRate+" bpm");
+		heartRateLabel.setText(heartRate+" bpm");
 	}
 	public void setOxygenLevel(int oxygenLevel){
-		oxygenLevelLabel.setText("SpO2: "+oxygenLevel+" %");
+		oxygenLevelLabel.setText(oxygenLevel+" %");
 	}
 	public void setRespiratoryRate(int respiratoryRate){
-		respiratoryRateLabel.setText("RR: "+respiratoryRate);
+		respiratoryRateLabel.setText(""+respiratoryRate);
 	}
 }

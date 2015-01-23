@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import com.google.gson.Gson;
 
@@ -40,19 +39,19 @@ public class MainWindow {
 		frame.getContentPane().setLayout(null);
 
 		monitorPanel = new MonitorPanel();
-		monitorPanel.setBounds(327, 52, 100, 130);
+		monitorPanel.setBounds(10,10, 100, 230);
 		frame.getContentPane().add(monitorPanel);
 		
 		clockPanel = new ClockPanel();
-		clockPanel.setBounds(125, 32, 200, 50);
+		clockPanel.setBounds(324, 10, 120, 43);
 		frame.getContentPane().add(clockPanel);
 
 		patientPanel = new PatientPanel();
-		patientPanel.setBounds(101, 128, 200, 50);
+		patientPanel.setBounds(244, 222, 200, 50);
 		frame.getContentPane().add(patientPanel);
 
 		toolPanel = new ToolPanel();
-		toolPanel.setBounds(182, 218, 200, 50);
+		toolPanel.setBounds(324, 56, 120, 167);
 		frame.getContentPane().add(toolPanel);
 		FileReader fileReader = null;
 		try {
@@ -79,7 +78,7 @@ public class MainWindow {
 		monitorPanel.setOxygenLevel(oxygenLevel);
 		monitorPanel.setRespiratoryRate(respiratoryRate);
 	}
-	public void addDrug(String id, String name) {
+	/*public void addDrug(String id, String name) {
 		
-	}
+	}*/
 }

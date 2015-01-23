@@ -62,7 +62,7 @@ public class UserInterface {
 
 	public void addDrug(Drug drug) {
 		assert(drug != null);
-		window.addDrug(drug.getId(), drug.getName());
+		//window.addDrug(drug.getId(), drug.getName());
 	}
 
 	public void addTool() {

@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.ui;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
 /**
  * 
@@ -18,11 +19,34 @@ public class ClockPanel extends JPanel {
     second = s;
     minute = m;
     hour = h;
-   
-    timeLabel.setText(hour + ":" + minute + ":" + second);
+    StringBuilder text=new StringBuilder();
+    if(h%10==0){
+    	text.append("0"+hour);
+    }else{
+    	text.append(hour);
+    }
+    
+    text.append(':');
+    
+    if(m%10==0){
+    	text.append("0"+minute);
+    }else{
+    	text.append(minute);
+    }
+    
+    text.append(':');
+    
+    if(s%10==0){
+    	text.append("0"+second);
+    }else{
+    	text.append(second);
+    }
+    timeLabel.setText(text.toString());
   }
   
   public ClockPanel(){
+	  //this.setBorder(border);
+	this.setBorder(new TitledBorder(null, "Clock", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 	timeLabel =  new JLabel();
     timeLabel.setText(0 + "");
     this.add(timeLabel);
