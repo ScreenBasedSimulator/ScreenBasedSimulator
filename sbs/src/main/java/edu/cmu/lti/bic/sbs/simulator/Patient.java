@@ -56,18 +56,5 @@ public class Patient {
 
 	public void setRr(RepositoryRate rr) {
 		this.rr = rr;
-	}
-	
-
-	public void updateWithEquipments(Equipment eq){
-		//set four parameters
-	}
-	
-	
-	public void updateWithDrugs(Drug drug, float dose ){
-		//set four parameters
-	}
-	
-	
-	
+	}	
 }

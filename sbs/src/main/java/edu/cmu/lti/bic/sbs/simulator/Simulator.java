@@ -23,10 +23,12 @@ public class Simulator {
 	
 	public void simEquipments(Equipment eq){
 		//set the parameters according to the equipment from engine
+		
 	}
 	
 	
 	public void simWithDrugs(Drug drug , float does ){
 		//set the parameters according to the drug from engine
+		
 	}
 }

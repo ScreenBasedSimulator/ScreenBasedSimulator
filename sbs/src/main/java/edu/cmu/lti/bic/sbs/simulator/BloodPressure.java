@@ -14,8 +14,5 @@ public class BloodPressure implements MedicalParameter {
 
 	public void setBp(float bp) {
 		this.bpNum = bp;
-	}
-	
-	
-	
+	}	
 }
