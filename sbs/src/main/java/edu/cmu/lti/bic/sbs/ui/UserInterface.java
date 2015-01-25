@@ -2,11 +2,7 @@ package edu.cmu.lti.bic.sbs.ui;
 
 //import java.time.LocalTime;
 import java.awt.EventQueue;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.HashMap;
-
-import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.engine.Engine;
 import edu.cmu.lti.bic.sbs.gson.Drug;
@@ -77,6 +73,7 @@ public class UserInterface {
 
 	public void addTool(Tool tool) {
 		assert (tool != null);
+		toolMap.put(tool.getId(), tool);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				window.addTool(tool.getId(), tool.getName());
