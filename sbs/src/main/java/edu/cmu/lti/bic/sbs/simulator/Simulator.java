@@ -1,6 +1,8 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
-import edu.cmu.lti.bic.sbs.gson.*;
+import edu.cmu.lti.bic.sbs.gson.Drug;
+import edu.cmu.lti.bic.sbs.gson.Patient;
+import edu.cmu.lti.bic.sbs.gson.Tool;
 
 //communicate with engine, just like the controller of patient
 public class Simulator {
@@ -16,10 +18,10 @@ public class Simulator {
 	//the initialization function for engine to involve
 	public Patient initialPatient(){
 		
-		pt.getBp().setBpNum(defaultBp);
-		pt.getHr().setHrNum(defaultHr);
-		pt.getOl().setOlNum(defaultOl);
-		pt.getRr().setRrNum(defaultRr);
+		pt.getBloodPressure().setBpNum(defaultBp);
+		pt.getHeartRate().setHrNum(defaultHr);
+		pt.getOxygenLevel().setOlNum(defaultOl);
+		pt.getRepiratinoRate().setRrNum(defaultRr);
 		
 		return pt;
 		

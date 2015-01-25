@@ -7,11 +7,8 @@ import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Tool;
-import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
-import edu.cmu.lti.bic.sbs.simulator.HeartRate;
-import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
-import edu.cmu.lti.bic.sbs.simulator.Patient;
-import edu.cmu.lti.bic.sbs.simulator.RepositoryRate;
+import edu.cmu.lti.bic.sbs.gson.Patient;
+
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
 import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
@@ -28,6 +25,7 @@ public class Engine {
 	Evaluator eval = null;
 	Scenario scen = null;
 	private Gson gson = new Gson();
+
 	/*
 	 * Constructor function, responsible for creating UserInterface, Simulator
 	 * and Evaluator
@@ -44,12 +42,11 @@ public class Engine {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		// Load Tool data to user interface
 		FileReader fileReader = null;
 		try {
-			fileReader = new FileReader(
-					"src/test/resources/cli/equipmentTest.json");
+			fileReader = new FileReader("src/test/resources/equipmentTest.json");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -57,18 +54,19 @@ public class Engine {
 		for (Tool tool : tools) {
 			ui.addTool(tool);
 		}
+		try {
+			fileReader = new FileReader("src/test/resources/equipmentTest.json");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		Patient patient = gson.fromJson(fileReader, Patient.class);
+		ui.setPatientInfo(patient);
 
 		// Patient and Simulator initialization
 		// Raw data should be loaded by file input later...
 
-		BloodPressure bp = new BloodPressure(100.0f);
-		HeartRate hr = new HeartRate(80.0f);
-		OxygenLevel ol = new OxygenLevel(50.0f);
-		// RespirationRate
-		RepositoryRate rr = new RepositoryRate(60.0f);
 
-		Patient pt = new Patient(bp, hr, ol, rr);
-		sim = new Simulator(pt);
+		sim = new Simulator(patient);
 
 		// Evaluator initialization
 		eval = new Evaluator();

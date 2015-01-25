@@ -19,7 +19,6 @@ public class ToolPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -8601396289086820070L;
 	List<JLabel> labelList;
-	String hello = "Hello";
 	UserInterface ui;
 
 	public ToolPanel(UserInterface ui) {
