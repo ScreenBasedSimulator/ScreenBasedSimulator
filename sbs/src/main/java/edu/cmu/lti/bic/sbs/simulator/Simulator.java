@@ -45,10 +45,12 @@ public class Simulator {
 	
 	public void simulateWithTool(Tool eq){
 		//set the parameters according to the equipment from engine
+		
 	}
 	
 	
 	public void simWithDrugs(Drug drug , float dose ){
 		//set the parameters according to the drug from engine
+		
 	}
 }
