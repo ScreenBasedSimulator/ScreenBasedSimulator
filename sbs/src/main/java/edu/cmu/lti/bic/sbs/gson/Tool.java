@@ -7,7 +7,6 @@ package edu.cmu.lti.bic.sbs.gson;
  */
 public class Tool {
 	private String name = null;
-	private String description = null;
 	private String id = null;
 	
 	public String getName() {
@@ -23,10 +22,6 @@ public class Tool {
 		return id;
 	}
 	
-	public String getDescription(){
-		return description;
-	}
-	
 	public String toString() {
 		return "The tool is " + name;
 	}
@@ -34,6 +29,5 @@ public class Tool {
 	public Tool(String id, String name, String description) {
 		this.id = id;
 		this.name = name;
-		this.description = description;
 	}
 }
