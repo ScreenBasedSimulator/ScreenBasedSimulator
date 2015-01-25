@@ -8,11 +8,11 @@ public class BloodPressure implements MedicalParameter {
 		this.bpNum = bp;
 	}
 
-	public float getBp() {
+	public float getBpNum() {
 		return bpNum;
 	}
 
-	public void setBp(float bp) {
+	public void setBpNum(float bp) {
 		this.bpNum = bp;
 	}
 	

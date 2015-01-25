@@ -65,10 +65,10 @@ public class Engine {
 		
 		scen.connectMonitor();
 		
-		scen.useDrug(drug, dose);
+		//scen.useDrug(drug, dose);
 		
-		Tool tool = new Tool();
-		scen.useTool(tool);
+		//Tool tool = new Tool();
+		//scen.useTool(tool);
 	}
 	
 }
