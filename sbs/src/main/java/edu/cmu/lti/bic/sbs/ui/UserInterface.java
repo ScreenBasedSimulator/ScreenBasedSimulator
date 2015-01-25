@@ -13,7 +13,6 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 public class UserInterface {
 	Engine decisionEngine = null;
 	MainWindow window = null;
-	private Gson gson = new Gson();
 
 	public UserInterface(Engine in)
 			throws UserInterfaceInitializationException {

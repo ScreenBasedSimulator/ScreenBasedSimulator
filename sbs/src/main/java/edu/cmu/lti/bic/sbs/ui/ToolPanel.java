@@ -14,6 +14,10 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
  */
 public class ToolPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8601396289086820070L;
 	List<JLabel> labelList = null;
 
 	public ToolPanel() {

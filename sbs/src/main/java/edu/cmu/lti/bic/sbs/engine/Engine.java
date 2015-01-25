@@ -1,8 +1,6 @@
 package edu.cmu.lti.bic.sbs.engine;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
-import edu.cmu.lti.bic.sbs.gson.Drug;
-import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
 import edu.cmu.lti.bic.sbs.simulator.HeartRate;
 import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;

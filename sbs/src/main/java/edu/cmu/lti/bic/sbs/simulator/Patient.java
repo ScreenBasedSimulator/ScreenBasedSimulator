@@ -1,5 +1,5 @@
 package edu.cmu.lti.bic.sbs.simulator;
-import edu.cmu.lti.bic.sbs.gson.*;
+
 
 enum Status{
 	great, good, not_good, bad, dying

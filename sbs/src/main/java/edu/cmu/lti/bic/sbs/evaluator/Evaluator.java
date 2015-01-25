@@ -1,12 +1,12 @@
 package edu.cmu.lti.bic.sbs.evaluator;
- import edu.cmu.lti.bic.sbs.engine.engineControler;
+ import edu.cmu.lti.bic.sbs.engine.Engine;
 import edu.cmu.lti.bic.sbs.gson.Drug;
-import edu.cmu.lti.bic.sbs.gson.Equipment;
+import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.MedicalParameter;
  
 public class Evaluator {
 	private float score;
-	private engineControler e;
+	private Engine e;
 	private String report;
 	
 	/** called by engine to receive the medPara
@@ -33,7 +33,7 @@ public class Evaluator {
 	 * @param eq, Equipment is a Class defined in gson package
 	 */
 	
-	public void Receive(Equipment eq){
+	public void Receive(Tool tool){
 	   System.out.println("evaluator.ReceivePara(Equipment eq) called by engine!");
   }
 	
