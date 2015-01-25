@@ -1,6 +1,6 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import java.time.LocalTime;
+//import java.time.LocalTime;
 import java.awt.EventQueue;
 
 import com.google.gson.Gson;
@@ -47,10 +47,10 @@ public class UserInterface {
 		decisionEngine.useDrug(drug, dosage);
 	}
 
-	public void setTime(LocalTime time) {
-		assert(time != null);
-		window.setTime(time.getHour(), time.getMinute(), time.getSecond());
-	}
+//	public void setTime(LocalTime time) {
+//		assert(time != null);
+//		window.setTime(time.getHour(), time.getMinute(), time.getSecond());
+//	}
 
 	public void setPatientInfo(Patient patient) {
 		assert(patient != null);
