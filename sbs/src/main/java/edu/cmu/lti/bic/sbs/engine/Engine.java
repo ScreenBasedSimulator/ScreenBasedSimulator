@@ -55,7 +55,7 @@ public class Engine {
 			ui.addTool(tool);
 		}
 		try {
-			fileReader = new FileReader("src/test/resources/equipmentTest.json");
+			fileReader = new FileReader("src/test/resources/patientTest.json");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
