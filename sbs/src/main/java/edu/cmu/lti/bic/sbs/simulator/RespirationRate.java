@@ -1,9 +1,9 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
-public class RepositoryRate implements MedicalParameter {
+public class RespirationRate implements MedicalParameter {
 	float rrNum;
 
-	public RepositoryRate(float rrNum) {
+	public RespirationRate(float rrNum) {
 		super();
 		this.rrNum = rrNum;
 	}
