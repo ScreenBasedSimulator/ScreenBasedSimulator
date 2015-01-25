@@ -59,7 +59,12 @@ public class UserInterface {
 
 	public void setPatientInfo(Patient patient) {
 		assert (patient != null);
-		window.setPatient(patient.getBasic(), patient.getDescription());
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				window.setPatient(patient.getBasic(), patient.getDescription());
+			}
+		});
+		
 	}
 
 	public void addDrug(Drug drug) {

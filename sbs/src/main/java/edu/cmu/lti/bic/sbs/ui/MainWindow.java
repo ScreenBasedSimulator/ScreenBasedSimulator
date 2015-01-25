@@ -41,11 +41,11 @@ public class MainWindow {
 		frame.getContentPane().add(clockPanel);
 
 		patientPanel = new PatientPanel();
-		patientPanel.setBounds(244, 222, 200, 50);
+		patientPanel.setBounds(324, 55, 120, 185);
 		frame.getContentPane().add(patientPanel);
 
 		toolPanel = new ToolPanel(ui);
-		toolPanel.setBounds(324, 56, 120, 167);
+		toolPanel.setBounds(109, 10, 100, 230);
 		frame.getContentPane().add(toolPanel);
 
 	}
