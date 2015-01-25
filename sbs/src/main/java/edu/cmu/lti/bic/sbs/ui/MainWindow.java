@@ -15,6 +15,7 @@ public class MainWindow {
 	private ClockPanel clockPanel;
 	private PatientPanel patientPanel;
 	private ToolPanel toolPanel;
+	private MonitorPanel monitorPanel;
 	private Gson gson = new Gson();
 
 	public void setVisible(boolean isVisible) {
@@ -37,23 +38,25 @@ public class MainWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
+		monitorPanel = new MonitorPanel();
+		monitorPanel.setBounds(10,10, 100, 230);
+		frame.getContentPane().add(monitorPanel);
+		
 		clockPanel = new ClockPanel();
-		clockPanel.setBounds(125, 32, 200, 50);
+		clockPanel.setBounds(324, 10, 120, 43);
 		frame.getContentPane().add(clockPanel);
 
 		patientPanel = new PatientPanel();
-		patientPanel.setBounds(101, 128, 200, 50);
+		patientPanel.setBounds(244, 222, 200, 50);
 		frame.getContentPane().add(patientPanel);
 
 		toolPanel = new ToolPanel();
-		toolPanel.setBounds(182, 218, 200, 50);
+		toolPanel.setBounds(324, 56, 120, 167);
 		frame.getContentPane().add(toolPanel);
 		FileReader fileReader = null;
 		try {
-			fileReader = new FileReader(
-					"src/test/resources/cli/equipmentTest.json");
+			fileReader = new FileReader("src/test/resources/cli/equipmentTest.json");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Tool[] tools = null;
@@ -69,8 +72,13 @@ public class MainWindow {
 		patientPanel.setBasic(basic);
 		patientPanel.setDescription(description);
 	}
-	
-	public void addDrug(String id, String name) {
-		
+	public void setMonitor(int bloodPressureUpperBound,int bloodPressureLowerBound,int heartRate,int oxygenLevel,int respiratoryRate){
+		monitorPanel.setBloodPressure(bloodPressureUpperBound, bloodPressureLowerBound);
+		monitorPanel.setHeartRate(heartRate);
+		monitorPanel.setOxygenLevel(oxygenLevel);
+		monitorPanel.setRespiratoryRate(respiratoryRate);
 	}
+	/*public void addDrug(String id, String name) {
+		
+	}*/
 }

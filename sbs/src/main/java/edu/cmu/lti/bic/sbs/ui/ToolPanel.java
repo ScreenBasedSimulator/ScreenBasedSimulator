@@ -3,6 +3,7 @@ package edu.cmu.lti.bic.sbs.ui;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
 import edu.cmu.lti.bic.sbs.gson.Tool;
 
@@ -16,6 +17,7 @@ public class ToolPanel extends JPanel {
 	List<JLabel> labelList = null;
 
 	public ToolPanel() {
+		this.setBorder(new TitledBorder(null, "Tool", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		this.add(new JLabel("initializing..."));
 	}
 

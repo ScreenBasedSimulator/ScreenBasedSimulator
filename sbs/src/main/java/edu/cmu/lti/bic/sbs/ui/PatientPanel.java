@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.ui;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
 public class PatientPanel extends JPanel {
 
@@ -11,6 +12,7 @@ public class PatientPanel extends JPanel {
 	String description = "description";
 
 	public PatientPanel() {
+		this.setBorder(new TitledBorder(null, "Patient", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		basicLabel = new JLabel();
 		descriptionLabel = new JLabel();
 		this.add(basicLabel);
