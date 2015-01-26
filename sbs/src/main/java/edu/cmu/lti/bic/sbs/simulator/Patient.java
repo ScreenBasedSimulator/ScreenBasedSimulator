@@ -24,6 +24,8 @@ public class Patient {
 		this.hr = hr;
 		this.ol = ol;
 		this.rr = rr;
+		
+		System.out.println("initialize a patient.");
 	}
 
 	public BloodPressure getBp() {
@@ -57,17 +59,6 @@ public class Patient {
 	public void setRr(RepositoryRate rr) {
 		this.rr = rr;
 	}
-	
-
-	public void updateWithTool(Tool tool){
-		//set four parameters
-	}
-	
-	
-	public void updateWithDrugs(Drug drug, float dose){
-		//set four parameters
-	}
-	
 	
 	
 }
