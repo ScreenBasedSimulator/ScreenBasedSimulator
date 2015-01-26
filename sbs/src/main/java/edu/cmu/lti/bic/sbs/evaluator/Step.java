@@ -1,6 +1,6 @@
 package edu.cmu.lti.bic.sbs.evaluator;
 
-import edu.cmu.lti.bic.sbs.gson.Medicine;
+import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 
 /**
@@ -9,20 +9,20 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
  *
  */
 public class Step {
-	private Medicine medUsed;
+	//private Medicine medUsed;
 	
 	private Timer timeUsed;
-	
+	private Drug drugUsed;
 	private Tool toolUsed;
 	
 	// private undefined patientStatus;
 	
 	public String getStep() {
-		return medUsed.toString() + timeUsed.toString() + toolUsed.toString();
+		return drugUsed.toString() + timeUsed.toString() + toolUsed.toString();
 	}
 	
-	Step() {
-		medUsed = new Medicine();
+	public Step() {
+		drugUsed = new Drug();
 		timeUsed = new Timer();
 		toolUsed = new Tool("","","");
 	}

@@ -5,6 +5,10 @@ import javax.swing.border.TitledBorder;
 
 public class PatientPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8006533646058966961L;
 	JLabel basicLabel;
 	JLabel descriptionLabel;
 
@@ -20,10 +24,10 @@ public class PatientPanel extends JPanel {
 	}
 
 	void setDescription(String str) {
-		descriptionLabel.setText(str);
+		descriptionLabel.setText(String.format("<html><div style=\"width:%dpx;\">%s</div><html>", 50, str));
 	}
 
 	void setBasic(String str) {
-		basicLabel.setText(str);
+		basicLabel.setText(String.format("<html><div style=\"width:%dpx;\">%s</div><html>", 50, str));
 	}
 }
