@@ -8,10 +8,7 @@ enum Status{
 
 public class Patient {
 	
-	BloodPressure bp;
-	HeartRate hr;
-	OxygenLevel ol;
-	RepositoryRate rr;
+	Condition cd;
 	
 	GraphicDisplay graDisplay;
 	
@@ -20,45 +17,62 @@ public class Patient {
 	public Patient(BloodPressure bp, HeartRate hr, OxygenLevel ol,
 			RepositoryRate rr) {
 		super();
-		this.bp = bp;
-		this.hr = hr;
-		this.ol = ol;
-		this.rr = rr;
+		
+		cd  = new Condition(bp, hr, ol, rr);
+		
+		graDisplay = null;
 		
 		System.out.println("initialize a patient.");
 	}
 
 	public BloodPressure getBp() {
-		return bp;
+		return cd.getBp();
 	}
 
 	public void setBp(BloodPressure bp) {
-		this.bp = bp;
+		cd.setBp(bp);
 	}
 
 	public HeartRate getHr() {
-		return hr;
+		return cd.getHr();
 	}
 
 	public void setHr(HeartRate hr) {
-		this.hr = hr;
+		cd.setHr(hr);
 	}
 
 	public OxygenLevel getOl() {
-		return ol;
+		return cd.getOl();
 	}
 
 	public void setOl(OxygenLevel ol) {
-		this.ol = ol;
+		cd.setOl(ol);
 	}
 
 	public RepositoryRate getRr() {
-		return rr;
+		return cd.getRr();
 	}
 
 	public void setRr(RepositoryRate rr) {
-		this.rr = rr;
+		cd.setRr(rr);
 	}
+
+	public Condition getCd() {
+		return cd;
+	}
+
+	public void setCd(Condition cd) {
+		this.cd = cd;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
 	
 	
 }
