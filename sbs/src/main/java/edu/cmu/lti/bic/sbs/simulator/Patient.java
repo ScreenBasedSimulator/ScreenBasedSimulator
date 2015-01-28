@@ -14,6 +14,19 @@ public class Patient {
 	
 	Status status;
 	
+	
+	
+	public Patient(Condition cd) {
+		super();
+		this.cd = cd;
+	}
+
+	public Patient(Condition cd, Status status) {
+		super();
+		this.cd = cd;
+		this.status = status;
+	}
+
 	public Patient(BloodPressure bp, HeartRate hr, OxygenLevel ol,
 			RepositoryRate rr) {
 		super();

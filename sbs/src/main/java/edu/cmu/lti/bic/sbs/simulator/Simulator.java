@@ -12,9 +12,6 @@ public class Simulator {
 	float defaultOl;
 	float defaultRr;
 	
-	//check if use tool or drug
-	boolean eqUse = false;
-	boolean drUse = false;
 
 	
 	//the initialization function for engine to involve
@@ -51,42 +48,39 @@ public class Simulator {
 	public void simulateWithTool(Tool eq){
 		//set the parameters according to the equipment from engine
 		
-		System.out.println("using equipments");
-		
-		System.out.println(eq.getDescription());
-		
-		System.out.println(eq.getId());
-		
-		System.out.println(eq.getName());
-		
-		
-		
+		System.out.println("using equipments in the function simulateWithTool");
+//		System.out.println(eq.getDescription());
+//		System.out.println(eq.getId());
+//		System.out.println(eq.getName());
+
 	}
 	
 	
 	public void simWithDrugs(Drug drug , float dose ){
 		//set the parameters according to the drug from engine
 		
-		System.out.println("using drug");
-		
-		System.out.println(drug.getDescription());
-		
-		System.out.println(drug.getId());
-		
-		System.out.println(drug.getName());
+		System.out.println("using drug in the function simulateWithDrug");
+//		System.out.println(drug.getDescription());
+//		System.out.println(drug.getId());
+//		System.out.println(drug.getName());
 		
 	}
 	
 	public Patient updatePatient(Tool eq, Drug drug, float dose){
 		
-		if(eqUse){
-			simulateWithTool(eq);
-		}
+		System.out.println("id:"+eq.getId()+" name:"+eq.getName()+" description"+eq.getDescription());
 		
-		if(drUse){
-			simWithDrugs(drug, dose);
-		}
+		System.out.println("invoke function simWithTool");
+		simulateWithTool(eq);
 		
+		
+		System.out.println("id "+drug.getId()+" name "+drug.getName()+" description "+drug.getDescription()+" dose "+dose);
+		
+		System.out.println("invoke function simWithDrugs");
+		simWithDrugs(drug, dose);
+		
+		
+		System.out.println("return patient");
 		return pt;
 		
 	}

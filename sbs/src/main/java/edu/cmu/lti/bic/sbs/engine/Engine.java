@@ -5,6 +5,7 @@ import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.OxygenMask;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
+import edu.cmu.lti.bic.sbs.simulator.Condition;
 import edu.cmu.lti.bic.sbs.simulator.HeartRate;
 import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
 import edu.cmu.lti.bic.sbs.simulator.Patient;
@@ -27,6 +28,9 @@ public class Engine {
 	//
 	Patient pt = null;
 	
+	Tool eqOM = null;
+	Drug drug = null;
+	float dose = 0;
 	/*
 	 * Constructor function, responsible for creating UserInterface,
 	 * Simulator and Evaluator
@@ -53,11 +57,14 @@ public class Engine {
 		BloodPressure bp = new BloodPressure(100.0f);
 		HeartRate hr = new HeartRate(80.0f);
 		OxygenLevel ol = new OxygenLevel(50.0f);
-		//RespirationRate
 		RepositoryRate rr = new RepositoryRate(60.0f);
 		
+		Condition defaultCondition = new Condition(bp, hr, ol, rr);
+		
 		//initialize a patient and a simulator
-		Patient pt = new Patient(bp, hr, ol, rr);
+		Patient pt = new Patient(defaultCondition);
+		
+		//new a simulator to control patient
 		sim = new Simulator(pt);
 		
 		//image a tool
@@ -65,27 +72,44 @@ public class Engine {
 		String name = "tool1";
 		String description = "the tool can increse the oxygen level";
 		
-		
-		//
-		Tool eq = new OxygenMask(id, name, description, 20);
-		
-		
-		Drug drug = new Drug();
-		float dose;
-		
+		eqOM = new OxygenMask(id, name, description, 20);
+		//initialize a tool, a drug and its dose
+		drug = new Drug();
 		dose = (float) (3.1);
 		
-		//each 2 second involve the update function
-		sim.updatePatient(eq, drug, dose);
 		
+		//new a runnable
+		Runnable newRunnable = new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				while(true){
+					
+					//each second involve the function to update patient's stage        
+					sim.updatePatient(eqOM, drug, dose);
+					
+					//sleep the thread, each second involve the function
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		};
 		
+		//new a thread
+		Thread newThread = new Thread(newRunnable);
+		
+		//start the newThread
+		newThread.start();
+
 		
 //		System.out.println(sim.simPatient().getBp());
 //		System.out.println(sim.simPatient().getHr());
 //		System.out.println(sim.simPatient().getOl());
 //		System.out.println(sim.simPatient().getRr());
-		
-		
 		
 		
 		// Evaluator initialization
