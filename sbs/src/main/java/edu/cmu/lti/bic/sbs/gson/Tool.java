@@ -20,7 +20,7 @@ public class Tool {
 		return "The tool is " + getTool();
 	}
 	
-	Tool() {
+	public Tool() {
 		toolName = new String();
 	}
 }

@@ -1,5 +1,7 @@
 package edu.cmu.lti.bic.sbs.evaluator;
- import edu.cmu.lti.bic.sbs.engine.engineControler;
+ import java.util.ArrayList;
+
+import edu.cmu.lti.bic.sbs.engine.engineControler;
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Equipment;
 import edu.cmu.lti.bic.sbs.simulator.MedicalParameter;
@@ -9,6 +11,29 @@ public class Evaluator {
 	private engineControler e;
 	private String report;
 	
+	// data structure to store the parameters recieved
+	
+	private ArrayList<Recieved> paras = new  ArrayList<Recieved>();
+	
+	private static class Recieved{
+	  private MedicalParameter medPara;
+	  // I suggest to store drug with dose as a single calss.
+	  private Drug drug;
+	  private double dose;
+	  private Equipment eq;
+	  
+	  public void setPara(MedicalParameter medPara){
+	    this.medPara = medPara;
+	  }
+	  
+	   public void set(Drug drug, double dose){
+	      this.drug = drug;
+	      this.dose = dose;
+	    }
+	   public void set(Equipment eq){
+	     this.eq = eq;
+	   }
+	}
 	/** called by engine to receive the medPara
 	 * 
 	 * @param medPara, MedicalParameter is an interface in simulator package
