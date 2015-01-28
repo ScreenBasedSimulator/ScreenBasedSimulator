@@ -1,5 +1,8 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
+import java.util.List;
+import java.util.Map;
+
 import edu.cmu.lti.bic.sbs.gson.*;
 
 //communicate with engine, just like the controller of patient
@@ -45,7 +48,7 @@ public class Simulator {
 		this.pt = pt;
 	}
 	
-	public void simulateWithTool(Tool eq){
+	public void simulateWithTool(List<Tool> toolList){
 		//set the parameters according to the equipment from engine
 		
 		System.out.println("using equipments in the function simulateWithTool");
@@ -56,7 +59,7 @@ public class Simulator {
 	}
 	
 	
-	public void simWithDrugs(Drug drug , float dose ){
+	public void simWithDrugs(List<Drug> drugList){
 		//set the parameters according to the drug from engine
 		
 		System.out.println("using drug in the function simulateWithDrug");
@@ -66,18 +69,27 @@ public class Simulator {
 		
 	}
 	
-	public Patient updatePatient(Tool eq, Drug drug, float dose){
+	public Patient updatePatient(List<Tool> toolList,  List<Drug> drugList){
 		
-		System.out.println("id:"+eq.getId()+" name:"+eq.getName()+" description"+eq.getDescription());
+		Tool currentTool = toolList.get(toolList.size() - 1);
+		
+		if(currentTool.getName() == "oxygenMask"){
+			OxygenMask currentToolOxygenMask = (OxygenMask) currentTool;
+			
+			System.out.println("id:"+currentToolOxygenMask.getId()+" name:"+currentToolOxygenMask.getName()+" description "+currentToolOxygenMask.getDescription() + " oxygenLevel "+currentToolOxygenMask.getOxygenValue());
+
+		}
+		
 		
 		System.out.println("invoke function simWithTool");
-		simulateWithTool(eq);
+		simulateWithTool(toolList);
 		
+		Drug currentDrug = drugList.get(drugList.size() - 1);
 		
-		System.out.println("id "+drug.getId()+" name "+drug.getName()+" description "+drug.getDescription()+" dose "+dose);
+		System.out.println("id "+currentDrug.getId()+" name "+currentDrug.getName()+" description "+currentDrug.getDescription()+" dose "+currentDrug.getDoes());
 		
 		System.out.println("invoke function simWithDrugs");
-		simWithDrugs(drug, dose);
+		simWithDrugs(drugList);
 		
 		
 		System.out.println("return patient");

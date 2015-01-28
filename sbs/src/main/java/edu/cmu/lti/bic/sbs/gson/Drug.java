@@ -4,9 +4,33 @@ public class Drug {
 	private String name = "";
 	private String description = "";
 	private String id = "";
+	
+	private float does;
+	
 	public Drug(){
 		
 	}
+	
+
+
+	//constructor without does
+	public Drug(String name, String description, String id) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.id = id;
+	}
+
+	public Drug(String name, String description, String id, float does) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.id = id;
+		this.does = does;
+	}
+
+
+
 	public Drug setName(String name){
 		this.name = name;
 		return this;
@@ -28,4 +52,14 @@ public class Drug {
 	public String getDescription(){
 		return description;
 	}
+	
+	
+	public float getDoes() {
+		return does;
+	}
+
+	public void setDoes(float does) {
+		this.does = does;
+	}
+
 }

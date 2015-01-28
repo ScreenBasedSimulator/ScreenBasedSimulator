@@ -1,5 +1,8 @@
 package edu.cmu.lti.bic.sbs.engine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.OxygenMask;
@@ -28,9 +31,10 @@ public class Engine {
 	//
 	Patient pt = null;
 	
-	Tool eqOM = null;
-	Drug drug = null;
-	float dose = 0;
+	
+	List<Tool> toolList = new ArrayList<Tool>();
+	List<Drug> drugList = new ArrayList<Drug>();
+	
 	/*
 	 * Constructor function, responsible for creating UserInterface,
 	 * Simulator and Evaluator
@@ -68,15 +72,26 @@ public class Engine {
 		sim = new Simulator(pt);
 		
 		//image a tool
-		String id = "001";
-		String name = "tool1";
-		String description = "the tool can increse the oxygen level";
+		String idTool = "001";
+		String nameTool = "oxygenMask";
+		String descriptionTool = "the tool can increse the oxygen level";
+		float oxygenLevel = 80;
 		
-		eqOM = new OxygenMask(id, name, description, 20);
+		Tool eqOM = new OxygenMask(idTool, nameTool, descriptionTool, oxygenLevel);
 		//initialize a tool, a drug and its dose
-		drug = new Drug();
-		dose = (float) (3.1);
 		
+		//add to the tool list
+		toolList.add(eqOM);
+		
+		String idDrug = "101";
+		String nameDrug = "drug1";
+		String descriptionDrug = "the drug can increase the blood pressure";
+		float dose = (float) 3.2;
+		
+		Drug drug = new Drug(idDrug, idDrug, idDrug, dose);
+		
+		//add to the drug list
+		drugList.add(drug);
 		
 		//new a runnable
 		Runnable newRunnable = new Runnable() {
@@ -87,7 +102,7 @@ public class Engine {
 				while(true){
 					
 					//each second involve the function to update patient's stage        
-					sim.updatePatient(eqOM, drug, dose);
+					sim.updatePatient(toolList,drugList);
 					
 					//sleep the thread, each second involve the function
 					try {
