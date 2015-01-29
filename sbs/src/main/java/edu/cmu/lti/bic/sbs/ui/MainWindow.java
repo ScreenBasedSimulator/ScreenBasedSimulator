@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.ui;
 
 import javax.swing.JFrame;
+import javax.swing.border.TitledBorder;
 
 public class MainWindow {
 
@@ -10,6 +11,7 @@ public class MainWindow {
 	private ToolPanel toolPanel;
 	private MonitorPanel monitorPanel;
 	private UserInterface ui;
+	private NursePanel nursePanel; 
 
 	public void setVisible(boolean isVisible) {
 		frame.setVisible(isVisible);
@@ -37,16 +39,22 @@ public class MainWindow {
 		frame.getContentPane().add(monitorPanel);
 
 		clockPanel = new ClockPanel();
-		clockPanel.setBounds(324, 10, 120, 43);
+		clockPanel.setBounds(355, 10, 120, 43);
 		frame.getContentPane().add(clockPanel);
 
 		patientPanel = new PatientPanel();
-		patientPanel.setBounds(324, 55, 120, 185);
+		patientPanel.setBounds(355, 55, 120, 185);
 		frame.getContentPane().add(patientPanel);
 
 		toolPanel = new ToolPanel(ui);
 		toolPanel.setBounds(109, 10, 100, 230);
 		frame.getContentPane().add(toolPanel);
+		
+		nursePanel=new NursePanel(ui);
+		//nursePanel.setLocation(456, 10);
+		//nursePanel.setSize(125, 116);
+		nursePanel.setBounds(221, 10, 125, 116);
+		frame.getContentPane().add(nursePanel);
 
 	}
 
