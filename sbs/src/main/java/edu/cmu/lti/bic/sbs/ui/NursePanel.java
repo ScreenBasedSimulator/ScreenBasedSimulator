@@ -45,24 +45,24 @@ public class NursePanel extends JPanel{
 		//frame.getContentPane().add(panel);
 		this.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Monitor");
+		JButton btnNewButton = new JButton("Connect Monitor");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ui.connectMonitor();
 			}
 		});
-		btnNewButton.setBounds(6, 12, 117, 29);
+		btnNewButton.setBounds(6, 12, 137, 29);
 		this.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Call Code\n");
+		JButton btnNewButton_1 = new JButton("Code Blue\n");
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ui.callCode("Code Blue!");
 			}
 		});
-		btnNewButton_1.setBounds(6, 46, 117, 29);
+		btnNewButton_1.setBounds(6, 46, 137, 29);
 		this.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Inject");
@@ -72,7 +72,7 @@ public class NursePanel extends JPanel{
 				System.out.println("injection!");
 			}
 		});
-		btnNewButton_2.setBounds(6, 79, 117, 29);
+		btnNewButton_2.setBounds(6, 79, 137, 29);
 		this.add(btnNewButton_2);
 		this.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{btnNewButton, btnNewButton_1, btnNewButton_2}));
 	}
