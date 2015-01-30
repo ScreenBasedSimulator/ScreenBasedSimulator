@@ -1,5 +1,5 @@
 package edu.cmu.lti.bic.sbs.engine;
 
-public class engineControler {
+public class Scenario {
 
 }
