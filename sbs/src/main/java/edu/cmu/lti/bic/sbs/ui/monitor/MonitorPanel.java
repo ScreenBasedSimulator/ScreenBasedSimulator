@@ -9,6 +9,10 @@ import javax.swing.*;
  */
 public class MonitorPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8888378134486405634L;
 	BloodPressurePanel bloodPressurePanel = null;
 	HeartRatePanel heartRatePanel = null;
 	OxygenLevelPanel oxygenLevelPanel = null;

@@ -6,21 +6,28 @@ package edu.cmu.lti.bic.sbs.gson;
  *
  */
 public class Tool {
-	private String toolName;
+	private String name = null;
+	private String id = null;
 	
-	public String getTool() {
-		return toolName;
+	public String getName() {
+		return name;
 	}
 	
-	public void setTool(String toolName) {
-		this.toolName = toolName;
+	public Tool setName(String toolName) {
+		this.name = toolName;
+		return this;
+	}
+	
+	public String getId() {
+		return id;
 	}
 	
 	public String toString() {
-		return "The tool is " + getTool();
+		return "The tool is " + name;
 	}
 	
-	public Tool() {
-		toolName = new String();
+	public Tool(String id, String name, String description) {
+		this.id = id;
+		this.name = name;
 	}
 }
