@@ -6,9 +6,9 @@ import java.io.FileReader;
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
+import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.gson.Patient;
-
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
 import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
@@ -90,6 +90,10 @@ public class Engine {
 
 	public void useTool(Tool tool) {
 		scen.useTool(tool);
+	}
+	
+	public void useDrug(Prescription p) {
+		scen.useDrug(p.getDrug(), p.getDose());
 	}
 
 }

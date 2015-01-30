@@ -7,18 +7,21 @@ import java.util.HashMap;
 import edu.cmu.lti.bic.sbs.engine.Engine;
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Patient;
+import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 
 public class UserInterface {
 	private Engine decisionEngine;
 	private MainWindow window;
 	private HashMap<String, Tool> toolMap;
+	private HashMap<String, Drug> drugMap;
 	private UserInterface ui = this;
 	
 	public UserInterface(Engine decisionEngine)
 			throws UserInterfaceInitializationException {
 		this.decisionEngine = decisionEngine;
 		this.toolMap = new HashMap<String, Tool>();
+		this.drugMap = new HashMap<String, Drug>();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -48,8 +51,12 @@ public class UserInterface {
 		decisionEngine.useTool(tool);
 	}
 
-	public void useDrug(String id, Double dosage) {
-		// decisionEngine.useDrug(drug, dosage);
+	public void useDrug(String id, Double dose, String unit) {
+		assert(id != null);
+		Drug drug = drugMap.get(id);
+		assert(drug != null);
+		Prescription prescription = new Prescription(drug, dose, unit);
+		decisionEngine.useDrug(prescription);
 	}
 
 	// public void setTime(LocalTime time) {
