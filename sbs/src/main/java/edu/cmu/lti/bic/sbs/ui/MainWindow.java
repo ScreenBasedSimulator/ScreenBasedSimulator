@@ -1,7 +1,6 @@
 package edu.cmu.lti.bic.sbs.ui;
 
 import javax.swing.JFrame;
-import javax.swing.border.TitledBorder;
 
 public class MainWindow {
 
@@ -12,6 +11,7 @@ public class MainWindow {
 	private MonitorPanel monitorPanel;
 	private UserInterface ui;
 	private NursePanel nursePanel; 
+	private PathographyPanel pathographyPanel;
 
 	public void setVisible(boolean isVisible) {
 		frame.setVisible(isVisible);
@@ -55,7 +55,10 @@ public class MainWindow {
 		//nursePanel.setSize(125, 116);
 		nursePanel.setBounds(264, 10, 158, 116);
 		frame.getContentPane().add(nursePanel);
-
+		
+		pathographyPanel = new PathographyPanel();
+		pathographyPanel.setBounds(264, 130, 158, 110);
+		frame.getContentPane().add(pathographyPanel);
 	}
 
 	public void setTime(Integer h, Integer m, Integer s) {
@@ -84,5 +87,9 @@ public class MainWindow {
 	 */
 	public void addTool(String id, String name) {
 		toolPanel.addTool(id, name);
+	}
+	
+	public void addPathography(String record) {
+		pathographyPanel.addRecord(record);
 	}
 }

@@ -43,6 +43,7 @@ public class UserInterface {
 	public void useTool(String id) {
 		Tool tool = toolMap.get(id);
 		assert(tool != null);
+		this.addPathography("UI: " + tool.getName() + " is used.");
 		System.out.println("UI: Tool " + tool.getName() + " is used.");
 		decisionEngine.useTool(tool);
 	}
@@ -95,7 +96,12 @@ public class UserInterface {
 	}
 
 	public void addPathography(String feedback) {
-
+		assert(feedback != null);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				window.addPathography(feedback);
+			}
+		});
 	}
 
 }
