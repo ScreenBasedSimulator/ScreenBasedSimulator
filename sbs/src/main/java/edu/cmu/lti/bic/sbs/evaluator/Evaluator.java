@@ -13,7 +13,7 @@ public class Evaluator {
 	
 	// data structure to store the parameters recieved
 	
-	private ArrayList<Recieved> paras = new  ArrayList<Recieved>();
+	private ArrayList<Recieved> paras;
 	
 	private static class Recieved{
 	  private MedicalParameter medPara;
@@ -26,13 +26,33 @@ public class Evaluator {
 	    this.medPara = medPara;
 	  }
 	  
-	   public void set(Drug drug, double dose){
-	      this.drug = drug;
-	      this.dose = dose;
-	    }
-	   public void set(Equipment eq){
-	     this.eq = eq;
-	   }
+	  public void set(Drug drug, double dose){
+	     this.drug = drug;
+	     this.dose = dose;
+	  }
+	   
+   public void set(Equipment eq){
+     this.eq = eq;
+	  }
+   
+   public MedicalParameter getPara(){
+     return medPara;
+   }
+   
+   public Drug getDrug(){
+     return drug;
+   }
+   
+   public double getDose(){
+     return dose;
+   }
+   
+   public Equipment getEquipment(){
+     return eq;
+   }
+   
+   
+   
 	}
 	/** called by engine to receive the medPara
 	 * 
@@ -76,5 +96,6 @@ public class Evaluator {
 	
 	Evaluator() {
 		score = 0;
+		paras = new  ArrayList<Recieved>();
 	}
 }
