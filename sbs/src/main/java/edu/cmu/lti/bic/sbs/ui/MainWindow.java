@@ -12,7 +12,7 @@ public class MainWindow {
 	private UserInterface ui;
 	private NursePanel nursePanel; 
 	private PathographyPanel pathographyPanel;
-
+	
 	public void setVisible(boolean isVisible) {
 		frame.setVisible(isVisible);
 	}
@@ -51,8 +51,6 @@ public class MainWindow {
 		frame.getContentPane().add(toolPanel);
 		
 		nursePanel=new NursePanel(ui);
-		//nursePanel.setLocation(456, 10);
-		//nursePanel.setSize(125, 116);
 		nursePanel.setBounds(264, 10, 158, 116);
 		frame.getContentPane().add(nursePanel);
 		

@@ -7,18 +7,22 @@ import java.util.HashMap;
 import edu.cmu.lti.bic.sbs.engine.Engine;
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Patient;
+import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 
 public class UserInterface {
 	private Engine decisionEngine;
 	private MainWindow window;
 	private HashMap<String, Tool> toolMap;
+	private HashMap<String, Drug> drugMap;
 	private UserInterface ui = this;
-	
+	//private DrugWindow drugWindow;
+	//
 	public UserInterface(Engine decisionEngine)
 			throws UserInterfaceInitializationException {
 		this.decisionEngine = decisionEngine;
 		this.toolMap = new HashMap<String, Tool>();
+		this.drugMap = new HashMap<String, Drug>();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -30,14 +34,17 @@ public class UserInterface {
 				}
 			}
 		});
+		//drugPanel=new DrugPanel(this);
 	}
-
+	
 	public void callCode(String code) {
 		// decisionEngine.callCode(code);
+		ui.addPathography("Code Blue!");
 	}
 
 	public void connectMonitor() {
 		// decisionEngine.connectMonitor();
+		ui.addPathography("Monitor connected!");
 	}
 	
 	public void useTool(String id) {
@@ -49,8 +56,15 @@ public class UserInterface {
 	}
 
 
-	public void useDrug(String id, Double dosage) {
-		// decisionEngine.useDrug(drug, dosage);
+	public void useDrug(String id, Double dose, String unit) {
+		assert(id != null);
+		Drug drug = drugMap.get(id);
+		assert(drug != null);
+		Prescription prescription = new Prescription(drug, dose, unit);
+		decisionEngine.useDrug(prescription);
+		//System.out.println("use the drug");
+		ui.addPathography("used a drug!");
+
 	}
 
 	// public void setTime(LocalTime time) {
