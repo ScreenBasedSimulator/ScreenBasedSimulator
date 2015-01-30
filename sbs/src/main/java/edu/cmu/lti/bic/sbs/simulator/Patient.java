@@ -1,5 +1,4 @@
 package edu.cmu.lti.bic.sbs.simulator;
-import edu.cmu.lti.bic.sbs.gson.*;
 
 enum Status{
 	great, good, not_good, bad, dying
@@ -11,14 +10,14 @@ public class Patient {
 	BloodPressure bp;
 	HeartRate hr;
 	OxygenLevel ol;
-	RepositoryRate rr;
+	RespirationRate rr;
 	
 	GraphicDisplay graDisplay;
 	
 	Status status;
 	
 	public Patient(BloodPressure bp, HeartRate hr, OxygenLevel ol,
-			RepositoryRate rr) {
+			RespirationRate rr) {
 		super();
 		this.bp = bp;
 		this.hr = hr;
@@ -50,28 +49,11 @@ public class Patient {
 		this.ol = ol;
 	}
 
-	public RepositoryRate getRr() {
+	public RespirationRate getRr() {
 		return rr;
 	}
 
-	public void setRr(RepositoryRate rr) {
+	public void setRr(RespirationRate rr) {
 		this.rr = rr;
-<<<<<<< HEAD
 	}
-	
-
-	public void updateWithTool(Tool tool){
-		//set four parameters
-	}
-	
-	
-	public void updateWithDrugs(Drug drug, float dose){
-		//set four parameters
-	}
-	
-	
-	
-=======
-	}	
->>>>>>> origin/ningnaw
 }
