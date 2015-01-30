@@ -75,6 +75,7 @@ public class Engine {
 	/*
 	 * process() start a scenario simulation
 	 */
+
 	public void process() {
 
 		String code = "code blue";
@@ -90,6 +91,7 @@ public class Engine {
 
 	public void useTool(Tool tool) {
 		scen.useTool(tool);
+
 	}
 
 }
