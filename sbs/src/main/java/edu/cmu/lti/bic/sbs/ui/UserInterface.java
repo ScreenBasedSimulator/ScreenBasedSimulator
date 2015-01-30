@@ -44,7 +44,7 @@ public class UserInterface {
 	}
 
 	public void useDrug(Drug drug, Double dosage) {
-		decisionEngine.useDrug(drug, dosage);
+		//decisionEngine.useDrug(drug, dosage);
 	}
 
 //	public void setTime(LocalTime time) {

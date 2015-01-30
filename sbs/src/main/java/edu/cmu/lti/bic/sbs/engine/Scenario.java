@@ -3,6 +3,11 @@ package edu.cmu.lti.bic.sbs.engine;
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 
+/**
+ * The Scenario Class
+ * @author Xiaoxu Lu <xiaoxul@andrew.cmu.edu>
+ *
+ */
 public class Scenario {
 	int ScenId;
 	String ScenName;
@@ -35,23 +40,4 @@ public class Scenario {
 		return "The Scenario is " + ScenName;
 	}
 	
-
-	/*
-	 * Interaction functions with all other packages
-	 */
-	public void callCode(String code) {
-		// send ui : callCode to display
-	}
-
-	public void connectMonitor() {
-		// send ui to connect monitor
-	}
-
-	public void useTool(Tool tool) {
-		
-	}
-
-	public void useDrug(Drug drug, Double dose) {
-
-	}
 }

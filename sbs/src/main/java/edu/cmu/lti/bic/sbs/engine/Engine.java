@@ -60,15 +60,29 @@ public class Engine {
 	 */
 	public void process(){
 		
-		String code = "code blue";
-		scen.callCode(code);
+		// send engine or scenario object to ui so it could call functions of it.
 		
-		scen.connectMonitor();
+//		String code = "code blue";
+//		scen.callCode(code);
+//		
+//		scen.connectMonitor();
+//		
+//		scen.useDrug(drug, dose);
+//		
+//		Tool tool = new Tool();
+//		scen.useTool(tool);
+	}
+	public void callCode(String code) {
 		
-		scen.useDrug(drug, dose);
+	}
+
+	public void connectMonitor() {
 		
-		Tool tool = new Tool();
-		scen.useTool(tool);
+	}
+
+
+	public void useTool(Tool tool) {
+		
 	}
 	
 }
