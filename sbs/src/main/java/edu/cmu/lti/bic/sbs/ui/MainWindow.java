@@ -33,11 +33,11 @@ public class MainWindow {
 		frame.setBounds(100, 100, 550, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
+		frame.setResizable(false);
 		monitorPanel = new MonitorPanel();
 		monitorPanel.setBounds(10, 10, 106, 230);
 		frame.getContentPane().add(monitorPanel);
-
+		
 		clockPanel = new ClockPanel();
 		clockPanel.setBounds(424, 10, 120, 43);
 		frame.getContentPane().add(clockPanel);
