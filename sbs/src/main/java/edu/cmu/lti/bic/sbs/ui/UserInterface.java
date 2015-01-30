@@ -13,7 +13,6 @@ public class UserInterface {
 	private Engine decisionEngine;
 	private MainWindow window;
 	private HashMap<String, Tool> toolMap;
-	
 	private UserInterface ui = this;
 	
 	public UserInterface(Engine decisionEngine)
@@ -40,7 +39,7 @@ public class UserInterface {
 	public void connectMonitor() {
 		// decisionEngine.connectMonitor();
 	}
-
+	
 	public void useTool(String id) {
 		Tool tool = toolMap.get(id);
 		assert(tool != null);
