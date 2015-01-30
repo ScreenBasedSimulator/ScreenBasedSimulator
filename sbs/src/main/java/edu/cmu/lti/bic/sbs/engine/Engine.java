@@ -6,9 +6,9 @@ import java.io.FileReader;
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
+import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.gson.Patient;
-
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
 import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
@@ -31,8 +31,6 @@ public class Engine {
 	 * and Evaluator
 	 */
 	public Engine() {
-		// Scenario initialization
-		scen = new Scenario();
 
 		// User interface initialization
 		try {
@@ -43,6 +41,9 @@ public class Engine {
 			e.printStackTrace();
 		}
 
+		// Scenario initialization
+		scen = new Scenario(ui);
+
 		// Load Tool data to user interface
 		FileReader fileReader = null;
 		try {
@@ -50,26 +51,27 @@ public class Engine {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+
 		Tool[] tools = gson.fromJson(fileReader, Tool[].class);
+		// tools to ui
 		for (Tool tool : tools) {
 			ui.addTool(tool);
 		}
+		// Load Patient data to user interface
 		try {
 			fileReader = new FileReader("src/test/resources/patientTest.json");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		// patient to ui and simulation
 		Patient patient = gson.fromJson(fileReader, Patient.class);
 		ui.setPatientInfo(patient);
-
-		// Patient and Simulator initialization
-		// Raw data should be loaded by file input later...
-
 
 		sim = new Simulator(patient);
 
 		// Evaluator initialization
 		eval = new Evaluator();
+		// eval = new Evaluator(patient)?
 	}
 
 	/*
@@ -91,6 +93,10 @@ public class Engine {
 
 	public void useTool(Tool tool) {
 		scen.useTool(tool);
+
+	}
+
+	public void useDrug(Drug drug, int dosage) {
 
 	}
 
