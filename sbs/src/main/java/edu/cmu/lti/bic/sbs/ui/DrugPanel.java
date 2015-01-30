@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.ui;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -63,11 +64,18 @@ public class DrugPanel {
     JButton EntryButton = new JButton("ENTRY");
     EntryButton.setBounds(190, 140, 65, 30);
     frame.getContentPane().add(EntryButton);
+    EntryButton.addMouseListener(new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			ui.callCode("Code Blue!");
+		}
+	});
+    
     
     JComboBox unitBox = new JComboBox(new UnitModel());
     unitBox.setBounds(185, 100, 70, 43);
     frame.getContentPane().add(unitBox);
-    frame.setBounds(100, 100, 450, 300);
+    frame.setBounds(100, 100, 300, 187);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
   
