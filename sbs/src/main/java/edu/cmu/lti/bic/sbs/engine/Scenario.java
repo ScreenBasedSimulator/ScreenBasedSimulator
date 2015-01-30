@@ -40,4 +40,25 @@ public class Scenario {
 		return "The Scenario is " + ScenName;
 	}
 	
+
+
+	/*
+	 * Interaction functions with all other packages
+	 */
+	public void callCode(String code) {
+		// send ui : callCode to display
+	}
+
+	public void connectMonitor() {
+		// send ui to connect monitor
+	}
+
+	public void useTool(Tool tool) {
+		System.out.println("Scenario: Tool " + tool.getName() + " is called.");
+	}
+
+	public void useDrug(Drug drug, Double dose) {
+
+	}
+
 }
