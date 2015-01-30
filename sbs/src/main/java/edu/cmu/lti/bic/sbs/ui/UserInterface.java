@@ -16,7 +16,8 @@ public class UserInterface {
 	private HashMap<String, Tool> toolMap;
 	private HashMap<String, Drug> drugMap;
 	private UserInterface ui = this;
-	
+	//private DrugWindow drugWindow;
+	//
 	public UserInterface(Engine decisionEngine)
 			throws UserInterfaceInitializationException {
 		this.decisionEngine = decisionEngine;
@@ -33,14 +34,17 @@ public class UserInterface {
 				}
 			}
 		});
+		//drugPanel=new DrugPanel(this);
 	}
-
+	
 	public void callCode(String code) {
 		// decisionEngine.callCode(code);
+		ui.addPathography("Code Blue!");
 	}
 
 	public void connectMonitor() {
 		// decisionEngine.connectMonitor();
+		ui.addPathography("Monitor connected!");
 	}
 	
 	public void useTool(String id) {
@@ -57,6 +61,8 @@ public class UserInterface {
 		assert(drug != null);
 		Prescription prescription = new Prescription(drug, dose, unit);
 		decisionEngine.useDrug(prescription);
+		//System.out.println("use the drug");
+		ui.addPathography("used a drug!");
 	}
 
 	// public void setTime(LocalTime time) {
