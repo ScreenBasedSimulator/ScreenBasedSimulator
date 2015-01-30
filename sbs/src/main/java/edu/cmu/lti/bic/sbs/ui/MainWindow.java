@@ -30,30 +30,30 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 900, 300);
+		frame.setBounds(100, 100, 550, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		monitorPanel = new MonitorPanel();
-		monitorPanel.setBounds(10, 10, 100, 230);
+		monitorPanel.setBounds(10, 10, 106, 230);
 		frame.getContentPane().add(monitorPanel);
 
 		clockPanel = new ClockPanel();
-		clockPanel.setBounds(374, 10, 120, 43);
+		clockPanel.setBounds(424, 10, 120, 43);
 		frame.getContentPane().add(clockPanel);
 
 		patientPanel = new PatientPanel();
-		patientPanel.setBounds(374, 55, 120, 185);
+		patientPanel.setBounds(424, 55, 120, 185);
 		frame.getContentPane().add(patientPanel);
 
 		toolPanel = new ToolPanel(ui);
-		toolPanel.setBounds(109, 10, 100, 230);
+		toolPanel.setBounds(122, 10, 136, 230);
 		frame.getContentPane().add(toolPanel);
 		
 		nursePanel=new NursePanel(ui);
 		//nursePanel.setLocation(456, 10);
 		//nursePanel.setSize(125, 116);
-		nursePanel.setBounds(214, 10, 158, 116);
+		nursePanel.setBounds(264, 10, 158, 116);
 		frame.getContentPane().add(nursePanel);
 
 	}
