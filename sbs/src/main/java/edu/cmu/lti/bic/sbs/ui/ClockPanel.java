@@ -26,6 +26,6 @@ public class ClockPanel extends JPanel {
 	timeLabel =  new JLabel();
     timeLabel.setText(0 + "");
     this.add(timeLabel);
-    this.updateTime(12, 0, 0);    
+    this.updateTime(12, 00, 00);    
   }
 }
