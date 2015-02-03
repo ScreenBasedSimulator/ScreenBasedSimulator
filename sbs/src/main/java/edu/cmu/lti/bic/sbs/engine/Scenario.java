@@ -60,19 +60,15 @@ public class Scenario {
 	}
 
 	public void connectMonitor() {
-		if(!isMonitorConnected){
-			// send ui to connect monitor
-			// ui setparameter
-			ui.updateMonitor();
-		}
+		isMonitorConnected = true;
 	}
 
 	public void useTool(Tool tool) {
 		System.out.println("Scenario: Tool " + tool.getName() + " is called.");
+		
 	}
 
 	public void useDrug(Drug drug, Double dose) {
 
 	}
-
 }
