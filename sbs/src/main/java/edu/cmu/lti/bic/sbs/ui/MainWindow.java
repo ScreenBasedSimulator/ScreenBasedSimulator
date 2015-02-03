@@ -12,7 +12,7 @@ public class MainWindow {
 	private UserInterface ui;
 	private NursePanel nursePanel; 
 	private PathographyPanel pathographyPanel;
-
+	
 	public void setVisible(boolean isVisible) {
 		frame.setVisible(isVisible);
 	}

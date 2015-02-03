@@ -1,13 +1,13 @@
 package edu.cmu.lti.bic.sbs.ui;
 
 import javax.swing.JPanel;
-
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import java.awt.Component;
+import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -18,7 +18,7 @@ public class NursePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -3126359881920225699L;
 	private UserInterface ui;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -67,7 +67,17 @@ public class NursePanel extends JPanel {
 		injectBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//ui.useDrug(id, dose, unit);
+				//System.out.println("injection!");
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							DrugWindow window = new DrugWindow(ui);
+							window.frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
 		injectBtn.setBounds(6, 79, 137, 29);
