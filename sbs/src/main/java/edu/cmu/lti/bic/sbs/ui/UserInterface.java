@@ -17,7 +17,8 @@ public class UserInterface {
 	private HashMap<String, Tool> toolMap;
 	private HashMap<String, Drug> drugMap;
 	private UserInterface ui = this;
-	//private DrugWindow drugWindow;
+
+	// private DrugWindow drugWindow;
 	//
 	public UserInterface(Engine decisionEngine)
 			throws UserInterfaceInitializationException {
@@ -35,9 +36,9 @@ public class UserInterface {
 				}
 			}
 		});
-		//drugPanel=new DrugPanel(this);
+		// drugPanel=new DrugPanel(this);
 	}
-	
+
 	public void callCode(String code) {
 		// decisionEngine.callCode(code);
 		ui.addPathography("Code Blue!");
@@ -47,23 +48,22 @@ public class UserInterface {
 		decisionEngine.connectMonitor();
 		ui.addPathography("Monitor connected!");
 	}
-	
+
 	public void useTool(String id) {
 		Tool tool = toolMap.get(id);
-		assert(tool != null);
+		assert (tool != null);
 		this.addPathography("UI: " + tool.getName() + " is used.");
 		System.out.println("UI: Tool " + tool.getName() + " is used.");
 		decisionEngine.useTool(tool);
 	}
 
-
 	public void useDrug(String id, Double dose, String unit) {
-		assert(id != null);
+		assert (id != null);
 		Drug drug = drugMap.get(id);
-		assert(drug != null);
+		assert (drug != null);
 		Prescription prescription = new Prescription(drug, dose, unit);
 		decisionEngine.useDrug(prescription);
-		//System.out.println("use the drug");
+		// System.out.println("use the drug");
 		ui.addPathography("used a drug!");
 
 	}
@@ -80,7 +80,7 @@ public class UserInterface {
 				window.setPatient(patient.getBasic(), patient.getDescription());
 			}
 		});
-		
+
 	}
 
 	public void addDrug(Drug drug) {
@@ -107,32 +107,34 @@ public class UserInterface {
 	}
 
 	public void updateMonitor(Patient p) {
-		assert(p != null);
-		assert(p.getBloodPressure() != null);
-		assert(p.getHeartRate() != null);
-		assert(p.getOxygenLevel() != null);
-		assert(p.getRepiratinoRate() != null);
+		assert (p != null);
+		assert (p.getBloodPressure() != null);
+		assert (p.getHeartRate() != null);
+		assert (p.getOxygenLevel() != null);
+		assert (p.getRepiratinoRate() != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				window.setMonitor(p.getBloodPressure().getDiastolicBloodPressure(),
-						p.getBloodPressure().getSystolicBloodPressure(),
-						p.getHeartRate().getHrNum(),
-						p.getOxygenLevel().getOlNum(),
-						p.getRepiratinoRate().getRrNum());
+				window.setMonitor(p.getBloodPressure()
+						.getDiastolicBloodPressure(), p.getBloodPressure()
+						.getSystolicBloodPressure(), p.getHeartRate()
+						.getHrNum(), p.getOxygenLevel().getOlNum(), p
+						.getRepiratinoRate().getRrNum());
 			}
 		});
 	}
 
 	public void updateTime(Calendar time) {
-		assert(time != null);
+		assert (time != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				window.updateClock(time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.SECOND));
+				window.updateClock(time.get(Calendar.HOUR_OF_DAY),
+						time.get(Calendar.MINUTE), time.get(Calendar.SECOND));
 			}
 		});
 	}
+
 	public void addPathography(String feedback) {
-		assert(feedback != null);
+		assert (feedback != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				window.addPathography(feedback);
