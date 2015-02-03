@@ -42,7 +42,7 @@ public class DrugPanel extends JPanel {
 	private void initialize() {
 		
 		JComboBox<String> drugBox = new JComboBox<String>(drugModel);
-		drugModel.addElement("TEST");
+		drugModel.addElement("Anti-Narcotic");
 		drugBox.setBounds(100, 30, 110, 50);
 		drugBox.setBorder(BorderFactory.createTitledBorder("Drug"));
 		this.add(drugBox);
