@@ -2,6 +2,7 @@ package edu.cmu.lti.bic.sbs.ui;
 
 //import java.time.LocalTime;
 import java.awt.EventQueue;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import edu.cmu.lti.bic.sbs.engine.Engine;
@@ -40,7 +41,7 @@ public class UserInterface {
 	}
 
 	public void connectMonitor() {
-		// decisionEngine.connectMonitor();
+		decisionEngine.connectMonitor();
 	}
 	
 	public void useTool(String id) {
@@ -97,10 +98,31 @@ public class UserInterface {
 
 	}
 
-	public void updateMonitor() {
-
+	public void updateMonitor(Patient p) {
+		assert(p != null);
+		assert(p.getBloodPressure() != null);
+		assert(p.getHeartRate() != null);
+		assert(p.getOxygenLevel() != null);
+		assert(p.getRepiratinoRate() != null);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				window.setMonitor(p.getBloodPressure().getDiastolicBloodPressure(),
+						p.getBloodPressure().getSystolicBloodPressure(),
+						p.getHeartRate().getHrNum(),
+						p.getOxygenLevel().getOlNum(),
+						p.getRepiratinoRate().getRrNum());
+			}
+		});
 	}
 
+	public void updateTime(Calendar time) {
+		assert(time != null);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				window.updateClock(time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.SECOND));
+			}
+		});
+	}
 	public void addPathography(String feedback) {
 		assert(feedback != null);
 		EventQueue.invokeLater(new Runnable() {

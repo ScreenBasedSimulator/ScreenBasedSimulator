@@ -15,14 +15,16 @@ public class Patient {
 	private String basic; //eg: male, 35, white
 	private String description; //eg: headache, vomit
 	
-	private BloodPressure bloodPressure;
-	private HeartRate heartRate;
-	private OxygenLevel oxygenLevel;
-	private RespirationRate respirationRate;
+	private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0);
+	private HeartRate heartRate = new HeartRate(80.0);
+	private OxygenLevel oxygenLevel = new OxygenLevel(99.0);
+	private RespirationRate respirationRate = new RespirationRate(12.0);
 	
 	GraphicDisplay graDisplay;
 	Status status;
-	
+	public Patient() {
+		
+	}
 	public Patient(String basic, String description){
 		this.basic = basic;
 		this.description = description;

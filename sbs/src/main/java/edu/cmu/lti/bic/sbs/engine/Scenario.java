@@ -49,9 +49,12 @@ public class Scenario {
 
 	public void useTool(Tool tool) {
 		System.out.println("Scenario: Tool " + tool.getName() + " is called.");
+		
 	}
 
 	public void useDrug(Drug drug, Double dose) {
 
 	}
+	
+	
 }

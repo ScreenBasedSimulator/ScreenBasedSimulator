@@ -79,21 +79,25 @@ public class MonitorPanel extends JPanel {
 		respiratoryRatePanel.add(respiratoryRateLabel);
 	}
 
-	public void setBloodPressure(int bloodPressureUpperBound,
-			int bloodPressureLowerBound) {
-		bloodPressureLabel.setText(bloodPressureUpperBound + "/"
-				+ bloodPressureLowerBound + " mmHg");
+	public void setBloodPressure(Double bloodPressureUpperBound,
+			Double bloodPressureLowerBound) {
+		bloodPressureLabel.setText(bloodPressureUpperBound.intValue() + "/"
+				+ bloodPressureLowerBound.intValue() + " mmHg");
 	}
 
-	public void setHeartRate(int heartRate) {
-		heartRateLabel.setText(heartRate + " bpm");
+	public void setHeartRate(Double heartRate) {
+		heartRateLabel.setText(heartRate.intValue() + " bpm");
 	}
 
-	public void setOxygenLevel(int oxygenLevel) {
-		oxygenLevelLabel.setText(oxygenLevel + " %");
+	public void setOxygenLevel(Double oxygenLevel) {
+		oxygenLevelLabel.setText(oxygenLevel.intValue() + " %");
 	}
 
-	public void setRespiratoryRate(int respiratoryRate) {
-		respiratoryRateLabel.setText("" + respiratoryRate);
+	public void setRespiratoryRate(Double respiratoryRate) {
+		respiratoryRateLabel.setText(respiratoryRate.toString());
+	}
+	
+	public void clearMonitor() {
+		
 	}
 }
