@@ -17,7 +17,7 @@ public class Evaluator {
 	
 	private static class Recieved{
 	  private MedicalParameter medPara;
-	  // I suggest to store drug with dose as a single calss.
+	  // I suggest to store drug with dose as a single class.
 	  private Drug drug;
 	  private double dose;
 	  private Equipment eq;
