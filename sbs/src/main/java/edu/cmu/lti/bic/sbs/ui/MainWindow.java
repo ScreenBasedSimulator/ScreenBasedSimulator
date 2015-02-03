@@ -68,26 +68,25 @@ public class MainWindow {
 		patientPanel.setDescription(description);
 	}
 
-	public void setMonitor(int bloodPressureUpperBound,
-			int bloodPressureLowerBound, int heartRate, int oxygenLevel,
-			int respiratoryRate) {
-		monitorPanel.setBloodPressure(bloodPressureUpperBound,
-				bloodPressureLowerBound);
-		monitorPanel.setHeartRate(heartRate);
-		monitorPanel.setOxygenLevel(oxygenLevel);
-		monitorPanel.setRespiratoryRate(respiratoryRate);
-	}
-
-	/*
-	 * public void addDrug(String id, String name) {
-	 * 
-	 * }
-	 */
 	public void addTool(String id, String name) {
 		toolPanel.addTool(id, name);
 	}
 	
 	public void addPathography(String record) {
 		pathographyPanel.addRecord(record);
+	}
+	public void updateClock(int hour, int min, int second) {
+		clockPanel.setTime(hour, min, second);
+	}
+
+	public void setMonitor(Double diastolicBloodPressure,
+			Double systolicBloodPressure, Double heartRate, Double oxygenLevel,
+			Double respiratoryRate) {
+		// TODO Auto-generated method stub
+		monitorPanel.setBloodPressure(systolicBloodPressure,
+				diastolicBloodPressure);
+		monitorPanel.setHeartRate(heartRate);
+		monitorPanel.setOxygenLevel(oxygenLevel);
+		monitorPanel.setRespiratoryRate(respiratoryRate);
 	}
 }

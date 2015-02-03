@@ -41,29 +41,30 @@ public class NursePanel extends JPanel {
 
 		this.setLayout(null);
 
-		JButton btnNewButton = new JButton("Connect Monitor");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		JButton connectMonitorBtn = new JButton("Connect Monitor");
+		connectMonitorBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ui.connectMonitor();
+				connectMonitorBtn.setEnabled(false);
+				connectMonitorBtn.setText("Monitor Connected");
 			}
 		});
-		btnNewButton.setBounds(6, 12, 137, 29);
-		this.add(btnNewButton);
+		connectMonitorBtn.setBounds(6, 12, 137, 29);
+		this.add(connectMonitorBtn);
 
-		JButton btnNewButton_1 = new JButton("Code Blue");
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
+		JButton callCodeBtn = new JButton("Code Blue");
+		callCodeBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ui.callCode("Code Blue");
 			}
 		});
-		btnNewButton_1.setBounds(6, 46, 137, 29);
-		
-		this.add(btnNewButton_1);
+		callCodeBtn.setBounds(6, 46, 137, 29);
+		this.add(callCodeBtn);
 
-		JButton btnNewButton_2 = new JButton("Inject");
-		btnNewButton_2.addMouseListener(new MouseAdapter() {
+		JButton injectBtn = new JButton("Inject");
+		injectBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//System.out.println("injection!");
@@ -79,9 +80,9 @@ public class NursePanel extends JPanel {
 				});
 			}
 		});
-		btnNewButton_2.setBounds(6, 79, 137, 29);
-		this.add(btnNewButton_2);
+		injectBtn.setBounds(6, 79, 137, 29);
+		this.add(injectBtn);
 		this.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
-				btnNewButton, btnNewButton_1, btnNewButton_2 }));
+				connectMonitorBtn, callCodeBtn, injectBtn }));
 	}
 }
