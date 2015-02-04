@@ -15,6 +15,8 @@ public class Step {
 	private Drug drugUsed;
 	private Tool toolUsed;
 	
+	
+	
 	// private undefined patientStatus;
 	
 	public String getStep() {
@@ -25,5 +27,10 @@ public class Step {
 		drugUsed = new Drug();
 		timeUsed = new Timer();
 		toolUsed = new Tool("","","");
+	}
+	
+	public static void main(String[] args) {
+		Step s = new Step();
+		System.out.println(s.getStep());
 	}
 }
