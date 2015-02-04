@@ -18,7 +18,7 @@ public class MainWindow {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the application, pass in ui parameter and initialize the main window.
 	 */
 	public MainWindow(UserInterface ui) {
 		this.ui = ui;
@@ -26,7 +26,8 @@ public class MainWindow {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the main window and sets up 
+	 * the clock, patient, tool, nurse and pathography panel.
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -58,26 +59,60 @@ public class MainWindow {
 		pathographyPanel.setBounds(264, 130, 158, 110);
 		frame.getContentPane().add(pathographyPanel);
 	}
-
+	/**
+	 * setTime enables clock panel to set the current time
+	 * @param h represents the current hour
+	 * @param m represents the current minute
+	 * @param s represents the current second
+	 */
 	public void setTime(Integer h, Integer m, Integer s) {
 		clockPanel.setTime(h, m, s);
 	}
-
+	/**
+	 * setPatient enables patient panel to set the patient's medical history
+	 * @param basic gives out patient's basic information
+	 * @param description gives out the disease description about the patient
+	 */
 	public void setPatient(String basic, String description) {
 		patientPanel.setBasic(basic);
 		patientPanel.setDescription(description);
 	}
 
+
+	/**
+	 * addTool makes a specific tool(equipment) available for user to use
+	 * @param id the id of the tool
+	 * @param name the name of the tool
+	 */
 	public void addTool(String id, String name) {
 		toolPanel.addTool(id, name);
 	}
-	
+	/**
+	 * addPathography adds record to pathography panel.
+	 * @param record the record we want to add to the panel
+	 */
 	public void addPathography(String record) {
 		pathographyPanel.addRecord(record);
 	}
+
+
+	/**
+	 * updateClock update the current time on clock panel
+	 * @param hour the current hour
+	 * @param min the current minute
+	 * @param second the current second
+	 */
 	public void updateClock(int hour, int min, int second) {
 		clockPanel.setTime(hour, min, second);
 	}
+	/**
+	 * setMonitor sets up the monitor parameters for user to see
+	 * @param diastolicBloodPressure the lower bound of blood pressure
+	 * @param systolicBloodPressure the upper bound of blood pressure
+	 * @param heartRate the heart rate of the patient
+	 * @param oxygenLevel the oxygen level of the patient
+	 * @param respiratoryRate the respiratory rate of the patient
+	 */
 
 	public void setMonitor(Double diastolicBloodPressure,
 			Double systolicBloodPressure, Double heartRate, Double oxygenLevel,
