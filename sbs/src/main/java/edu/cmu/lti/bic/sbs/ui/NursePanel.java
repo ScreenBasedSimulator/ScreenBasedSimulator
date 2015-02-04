@@ -23,15 +23,12 @@ public class NursePanel extends JPanel {
 	 * Launch the application.
 	 */
 
-	/**
-	 * Create the application.
-	 */
 	public NursePanel(UserInterface ui) {
 		initialize(ui);
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame and sets up three event listener.
 	 */
 	private void initialize(UserInterface ui) {
 		this.ui = ui;
@@ -41,30 +38,44 @@ public class NursePanel extends JPanel {
 
 		this.setLayout(null);
 
-		JButton btnNewButton = new JButton("Connect Monitor");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+
+		JButton connectMonitorBtn = new JButton("Connect Monitor");
+		connectMonitorBtn.addMouseListener(new MouseAdapter() {
+			/**
+			 * mouseClicked sets up the event when the connect monitor button is clicked
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ui.connectMonitor();
 			}
 		});
-		btnNewButton.setBounds(6, 12, 137, 29);
-		this.add(btnNewButton);
+		connectMonitorBtn.setBounds(6, 12, 137, 29);
+		this.add(connectMonitorBtn);
 
-		JButton btnNewButton_1 = new JButton("Code Blue");
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
+
+		JButton callCodeBtn = new JButton("Code Blue");
+		callCodeBtn.addMouseListener(new MouseAdapter() {
+			/**
+			 * mouseClicked sets up the event when the call code button is clicked
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ui.callCode("Code Blue");
 			}
 		});
-		btnNewButton_1.setBounds(6, 46, 137, 29);
+		callCodeBtn.setBounds(6, 46, 137, 29);
 		
-		this.add(btnNewButton_1);
+		this.add(callCodeBtn);
 
-		JButton btnNewButton_2 = new JButton("Inject");
-		btnNewButton_2.addMouseListener(new MouseAdapter() {
+
+		JButton injectBtn = new JButton("Inject");
+		
+		injectBtn.addMouseListener(new MouseAdapter() {
+			/**
+			 * mouseClicked sets up the event when the inject button is clicked
+			 */
 			@Override
+			
 			public void mouseClicked(MouseEvent e) {
 				//System.out.println("injection!");
 				EventQueue.invokeLater(new Runnable() {
@@ -79,9 +90,9 @@ public class NursePanel extends JPanel {
 				});
 			}
 		});
-		btnNewButton_2.setBounds(6, 79, 137, 29);
-		this.add(btnNewButton_2);
+		injectBtn.setBounds(6, 79, 137, 29);
+		this.add(injectBtn);
 		this.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
-				btnNewButton, btnNewButton_1, btnNewButton_2 }));
+				connectMonitorBtn, callCodeBtn, injectBtn }));
 	}
 }

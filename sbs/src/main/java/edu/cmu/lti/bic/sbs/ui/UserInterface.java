@@ -16,8 +16,14 @@ public class UserInterface {
 	private HashMap<String, Tool> toolMap;
 	private HashMap<String, Drug> drugMap;
 	private UserInterface ui = this;
-	//private DrugWindow drugWindow;
-	//
+
+
+	/**
+	 * initialize the user interface controller and connect it with decision engine
+	 * @param decisionEngine the decision engine it's connected to
+	 * @throws UserInterfaceInitializationException when the user interface is not 
+	 * initialized properly, it will throw UserInterfaceInitializationException.
+	 */
 	public UserInterface(Engine decisionEngine)
 			throws UserInterfaceInitializationException {
 		this.decisionEngine = decisionEngine;

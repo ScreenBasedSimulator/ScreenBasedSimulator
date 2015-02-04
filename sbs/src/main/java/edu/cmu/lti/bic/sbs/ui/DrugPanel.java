@@ -19,7 +19,7 @@ public class DrugPanel extends JPanel {
 	//DrugWindow drugWindow;
 	
 	/**
-	 * Create the application.
+	 * initialize the drug panel and pass the ui parameter in.
 	 */
 	public DrugPanel(UserInterface ui) {
 		initialize();
