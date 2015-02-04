@@ -11,7 +11,7 @@ public class Path {
 	List<Step> pathIns;
 	
 	String tag;
-	
+
 	/**
 	 * The method that use to calculate the score between two paths.
 	 * @param p2
