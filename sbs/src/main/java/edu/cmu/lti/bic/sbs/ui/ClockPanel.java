@@ -25,24 +25,24 @@ public class ClockPanel extends JPanel {
 		minute = m;
 		hour = h;
 		StringBuilder text = new StringBuilder();
-		if (h % 10 == 0) {
-			text.append("0" + hour);
+		if (h < 0) {
+			text.append("0" + h);
 		} else {
 			text.append(hour);
 		}
 
 		text.append(':');
 
-		if (m % 10 == 0) {
-			text.append("0" + minute);
+		if (m < 10) {
+			text.append("0" + m);
 		} else {
 			text.append(minute);
 		}
 
 		text.append(':');
 
-		if (s % 10 == 0) {
-			text.append("0" + second);
+		if (s < 10) {
+			text.append("0" + s);
 		} else {
 			text.append(second);
 		}

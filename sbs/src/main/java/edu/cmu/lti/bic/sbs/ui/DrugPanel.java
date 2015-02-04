@@ -1,94 +1,82 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class DrugPanel {
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
-  private JFrame frame;
-  String[] drugName = {"Durg1", "Durg2", "Durg3", "Durg4"};
-  String[] dosage = {"1", "10", "50", "100"};
-  String[] unit = {"ML", "L"};
-  /**
-   * Launch the application.
-   */
-  public static void main(String[] args) {
-    EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        try {
-          DrugPanel window = new DrugPanel();
-          window.frame.setVisible(true);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
 
-  /**
-   * Create the application.
-   */
-  public DrugPanel() {
-    initialize();
-  }
+public class DrugPanel extends JPanel {
 
-  /**
-   * Initialize the contents of the frame.
-   */
-  private void initialize() {
-    frame = new JFrame();
-    frame.getContentPane().setForeground(Color.WHITE);
-    frame.getContentPane().setLayout(null);
-        
-    JComboBox drugBox = new JComboBox(new DrugModel());
-    drugBox.setBounds(100, 30, 110, 50);
-    drugBox.setBorder(BorderFactory.createTitledBorder("Drug"));
-    frame.getContentPane().add(drugBox);
-    frame.pack();
-    frame.addWindowListener(new WindowAdapter(){
-      public void windowClosing(WindowEvent e){
-        System.exit(0); 
-        }
-    });   
-    
-    JLabel dosageLabel = new JLabel("Choose dosage:");
-    dosageLabel.setBounds(110, 70, 200, 50);
-    frame.getContentPane().add(dosageLabel);
-    
-    JComboBox dosageBox = new JComboBox(new DosageModel());
-    dosageBox.setBounds(110, 95, 75, 50);
-    frame.getContentPane().add(dosageBox);
-    
-    JButton EntryButton = new JButton("ENTRY");
-    EntryButton.setBounds(190, 140, 65, 30);
-    frame.getContentPane().add(EntryButton);
-    
-    JComboBox unitBox = new JComboBox(new UnitModel());
-    unitBox.setBounds(185, 100, 70, 43);
-    frame.getContentPane().add(unitBox);
-    frame.setBounds(100, 100, 450, 300);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  }
-  
-  class DrugModel extends DefaultComboBoxModel{
-    DrugModel(){
-    for (int i = 0; i < drugName.length; i++)
-      addElement(drugName[i]);
-    }
-  }
-  
-  class DosageModel extends DefaultComboBoxModel{
-    DosageModel(){
-    for (int i = 0; i < dosage.length; i++)
-      addElement(dosage[i]);
-    }
-  }
-  
-  class UnitModel extends DefaultComboBoxModel{
-    UnitModel(){
-    for (int i = 0; i < unit.length; i++)
-      addElement(unit[i]);
-    }
-  }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8054193195906106046L;
+	String[] drugName = { "Durg1", "Durg2", "Durg3", "Durg4" };
+	String[] unit = { "ml", "mg" };
+	UserInterface ui;
+	DefaultComboBoxModel<String> drugModel=new DefaultComboBoxModel<String>();
+	DefaultComboBoxModel<String> unitModel=new DefaultComboBoxModel<String>();
+	//DrugWindow drugWindow;
+	
+	/**
+	 * Create the application.
+	 */
+	public DrugPanel(UserInterface ui) {
+		initialize();
+		this.ui=ui;
+		//this.drugWindow=drugWindow;
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		
+		JComboBox<String> drugBox = new JComboBox<String>(drugModel);
+		drugModel.addElement("TEST");
+		drugBox.setBounds(100, 30, 110, 50);
+		drugBox.setBorder(BorderFactory.createTitledBorder("Drug"));
+		this.add(drugBox);
+
+		JLabel dosageLabel = new JLabel("Choose dosage:");
+		dosageLabel.setBounds(110, 70, 200, 50);
+		this.add(dosageLabel);
+
+		SpinnerModel doseModel = new SpinnerNumberModel(9.9, 1, 15, 0.1);     
+		JSpinner doseSpinner = new JSpinner(doseModel);
+		doseSpinner.setBounds(110, 110, 75, 20);
+		this.add(doseSpinner);
+
+		
+		unitModel.addElement("mL"); //test!!!
+		JComboBox<String> unitBox = new JComboBox<String>(unitModel);
+		unitBox.setBounds(185, 100, 70, 43);
+		this.add(unitBox);
+		
+		JButton EntryButton = new JButton("INJECT");
+		EntryButton.setBounds(190, 140, 65, 30);
+		this.add(EntryButton);
+		EntryButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//drugWindow.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				//ui.useDrug(String id, Double dose, String unit);
+				String id=serialVersionUID+"";
+				double dose=(double) doseModel.getValue();
+				String drugUnit = (String)unitBox.getSelectedItem();
+				ui.useDrug(id, dose, drugUnit);
+			}
+		});
+	}
+	
+
 }

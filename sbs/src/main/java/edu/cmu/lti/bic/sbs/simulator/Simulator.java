@@ -17,11 +17,13 @@ public class Simulator {
 	
 	//the initialization function for engine to involve
 	public Patient initialPatient(){
-		
-		pt.getBloodPressure().setBpNum(defaultBp);
-		pt.getHeartRate().setHrNum(defaultHr);
-		pt.getOxygenLevel().setOlNum(defaultOl);
-		pt.getRepiratinoRate().setRrNum(defaultRr);
+		pt = new Patient();
+		//pt.getBloodPressure().setBpNum(defaultBp);
+		pt.getBloodPressure().setSystolicBloodPressure(90.0);
+		pt.getBloodPressure().setDiastolicBloodPressure(60.0);
+		pt.getHeartRate().setHrNum(80.0);
+		pt.getOxygenLevel().setOlNum(99.0);
+		pt.getRepiratinoRate().setRrNum(16.0);
 		
 		return pt;
 		
@@ -29,6 +31,7 @@ public class Simulator {
 	
 	public Simulator(){
 		super();
+		initialPatient();
 	}
 	
 	public Simulator(Patient pt) {
@@ -51,7 +54,7 @@ public class Simulator {
 	}
 	
 	
-	public void simWithDrugs(Drug drug , float dose ){
+	public void simWithDrugs(Drug drug , Double dose){
 		//set the parameters according to the drug from engine
 		
 	}

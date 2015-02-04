@@ -2,13 +2,15 @@ package edu.cmu.lti.bic.sbs.engine;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Calendar;
+import java.util.Timer;
 
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
+import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.gson.Patient;
-
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
 import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
@@ -24,7 +26,11 @@ public class Engine {
 	Simulator sim = null;
 	Evaluator eval = null;
 	Scenario scen = null;
+	Calendar time = Calendar.getInstance();
+	Timer timer = new Timer();
 	private Gson gson = new Gson();
+	
+	boolean isMonitorConnected = false;
 
 	/*
 	 * Constructor function, responsible for creating UserInterface, Simulator
@@ -65,16 +71,21 @@ public class Engine {
 		// Patient and Simulator initialization
 		// Raw data should be loaded by file input later...
 
-
 		sim = new Simulator(patient);
 
 		// Evaluator initialization
 		eval = new Evaluator();
+		
+		
+		// Start looping
+		
+		timer.scheduleAtFixedRate(new CoreTimerTask(1000, this), 0, 1000);
 	}
 
 	/*
 	 * process() start a scenario simulation
 	 */
+
 	public void process() {
 
 		String code = "code blue";
@@ -90,6 +101,27 @@ public class Engine {
 
 	public void useTool(Tool tool) {
 		scen.useTool(tool);
+		eval.receive(tool);
+		sim.simulateWithTool(tool);
 	}
 
+	public void useDrug(Prescription p) {
+		scen.useDrug(p.getDrug(), p.getDose());
+		eval.receive(p);
+		sim.simWithDrugs(p.getDrug(), p.getDose());
+	}
+
+	public void update(int interval) {
+		time.add(Calendar.MILLISECOND, interval);
+		ui.updateTime(time);
+		
+		Patient p = sim.simPatient();
+		if (isMonitorConnected) {
+			ui.updateMonitor(p);
+		}
+	}
+	
+	public void connectMonitor() {
+		isMonitorConnected = true;
+	}
 }

@@ -1,18 +1,18 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
 public class RespirationRate implements MedicalParameter {
-	float rrNum;
+	Double rrNum;
 
-	public RespirationRate(float rrNum) {
+	public RespirationRate(Double rrNum) {
 		super();
 		this.rrNum = rrNum;
 	}
 
-	public float getRrNum() {
+	public Double getRrNum() {
 		return rrNum;
 	}
 
-	public void setRrNum(float rrNum) {
+	public void setRrNum(Double rrNum) {
 		this.rrNum = rrNum;
 	}
 	

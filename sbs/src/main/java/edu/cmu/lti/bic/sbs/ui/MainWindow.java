@@ -10,7 +10,9 @@ public class MainWindow {
 	private ToolPanel toolPanel;
 	private MonitorPanel monitorPanel;
 	private UserInterface ui;
-
+	private NursePanel nursePanel; 
+	private PathographyPanel pathographyPanel;
+	
 	public void setVisible(boolean isVisible) {
 		frame.setVisible(isVisible);
 	}
@@ -28,26 +30,33 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 550, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
+		frame.setResizable(false);
 		monitorPanel = new MonitorPanel();
-		monitorPanel.setBounds(10, 10, 100, 230);
+		monitorPanel.setBounds(10, 10, 106, 230);
 		frame.getContentPane().add(monitorPanel);
-
+		
 		clockPanel = new ClockPanel();
-		clockPanel.setBounds(324, 10, 120, 43);
+		clockPanel.setBounds(424, 10, 120, 43);
 		frame.getContentPane().add(clockPanel);
 
 		patientPanel = new PatientPanel();
-		patientPanel.setBounds(324, 55, 120, 185);
+		patientPanel.setBounds(424, 55, 120, 185);
 		frame.getContentPane().add(patientPanel);
 
 		toolPanel = new ToolPanel(ui);
-		toolPanel.setBounds(109, 10, 100, 230);
+		toolPanel.setBounds(122, 10, 136, 230);
 		frame.getContentPane().add(toolPanel);
-
+		
+		nursePanel=new NursePanel(ui);
+		nursePanel.setBounds(264, 10, 158, 116);
+		frame.getContentPane().add(nursePanel);
+		
+		pathographyPanel = new PathographyPanel();
+		pathographyPanel.setBounds(264, 130, 158, 110);
+		frame.getContentPane().add(pathographyPanel);
 	}
 
 	public void setTime(Integer h, Integer m, Integer s) {
@@ -59,22 +68,25 @@ public class MainWindow {
 		patientPanel.setDescription(description);
 	}
 
-	public void setMonitor(int bloodPressureUpperBound,
-			int bloodPressureLowerBound, int heartRate, int oxygenLevel,
-			int respiratoryRate) {
-		monitorPanel.setBloodPressure(bloodPressureUpperBound,
-				bloodPressureLowerBound);
+	public void addTool(String id, String name) {
+		toolPanel.addTool(id, name);
+	}
+	
+	public void addPathography(String record) {
+		pathographyPanel.addRecord(record);
+	}
+	public void updateClock(int hour, int min, int second) {
+		clockPanel.setTime(hour, min, second);
+	}
+
+	public void setMonitor(Double diastolicBloodPressure,
+			Double systolicBloodPressure, Double heartRate, Double oxygenLevel,
+			Double respiratoryRate) {
+		// TODO Auto-generated method stub
+		monitorPanel.setBloodPressure(systolicBloodPressure,
+				diastolicBloodPressure);
 		monitorPanel.setHeartRate(heartRate);
 		monitorPanel.setOxygenLevel(oxygenLevel);
 		monitorPanel.setRespiratoryRate(respiratoryRate);
-	}
-
-	/*
-	 * public void addDrug(String id, String name) {
-	 * 
-	 * }
-	 */
-	public void addTool(String id, String name) {
-		toolPanel.addTool(id, name);
 	}
 }
