@@ -73,7 +73,7 @@ public class UserInterface {
 	// window.setTime(time.getHour(), time.getMinute(), time.getSecond());
 	// }
 
-	public void setPatientInfo(Patient patient) {
+	public void setPatientInfo(final Patient patient) {
 		assert (patient != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -83,7 +83,7 @@ public class UserInterface {
 
 	}
 
-	public void addDrug(Drug drug) {
+	public void addDrug(final Drug drug) {
 		assert (drug != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

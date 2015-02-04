@@ -33,7 +33,7 @@ public class NursePanel extends JPanel {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(UserInterface ui) {
+	private void initialize(final UserInterface ui) {
 		this.ui = ui;
 
 		this.setBorder(new TitledBorder(null, "Nurse", TitledBorder.LEADING,
@@ -41,7 +41,7 @@ public class NursePanel extends JPanel {
 
 		this.setLayout(null);
 
-		JButton connectMonitorBtn = new JButton("Connect Monitor");
+		final JButton connectMonitorBtn = new JButton("Connect Monitor");
 		connectMonitorBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
