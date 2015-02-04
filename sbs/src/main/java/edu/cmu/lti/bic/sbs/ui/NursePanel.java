@@ -18,7 +18,7 @@ public class NursePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = -3126359881920225699L;
 	private UserInterface ui;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -38,46 +38,48 @@ public class NursePanel extends JPanel {
 
 		this.setLayout(null);
 
-
 		JButton connectMonitorBtn = new JButton("Connect Monitor");
 		connectMonitorBtn.addMouseListener(new MouseAdapter() {
 			/**
-			 * mouseClicked sets up the event when the connect monitor button is clicked
+			 * mouseClicked sets up the event when the connect monitor button is
+			 * clicked
 			 */
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ui.connectMonitor();
+				connectMonitorBtn.setEnabled(false);
+				connectMonitorBtn.setText("Monitor Connected");
 			}
 		});
 		connectMonitorBtn.setBounds(6, 12, 137, 29);
 		this.add(connectMonitorBtn);
 
-
 		JButton callCodeBtn = new JButton("Code Blue");
 		callCodeBtn.addMouseListener(new MouseAdapter() {
 			/**
-			 * mouseClicked sets up the event when the call code button is clicked
+			 * mouseClicked sets up the event when the call code button is
+			 * clicked
 			 */
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				ui.callCode("Code Blue");
 			}
 		});
 		callCodeBtn.setBounds(6, 46, 137, 29);
-		
+
 		this.add(callCodeBtn);
-
-
 		JButton injectBtn = new JButton("Inject");
-		
+
 		injectBtn.addMouseListener(new MouseAdapter() {
 			/**
 			 * mouseClicked sets up the event when the inject button is clicked
 			 */
+
 			@Override
-			
 			public void mouseClicked(MouseEvent e) {
-				//System.out.println("injection!");
+				// System.out.println("injection!");
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {

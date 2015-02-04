@@ -79,7 +79,6 @@ public class MainWindow {
 	}
 
 
-
 	/**
 	 * addTool makes a specific tool(equipment) available for user to use
 	 * @param id the id of the tool
@@ -95,6 +94,7 @@ public class MainWindow {
 	public void addPathography(String record) {
 		pathographyPanel.addRecord(record);
 	}
+
 
 	/**
 	 * updateClock update the current time on clock panel
@@ -113,6 +113,7 @@ public class MainWindow {
 	 * @param oxygenLevel the oxygen level of the patient
 	 * @param respiratoryRate the respiratory rate of the patient
 	 */
+
 	public void setMonitor(Double diastolicBloodPressure,
 			Double systolicBloodPressure, Double heartRate, Double oxygenLevel,
 			Double respiratoryRate) {

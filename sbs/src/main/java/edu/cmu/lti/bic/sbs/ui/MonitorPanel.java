@@ -81,11 +81,13 @@ public class MonitorPanel extends JPanel {
 		respiratoryRatePanel.add(respiratoryRateLabel);
 	}
 
+
 	/**
 	 * setBloodPressure sets up the diastolic blood pressure and systolic blood pressure of the patient
 	 * @param bloodPressureUpperBound the systolic blood pressure of current status
 	 * @param bloodPressureLowerBound the diastolic blood pressure of current status
 	 */
+
 	public void setBloodPressure(Double bloodPressureUpperBound,
 			Double bloodPressureLowerBound) {
 		bloodPressureLabel.setText(bloodPressureUpperBound.intValue() + "/"

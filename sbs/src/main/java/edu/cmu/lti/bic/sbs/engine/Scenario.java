@@ -1,8 +1,11 @@
 package edu.cmu.lti.bic.sbs.engine;
-
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Tool;
-
+/**
+ * The Scenario Class
+ * @author Xiaoxu Lu <xiaoxul@andrew.cmu.edu>
+ *
+ */
 public class Scenario {
 	int ScenId;
 	String ScenName;
@@ -36,6 +39,7 @@ public class Scenario {
 	}
 	
 
+
 	/*
 	 * Interaction functions with all other packages
 	 */
@@ -49,6 +53,7 @@ public class Scenario {
 
 	public void useTool(Tool tool) {
 		System.out.println("Scenario: Tool " + tool.getName() + " is called.");
+		
 	}
 
 	public void useDrug(Drug drug, Double dose) {

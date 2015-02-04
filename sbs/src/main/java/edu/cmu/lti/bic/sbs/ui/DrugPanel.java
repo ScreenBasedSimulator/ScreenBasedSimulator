@@ -1,9 +1,18 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+
 
 public class DrugPanel extends JPanel {
 
@@ -33,7 +42,7 @@ public class DrugPanel extends JPanel {
 	private void initialize() {
 		
 		JComboBox<String> drugBox = new JComboBox<String>(drugModel);
-		drugModel.addElement("TEST");
+		drugModel.addElement("Anti-Narcotic");
 		drugBox.setBounds(100, 30, 110, 50);
 		drugBox.setBorder(BorderFactory.createTitledBorder("Drug"));
 		this.add(drugBox);
