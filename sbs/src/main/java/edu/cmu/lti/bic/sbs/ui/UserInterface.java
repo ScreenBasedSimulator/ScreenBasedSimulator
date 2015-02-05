@@ -32,7 +32,6 @@ public class UserInterface {
 		this.decisionEngine = decisionEngine;
 		this.toolMap = new HashMap<String, Tool>();
 		this.drugMap = new HashMap<String, Drug>();
-		Sound.play("1");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -70,7 +69,7 @@ public class UserInterface {
 		Drug drug = drugMap.get(id);
 		assert (drug != null);
 		Prescription prescription = new Prescription(drug, dose, unit);
-		decisionEngine.useDrug(prescription);
+		//decisionEngine.useDrug(prescription);
 		// System.out.println("use the drug");
 		ui.addPathography("used a drug!");
 
