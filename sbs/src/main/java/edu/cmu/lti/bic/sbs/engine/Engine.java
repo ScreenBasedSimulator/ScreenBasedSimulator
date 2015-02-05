@@ -36,7 +36,7 @@ public class Engine {
 	 * Constructor function, responsible for creating UserInterface, Simulator
 	 * and Evaluator
 	 */
-	public Engine() {
+	public Engine() throws Exception {
 		// Scenario initialization
 		scen = new Scenario();
 

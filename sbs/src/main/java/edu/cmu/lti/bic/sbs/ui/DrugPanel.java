@@ -21,13 +21,11 @@ public class DrugPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -8054193195906106046L;
-//	String[] drugName = { "Durg1", "Durg2", "Durg3", "Durg4" };
 	String[] unit = { "ml", "mg" };
 	HashMap<String, String> drugInStore = new HashMap<String, String>();// name, id
 	UserInterface ui;
 	DefaultComboBoxModel<String> drugModel = new DefaultComboBoxModel<String>();
 	DefaultComboBoxModel<String> unitModel = new DefaultComboBoxModel<String>();
-	//DrugWindow drugWindow;
 	
 	 void addDrug(String name, String id){
 	   if(!drugInStore.containsKey(name)) 
