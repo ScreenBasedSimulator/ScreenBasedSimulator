@@ -24,16 +24,15 @@ public class UserInterface {
 	 * 
 	 * @param decisionEngine
 	 *            the decision engine it's connected to
-	 * @throws UserInterfaceInitializationException
-	 *             when the user interface is not initialized properly, it will
-	 *             throw UserInterfaceInitializationException.
+	 * @throws Exception 
 	 */
 
 	public UserInterface(Engine decisionEngine)
-			throws UserInterfaceInitializationException {
+			throws Exception {
 		this.decisionEngine = decisionEngine;
 		this.toolMap = new HashMap<String, Tool>();
 		this.drugMap = new HashMap<String, Drug>();
+		Sound.play("1");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -82,7 +81,7 @@ public class UserInterface {
 	// window.setTime(time.getHour(), time.getMinute(), time.getSecond());
 	// }
 
-	public void setPatientInfo(Patient patient) {
+	public void setPatientInfo(final Patient patient) {
 		assert (patient != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -92,7 +91,7 @@ public class UserInterface {
 
 	}
 
-	public void addDrug(Drug drug) {
+	public void addDrug(final Drug drug) {
 		assert (drug != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
