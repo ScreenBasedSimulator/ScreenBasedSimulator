@@ -24,20 +24,20 @@ public class UserInterface {
 	 * engine
 	 * 
 	 * @param decisionEngine
-	 *            the decision engine it's connected to
-	 * @throws Exception 
+	 *          the decision engine it's connected to
+	 * @throws Exception
 	 */
 
-	public UserInterface(Engine decisionEngine)
-			throws Exception {
+	public UserInterface(Engine decisionEngine) throws Exception {
 		this.decisionEngine = decisionEngine;
 		this.toolMap = new HashMap<String, Tool>();
 		this.drugMap = new HashMap<String, Drug>();
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					window = new MainWindow(ui);
-
+					Sound.play("1");
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -125,11 +125,10 @@ public class UserInterface {
 		assert (p.getRepiratinoRate() != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				window.setMonitor(p.getBloodPressure()
-						.getDiastolicBloodPressure(), p.getBloodPressure()
-						.getSystolicBloodPressure(), p.getHeartRate()
-						.getHrNum(), p.getOxygenLevel().getOlNum(), p
-						.getRepiratinoRate().getRrNum());
+				window.setMonitor(p.getBloodPressure().getDiastolicBloodPressure(), p
+						.getBloodPressure().getSystolicBloodPressure(), p.getHeartRate()
+						.getHrNum(), p.getOxygenLevel().getOlNum(), p.getRepiratinoRate()
+						.getRrNum());
 			}
 		});
 	}
