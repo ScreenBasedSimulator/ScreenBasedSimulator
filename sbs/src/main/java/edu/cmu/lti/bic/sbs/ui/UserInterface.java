@@ -32,12 +32,12 @@ public class UserInterface {
 		this.decisionEngine = decisionEngine;
 		this.toolMap = new HashMap<String, Tool>();
 		this.drugMap = new HashMap<String, Drug>();
-		Sound.play("1");
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					window = new MainWindow(ui);
-
+					Sound.play("1");
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
