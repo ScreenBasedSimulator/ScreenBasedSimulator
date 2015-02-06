@@ -9,7 +9,6 @@ import java.util.Calendar;
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.engine.Engine;
-import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;

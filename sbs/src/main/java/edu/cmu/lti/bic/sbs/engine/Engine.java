@@ -22,18 +22,20 @@ import edu.cmu.lti.bic.sbs.ui.UserInterface;
  */
 public class Engine {
 	UserInterface ui = null;
-	Simulator sim = null;
-	Evaluator eval = null;
-	Scenario scen = null;
+	Simulator simulator = null;
+	Evaluator evaluator = null;
+	Scenario scenario = null;
 	Calendar time = Calendar.getInstance();
 	Timer timer = new Timer();
 	private Gson gson = new Gson();
 
 	boolean isMonitorConnected = false;
 
-	/*
+	/**
 	 * Constructor function, responsible for creating UserInterface, Simulator and
 	 * Evaluator
+	 * 
+	 * @throws Exception
 	 */
 	public Engine() throws Exception {
 		// User interface initialization
@@ -46,7 +48,7 @@ public class Engine {
 		}
 
 		// Scenario initialization
-		scen = new Scenario(ui);
+		scenario = new Scenario(ui);
 		// Load Tool data to user interface
 		FileReader fileReader = null;
 		try {
@@ -73,51 +75,33 @@ public class Engine {
 		// Patient and Simulator initialization
 		// Raw data should be loaded by file input later...
 
-		sim = new Simulator(patient);
+		simulator = new Simulator(patient);
 
 		// Evaluator initialization
-		eval = new Evaluator();
+		evaluator = new Evaluator();
 		// Start looping
 
 		timer.scheduleAtFixedRate(new CoreTimerTask(1000, this), 0, 1000);
 	}
 
-	/*
-	 * process() start a scenario simulation
-	 */
-
-	public void process() {
-
-		String code = "code blue";
-		scen.callCode(code);
-
-		scen.connectMonitor();
-
-		// scen.useDrug(drug, dose);
-
-		// Tool tool = new Tool();
-		// scen.useTool(tool);
-	}
-
 	public void useTool(Tool tool) {
-		scen.useTool(tool);
-		eval.receive(tool, time);
-		sim.simulateWithTool(tool);
-
+		scenario.useTool(tool);
+		evaluator.receive(tool, time);
+		simulator.simulateWithTool(tool);
 	}
 
 	public void useDrug(Prescription p) {
-		scen.useDrug(p.getDrug(), p.getDose());
-		eval.receive(p, time);
-		sim.simWithDrugs(p.getDrug(), p.getDose());
+		scenario.useDrug(p.getDrug(), p.getDose());
+		evaluator.receive(p, time);
+		simulator.simWithDrugs(p);
 	}
 
 	public void update(int interval) {
 		time.add(Calendar.MILLISECOND, interval);
 		ui.updateTime(time);
 
-		Patient p = sim.simPatient();
-		eval.regularUpdate(p, time);
+		Patient p = simulator.simPatient();
+		evaluator.regularUpdate(p, time);
 		if (isMonitorConnected) {
 			ui.updateMonitor(p);
 		}
