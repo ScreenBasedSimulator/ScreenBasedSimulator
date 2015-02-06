@@ -19,11 +19,18 @@ public class Timer {
 		offset[1] = end;
 	}
 	
-	Timer() {
+	public Timer() {
 		offset = new float[2];
 	}
 	
 	public String toString() {
 		return "The time period is starting from " + offset[0] + " to " + offset[1];
+	}
+	
+	public static void main(String[] args) {
+		Timer t = new Timer();
+		t.setTime(0, 1);
+		System.out.println(t.getTime());
+		System.out.println(t.toString());
 	}
 }

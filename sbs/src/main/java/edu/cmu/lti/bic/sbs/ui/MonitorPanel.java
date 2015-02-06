@@ -28,7 +28,9 @@ public class MonitorPanel extends JPanel {
 	JLabel heartRateLabel;
 	JLabel oxygenLevelLabel;
 	JLabel respiratoryRateLabel;
-
+	/**
+	 * initialize the monitor panel with four sub panel set up.
+	 */
 	private void initialize() {
 
 		this.setBorder(new TitledBorder(null, "Monitor", TitledBorder.LEADING,
@@ -79,24 +81,42 @@ public class MonitorPanel extends JPanel {
 		respiratoryRatePanel.add(respiratoryRateLabel);
 	}
 
+
+	/**
+	 * setBloodPressure sets up the diastolic blood pressure and systolic blood pressure of the patient
+	 * @param bloodPressureUpperBound the systolic blood pressure of current status
+	 * @param bloodPressureLowerBound the diastolic blood pressure of current status
+	 */
+
 	public void setBloodPressure(Double bloodPressureUpperBound,
 			Double bloodPressureLowerBound) {
 		bloodPressureLabel.setText(bloodPressureUpperBound.intValue() + "/"
 				+ bloodPressureLowerBound.intValue() + " mmHg");
 	}
-
+	/**
+	 * set the heart rate of the patient
+	 * @param heartRate the heart rate of current status
+	 */
 	public void setHeartRate(Double heartRate) {
 		heartRateLabel.setText(heartRate.intValue() + " bpm");
 	}
-
+	/**
+	 * set the oxygen level of the patient
+	 * @param oxygenLevel the oxygen level of the current status
+	 */
 	public void setOxygenLevel(Double oxygenLevel) {
 		oxygenLevelLabel.setText(oxygenLevel.intValue() + " %");
 	}
-
+	/**
+	 * set the respiratory rate of the patient
+	 * @param respiratoryRate the respiratory level of the current status
+	 */
 	public void setRespiratoryRate(Double respiratoryRate) {
 		respiratoryRateLabel.setText(respiratoryRate.toString());
 	}
-	
+	/**
+	 * clear the monitor display and reset them to ?
+	 */
 	public void clearMonitor() {
 		
 	}

@@ -1,9 +1,10 @@
 package edu.cmu.lti.bic.sbs.engine;
-
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Tool;
+
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
+
 
 /**
  * The Scenario Class

@@ -36,8 +36,8 @@ public class Engine {
 	 * Constructor function, responsible for creating UserInterface, Simulator
 	 * and Evaluator
 	 */
-	public Engine() {
 
+	public Engine() throws Exception {
 		// User interface initialization
 		try {
 			System.out.println("Initializing the user interface");
@@ -103,6 +103,8 @@ public class Engine {
 
 	public void useTool(Tool tool) {
 		scen.useTool(tool);
+		eval.receive(tool);
+		sim.simulateWithTool(tool);
 
 	}
 
