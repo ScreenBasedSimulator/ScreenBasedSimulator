@@ -14,13 +14,21 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 public class UserInterface {
 	private Engine decisionEngine;
 	private MainWindow window;
+	private ReportWindow reportWindow;
 	private HashMap<String, Tool> toolMap;
 	private HashMap<String, Drug> drugMap;
 	private UserInterface ui = this;
-	//private DrugWindow drugWindow;
-	//
-	public UserInterface(Engine decisionEngine)
-			throws UserInterfaceInitializationException {
+
+	/**
+	 * initialize the user interface controller and connect it with decision
+	 * engine
+	 * 
+	 * @param decisionEngine
+	 *          the decision engine it's connected to
+	 * @throws Exception exception
+	 */
+
+	public UserInterface(Engine decisionEngine) throws Exception {
 		this.decisionEngine = decisionEngine;
 		this.toolMap = new HashMap<String, Tool>();
 		this.drugMap = new HashMap<String, Drug>();
@@ -35,7 +43,6 @@ public class UserInterface {
 				}
 			}
 		});
-		//drugPanel=new DrugPanel(this);
 	}
 	
 	public void callCode(String code) {
@@ -62,14 +69,8 @@ public class UserInterface {
 		assert(drug != null);
 		Prescription prescription = new Prescription(drug, dose, unit);
 		decisionEngine.useDrug(prescription);
-		//System.out.println("use the drug");
 		ui.addPathography("used a drug!");
 	}
-
-	// public void setTime(LocalTime time) {
-	// assert(time != null);
-	// window.setTime(time.getHour(), time.getMinute(), time.getSecond());
-	// }
 
 	public void setPatientInfo(Patient patient) {
 		assert (patient != null);
@@ -100,8 +101,19 @@ public class UserInterface {
 		});
 	}
 
-	public void updateReport() {
-
+	public void updateReport(Double score, String report) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					if (reportWindow == null)
+						reportWindow = new ReportWindow();
+					reportWindow.setScore(score.toString());
+					reportWindow.setContent(report);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public void updateMonitor(Patient p) {
