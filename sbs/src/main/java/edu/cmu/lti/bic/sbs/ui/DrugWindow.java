@@ -1,7 +1,5 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
 public class DrugWindow {

@@ -13,7 +13,6 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
-import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
 
 /**
  * The Engine Class
@@ -44,7 +43,7 @@ public class Engine {
 		try {
 			System.out.println("Initializing the user interface");
 			ui = new UserInterface(this);
-		} catch (UserInterfaceInitializationException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
