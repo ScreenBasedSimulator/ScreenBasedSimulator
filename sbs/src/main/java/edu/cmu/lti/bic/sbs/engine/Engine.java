@@ -18,7 +18,7 @@ import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
 /**
  * The Engine Class
  * 
- * @author Xiaoxu Lu <xiaoxul@andrew.cmu.edu>
+ * @author Xiaoxu Lu
  *
  */
 public class Engine {
@@ -101,13 +101,13 @@ public class Engine {
 
 	public void useTool(Tool tool) {
 		scen.useTool(tool);
-		eval.receive(tool);
+		eval.receive(tool, time);
 		sim.simulateWithTool(tool);
 	}
 
 	public void useDrug(Prescription p) {
 		scen.useDrug(p.getDrug(), p.getDose());
-		eval.receive(p);
+		eval.receive(p, time);
 		sim.simWithDrugs(p.getDrug(), p.getDose());
 	}
 
@@ -116,6 +116,7 @@ public class Engine {
 		ui.updateTime(time);
 		
 		Patient p = sim.simPatient();
+		eval.regularUpdate(p,time);
 		if (isMonitorConnected) {
 			ui.updateMonitor(p);
 		}

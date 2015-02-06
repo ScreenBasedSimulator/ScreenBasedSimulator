@@ -17,12 +17,12 @@ public class NursePanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -3126359881920225699L;
-	private UserInterface ui;
+	
 
-	/**
-	 * Launch the application.
-	 */
-
+  /**
+   * 
+   * @param ui user interface
+   */
 	public NursePanel(UserInterface ui) {
 		initialize(ui);
 	}
@@ -31,7 +31,6 @@ public class NursePanel extends JPanel {
 	 * Initialize the contents of the frame and sets up three event listener.
 	 */
 	private void initialize(final UserInterface ui) {
-		this.ui = ui;
 
 		this.setBorder(new TitledBorder(null, "Nurse", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));

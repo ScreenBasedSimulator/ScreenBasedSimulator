@@ -18,9 +18,11 @@ public class ToolPanel extends JPanel {
 	private static final long serialVersionUID = -8601396289086820070L;
 	List<JLabel> labelList;
 	UserInterface ui;
+	
+
 	/**
 	 * the constructor initialized the tool panel and pass in the ui parameter
-	 * @param ui
+	 * @param ui user interface
 	 */
 	public ToolPanel(UserInterface ui) {
 		this.ui = ui;

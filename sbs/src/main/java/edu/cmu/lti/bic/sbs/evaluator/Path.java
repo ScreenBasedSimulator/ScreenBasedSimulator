@@ -14,8 +14,8 @@ public class Path {
 
 	/**
 	 * The method that use to calculate the score between two paths.
-	 * @param p2
-	 * @return
+	 * @param p2 real path
+	 * @return score
 	 */
 	public double pathScore(Path p2) {
 		// Required this and p2

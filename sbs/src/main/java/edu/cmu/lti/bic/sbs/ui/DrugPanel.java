@@ -37,9 +37,10 @@ public class DrugPanel extends JPanel {
 	  }
 
 	
-	/**
-	 * initialize the drug panel and pass the ui parameter in.
-	 */
+	 /**
+	  * initialize the drug panel and pass the ui parameter in.
+	  * @param ui user interface
+	  */
 	public DrugPanel(UserInterface ui) {
 		initialize();
 		this.ui=ui;

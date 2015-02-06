@@ -5,8 +5,8 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 
 /**
  * The Step Class
- * @author Victor Zhao <xinyunzh@andrew.cmu.edu>
- *
+ * @author Victor Zhao
+ * 
  */
 public class Step {
 	//private Medicine medUsed;

@@ -2,11 +2,13 @@ package edu.cmu.lti.bic.sbs.evaluator;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.engine.Engine;
 import edu.cmu.lti.bic.sbs.gson.Drug;
+import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.MedicalParameter;
@@ -18,7 +20,7 @@ class BloodPressure implements MedicalParameter {
 
 public class Evaluator {
 	private float score;
-	private Engine e;
+	private Engine engine;
 	// private String report;
 	
 	class Report{
@@ -34,23 +36,27 @@ public class Evaluator {
 	  System.out.println("evaluator.ReceivePara called by engine!");
 	}
 	
+
 	/**
 	 * called by engine to receive the drug and dose variables
-	 * 
-	 * @param drug, Drug is a Class defined in gson package
-	 * @param dose
+	 * @param p Drug is a Class defined in gson package
+	 * @param time time used
 	 */
-	public void receive(Prescription p){
+	public void receive(Prescription p, Calendar time){
 	   System.out.println("Evaluator: USER ACTION: USE DRUG:" + p.getDrug().getName());
 	}
 	
-	/**
-	 *  called by engine to receive the Equipment variables
-	 * 
-	 * @param eq, Equipment is a Class defined in gson package
-	 */
 	
-	public void receive(Tool tool){
+	public void regularUpdate(Patient p, Calendar time) {
+		
+	}
+	
+	/**
+	 * called by engine to receive the Equipment variables
+	 * @param tool Equipment is a Class defined in gson package
+	 * @param time time used
+	 */
+	public void receive(Tool tool, Calendar time){
 	   System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
   }
 	
@@ -70,7 +76,9 @@ public class Evaluator {
 	public Evaluator() {
 		score = 0;
 	}
-	
+	public void setInitialTime(Calendar initTime) {
+		
+	}
 	private void generateReport() {
 		PrintWriter writer = null;
 		try {
@@ -87,6 +95,7 @@ public class Evaluator {
 		r.report = this.toString();
 		r.score = this.score;
 		String report = gson.toJson(r);
+		
 		writer.println(report);
 		writer.close();
 	}
@@ -94,7 +103,7 @@ public class Evaluator {
 	public static void main(String[] args) {
 		Evaluator eva = new Evaluator();
 		eva.receivePara(new BloodPressure());
-		eva.receive(new Prescription(new Drug(), 0.0, "test"));
+		//eva.receive(new Prescription(new Drug(), 0.0, "test"));
 		eva.calculateScore();
 		eva.getScore();
 		System.out.println(eva.toString());

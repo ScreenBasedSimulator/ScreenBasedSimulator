@@ -3,7 +3,7 @@ import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 /**
  * The Scenario Class
- * @author Xiaoxu Lu <xiaoxul@andrew.cmu.edu>
+ * @author Xiaoxu Lu 
  *
  */
 public class Scenario {
