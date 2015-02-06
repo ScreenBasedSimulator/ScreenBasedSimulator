@@ -5,7 +5,6 @@ import java.io.*;
 import sun.audio.*;
 
 public class Sound {
-
 	@SuppressWarnings("restriction")
 	private static AudioStream audioStream = null;
 

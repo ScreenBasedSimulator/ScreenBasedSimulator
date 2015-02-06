@@ -71,10 +71,9 @@ public class UserInterface {
 		Prescription prescription = new Prescription(drug, dose, unit);
 		decisionEngine.useDrug(prescription);
 		ui.addPathography("used a drug!");
-
 	}
 
-	public void setPatientInfo(Patient patient) {
+	public void setPatientInfo(final Patient patient) {
 		assert (patient != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

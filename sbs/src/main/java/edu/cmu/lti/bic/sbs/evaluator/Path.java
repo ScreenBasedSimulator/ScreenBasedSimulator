@@ -14,8 +14,13 @@ public class Path {
 
 	/**
 	 * The method that use to calculate the score between two paths.
+<<<<<<< HEAD
 	 * @param p2 real path
 	 * @return score
+=======
+	 * @param p2
+	 * @return
+>>>>>>> ariel_engine
 	 */
 	public double pathScore(Path p2) {
 		// Required this and p2

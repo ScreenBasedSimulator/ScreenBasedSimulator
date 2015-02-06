@@ -17,12 +17,11 @@ public class NursePanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -3126359881920225699L;
-	
 
-  /**
-   * 
-   * @param ui user interface
-   */
+	/**
+	 * Launch the application.
+	 */
+
 	public NursePanel(UserInterface ui) {
 		initialize(ui);
 	}
@@ -30,7 +29,7 @@ public class NursePanel extends JPanel {
 	/**
 	 * Initialize the contents of the frame and sets up three event listener.
 	 */
-	private void initialize(final UserInterface ui) {
+	private void initialize(UserInterface ui) {
 
 		this.setBorder(new TitledBorder(null, "Nurse", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
@@ -57,8 +56,7 @@ public class NursePanel extends JPanel {
 		JButton callCodeBtn = new JButton("Code Blue");
 		callCodeBtn.addMouseListener(new MouseAdapter() {
 			/**
-			 * mouseClicked sets up the event when the call code button is
-			 * clicked
+			 * mouseClicked sets up the event when the call code button is clicked
 			 */
 
 			@Override
