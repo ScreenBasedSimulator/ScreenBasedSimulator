@@ -28,14 +28,13 @@ public class Engine {
 	Calendar time = Calendar.getInstance();
 	Timer timer = new Timer();
 	private Gson gson = new Gson();
-	
+
 	boolean isMonitorConnected = false;
 
 	/*
-	 * Constructor function, responsible for creating UserInterface, Simulator
-	 * and Evaluator
+	 * Constructor function, responsible for creating UserInterface, Simulator and
+	 * Evaluator
 	 */
-
 	public Engine() throws Exception {
 		// User interface initialization
 		try {
@@ -48,7 +47,6 @@ public class Engine {
 
 		// Scenario initialization
 		scen = new Scenario(ui);
-
 		// Load Tool data to user interface
 		FileReader fileReader = null;
 		try {
@@ -72,14 +70,15 @@ public class Engine {
 		Patient patient = gson.fromJson(fileReader, Patient.class);
 		ui.setPatientInfo(patient);
 
+		// Patient and Simulator initialization
+		// Raw data should be loaded by file input later...
+
 		sim = new Simulator(patient);
 
 		// Evaluator initialization
 		eval = new Evaluator();
-		
-		
 		// Start looping
-		
+
 		timer.scheduleAtFixedRate(new CoreTimerTask(1000, this), 0, 1000);
 	}
 
@@ -107,7 +106,6 @@ public class Engine {
 
 	}
 
-
 	public void useDrug(Prescription p) {
 		scen.useDrug(p.getDrug(), p.getDose());
 		eval.receive(p, time);
@@ -117,14 +115,14 @@ public class Engine {
 	public void update(int interval) {
 		time.add(Calendar.MILLISECOND, interval);
 		ui.updateTime(time);
-		
+
 		Patient p = sim.simPatient();
-		eval.regularUpdate(p,time);
+		eval.regularUpdate(p, time);
 		if (isMonitorConnected) {
 			ui.updateMonitor(p);
 		}
 	}
-	
+
 	public void connectMonitor() {
 		isMonitorConnected = true;
 	}
