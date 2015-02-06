@@ -2,7 +2,7 @@ package edu.cmu.lti.bic.sbs.gson;
 
 /**
  * The Tool Class
- * @author Victor Zhao <xinyunzh@andrew.cmu.edu>
+ * @author Victor Zhao
  *
  */
 public class Tool {

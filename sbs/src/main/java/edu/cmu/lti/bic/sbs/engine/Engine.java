@@ -17,7 +17,7 @@ import edu.cmu.lti.bic.sbs.ui.UserInterface;
 /**
  * The Engine Class
  * 
- * @author Xiaoxu Lu <xiaoxul@andrew.cmu.edu>
+ * @author Xiaoxu Lu
  *
  */
 public class Engine {
@@ -35,7 +35,7 @@ public class Engine {
 	 * Constructor function, responsible for creating UserInterface, Simulator
 	 * and Evaluator
 	 */
-	public Engine() {
+	public Engine() throws Exception {
 		// Scenario initialization
 		scen = new Scenario();
 
@@ -84,6 +84,7 @@ public class Engine {
 	/*
 	 * process() start a scenario simulation
 	 */
+
 	public void process() {
 
 		String code = "code blue";
@@ -99,13 +100,13 @@ public class Engine {
 
 	public void useTool(Tool tool) {
 		scen.useTool(tool);
-		eval.receive(tool);
+		eval.receive(tool, time);
 		sim.simulateWithTool(tool);
 	}
 
 	public void useDrug(Prescription p) {
 		scen.useDrug(p.getDrug(), p.getDose());
-		eval.receive(p);
+		eval.receive(p, time);
 		sim.simWithDrugs(p.getDrug(), p.getDose());
 	}
 
@@ -114,6 +115,7 @@ public class Engine {
 		ui.updateTime(time);
 		
 		Patient p = sim.simPatient();
+		eval.regularUpdate(p,time);
 		if (isMonitorConnected) {
 			ui.updateMonitor(p);
 		}

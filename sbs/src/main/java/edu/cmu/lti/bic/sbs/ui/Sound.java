@@ -5,8 +5,11 @@ import java.io.*;
 import sun.audio.*;
 
 public class Sound {
-	static AudioStream audioStream = null;
 
+	@SuppressWarnings("restriction")
+	private static AudioStream audioStream = null;
+
+	@SuppressWarnings("restriction")
 	public static void play(String id) throws Exception {
 
 		if (id.equals("1")) {

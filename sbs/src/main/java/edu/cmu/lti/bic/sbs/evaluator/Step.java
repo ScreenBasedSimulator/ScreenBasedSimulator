@@ -5,8 +5,8 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 
 /**
  * The Step Class
- * @author Victor Zhao <xinyunzh@andrew.cmu.edu>
- *
+ * @author Victor Zhao
+ * 
  */
 public class Step {
 	//private Medicine medUsed;
@@ -14,6 +14,8 @@ public class Step {
 	private Timer timeUsed;
 	private Drug drugUsed;
 	private Tool toolUsed;
+	
+	
 	
 	// private undefined patientStatus;
 	
@@ -25,5 +27,10 @@ public class Step {
 		drugUsed = new Drug();
 		timeUsed = new Timer();
 		toolUsed = new Tool("","","");
+	}
+	
+	public static void main(String[] args) {
+		Step s = new Step();
+		System.out.println(s.getStep());
 	}
 }
