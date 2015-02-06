@@ -3,6 +3,7 @@ package edu.cmu.lti.bic.sbs.evaluator;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.google.gson.Gson;
@@ -29,6 +30,12 @@ public class Evaluator {
 		double score;
 		String report;
 	}
+
+	private String report;
+
+	// data structure to store the parameters recieved
+
+	private ArrayList<Received> paras;
 
 	/**
 	 * called by engine to receive the medPara
@@ -84,6 +91,7 @@ public class Evaluator {
 
 	public Evaluator() {
 		score = 0;
+		paras = new ArrayList<Received>();
 	}
 
 	public void setInitialTime(Calendar initTime) {
@@ -117,6 +125,6 @@ public class Evaluator {
 		eva.calculateScore();
 		eva.getScore();
 		System.out.println(eva.toString());
-		
+
 	}
 }
