@@ -23,10 +23,7 @@ public class Step {
 	}
 	
 	public Step() {
-		prescriptionUsed = new Prescription();
-		timeUsed = new Timer();
-		toolUsed = new Tool("","","");
-		patient = new Patient();
+		
 	}
 	
 	public Step(Patient apatient, Prescription prescription, Tool tool, Timer time){
