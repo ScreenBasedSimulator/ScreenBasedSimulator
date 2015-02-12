@@ -10,12 +10,14 @@ public class Simulator {
 	Patient pt;
 	
 	//adding default value for four parameter
-	float defaultBp;
-	float defaultHr;
-	float defaultOl;
-	float defaultRr;
+	double defaultBp;
+	double defaultHr;
+	static double defaultOl = 0.6;
+	double defaultRr;
 	
-
+	public static void main(String[] args) {
+		System.out.println(ytFunction(80));
+	}
 	
 	//the initialization function for engine to involve
 	public Patient initialPatient(){
@@ -24,9 +26,7 @@ public class Simulator {
 		pt.getHr().setHrNum(defaultHr);
 		pt.getOl().setOlNum(defaultOl);
 		pt.getRr().setRrNum(defaultRr);
-		
 		return pt;
-		
 	}
 	
 	public Simulator(){
@@ -55,9 +55,7 @@ public class Simulator {
 //		System.out.println(eq.getDescription());
 //		System.out.println(eq.getId());
 //		System.out.println(eq.getName());
-
 	}
-	
 	
 	public void simWithDrugs(List<Drug> drugList){
 		//set the parameters according to the drug from engine
@@ -73,13 +71,15 @@ public class Simulator {
 		
 		Tool currentTool = toolList.get(toolList.size() - 1);
 		
+		double value = currentTool.getValue();
+		
+		pt.setOl(new OxygenLevel(ytFunction(value)));
+		
 		if(currentTool.getName() == "oxygenMask"){
 			OxygenMask currentToolOxygenMask = (OxygenMask) currentTool;
 			
 			System.out.println("id:"+currentToolOxygenMask.getId()+" name:"+currentToolOxygenMask.getName()+" description "+currentToolOxygenMask.getDescription() + " oxygenLevel "+currentToolOxygenMask.getOxygenValue());
-
 		}
-		
 		
 		System.out.println("invoke function simWithTool");
 		simulateWithTool(toolList);
@@ -91,9 +91,52 @@ public class Simulator {
 		System.out.println("invoke function simWithDrugs");
 		simWithDrugs(drugList);
 		
-		
 		System.out.println("return patient");
 		return pt;
-		
 	}
+	
+	public static double fFunction(double x){
+		double p1 = 1.667 * Math.pow(10, -6);
+		double p2 = -0.0002536;
+		double p3 = 0.01458;
+		double p4 = -0.2743;
+		
+		double result;
+		
+		result = p1*Math.pow(x, 3) + p2*Math.pow(x, 2) + p3*x + p4;
+		
+		System.out.println("fFunction's result:"+result);
+		
+		return result;
+	}
+	
+	public static double t0Function(double x0){
+		double result;
+		
+		result = 1.0*(120 - x0)/2 - 1.0/fFunction(x0) * Math.log(1.0*(1-defaultOl) / defaultOl);
+	
+		System.out.println("1.0*(120 - x0)/2 = " + 1.0*(120 - x0)/2);
+		System.out.println("1.0/fFunction(x0) = "+1.0/fFunction(x0));
+		System.out.println("Math.log(1.0*(1-defaultOl) / defaultOl = " + Math.log(1.0*(1-defaultOl) / defaultOl ));
+		
+		System.out.println("t0Function's result:"+result);
+		
+		return result;
+	}
+	
+	public static double ytFunction(double x0){
+		double result;
+		
+		result = 1.0/(1 + Math.exp(-fFunction(x0) * ((t0Function(x0) + 1) - 1.0*(120 - x0)/2)));
+		
+		System.out.println("Math.exp(-fFunction(x0) * (t0Function(x0) + 1) - 1.0*(120 - x0)/2) ="+Math.exp(-fFunction(x0) * (t0Function(x0) + 1) - 1.0*(120 - x0)/2));
+		System.out.println("");
+		
+		System.out.println("ytFunction's result:"+result);
+		
+		return result;
+	}
+	
+	
+	
 }

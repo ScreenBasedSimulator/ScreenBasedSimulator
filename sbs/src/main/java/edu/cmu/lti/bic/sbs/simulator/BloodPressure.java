@@ -1,18 +1,18 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
 public class BloodPressure implements MedicalParameter {
-	float bpNum;
+	double bpNum;
 
-	public BloodPressure(float bp) {
+	public BloodPressure(double bp) {
 		super();
 		this.bpNum = bp;
 	}
 
-	public float getBpNum() {
+	public double getBpNum() {
 		return bpNum;
 	}
 
-	public void setBpNum(float bp) {
+	public void setBpNum(double bp) {
 		this.bpNum = bp;
 	}
 	

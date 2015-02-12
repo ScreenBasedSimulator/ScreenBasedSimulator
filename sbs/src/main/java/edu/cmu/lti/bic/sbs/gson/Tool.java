@@ -9,6 +9,7 @@ public class Tool {
 	private String name = null;
 	private String description = null;
 	private String id = null;
+	private double value;
 	
 	public String getName() {
 		return name;
@@ -36,7 +37,14 @@ public class Tool {
 		this.id = id;
 		this.name = name;
 		this.description = description;
-	
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
 	}
 	
 }

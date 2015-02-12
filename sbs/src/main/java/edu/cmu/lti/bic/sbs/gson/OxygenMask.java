@@ -2,21 +2,21 @@ package edu.cmu.lti.bic.sbs.gson;
 
 
 public class OxygenMask extends Tool {
-	float oxygenValue;
+	double oxygenValue;
 
 	
 	//constructor function
 	public OxygenMask(String id, String name, String description,
-			float oxygenValue) {
+			double oxygenValue) {
 		super(id, name, description);
 		this.oxygenValue = oxygenValue;
 	}
 
-	public float getOxygenValue() {
+	public double getOxygenValue() {
 		return oxygenValue;
 	}
 
-	public void setOxygenValue(float oxygenValue) {
+	public void setOxygenValue(double oxygenValue) {
 		this.oxygenValue = oxygenValue;
 	}
 	

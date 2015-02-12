@@ -1,18 +1,18 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
 public class HeartRate implements MedicalParameter {
-	float hrNum;
+	double hrNum;
 
-	public HeartRate(float hrNum) {
+	public HeartRate(double hrNum) {
 		super();
 		this.hrNum = hrNum;
 	}
 
-	public float getHrNum() {
+	public double getHrNum() {
 		return hrNum;
 	}
 
-	public void setHrNum(float hrNum) {
+	public void setHrNum(double hrNum) {
 		this.hrNum = hrNum;
 	}
 	

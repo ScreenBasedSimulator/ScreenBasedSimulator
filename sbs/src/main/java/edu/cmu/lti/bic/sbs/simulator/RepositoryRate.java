@@ -1,18 +1,18 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
 public class RepositoryRate implements MedicalParameter {
-	float rrNum;
+	double rrNum;
 
-	public RepositoryRate(float rrNum) {
+	public RepositoryRate(double rrNum) {
 		super();
 		this.rrNum = rrNum;
 	}
 
-	public float getRrNum() {
+	public double getRrNum() {
 		return rrNum;
 	}
 
-	public void setRrNum(float rrNum) {
+	public void setRrNum(double rrNum) {
 		this.rrNum = rrNum;
 	}
 	

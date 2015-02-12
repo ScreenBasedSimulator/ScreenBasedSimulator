@@ -5,7 +5,7 @@ public class Drug {
 	private String description = "";
 	private String id = "";
 	
-	private float does;
+	private double does;
 	
 	public Drug(){
 		
@@ -21,7 +21,7 @@ public class Drug {
 		this.id = id;
 	}
 
-	public Drug(String name, String description, String id, float does) {
+	public Drug(String name, String description, String id, double does) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -54,11 +54,11 @@ public class Drug {
 	}
 	
 	
-	public float getDoes() {
+	public double getDoes() {
 		return does;
 	}
 
-	public void setDoes(float does) {
+	public void setDoes(double does) {
 		this.does = does;
 	}
 
