@@ -9,7 +9,6 @@ import javax.swing.border.TitledBorder;
  * 
  */
 public class ClockPanel extends JPanel {
-	
 	private static final long serialVersionUID = 2681406500889937962L;
 
 	JLabel timeLabel = null;
@@ -17,11 +16,16 @@ public class ClockPanel extends JPanel {
 	int second = 0;
 	int minute = 0;
 	int hour = 0;
+
 	/**
 	 * setTime method sets the current time of clock panel.
-	 * @param h represents the current hour
-	 * @param m represents the current minute
-	 * @param s represents the current second
+	 * 
+	 * @param h
+	 *          represents the current hour
+	 * @param m
+	 *          represents the current minute
+	 * @param s
+	 *          represents the current second
 	 */
 	public void setTime(int h, int m, int s) {
 		second = s;
@@ -51,6 +55,7 @@ public class ClockPanel extends JPanel {
 		}
 		timeLabel.setText(text.toString());
 	}
+
 	/**
 	 * initialize the clock panel and specify its content when initialized.
 	 */

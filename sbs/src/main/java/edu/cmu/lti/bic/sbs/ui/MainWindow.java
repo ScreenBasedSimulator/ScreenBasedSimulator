@@ -17,8 +17,10 @@ public class MainWindow {
 		frame.setVisible(isVisible);
 	}
 
+
 	/**
 	 * Create the application, pass in ui parameter and initialize the main window.
+	 * @param ui user interface
 	 */
 	public MainWindow(UserInterface ui) {
 		this.ui = ui;
