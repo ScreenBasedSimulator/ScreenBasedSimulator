@@ -21,11 +21,13 @@ public class Evaluator {
 	private Engine e;
 	private Path actual;
 	private Path goldStandard;
+	private Step currentStep;
 	// private String report;
 	
 	public Evaluator(){
 	  actual = new Path();
 	  goldStandard = new Path();
+	  currentStep = new Step();
 	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("0", "Call Code", ""), new Time()));
 	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("1", "Mask", ""), new Time()));
 	  goldStandard.add(new Step(new Patient(), new Prescription(new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool("2", "Inject", ""), new Time()));
@@ -35,6 +37,8 @@ public class Evaluator {
 		double score;
 		String report;
 	}
+
+	
 	
 	/** called by engine to receive the medPara
 	 * 
@@ -50,8 +54,24 @@ public class Evaluator {
 	 * @param drug, Drug is a Class defined in gson package
 	 * @param dose
 	 */
-	public void receive(Prescription p){
-	   System.out.println("Evaluator: USER ACTION: USE DRUG:" + p.getDrug().getName());
+	
+	public void updateStep(){
+    if (currentStep.isComplete()){
+      actual.add(currentStep);
+      currentStep = new Step();
+    }
+	}
+	
+	public void receive(Patient patient){
+	   currentStep.setPatient(patient);
+	   System.out.println("Patient added");
+	   updateStep();
+	}
+	
+	public void receive(Prescription prescription){
+	  currentStep.setPrescription(prescription);
+	  System.out.println("Evaluator: USER ACTION: USE DRUG:" + p.getDrug().getName());
+	  updateStep();
 	}
 	
 	/**
@@ -61,8 +81,16 @@ public class Evaluator {
 	 */
 	
 	public void receive(Tool tool){
-	   System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
+	  currentStep.setTool(tool);
+	  System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
+	  updateStep();
   }
+	
+	public void receive(Timer time){
+	  currentStep.setTime(time);
+	  System.out.println("Evaluator: USER ACTION: TIME:" + time.toString());
+	  updateStep();
+	}
 	
 	public void calculateScore() {
 		score = goldStandard.pathScore(actual);

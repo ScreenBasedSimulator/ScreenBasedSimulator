@@ -36,6 +36,42 @@ public class Step {
 	  patient = apatient;
 	}
 	
+	 public void setPatient(Patient p){
+	   patient = p;
+	 }
+	
+	 public Patient getPatient(){
+	   return patient;
+	 }
+	 
+	 public void setPrescription(Prescription p){
+	   prescriptionUsed = p;
+	 }
+	 
+	 public Prescription getPrescription(){
+	   return prescriptionUsed;
+	 }
+	 
+	 public void setTool(Tool t){
+	   toolUsed = t;
+	 }
+	 
+	 public Tool getTool(){
+	   return toolUsed;
+	 }
+	 
+	 public void setTime(Timer t){
+	   timeUsed = t;
+	 }
+	 
+	 public Timer getTime(){
+	   return timeUsed;
+	 }
+	 
+	 public boolean isComplete(){
+	   return (prescriptionUsed != null) && (patient != null) && (toolUsed != null) && (timeUsed != null);
+	 }
+	 
 	public double stepScore(Step a){
 	  if(this.toolUsed == a.toolUsed && this.prescriptionUsed == a.prescriptionUsed){
 	    return 1.0;
