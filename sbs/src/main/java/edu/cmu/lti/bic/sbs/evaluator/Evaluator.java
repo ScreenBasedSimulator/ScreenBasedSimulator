@@ -19,12 +19,16 @@ class BloodPressure implements MedicalParameter {
 public class Evaluator {
 	private float score;
 	private Engine e;
+	private Path actual;
 	private Path goldStandard;
 	// private String report;
 	
 	public Evaluator(){
+	  actual = new Path();
 	  goldStandard = new Path();
-	  
+	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("0", "Call Code", ""), new Time()));
+	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("1", "Mask", ""), new Time()));
+	  goldStandard.add(new Step(new Patient(), new Prescription(new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool("2", "Inject", ""), new Time()));
 	}
 	
 	class Report{
@@ -61,7 +65,7 @@ public class Evaluator {
   }
 	
 	public void calculateScore() {
-		score++;
+		score = goldStandard.pathScore(actual);
 		generateReport();
 	} 
 	

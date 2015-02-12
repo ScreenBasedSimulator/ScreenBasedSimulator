@@ -28,4 +28,10 @@ public class Drug {
 	public String getDescription(){
 		return description;
 	}
+	
+	public Drug(String n, String d, String i){
+	  this.name = n;
+	  this.description = d;
+	  this.id = i;
+	}
 }
