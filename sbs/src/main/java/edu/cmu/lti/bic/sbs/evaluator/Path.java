@@ -17,8 +17,9 @@ public class Path {
 	 * @param p2
 	 * @return
 	 */
-	public double pathScore(Path p2) {
+	public double pathScore(Path p2) throws NullPointerExpection {
 		// Required this and p2
+	    	
 		return 0.0;
 	}
 	
@@ -26,4 +27,5 @@ public class Path {
 		Path p = new Path();
 		p.pathScore(new Path());
 	}
+	
 }
