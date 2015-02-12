@@ -1,7 +1,5 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
 public class DrugWindow {
@@ -27,14 +25,12 @@ public class DrugWindow {
 	 */
 	private void initialize(DrugPanel drugPanel) {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 70);
+		frame.setBounds(100, 100, 500, 70);
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.drugPanel=drugPanel;
-		drugPanel.setBounds(200,200 , 100, 50);
+		drugPanel.setBounds(200, 200, 100, 50);
 		frame.getContentPane().add(drugPanel);
-		
-		
 	}
 
 }

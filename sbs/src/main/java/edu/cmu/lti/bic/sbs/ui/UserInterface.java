@@ -18,10 +18,17 @@ public class UserInterface {
 	private HashMap<String, Drug> drugMap;
 	private UserInterface ui = this;
 
-	// private DrugWindow drugWindow;
-	//
+	/**
+	 * initialize the user interface controller and connect it with decision
+	 * engine
+	 * 
+	 * @param decisionEngine
+	 *            the decision engine it's connected to
+	 * @throws Exception 
+	 */
+
 	public UserInterface(Engine decisionEngine)
-			throws UserInterfaceInitializationException {
+			throws Exception {
 		this.decisionEngine = decisionEngine;
 		this.toolMap = new HashMap<String, Tool>();
 		this.drugMap = new HashMap<String, Drug>();
@@ -62,7 +69,7 @@ public class UserInterface {
 		Drug drug = drugMap.get(id);
 		assert (drug != null);
 		Prescription prescription = new Prescription(drug, dose, unit);
-		decisionEngine.useDrug(prescription);
+		//decisionEngine.useDrug(prescription);
 		// System.out.println("use the drug");
 		ui.addPathography("used a drug!");
 
@@ -73,7 +80,7 @@ public class UserInterface {
 	// window.setTime(time.getHour(), time.getMinute(), time.getSecond());
 	// }
 
-	public void setPatientInfo(Patient patient) {
+	public void setPatientInfo(final Patient patient) {
 		assert (patient != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -83,7 +90,7 @@ public class UserInterface {
 
 	}
 
-	public void addDrug(Drug drug) {
+	public void addDrug(final Drug drug) {
 		assert (drug != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
