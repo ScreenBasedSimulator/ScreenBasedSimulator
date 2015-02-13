@@ -37,7 +37,7 @@ public class UserInterface {
 			public void run() {
 				try {
 					window = new MainWindow(ui);
-					Sound.play("1");
+					Sound.play("alarm");
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
