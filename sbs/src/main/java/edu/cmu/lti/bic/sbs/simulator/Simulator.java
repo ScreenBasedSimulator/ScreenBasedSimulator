@@ -95,6 +95,7 @@ public class Simulator {
 		return pt;
 	}
 	
+	//
 	public static double fFunction(double x){
 		double p1 = 1.667 * Math.pow(10, -6);
 		double p2 = -0.0002536;
@@ -110,6 +111,7 @@ public class Simulator {
 		return result;
 	}
 	
+	//
 	public static double t0Function(double x0){
 		double result;
 		
@@ -124,6 +126,7 @@ public class Simulator {
 		return result;
 	}
 	
+	//
 	public static double ytFunction(double x0){
 		double result;
 		
