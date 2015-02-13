@@ -35,6 +35,7 @@ public class DrugWindow {
 		for(Drug drug:drugMap.values()){
 		  drugPanel.addDrug(drug.getName(), drug.getId());
 		}
+	
 	}
 	
 
