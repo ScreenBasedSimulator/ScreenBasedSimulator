@@ -37,7 +37,6 @@ public class UserInterface {
 			public void run() {
 				try {
 					window = new MainWindow(ui);
-					Sound.play("1");
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -85,11 +84,13 @@ public class UserInterface {
 
 	public void addDrug(final Drug drug) {
 		assert (drug != null);
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				window.addTool(drug.getId(), drug.getName());
-			}
-		});
+		drugMap.put(drug.getId(), drug);
+	}
+	public void addDrug(Drug[] drugMap){
+	  
+	  for(Drug d:drugMap){
+	    addDrug(d);
+	  }
 	}
 
 	public void addTool(Tool tool) {
@@ -150,6 +151,11 @@ public class UserInterface {
 				window.addPathography(feedback);
 			}
 		});
+	}
+	
+	public HashMap<String,Drug> getDrugMap(){
+	  System.out.println(drugMap);
+	  return drugMap;
 	}
 
 }

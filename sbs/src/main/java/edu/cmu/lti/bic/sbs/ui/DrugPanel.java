@@ -35,13 +35,13 @@ public class DrugPanel extends JPanel {
 	 */
 
 	void addDrug(String name, String id) {
-		if (!drugInStore.containsKey(name))
-			drugInStore.put(name, id);
-		else
+		if (!drugInStore.containsKey(name)) {
+		  drugInStore.put(name, id);
+		  drugModel.addElement(name);
+		}else
 			System.out.println("This drug has already existed!");
 
-		drugModel.addElement(name);
-
+		//drugModel.addElement(name);
 	}
 
 	/**
@@ -54,18 +54,19 @@ public class DrugPanel extends JPanel {
 		this.ui = ui;
 		// this.drugWindow=drugWindow;
 	}
-
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 
 		JComboBox<String> drugBox = new JComboBox<String>(drugModel);
-		drugInStore.put("Anti-Narcotic", "11");
-		drugInStore.put("Penicillin", "22");
-		for (String s : drugInStore.keySet()) {
+		//drugInStore.put("Anti-Narcotic", "11");
+		//drugInStore.put("Penicillin", "22");
+		/*for (String s : drugInStore.keySet()) {
 			drugModel.addElement(s);
-		}
+		}*/
+		
 		drugBox.setBounds(100, 30, 110, 50);
 		drugBox.setBorder(BorderFactory.createTitledBorder("Drug"));
 		this.add(drugBox);
@@ -97,7 +98,7 @@ public class DrugPanel extends JPanel {
 				double dose = (double) doseModel.getValue();
 				String drugUnit = (String) unitBox.getSelectedItem();
 				System.out.println("iD:" + id);
-
+				
 				ui.useDrug(id, dose, drugUnit);
 			}
 		});

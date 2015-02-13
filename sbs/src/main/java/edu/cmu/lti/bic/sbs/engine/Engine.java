@@ -8,6 +8,7 @@ import java.util.Timer;
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
+import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.gson.Patient;
@@ -71,7 +72,16 @@ public class Engine {
 		// patient to ui and simulation
 		Patient patient = gson.fromJson(fileReader, Patient.class);
 		ui.setPatientInfo(patient);
-
+		
+		//Load the drug data to user interface
+		try {
+      fileReader = new FileReader("src/test/resources/drug.json");
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+		Drug[] drugMap = gson.fromJson(fileReader, Drug[].class);
+		ui.addDrug(drugMap);
+		
 		// Patient and Simulator initialization
 		// Raw data should be loaded by file input later...
 
