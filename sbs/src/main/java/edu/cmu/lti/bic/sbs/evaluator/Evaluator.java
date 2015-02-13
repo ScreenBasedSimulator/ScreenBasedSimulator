@@ -22,27 +22,27 @@ class BloodPressure implements MedicalParameter {
 public class Evaluator {
 	private float score;
 	private Engine engine;
+	private Path actual;
 	private Path goldStandard;
+	private Step currentStep;
+	private Engine engine;
 	// private String report;
-	
 	public Evaluator(){
+	  actual = new Path();
 	  goldStandard = new Path();
-	  
+	  currentStep = new Step();
+	  actual.setTag("Actual");
+	  goldStandard.setTag("Gold Standard");
+	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("0", "Call Code", ""), new Time()));
+	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("1", "Mask", ""), new Time()));
+	  goldStandard.add(new Step(new Patient(), new Prescription(new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool(), new Time()));
 	}
 	
 	class Report{
 		double score;
 		String report;
 	}
-
-	private String report;
-
-	// data structure to store the parameters recieved
-
-	private ArrayList<Received> paras;
-
-	/**
-	 * called by engine to receive the medPara
+	/** called by engine to receive the medPara
 	 * 
 	 * @param medPara
 	 *          , MedicalParameter is an interface in simulator package
@@ -59,9 +59,24 @@ public class Evaluator {
 	 * @param time
 	 *          time used
 	 */
-	public void receive(Prescription p, Calendar time) {
-		System.out.println("Evaluator: USER ACTION: USE DRUG:"
-				+ p.getDrug().getName());
+	
+	public void updateStep(){
+    if (currentStep.isComplete()){
+      actual.add(currentStep);
+      currentStep = new Step();
+    }
+	}
+	
+	public void receive(Patient patient){
+	   currentStep.setPatient(patient);
+	   System.out.println("Patient added");
+	   updateStep();
+	}
+	
+	public void receive(Prescription prescription){
+	  currentStep.setPrescription(prescription);
+	  System.out.println("Evaluator: USER ACTION: USE DRUG:" + p.getDrug().getName());
+	  updateStep();
 	}
 
 	public void regularUpdate(Patient p, Calendar time) {
@@ -76,12 +91,21 @@ public class Evaluator {
 	 * @param time
 	 *          time used
 	 */
-	public void receive(Tool tool, Calendar time) {
-		System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
+	
+	public void receive(Tool tool){
+	  currentStep.setTool(tool);
+	  System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
+	  updateStep();
+  }
+	
+	public void receive(Timer time){
+	  currentStep.setTime(time);
+	  System.out.println("Evaluator: USER ACTION: TIME:" + time.toString());
+	  updateStep();
 	}
-
+	
 	public void calculateScore() {
-		score++;
+		score = goldStandard.pathScore(actual);
 		generateReport();
 	}
 
