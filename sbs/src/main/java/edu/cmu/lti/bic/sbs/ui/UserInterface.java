@@ -72,6 +72,7 @@ public class UserInterface {
 		//decisionEngine.useDrug(prescription);
 		// System.out.println("use the drug");
 		ui.addPathography("used a drug!");
+
 	}
 
 	// public void setTime(LocalTime time) {
