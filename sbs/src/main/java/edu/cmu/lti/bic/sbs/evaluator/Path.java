@@ -16,17 +16,12 @@ public class Path extends ArrayList<Step> {
 
 	/**
 	 * The method that use to calculate the score between two paths.
-<<<<<<< HEAD
 	 * @param p2 real path
 	 * @return score
-=======
-	 * @param p2
-	 * @return
->>>>>>> ariel_engine
 	 */
 	public double pathScore(Path p2) throws NullPointerException {
 		// Required this and p2
-	    	double pScore;
+	    	double pScore = 0.0;
 	    	Iterator<Step> itrThis;
 	    	Iterator<Step> itrP2;
 	    	try {

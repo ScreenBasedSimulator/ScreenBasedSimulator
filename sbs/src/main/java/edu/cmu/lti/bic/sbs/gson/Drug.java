@@ -5,7 +5,9 @@ public class Drug {
 	private String description = "";
 	private String id = "";
 	public Drug(){
-		
+	    this.name = "Default Drug";
+	    this.description = "Default description";
+	    this.id = "Default id";
 	}
 	public Drug setName(String name){
 		this.name = name;
