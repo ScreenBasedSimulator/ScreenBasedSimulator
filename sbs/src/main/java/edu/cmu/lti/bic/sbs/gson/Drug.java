@@ -21,14 +21,6 @@ public class Drug {
 		this.id = id;
 	}
 
-	public Drug(String name, String description, String id, double does) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.id = id;
-		this.does = does;
-	}
-
 
 
 	public Drug setName(String name){
@@ -52,14 +44,4 @@ public class Drug {
 	public String getDescription(){
 		return description;
 	}
-	
-	
-	public double getDoes() {
-		return does;
-	}
-
-	public void setDoes(double does) {
-		this.does = does;
-	}
-
 }

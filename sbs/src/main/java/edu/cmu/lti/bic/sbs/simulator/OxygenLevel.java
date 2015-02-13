@@ -1,22 +1,23 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
 public class OxygenLevel implements MedicalParameter {
-	double olNum;
+	Double olNum;
 
-	public OxygenLevel(double olNum) {
+	public OxygenLevel(Double olNum) {
 		super();
 		this.olNum = olNum;
 	}
 
-	public double getOlNum() {
+	public Double getOlNum() {
 		return olNum;
 	}
 
-	public void setOlNum(double olNum) {
+	public OxygenLevel setOlNum(Double olNum) {
 		this.olNum = olNum;
+		return this;
 	}
-	
-	public float oxygenFunc(float prevLevel, float interval) {
-		return 0;
+
+	public Double oxygenFunc(float prevLevel, float interval) {
+		return 0.0;
 	}
 }

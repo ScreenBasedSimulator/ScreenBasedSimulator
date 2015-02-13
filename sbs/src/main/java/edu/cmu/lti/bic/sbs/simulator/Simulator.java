@@ -1,74 +1,88 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
+
 import java.util.List;
 import java.util.Map;
 
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.OxygenMask;
 import edu.cmu.lti.bic.sbs.gson.Patient;
+import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 
 //communicate with engine, just like the controller of patient
 public class Simulator {
-	Patient pt;
-	
-	//adding default value for four parameter
-	double defaultBp;
-	double defaultHr;
-	static double defaultOl = 0.6;
-	double defaultRr;
-	
+
 	public static void main(String[] args) {
 		System.out.println(ytFunction(80));
 	}
-	
-	//the initialization function for engine to involve
-	public Patient initialPatient(){
-		
-		pt.getBloodPressure().setBpNum(defaultBp);
-		pt.getHeartRate().setHrNum(defaultHr);
-		pt.getOxygenLevel().setOlNum(defaultOl);
-		pt.getRepiratinoRate().setRrNum(defaultRr);
-		
-		return pt;
+	Patient patient;
+
+	// adding default value for four parameter
+	float defaultBp;
+	float defaultHr;
+	final static Double defaultOl = 0.6;
+	float defaultRr;
+
+	// the initialization function for engine to involve
+	public Patient initialPatient() {
+		patient = new Patient();
+		// pt.getBloodPressure().setBpNum(defaultBp);
+		patient.getBloodPressure().setSystolicBloodPressure(90.0);
+		patient.getBloodPressure().setDiastolicBloodPressure(60.0);
+		patient.getHeartRate().setHrNum(80.0);
+		patient.getOxygenLevel().setOlNum(99.0);
+		patient.getRepiratinoRate().setRrNum(16.0);
+
+		return patient;
 	}
-	
-	public Simulator(){
+
+	public Simulator() {
 		super();
+		initialPatient();
 	}
-	
+
 	public Simulator(Patient pt) {
 		super();
-		this.pt = pt;
+		this.patient = pt;
 	}
 
 	//the engine can get patient info from simulator
 	public Patient simPatient() {
-		return pt;
+		return patient;
 	}
 
 	
 	public void setPt(Patient pt) {
-		this.pt = pt;
+		this.patient = pt;
 	}
 	
-	public void simulateWithTool(List<Tool> toolList){
-		//set the parameters according to the equipment from engine
-		
+//	public void simulateWithTool(List<Tool> toolList){
+//		//set the parameters according to the equipment from engine
+//		
+//		System.out.println("using equipments in the function simulateWithTool");
+////		System.out.println(eq.getDescription());
+////		System.out.println(eq.getId());
+////		System.out.println(eq.getName());
+//	}
+//	
+//	public void simWithDrugs(List<Drug> drugList){
+//		//set the parameters according to the drug from engine
+//		
+//		System.out.println("using drug in the function simulateWithDrug");
+////		System.out.println(drug.getDescription());
+////		System.out.println(drug.getId());
+////		System.out.println(drug.getName());
+//		
+
+	public void simulateWithTool(Tool eq) {
+		// set the parameters according to the equipment from engine
 		System.out.println("using equipments in the function simulateWithTool");
-//		System.out.println(eq.getDescription());
-//		System.out.println(eq.getId());
-//		System.out.println(eq.getName());
 	}
-	
-	public void simWithDrugs(List<Drug> drugList){
-		//set the parameters according to the drug from engine
-		
+
+	public void simWithDrugs(Prescription p) {
+		// set the parameters according to the drug from engine
 		System.out.println("using drug in the function simulateWithDrug");
-//		System.out.println(drug.getDescription());
-//		System.out.println(drug.getId());
-//		System.out.println(drug.getName());
-		
 	}
 	
 	public Patient updatePatient(List<Tool> toolList,  List<Drug> drugList){
@@ -77,7 +91,7 @@ public class Simulator {
 		
 		double value = currentTool.getValue();
 		
-		pt.setOxygenLevel(new OxygenLevel(ytFunction(value)));
+		patient.setOxygenLevel(new OxygenLevel(ytFunction(value)));
 		
 		if(currentTool.getName() == "oxygenMask"){
 			OxygenMask currentToolOxygenMask = (OxygenMask) currentTool;
@@ -86,17 +100,17 @@ public class Simulator {
 		}
 		
 		System.out.println("invoke function simWithTool");
-		simulateWithTool(toolList);
+		//simulateWithTool(toolList);
 		
 		Drug currentDrug = drugList.get(drugList.size() - 1);
 		
-		System.out.println("id "+currentDrug.getId()+" name "+currentDrug.getName()+" description "+currentDrug.getDescription()+" dose "+currentDrug.getDoes());
+		System.out.println("id "+currentDrug.getId()+" name "+currentDrug.getName()+" description "+currentDrug.getDescription());
 		
 		System.out.println("invoke function simWithDrugs");
-		simWithDrugs(drugList);
+		//simWithDrugs(drugList);
 		
 		System.out.println("return patient");
-		return pt;
+		return patient;
 	}
 	
 	//

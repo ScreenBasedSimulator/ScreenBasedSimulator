@@ -14,7 +14,9 @@ public class PatientPanel extends JPanel {
 
 	String basic = "basic";
 	String description = "description";
-
+	/**
+	 * constructor initialize the patient panel
+	 */
 	public PatientPanel() {
 		this.setBorder(new TitledBorder(null, "Patient", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		basicLabel = new JLabel();
@@ -22,11 +24,17 @@ public class PatientPanel extends JPanel {
 		this.add(basicLabel);
 		this.add(descriptionLabel);
 	}
-
+	/**
+	 * setDescription sets up the description of patient
+	 * @param str
+	 */
 	void setDescription(String str) {
 		descriptionLabel.setText(String.format("<html><div style=\"width:%dpx;\">%s</div><html>", 50, str));
 	}
-
+	/**
+	 * setBasic sets up the basic information about the patient
+	 * @param str
+	 */
 	void setBasic(String str) {
 		basicLabel.setText(String.format("<html><div style=\"width:%dpx;\">%s</div><html>", 50, str));
 	}

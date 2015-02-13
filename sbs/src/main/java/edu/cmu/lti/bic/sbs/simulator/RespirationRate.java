@@ -8,7 +8,7 @@ public class RespirationRate implements MedicalParameter {
 		this.rrNum = rrNum;
 	}
 
-	public double getRrNum() {
+	public Double getRrNum() {
 		return rrNum;
 	}
 

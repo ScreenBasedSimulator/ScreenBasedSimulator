@@ -16,28 +16,27 @@ import edu.cmu.lti.bic.sbs.simulator.RespirationRate;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Calendar;
+import java.util.Timer;
 
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
+import edu.cmu.lti.bic.sbs.gson.Drug;
+import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
-import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
 
 /**
  * The Engine Class
  * 
- * @author Xiaoxu Lu <xiaoxul@andrew.cmu.edu>
+ * @author Xiaoxu Lu
  *
  */
 public class Engine {
 	UserInterface ui = null;
-	Simulator sim = null;
-	Evaluator eval = null;
-	Scenario scen = null;
-	
 	//
 	Patient pt = null;
 	
@@ -45,25 +44,34 @@ public class Engine {
 	List<Tool> toolList = new ArrayList<Tool>();
 	List<Drug> drugList = new ArrayList<Drug>();
 
+
+	Simulator simulator = null;
+	Evaluator evaluator = null;
+	Scenario scenario = null;
+	Calendar time = Calendar.getInstance();
+	Timer timer = new Timer();
 	private Gson gson = new Gson();
 
-	/*
-	 * Constructor function, responsible for creating UserInterface, Simulator
-	 * and Evaluator
-	 */
-	public Engine() {
-		// Scenario initialization
-		scen = new Scenario();
+	boolean isMonitorConnected = false;
 
+	/**
+	 * Constructor function, responsible for creating UserInterface, Simulator and
+	 * Evaluator
+	 * 
+	 * @throws Exception
+	 */
+	public Engine() throws Exception {
 		// User interface initialization
 		try {
 			System.out.println("Initializing the user interface");
 			ui = new UserInterface(this);
-		} catch (UserInterfaceInitializationException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+		// Scenario initialization
+		scenario = new Scenario(ui);
 		// Load Tool data to user interface
 		FileReader fileReader = null;
 		try {
@@ -71,115 +79,68 @@ public class Engine {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+
 		Tool[] tools = gson.fromJson(fileReader, Tool[].class);
+		// tools to ui
 		for (Tool tool : tools) {
 			ui.addTool(tool);
 		}
+		// Load Patient data to user interface
 		try {
 			fileReader = new FileReader("src/test/resources/patientTest.json");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		// patient to ui and simulation
 		Patient patient = gson.fromJson(fileReader, Patient.class);
 		ui.setPatientInfo(patient);
-
+		
+		//Load the drug data to user interface
+		try {
+      fileReader = new FileReader("src/test/resources/drug.json");
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+		Drug[] drugMap = gson.fromJson(fileReader, Drug[].class);
+		ui.addDrug(drugMap);
+		
 		// Patient and Simulator initialization
 		// Raw data should be loaded by file input later...
 
-		
-		//four default medical parameter
-		BloodPressure bp = new BloodPressure(100.0f);
-		HeartRate hr = new HeartRate(80.0f);
-		OxygenLevel ol = new OxygenLevel(50.0f);
-		RespirationRate rr = new RespirationRate(60.0);
-		
-		Condition defaultCondition = new Condition(bp, hr, ol, rr);
-		
-		//initialize a patient and a simulator
-		Patient pt = new Patient(defaultCondition);
-		
-		//new a simulator to control patient
-		sim = new Simulator(pt);
-		
-		//image a tool
-		String idTool = "001";
-		String nameTool = "oxygenMask";
-		String descriptionTool = "the tool can increse the oxygen level";
-		float oxygenLevel = 80;
-		
-		Tool eqOM = new OxygenMask(idTool, nameTool, descriptionTool, oxygenLevel);
-		//initialize a tool, a drug and its dose
-		
-		//add to the tool list
-		toolList.add(eqOM);
-		
-		String idDrug = "101";
-		String nameDrug = "drug1";
-		String descriptionDrug = "the drug can increase the blood pressure";
-		float dose = (float) 3.2;
-		
-		Drug drug = new Drug(idDrug, idDrug, idDrug, dose);
-		
-		//add to the drug list
-		drugList.add(drug);
-		
-		//new a runnable
-		Runnable newRunnable = new Runnable() {
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				
-				while(true){
-					
-					//each second involve the function to update patient's stage        
-					sim.updatePatient(toolList,drugList);
-					
-					//sleep the thread, each second involve the function
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		};
-		
-		//new a thread
-		Thread newThread = new Thread(newRunnable);
-		
-		//start the newThread
-		newThread.start();
+		simulator = new Simulator(patient);
 
-		
-//		System.out.println(sim.simPatient().getBp());
-//		System.out.println(sim.simPatient().getHr());
-//		System.out.println(sim.simPatient().getOl());
-//		System.out.println(sim.simPatient().getRr());
-		
-		
-		sim = new Simulator(patient);
+
 		// Evaluator initialization
-		eval = new Evaluator();
-	}
+		evaluator = new Evaluator();
+		// Start looping
 
-	/*
-	 * process() start a scenario simulation
-	 */
-	public void process() {
-
-		String code = "code blue";
-		scen.callCode(code);
-
-		scen.connectMonitor();
-
-		// scen.useDrug(drug, dose);
-
-		// Tool tool = new Tool();
-		// scen.useTool(tool);
+		timer.scheduleAtFixedRate(new CoreTimerTask(1000, this), 0, 1000);
 	}
 
 	public void useTool(Tool tool) {
-		scen.useTool(tool);
+		scenario.useTool(tool);
+		//evaluator.receive(tool, time);
+		simulator.simulateWithTool(tool);
 	}
 
+	public void useDrug(Prescription p) {
+		scenario.useDrug(p.getDrug(), p.getDose());
+		//evaluator.receive(p, time);
+		simulator.simWithDrugs(p);
+	}
+
+	public void update(int interval) {
+		time.add(Calendar.MILLISECOND, interval);
+		ui.updateTime(time);
+
+		Patient p = simulator.simPatient();
+		evaluator.regularUpdate(p, time);
+		if (isMonitorConnected) {
+			ui.updateMonitor(p);
+		}
+	}
+
+	public void connectMonitor() {
+		isMonitorConnected = true;
+	}
 }
