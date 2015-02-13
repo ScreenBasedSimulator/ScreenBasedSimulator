@@ -36,10 +36,8 @@ public class Engine {
 	 * Constructor function, responsible for creating UserInterface, Simulator
 	 * and Evaluator
 	 */
-	public Engine() throws Exception {
-		// Scenario initialization
-		scen = new Scenario();
 
+	public Engine() throws Exception {
 		// User interface initialization
 		try {
 			System.out.println("Initializing the user interface");
@@ -49,6 +47,9 @@ public class Engine {
 			e.printStackTrace();
 		}
 
+		// Scenario initialization
+		scen = new Scenario(ui);
+
 		// Load Tool data to user interface
 		FileReader fileReader = null;
 		try {
@@ -56,20 +57,21 @@ public class Engine {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+
 		Tool[] tools = gson.fromJson(fileReader, Tool[].class);
+		// tools to ui
 		for (Tool tool : tools) {
 			ui.addTool(tool);
 		}
+		// Load Patient data to user interface
 		try {
 			fileReader = new FileReader("src/test/resources/patientTest.json");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		// patient to ui and simulation
 		Patient patient = gson.fromJson(fileReader, Patient.class);
 		ui.setPatientInfo(patient);
-
-		// Patient and Simulator initialization
-		// Raw data should be loaded by file input later...
 
 		sim = new Simulator(patient);
 
@@ -103,7 +105,9 @@ public class Engine {
 		scen.useTool(tool);
 		eval.receive(tool);
 		sim.simulateWithTool(tool);
+
 	}
+
 
 	public void useDrug(Prescription p) {
 		scen.useDrug(p.getDrug(), p.getDose());
