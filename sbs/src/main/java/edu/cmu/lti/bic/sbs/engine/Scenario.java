@@ -23,6 +23,7 @@ public class Scenario {
 	public Scenario(UserInterface ui){
 		//just for test
 		this.ui = ui;
+		this.ScenId = 1;
 		System.out.println("I am a new Scenario~~~");
 		
 	}
