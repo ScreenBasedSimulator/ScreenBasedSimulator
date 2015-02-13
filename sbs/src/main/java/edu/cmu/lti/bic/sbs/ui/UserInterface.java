@@ -62,6 +62,7 @@ public class UserInterface {
 		System.out.println("UI: Tool " + tool.getName() + " is used.");
 		decisionEngine.useTool(tool);
 	}
+	
 
 	public void useDrug(String id, Double dose, String unit) {
 		assert (id != null);
@@ -101,6 +102,12 @@ public class UserInterface {
 				window.addTool(tool.getId(), tool.getName());
 			}
 		});
+	}
+	
+	public void addTools(Tool[] tools) {
+		for (Tool tool: tools) {
+			addTool(tool);
+		}
 	}
 
 	public void updateReport(Double score, String report) {
