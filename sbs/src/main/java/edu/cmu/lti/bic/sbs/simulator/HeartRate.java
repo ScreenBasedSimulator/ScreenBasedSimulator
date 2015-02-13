@@ -14,7 +14,5 @@ public class HeartRate implements MedicalParameter {
 
 	public void setHrNum(double hrNum) {
 		this.hrNum = hrNum;
-	}
-	
-	
+	}	
 }

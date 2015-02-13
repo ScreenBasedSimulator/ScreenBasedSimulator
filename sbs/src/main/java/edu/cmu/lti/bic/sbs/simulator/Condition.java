@@ -4,10 +4,10 @@ public class Condition {
 	BloodPressure bp;
 	HeartRate  hr;
 	OxygenLevel  ol;
-	RepositoryRate  rr;
+	RespirationRate  rr;
 	
 	public Condition(BloodPressure bp, HeartRate hr, OxygenLevel ol,
-			RepositoryRate rr) {
+			RespirationRate rr) {
 		super();
 		this.bp = bp;
 		this.hr = hr;
@@ -39,11 +39,11 @@ public class Condition {
 		this.ol = ol;
 	}
 
-	public RepositoryRate getRr() {
+	public RespirationRate getRr() {
 		return rr;
 	}
 
-	public void setRr(RepositoryRate rr) {
+	public void setRr(RespirationRate rr) {
 		this.rr = rr;
 	}
 	

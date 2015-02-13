@@ -1,5 +1,6 @@
 package edu.cmu.lti.bic.sbs.engine;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +12,23 @@ import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
 import edu.cmu.lti.bic.sbs.simulator.Condition;
 import edu.cmu.lti.bic.sbs.simulator.HeartRate;
 import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
-import edu.cmu.lti.bic.sbs.simulator.Patient;
-import edu.cmu.lti.bic.sbs.simulator.RepositoryRate;
+import edu.cmu.lti.bic.sbs.simulator.RespirationRate;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+import com.google.gson.Gson;
+
+import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
+import edu.cmu.lti.bic.sbs.gson.Tool;
+import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
 import edu.cmu.lti.bic.sbs.ui.UserInterfaceInitializationException;
 
 /**
  * The Engine Class
+ * 
  * @author Xiaoxu Lu <xiaoxul@andrew.cmu.edu>
  *
  */
@@ -34,17 +44,17 @@ public class Engine {
 	
 	List<Tool> toolList = new ArrayList<Tool>();
 	List<Drug> drugList = new ArrayList<Drug>();
-	
+
+	private Gson gson = new Gson();
+
 	/*
-	 * Constructor function, responsible for creating UserInterface,
-	 * Simulator and Evaluator
+	 * Constructor function, responsible for creating UserInterface, Simulator
+	 * and Evaluator
 	 */
 	public Engine() {
 		// Scenario initialization
 		scen = new Scenario();
-		
-		
-		
+
 		// User interface initialization
 		try {
 			System.out.println("Initializing the user interface");
@@ -53,15 +63,35 @@ public class Engine {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		// Patient and Simulator initialization 
+
+		// Load Tool data to user interface
+		FileReader fileReader = null;
+		try {
+			fileReader = new FileReader("src/test/resources/equipmentTest.json");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		Tool[] tools = gson.fromJson(fileReader, Tool[].class);
+		for (Tool tool : tools) {
+			ui.addTool(tool);
+		}
+		try {
+			fileReader = new FileReader("src/test/resources/patientTest.json");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		Patient patient = gson.fromJson(fileReader, Patient.class);
+		ui.setPatientInfo(patient);
+
+		// Patient and Simulator initialization
 		// Raw data should be loaded by file input later...
+
 		
 		//four default medical parameter
 		BloodPressure bp = new BloodPressure(100.0f);
 		HeartRate hr = new HeartRate(80.0f);
 		OxygenLevel ol = new OxygenLevel(50.0f);
-		RepositoryRate rr = new RepositoryRate(60.0f);
+		RespirationRate rr = new RespirationRate(60.0);
 		
 		Condition defaultCondition = new Condition(bp, hr, ol, rr);
 		
@@ -127,23 +157,29 @@ public class Engine {
 //		System.out.println(sim.simPatient().getRr());
 		
 		
+		sim = new Simulator(patient);
 		// Evaluator initialization
 		eval = new Evaluator();
 	}
+
 	/*
 	 * process() start a scenario simulation
 	 */
-	public void process(){
-		
+	public void process() {
+
 		String code = "code blue";
 		scen.callCode(code);
-		
+
 		scen.connectMonitor();
-		
-		//scen.useDrug(drug, dose);
-		
-		//Tool tool = new Tool();
-		//scen.useTool(tool);
+
+		// scen.useDrug(drug, dose);
+
+		// Tool tool = new Tool();
+		// scen.useTool(tool);
 	}
-	
+
+	public void useTool(Tool tool) {
+		scen.useTool(tool);
+	}
+
 }

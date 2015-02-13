@@ -3,7 +3,10 @@ package edu.cmu.lti.bic.sbs.simulator;
 import java.util.List;
 import java.util.Map;
 
-import edu.cmu.lti.bic.sbs.gson.*;
+import edu.cmu.lti.bic.sbs.gson.Drug;
+import edu.cmu.lti.bic.sbs.gson.OxygenMask;
+import edu.cmu.lti.bic.sbs.gson.Patient;
+import edu.cmu.lti.bic.sbs.gson.Tool;
 
 //communicate with engine, just like the controller of patient
 public class Simulator {
@@ -22,10 +25,11 @@ public class Simulator {
 	//the initialization function for engine to involve
 	public Patient initialPatient(){
 		
-		pt.getBp().setBpNum(defaultBp);
-		pt.getHr().setHrNum(defaultHr);
-		pt.getOl().setOlNum(defaultOl);
-		pt.getRr().setRrNum(defaultRr);
+		pt.getBloodPressure().setBpNum(defaultBp);
+		pt.getHeartRate().setHrNum(defaultHr);
+		pt.getOxygenLevel().setOlNum(defaultOl);
+		pt.getRepiratinoRate().setRrNum(defaultRr);
+		
 		return pt;
 	}
 	
@@ -73,12 +77,12 @@ public class Simulator {
 		
 		double value = currentTool.getValue();
 		
-		pt.setOl(new OxygenLevel(ytFunction(value)));
+		pt.setOxygenLevel(new OxygenLevel(ytFunction(value)));
 		
 		if(currentTool.getName() == "oxygenMask"){
 			OxygenMask currentToolOxygenMask = (OxygenMask) currentTool;
 			
-			System.out.println("id:"+currentToolOxygenMask.getId()+" name:"+currentToolOxygenMask.getName()+" description "+currentToolOxygenMask.getDescription() + " oxygenLevel "+currentToolOxygenMask.getOxygenValue());
+			//System.out.println("id:"+currentToolOxygenMask.getId()+" name:"+currentToolOxygenMask.getName()+" description "+currentToolOxygenMask.getDescription() + " oxygenLevel "+currentToolOxygenMask.getOxygenValue());
 		}
 		
 		System.out.println("invoke function simWithTool");
