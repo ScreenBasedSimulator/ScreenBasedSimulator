@@ -22,10 +22,15 @@ class BloodPressure implements MedicalParameter {
 public class Evaluator {
 	private float score;
 	private Engine engine;
-
+	private Path goldStandard;
 	// private String report;
-
-	class Report {
+	
+	public Evaluator(){
+	  goldStandard = new Path();
+	  
+	}
+	
+	class Report{
 		double score;
 		String report;
 	}
