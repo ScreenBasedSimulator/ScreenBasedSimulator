@@ -88,7 +88,7 @@ public class Engine {
 		simulator = new Simulator(patient);
 
 		// Evaluator initialization
-		evaluator = new Evaluator();
+		evaluator = new Evaluator(this);
 		// Start looping
 
 		timer.scheduleAtFixedRate(new CoreTimerTask(1000, this), 0, 1000);
@@ -119,5 +119,10 @@ public class Engine {
 
 	public void connectMonitor() {
 		isMonitorConnected = true;
+	}
+	
+	public void simOver(double score, String report){
+		timer.cancel();
+		ui.updateReport(score, report);
 	}
 }

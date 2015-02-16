@@ -27,7 +27,8 @@ public class Evaluator {
 	private Step currentStep;
 	private Engine engine;
 	// private String report;
-	public Evaluator(){
+	public Evaluator(Engine engine){
+	  this.engine = engine;
 	  actual = new Path();
 	  goldStandard = new Path();
 	  currentStep = new Step();
