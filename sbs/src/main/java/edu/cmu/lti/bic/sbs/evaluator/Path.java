@@ -21,7 +21,7 @@ public class Path extends ArrayList<Step> {
 	 */
 	public double pathScore(Path p2) throws NullPointerException {
 		// Required this and p2
-	    	double pScore;
+	    	double pScore = 0.0;
 	    	Iterator<Step> itrThis;
 	    	Iterator<Step> itrP2;
 	    	try {

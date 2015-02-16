@@ -25,18 +25,17 @@ public class Evaluator {
 	private Path actual;
 	private Path goldStandard;
 	private Step currentStep;
-	private Engine engine;
 	// private String report;
-	public Evaluator(){
-	  actual = new Path();
-	  goldStandard = new Path();
-	  currentStep = new Step();
-	  actual.setTag("Actual");
-	  goldStandard.setTag("Gold Standard");
-	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("0", "Call Code", ""), new Time()));
-	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("1", "Mask", ""), new Time()));
-	  goldStandard.add(new Step(new Patient(), new Prescription(new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool(), new Time()));
-	}
+//	public Evaluator(){
+//	  actual = new Path();
+//	  goldStandard = new Path();
+//	  currentStep = new Step();
+//	  actual.setTag("Actual");
+//	  goldStandard.setTag("Gold Standard");
+//	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("0", "Call Code", ""), new Time()));
+//	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("1", "Mask", ""), new Time()));
+//	  goldStandard.add(new Step(new Patient(), new Prescription(new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool(), new Time()));
+//	}
 	
 	class Report{
 		double score;
@@ -75,7 +74,7 @@ public class Evaluator {
 	
 	public void receive(Prescription prescription){
 	  currentStep.setPrescription(prescription);
-	  System.out.println("Evaluator: USER ACTION: USE DRUG:" + p.getDrug().getName());
+	  System.out.println("Evaluator: USER ACTION: USE DRUG:" + prescription.getDrug().getName());
 	  updateStep();
 	}
 
@@ -105,7 +104,7 @@ public class Evaluator {
 	}
 	
 	public void calculateScore() {
-		score = goldStandard.pathScore(actual);
+		//score = goldStandard.pathScore(actual);
 		generateReport();
 	}
 
@@ -119,7 +118,7 @@ public class Evaluator {
 
 	public Evaluator() {
 		score = 0;
-		paras = new ArrayList<Received>();
+		//paras = new ArrayList<Received>();
 	}
 
 	public void setInitialTime(Calendar initTime) {

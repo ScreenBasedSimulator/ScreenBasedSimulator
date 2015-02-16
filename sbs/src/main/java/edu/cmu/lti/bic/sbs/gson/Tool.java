@@ -9,7 +9,8 @@ package edu.cmu.lti.bic.sbs.gson;
 public class Tool {
 	private String name = null;
 	private String id = null;
-
+	private double value;
+	
 	public String getName() {
 		return name;
 	}
@@ -28,7 +29,17 @@ public class Tool {
 	}
 
 	public Tool(String id, String name, String description) {
+		
 		this.id = id;
 		this.name = name;
 	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+	
 }
