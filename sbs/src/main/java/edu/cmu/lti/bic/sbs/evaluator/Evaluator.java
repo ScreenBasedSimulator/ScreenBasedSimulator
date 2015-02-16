@@ -25,8 +25,8 @@ public class Evaluator {
 	private Path actual;
 	private Path goldStandard;
 	private Step currentStep;
-	private Engine engine;
 	// private String report;
+
 	public Evaluator(Engine engine){
 	  this.engine = engine;
 	  actual = new Path();
@@ -76,7 +76,7 @@ public class Evaluator {
 	
 	public void receive(Prescription prescription){
 	  currentStep.setPrescription(prescription);
-	  System.out.println("Evaluator: USER ACTION: USE DRUG:" + p.getDrug().getName());
+	  System.out.println("Evaluator: USER ACTION: USE DRUG:" + prescription.getDrug().getName());
 	  updateStep();
 	}
 
@@ -106,7 +106,7 @@ public class Evaluator {
 	}
 	
 	public void calculateScore() {
-		score = goldStandard.pathScore(actual);
+		//score = goldStandard.pathScore(actual);
 		generateReport();
 	}
 
@@ -120,7 +120,7 @@ public class Evaluator {
 
 	public Evaluator() {
 		score = 0;
-		paras = new ArrayList<Received>();
+		//paras = new ArrayList<Received>();
 	}
 
 	public void setInitialTime(Calendar initTime) {
