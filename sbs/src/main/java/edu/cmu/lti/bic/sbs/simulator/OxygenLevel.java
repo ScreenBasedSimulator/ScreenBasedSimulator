@@ -16,7 +16,7 @@ public class OxygenLevel implements MedicalParameter {
 		this.olNum = olNum;
 		return this;
 	}
-	
+
 	public Double oxygenFunc(float prevLevel, float interval) {
 		return 0.0;
 	}

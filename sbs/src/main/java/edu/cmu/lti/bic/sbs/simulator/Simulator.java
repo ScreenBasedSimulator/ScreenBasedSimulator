@@ -1,61 +1,59 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
-import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Patient;
+import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 
 //communicate with engine, just like the controller of patient
 public class Simulator {
-	Patient pt;
-	
-	//adding default value for four parameter
+	Patient patient;
+
+	// adding default value for four parameter
 	float defaultBp;
 	float defaultHr;
 	float defaultOl;
 	float defaultRr;
 
-	
-	//the initialization function for engine to involve
-	public Patient initialPatient(){
-		pt = new Patient();
-		//pt.getBloodPressure().setBpNum(defaultBp);
-		pt.getBloodPressure().setSystolicBloodPressure(90.0);
-		pt.getBloodPressure().setDiastolicBloodPressure(60.0);
-		pt.getHeartRate().setHrNum(80.0);
-		pt.getOxygenLevel().setOlNum(99.0);
-		pt.getRepiratinoRate().setRrNum(16.0);
-		
-		return pt;
-		
+	// the initialization function for engine to involve
+	public Patient initialPatient() {
+		patient = new Patient();
+		// pt.getBloodPressure().setBpNum(defaultBp);
+		patient.getBloodPressure().setSystolicBloodPressure(90.0);
+		patient.getBloodPressure().setDiastolicBloodPressure(60.0);
+		patient.getHeartRate().setHrNum(80.0);
+		patient.getOxygenLevel().setOlNum(99.0);
+		patient.getRepiratinoRate().setRrNum(16.0);
+
+		return patient;
+
 	}
-	
-	public Simulator(){
+
+	public Simulator() {
 		super();
 		initialPatient();
 	}
-	
+
 	public Simulator(Patient pt) {
 		super();
-		this.pt = pt;
+		this.patient = pt;
 	}
 
 	//
 	public Patient simPatient() {
-		return pt;
+		return patient;
 	}
 
 	public void setPt(Patient pt) {
-		this.pt = pt;
+		this.patient = pt;
 	}
-	
-	public void simulateWithTool(Tool eq){
-		//set the parameters according to the equipment from engine
-		
+
+	public void simulateWithTool(Tool eq) {
+		// set the parameters according to the equipment from engine
+
 	}
-	
-	
-	public void simWithDrugs(Drug drug , Double dose){
-		//set the parameters according to the drug from engine
-		
+
+	public void simWithDrugs(Prescription p) {
+		// set the parameters according to the drug from engine
+
 	}
 }
