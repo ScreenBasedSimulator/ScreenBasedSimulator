@@ -4,7 +4,6 @@ import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
-
 /**
  * The Scenario Class
  * 
@@ -22,6 +21,7 @@ public class Scenario {
 	public Scenario(UserInterface ui) {
 		// just for test
 		this.ui = ui;
+		this.ScenId = 1;
 		System.out.println("I am a new Scenario~~~");
 
 	}
