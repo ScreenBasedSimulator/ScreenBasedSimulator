@@ -14,6 +14,7 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 public class UserInterface {
 	private Engine decisionEngine;
 	private MainWindow window;
+	private ReportWindow reportWindow;
 	private HashMap<String, Tool> toolMap;
 	private HashMap<String, Drug> drugMap;
 	private UserInterface ui = this;
@@ -23,27 +24,25 @@ public class UserInterface {
 	 * engine
 	 * 
 	 * @param decisionEngine
-	 *            the decision engine it's connected to
-	 * @throws Exception 
+	 *          the decision engine it's connected to
+	 * @throws Exception
 	 */
 
-	public UserInterface(Engine decisionEngine)
-			throws Exception {
+	public UserInterface(Engine decisionEngine) throws Exception {
 		this.decisionEngine = decisionEngine;
 		this.toolMap = new HashMap<String, Tool>();
 		this.drugMap = new HashMap<String, Drug>();
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					window = new MainWindow(ui);
-
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		// drugPanel=new DrugPanel(this);
 	}
 
 	public void callCode(String code) {
@@ -63,22 +62,16 @@ public class UserInterface {
 		System.out.println("UI: Tool " + tool.getName() + " is used.");
 		decisionEngine.useTool(tool);
 	}
+	
 
 	public void useDrug(String id, Double dose, String unit) {
 		assert (id != null);
 		Drug drug = drugMap.get(id);
 		assert (drug != null);
 		Prescription prescription = new Prescription(drug, dose, unit);
-		//decisionEngine.useDrug(prescription);
-		// System.out.println("use the drug");
+		decisionEngine.useDrug(prescription);
 		ui.addPathography("used a drug!");
-
 	}
-
-	// public void setTime(LocalTime time) {
-	// assert(time != null);
-	// window.setTime(time.getHour(), time.getMinute(), time.getSecond());
-	// }
 
 	public void setPatientInfo(final Patient patient) {
 		assert (patient != null);
@@ -92,11 +85,13 @@ public class UserInterface {
 
 	public void addDrug(final Drug drug) {
 		assert (drug != null);
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				window.addTool(drug.getId(), drug.getName());
-			}
-		});
+		drugMap.put(drug.getId(), drug);
+	}
+	public void addDrug(Drug[] drugMap){
+	  
+	  for(Drug d:drugMap){
+	    addDrug(d);
+	  }
 	}
 
 	public void addTool(Tool tool) {
@@ -108,9 +103,26 @@ public class UserInterface {
 			}
 		});
 	}
+	
+	public void addTools(Tool[] tools) {
+		for (Tool tool: tools) {
+			addTool(tool);
+		}
+	}
 
-	public void updateReport() {
-
+	public void updateReport(Double score, String report) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					if (reportWindow == null)
+						reportWindow = new ReportWindow();
+					reportWindow.setScore(score.toString());
+					reportWindow.setContent(report);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	public void updateMonitor(Patient p) {
@@ -121,11 +133,10 @@ public class UserInterface {
 		assert (p.getRepiratinoRate() != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				window.setMonitor(p.getBloodPressure()
-						.getDiastolicBloodPressure(), p.getBloodPressure()
-						.getSystolicBloodPressure(), p.getHeartRate()
-						.getHrNum(), p.getOxygenLevel().getOlNum(), p
-						.getRepiratinoRate().getRrNum());
+				window.setMonitor(p.getBloodPressure().getDiastolicBloodPressure(), p
+						.getBloodPressure().getSystolicBloodPressure(), p.getHeartRate()
+						.getHrNum(), p.getOxygenLevel().getOlNum(), p.getRepiratinoRate()
+						.getRrNum());
 			}
 		});
 	}
@@ -147,6 +158,11 @@ public class UserInterface {
 				window.addPathography(feedback);
 			}
 		});
+	}
+	
+	public HashMap<String,Drug> getDrugMap(){
+	  System.out.println(drugMap);
+	  return drugMap;
 	}
 
 }

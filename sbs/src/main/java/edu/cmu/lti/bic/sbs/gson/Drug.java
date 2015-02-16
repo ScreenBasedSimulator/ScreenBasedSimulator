@@ -4,9 +4,25 @@ public class Drug {
 	private String name = "";
 	private String description = "";
 	private String id = "";
+	
+	private double does;
+	
 	public Drug(){
 		
 	}
+	
+
+
+	//constructor without does
+	public Drug(String name, String description, String id) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.id = id;
+	}
+
+
+
 	public Drug setName(String name){
 		this.name = name;
 		return this;

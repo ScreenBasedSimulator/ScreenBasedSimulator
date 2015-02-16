@@ -5,23 +5,27 @@ import java.io.*;
 import sun.audio.*;
 
 public class Sound {
-  static AudioStream audioStream = null;
-  public static void play(String id) throws Exception {
-    
-    if(id.equals("1")){
-        // open the sound file as a Java input stream
-        String gongFile = "src/test/resources/media/1233.wav";
-        InputStream in = new FileInputStream(gongFile);
-     
-        // create an audiostream from the inputstream
-        audioStream = new AudioStream(in);
-     
-        // play the audio clip with the audioplayer class
-        AudioPlayer.player.start(audioStream);
-        audioStream.close();
+  static AudioStream audioStream;
+
+  public static void play(String s) throws Exception {
+    String gongFile = null;
+    // open the sound file as a Java input stream
+    if (s.equals("alarm")) {
+      gongFile = "src/test/resources/media/alarm.wav";
     }
+    InputStream in = new FileInputStream(gongFile);
+
+    // create an audiostream from the inputstream
+    audioStream = new AudioStream(in);
+
+    // play the audio clip with the audioplayer class
+    AudioPlayer.player.start(audioStream);
+    // return audioStream;
+    // audioStream.close();
   }
-  public static void stop() throws IOException{
+
+  public static void stop() throws Exception {
+    // AudioStream audioStream = Sound.play();
     audioStream.close();
   }
 }
