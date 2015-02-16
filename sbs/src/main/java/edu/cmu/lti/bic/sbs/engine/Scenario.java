@@ -70,6 +70,7 @@ public class Scenario {
 	}
 
 	public void useDrug(Drug drug, Double dose) {
-
+		System.out.println("Scenario :Drug " + dose + " " + drug.getName() + 
+						"is used.");
 	}
 }
