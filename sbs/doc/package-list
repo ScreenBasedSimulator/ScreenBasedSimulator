@@ -1,10 +1,1 @@
-edu.cmu.lti.bic.sbs
-edu.cmu.lti.bic.sbs.engine
 edu.cmu.lti.bic.sbs.evaluator
-edu.cmu.lti.bic.sbs.gson
-edu.cmu.lti.bic.sbs.gson.test
-edu.cmu.lti.bic.sbs.simulator
-edu.cmu.lti.bic.sbs.ui
-edu.cmu.lti.bic.sbs.ui.monitor
-edu.cmu.lti.bic.sbs.ui.test
-org.eclipse.wb.swing
