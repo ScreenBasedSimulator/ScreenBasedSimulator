@@ -8,7 +8,9 @@ public class Drug {
 	private double does;
 	
 	public Drug(){
-		
+	    this.name = "Default Drug";
+	    this.description = "Default description";
+	    this.id = "Default id";
 	}
 	
 
