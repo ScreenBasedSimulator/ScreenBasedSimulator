@@ -4,6 +4,11 @@ public class Prescription {
 	private Drug drug;
 	private Double dose;
 	private String unit;
+	
+	// Default initializer that will ensure testing successfully using main method.
+	public Prescription() {
+	    this(new Drug(), 0.0, "Default unit");
+	}
 	public Prescription (Drug drug, double dose, String unit) {
 		this.setDrug(drug);
 		this.setDose(dose);
