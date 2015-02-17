@@ -9,6 +9,7 @@ import java.util.Calendar;
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.engine.Engine;
+import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
@@ -35,11 +36,11 @@ public class Evaluator {
 	actual.setTag("Actual");
 	goldStandard.setTag("Gold Standard");
 	goldStandard.add(new Step(new Patient(), new Prescription(), new Tool(
-		"0", "Call Code", ""), new Time()));
+		"0", "Call Code", ""), new Timer()));
 	goldStandard.add(new Step(new Patient(), new Prescription(), new Tool(
-		"1", "Mask", ""), new Time()));
+		"1", "Mask", ""), new Timer()));
 	goldStandard.add(new Step(new Patient(), new Prescription(new Drug(
-		"1stDrug", "", "1"), 1.0, "L"), new Tool(), new Time()));
+		"1stDrug", "", "1"), 1.0, "L"), new Tool(), new Timer()));
     }
 
     class Report {
@@ -82,7 +83,7 @@ public class Evaluator {
     public void receive(Prescription prescription) {
 	currentStep.setPrescription(prescription);
 	System.out.println("Evaluator: USER ACTION: USE DRUG:"
-		+ p.getDrug().getName());
+		+ prescription.getDrug().getName());
 	updateStep();
     }
 
@@ -117,7 +118,7 @@ public class Evaluator {
 	generateReport();
     }
 
-    public float getScore() {
+    public double getScore() {
 	return score;
     }
 

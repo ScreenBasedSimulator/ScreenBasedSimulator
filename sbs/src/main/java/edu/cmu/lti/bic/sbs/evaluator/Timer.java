@@ -1,5 +1,9 @@
 package edu.cmu.lti.bic.sbs.evaluator;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * The Timer Class
  * @author Victor Zhao
@@ -9,6 +13,9 @@ public class Timer {
 	// The time has two field, one is start offset, the other 
 	// is the end offset.
 	private float[] offset;
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	// Replacement for offset array
+	private String timeStamp;
 	
 	public float[] getTime() {
 		return offset;
@@ -21,6 +28,8 @@ public class Timer {
 	
 	public Timer() {
 		offset = new float[2];
+		Date date = new Date();
+		timeStamp = dateFormat.format(date);
 	}
 	
 	public String toString() {
