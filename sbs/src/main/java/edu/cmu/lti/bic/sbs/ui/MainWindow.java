@@ -61,6 +61,7 @@ public class MainWindow {
 		pathographyPanel.setBounds(264, 130, 158, 110);
 		frame.getContentPane().add(pathographyPanel);
 	}
+	
 	/**
 	 * setTime enables clock panel to set the current time
 	 * @param h represents the current hour
@@ -70,6 +71,7 @@ public class MainWindow {
 	public void setTime(Integer h, Integer m, Integer s) {
 		clockPanel.setTime(h, m, s);
 	}
+	
 	/**
 	 * setPatient enables patient panel to set the patient's medical history
 	 * @param basic gives out patient's basic information
@@ -89,6 +91,7 @@ public class MainWindow {
 	public void addTool(String id, String name) {
 		toolPanel.addTool(id, name);
 	}
+	
 	/**
 	 * addPathography adds record to pathography panel.
 	 * @param record the record we want to add to the panel
@@ -107,6 +110,7 @@ public class MainWindow {
 	public void updateClock(int hour, int min, int second) {
 		clockPanel.setTime(hour, min, second);
 	}
+	
 	/**
 	 * setMonitor sets up the monitor parameters for user to see
 	 * @param diastolicBloodPressure the lower bound of blood pressure

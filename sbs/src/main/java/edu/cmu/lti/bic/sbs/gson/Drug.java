@@ -4,11 +4,27 @@ public class Drug {
 	private String name = "";
 	private String description = "";
 	private String id = "";
+	
+	private double does;
+	
 	public Drug(){
 	    this.name = "Default Drug";
 	    this.description = "Default description";
 	    this.id = "Default id";
 	}
+	
+
+
+	//constructor without does
+	public Drug(String name, String description, String id) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.id = id;
+	}
+
+
+
 	public Drug setName(String name){
 		this.name = name;
 		return this;
@@ -29,11 +45,5 @@ public class Drug {
 	}
 	public String getDescription(){
 		return description;
-	}
-	
-	public Drug(String n, String d, String i){
-	  this.name = n;
-	  this.description = d;
-	  this.id = i;
 	}
 }

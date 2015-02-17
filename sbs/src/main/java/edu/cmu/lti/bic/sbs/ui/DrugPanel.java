@@ -35,13 +35,11 @@ public class DrugPanel extends JPanel {
 	 */
 
 	void addDrug(String name, String id) {
-		if (!drugInStore.containsKey(name))
+		if (!drugInStore.containsKey(name)) {
 			drugInStore.put(name, id);
-		else
+			drugModel.addElement(name);
+		} else
 			System.out.println("This drug has already existed!");
-
-		drugModel.addElement(name);
-
 	}
 
 	/**
@@ -61,11 +59,7 @@ public class DrugPanel extends JPanel {
 	private void initialize() {
 
 		JComboBox<String> drugBox = new JComboBox<String>(drugModel);
-		drugInStore.put("Anti-Narcotic", "11");
-		drugInStore.put("Penicillin", "22");
-		for (String s : drugInStore.keySet()) {
-			drugModel.addElement(s);
-		}
+
 		drugBox.setBounds(100, 30, 110, 50);
 		drugBox.setBorder(BorderFactory.createTitledBorder("Drug"));
 		this.add(drugBox);

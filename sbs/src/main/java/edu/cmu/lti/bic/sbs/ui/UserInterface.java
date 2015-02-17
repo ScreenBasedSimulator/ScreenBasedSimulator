@@ -37,7 +37,6 @@ public class UserInterface {
 			public void run() {
 				try {
 					window = new MainWindow(ui);
-					Sound.play("1");
 					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,6 +62,7 @@ public class UserInterface {
 		System.out.println("UI: Tool " + tool.getName() + " is used.");
 		decisionEngine.useTool(tool);
 	}
+	
 
 	public void useDrug(String id, Double dose, String unit) {
 		assert (id != null);
@@ -85,11 +85,13 @@ public class UserInterface {
 
 	public void addDrug(final Drug drug) {
 		assert (drug != null);
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				window.addTool(drug.getId(), drug.getName());
-			}
-		});
+		drugMap.put(drug.getId(), drug);
+	}
+	public void addDrug(Drug[] drugMap){
+	  
+	  for(Drug d:drugMap){
+	    addDrug(d);
+	  }
 	}
 
 	public void addTool(Tool tool) {
@@ -100,6 +102,12 @@ public class UserInterface {
 				window.addTool(tool.getId(), tool.getName());
 			}
 		});
+	}
+	
+	public void addTools(Tool[] tools) {
+		for (Tool tool: tools) {
+			addTool(tool);
+		}
 	}
 
 	public void updateReport(Double score, String report) {
@@ -150,6 +158,11 @@ public class UserInterface {
 				window.addPathography(feedback);
 			}
 		});
+	}
+	
+	public HashMap<String,Drug> getDrugMap(){
+	  System.out.println(drugMap);
+	  return drugMap;
 	}
 
 }

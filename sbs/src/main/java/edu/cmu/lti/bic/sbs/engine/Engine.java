@@ -1,5 +1,19 @@
 package edu.cmu.lti.bic.sbs.engine;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
+import edu.cmu.lti.bic.sbs.gson.Drug;
+import edu.cmu.lti.bic.sbs.gson.OxygenMask;
+import edu.cmu.lti.bic.sbs.gson.Tool;
+import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
+import edu.cmu.lti.bic.sbs.simulator.Condition;
+import edu.cmu.lti.bic.sbs.simulator.HeartRate;
+import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
+import edu.cmu.lti.bic.sbs.simulator.RespirationRate;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Calendar;
@@ -8,6 +22,7 @@ import java.util.Timer;
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
+import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.gson.Patient;
@@ -22,6 +37,14 @@ import edu.cmu.lti.bic.sbs.ui.UserInterface;
  */
 public class Engine {
 	UserInterface ui = null;
+	//
+	Patient pt = null;
+	
+	
+	List<Tool> toolList = new ArrayList<Tool>();
+	List<Drug> drugList = new ArrayList<Drug>();
+
+
 	Simulator simulator = null;
 	Evaluator evaluator = null;
 	Scenario scenario = null;
@@ -37,6 +60,8 @@ public class Engine {
 	 * 
 	 * @throws Exception
 	 */
+
+
 	public Engine() throws Exception {
 		// User interface initialization
 		try {
@@ -71,14 +96,24 @@ public class Engine {
 		// patient to ui and simulation
 		Patient patient = gson.fromJson(fileReader, Patient.class);
 		ui.setPatientInfo(patient);
-
+		
+		//Load the drug data to user interface
+		try {
+      fileReader = new FileReader("src/test/resources/drug.json");
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+		Drug[] drugMap = gson.fromJson(fileReader, Drug[].class);
+		ui.addDrug(drugMap);
+		
 		// Patient and Simulator initialization
 		// Raw data should be loaded by file input later...
 
 		simulator = new Simulator(patient);
 
+
 		// Evaluator initialization
-		evaluator = new Evaluator();
+		evaluator = new Evaluator(this);
 		// Start looping
 
 		timer.scheduleAtFixedRate(new CoreTimerTask(1000, this), 0, 1000);
@@ -86,13 +121,13 @@ public class Engine {
 
 	public void useTool(Tool tool) {
 		scenario.useTool(tool);
-		evaluator.receive(tool, time);
+		//evaluator.receive(tool, time);
 		simulator.simulateWithTool(tool);
 	}
 
 	public void useDrug(Prescription p) {
 		scenario.useDrug(p.getDrug(), p.getDose());
-		evaluator.receive(p, time);
+		//evaluator.receive(p, time);
 		simulator.simWithDrugs(p);
 	}
 
@@ -109,5 +144,10 @@ public class Engine {
 
 	public void connectMonitor() {
 		isMonitorConnected = true;
+	}
+	
+	public void simOver(double score, String report){
+		timer.cancel();
+		ui.updateReport(score, report);
 	}
 }
