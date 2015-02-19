@@ -13,16 +13,10 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 //communicate with engine, just like the controller of patient
 public class Simulator {
 
-	public static void main(String[] args) {
-		System.out.println(ytFunction(80));
-	}
+	
 	Patient patient;
 
 	// adding default value for four parameter
-	float defaultBp;
-	float defaultHr;
-	final static Double defaultOl = 0.6;
-	float defaultRr;
 
 	// the initialization function for engine to involve
 	public Patient initialPatient() {
@@ -48,7 +42,30 @@ public class Simulator {
 	}
 
 	//the engine can get patient info from simulator
-	public Patient simPatient() {
+	public Patient simPatient( ) {
+		
+		double resultOl = ytFunction(100);
+		
+		System.out.print("resultOL = " + resultOl);
+		
+		patient.setOxygenLevel(new OxygenLevel(resultOl));
+		
+		double resultHR = ytFunction(90);
+		
+		System.out.print("resultHR = "+resultHR );
+		
+		System.out.print("patient's heart rate:" + (1+resultHR/100) * patient.getHeartRate().getHrNum());
+		
+		patient.setHeartRate(new HeartRate((1+resultHR/100) * patient.getHeartRate().getHrNum()));
+		
+		double resultRR = ytFunction(90);
+		
+		System.out.print("resultRR = "+resultRR);
+		
+		System.out.print("patient's respiration rate:" + (1+resultRR/30) * patient.getRepiratinoRate().getRrNum());
+		
+		patient.setRespirationRate(new RespirationRate((1+resultRR/30) * patient.getRepiratinoRate().getRrNum()));
+				
 		return patient;
 	}
 
@@ -114,7 +131,7 @@ public class Simulator {
 	}
 	
 	//
-	public static double fFunction(double x){
+	public double fFunction(double x){
 		double p1 = 1.667 * Math.pow(10, -6);
 		double p2 = -0.0002536;
 		double p3 = 0.01458;
@@ -130,14 +147,16 @@ public class Simulator {
 	}
 	
 	//
-	public static double t0Function(double x0){
+	public double t0Function(double x0){
 		double result;
 		
-		result = 1.0*(120 - x0)/2 - 1.0/fFunction(x0) * Math.log(1.0*(1-defaultOl) / defaultOl);
+		result = 1.0*(120 - x0)/2 - 1.0/fFunction(x0) * Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()) / //
+				patient.getOxygenLevel().getOlNum());
 	
 		System.out.println("1.0*(120 - x0)/2 = " + 1.0*(120 - x0)/2);
 		System.out.println("1.0/fFunction(x0) = "+1.0/fFunction(x0));
-		System.out.println("Math.log(1.0*(1-defaultOl) / defaultOl = " + Math.log(1.0*(1-defaultOl) / defaultOl ));
+		System.out.println("Math.log(1.0*(1-defaultOl) / defaultOl = " + //
+				Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()) / patient.getOxygenLevel().getOlNum()));
 		
 		System.out.println("t0Function's result:"+result);
 		
@@ -145,7 +164,7 @@ public class Simulator {
 	}
 	
 	//
-	public static double ytFunction(double x0){
+	public double ytFunction(double x0){
 		double result;
 		
 		result = 1.0/(1 + Math.exp(-fFunction(x0) * ((t0Function(x0) + 1) - 1.0*(120 - x0)/2)));
