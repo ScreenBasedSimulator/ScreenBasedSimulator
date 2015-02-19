@@ -181,6 +181,4 @@ public class Simulator {
 		return result;
 	}
 	
-	
-	
 }
