@@ -17,7 +17,7 @@ public class NursePanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -3126359881920225699L;
-
+	DrugWindow window;
 	/**
 	 * Launch the application.
 	 */
@@ -80,7 +80,7 @@ public class NursePanel extends JPanel {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							DrugWindow window = new DrugWindow(ui);
+							window = new DrugWindow(ui);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -93,5 +93,9 @@ public class NursePanel extends JPanel {
 		this.add(injectBtn);
 		this.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
 				connectMonitorBtn, callCodeBtn, injectBtn }));
+	}
+	public void closeDrugWindow() {
+		window.frame.setVisible(false); //you can't see me!
+		window.frame.dispose(); //Destroy the JFrame object
 	}
 }
