@@ -99,10 +99,10 @@ public class Engine {
 		
 		//Load the drug data to user interface
 		try {
-      fileReader = new FileReader("src/test/resources/drug.json");
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
+			fileReader = new FileReader("src/test/resources/drug.json");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		Drug[] drugMap = gson.fromJson(fileReader, Drug[].class);
 		ui.addDrug(drugMap);
 		
