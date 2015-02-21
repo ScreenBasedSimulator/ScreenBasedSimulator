@@ -1,5 +1,7 @@
 package edu.cmu.lti.bic.sbs.evaluator;
 
+import edu.cmu.lti.bic.sbs.gson.Tool;
+
 /**
  * 
  * This class, we try to use dynamic programming algorithm to 
@@ -8,18 +10,19 @@ package edu.cmu.lti.bic.sbs.evaluator;
  * @author Ryan Sun
  *
  */
-public class scoreDP {
+public class ScoreDP {
   
   
   
   private static double[][] matrix;
+//  private static double score;
   
   /**
    * constructor of the scoreDP class
    * 
    */
   
-  public scoreDP(){
+  public ScoreDP(){
   }
   
   /**
@@ -49,17 +52,17 @@ public class scoreDP {
     // the following is the DP algorithm
       // initialization for base cases:
       for(int i = 0; i <= l1; i++){
-        matrix[i][0] = i*1;
+        matrix[i][0] = i*0;
       }
-      for(int i = 0; i <= l2; i++){
-        matrix[0][i] = i*1;
+      for(int j = 0; j <= l2; j++){
+        matrix[0][j] = j*0;
       }
       
       // the dp algorithm for String Alignment
-      for(int i = 0; i <= l1; i++){
-        for(int j = 0; j <= l2; j++){
+      for(int i = 1; i <= l1; i++){
+        for(int j = 1; j <= l2; j++){
             double match = matrix[i-1][j-1] 
-                    + p1.get(i).stepScore(p2.get(j));
+                    + p1.get(i-1).stepScore(p2.get(j-1));
             double skip1 = matrix[i][j-1];
             double skip2 = matrix[i-1][j];
             matrix[i][j] = Math.max(match, 
@@ -77,14 +80,22 @@ public class scoreDP {
    */
   
   public static void main(String[] args) {
-    // The pathScore test case.
-    // Due to the inefficient test case, calculating multiple scores 
-    // cannot be achieved.
     Path p1 = new Path();
+    p1.setTag("Gold Standard");
     Path p2 = new Path();
-    System.out.println("The score is " + p1.pathScore(p2));
-    // TODO: Test scoring function locally inside Path class.
-    // p1.add(new Step())
-
-      }
+    for(int i = 0; i < 10; i++){
+      p1.add(new Step());
+      p2.add(new Step());
+    }
+    // test if p1 and p2 are different in the last Step
+//    Step s = new Step();
+//    s.setTool(new Tool());
+//    p1.add(s);
+    p1.add(new Step());
+    p2.add(new Step());
+    
+//    ScoreDP sdp = new ScoreDP();
+    double score = ScoreDP.scoreDP(p1, p2);
+    System.out.println(score);
+  }
 }
