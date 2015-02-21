@@ -1,6 +1,6 @@
 package edu.cmu.lti.bic.sbs.evaluator;
 
-import edu.cmu.lti.bic.sbs.gson.Tool;
+import java.util.ArrayList;
 
 /**
  * 
@@ -13,8 +13,15 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 public class ScoreDP {
   
   
-  
+  /**
+   * The matrix for store the intermediate data
+   */
   private static double[][] matrix;
+  
+  /**
+   * The ArrayList for store the backtrack Steps
+   */
+  private static ArrayList<Step> backTrack;
 //  private static double score;
   
   /**
