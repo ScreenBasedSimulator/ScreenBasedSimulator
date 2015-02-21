@@ -52,8 +52,8 @@ public class Path extends ArrayList<Step> {
 	Path p2 = new Path();
 	System.out.println("The score is " + p1.pathScore(p2));
 	// TODO: Test scoring function locally inside Path class.
-	// p1.add(new Step())
+    // p1.add(new Step())
 
-    }
+  }
 
 }

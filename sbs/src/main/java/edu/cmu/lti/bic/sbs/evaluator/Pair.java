@@ -21,8 +21,7 @@ public class Pair {
      * @param o1
      * @param o2
      */
-    public Pair(Object o1, Object o2) 
-    { 
+    public Pair(Object o1, Object o2) { 
       this.o1 = o1; this.o2 = o2; 
     }
    
@@ -38,22 +37,14 @@ public class Pair {
      * @return
      */
     
-    public static boolean isSame(Object o1, Object o2) 
-    {
-      if(o1 == null && o2 == null)
-      {
+    public static boolean isSame(Object o1, Object o2) {
+      if(o1 == null && o2 == null){
         return true;
-      }
-      else if(o1 == null)
-      {
+      }else if(o1 == null){
         return false;
-      }
-      else if(o2 == null)
-      {
+      }else if(o2 == null){
         return false;
-      }
-      else
-      {
+      }else{
         return o1 == o2;
       }
     }
@@ -64,8 +55,7 @@ public class Pair {
      * 
      * @return
      */
-    public Object getFirst() 
-    { 
+    public Object getFirst() { 
       return o1; 
     }
     
@@ -75,8 +65,7 @@ public class Pair {
      * 
      * @return
      */
-    public Object getSecond() 
-    { 
+    public Object getSecond() { 
       return o2; 
     }
    
@@ -86,8 +75,7 @@ public class Pair {
      * 
      * @return
      */
-    public void setFirst(Object o) 
-    {
+    public void setFirst(Object o) {
       o1 = o; 
     }
     
@@ -97,8 +85,7 @@ public class Pair {
      * 
      * @return
      */
-    public void setSecond(Object o) 
-    { 
+    public void setSecond(Object o) { 
       o2 = o; 
     }
    
@@ -110,20 +97,13 @@ public class Pair {
      * 
      */
     public boolean equals(Object obj) {
-      if( ! (obj instanceof Pair))
-      {
+      if( ! (obj instanceof Pair)){
         return false;
       }
       Pair p = (Pair) obj;
       
       return isSame(p.o1, this.o1) 
               && isSame(p.o2, this.o2);
-    }
-   
-    
-    public String toString() 
-    {
-      return "Pair{"+o1+", "+o2+"}";
     }
    
       /**
@@ -172,7 +152,6 @@ public class Pair {
        */
       public static void setO2(Object o2) {
         Pair.o2 = o2;
-      }
+  }
 
-      
 }
