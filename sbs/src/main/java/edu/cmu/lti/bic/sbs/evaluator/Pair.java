@@ -142,5 +142,37 @@ public class Pair {
           System.out.println(p4.equals(p4) + " should be true");
       }
 
+
+      /**
+       * @return the o1
+       */
+      public static Object getO1() {
+        return o1;
+      }
+
+
+      /**
+       * @param o1 the o1 to set
+       */
+      public static void setO1(Object o1) {
+        Pair.o1 = o1;
+      }
+
+
+      /**
+       * @return the o2
+       */
+      public static Object getO2() {
+        return o2;
+      }
+
+
+      /**
+       * @param o2 the o2 to set
+       */
+      public static void setO2(Object o2) {
+        Pair.o2 = o2;
+      }
+
       
 }
