@@ -19,7 +19,11 @@ import edu.cmu.lti.bic.sbs.simulator.MedicalParameter;
 class BloodPressure implements MedicalParameter {
 
 }
-
+/**
+ * 
+ * @author victorzhao, xings, ryan sun
+ *
+ */
 public class Evaluator {
     private double score;
     private Path actual;
@@ -36,18 +40,19 @@ public class Evaluator {
 	currentStep = new Step();
 	actual.setTag("Actual");
 	goldStandard.setTag("Gold Standard");
-	goldStandard.add(new Step(new Patient(), new Prescription(), new Tool(
-		"0", "Call Code", ""), new Timer()));
-	goldStandard.add(new Step(new Patient(), new Prescription(), new Tool(
-		"1", "Mask", ""), new Timer()));
-	goldStandard.add(new Step(new Patient(), new Prescription(new Drug(
-		"1stDrug", "", "1"), 1.0, "L"), new Tool(), new Timer()));
+	goldStandard.add(new Step(new Patient(), new Prescription(), 
+	        new Tool("0", "Call Code", ""), new Timer()));
+	goldStandard.add(new Step(new Patient(), new Prescription(), 
+	        new Tool("1", "Mask", ""), new Timer()));
+	goldStandard.add(new Step(new Patient(), new Prescription(
+	        new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool(), new Timer()));
     }
 
     private Engine engine;
 
     // private String report;
 
+    //overloading the constructor to support initialize with engine parameter
     public Evaluator(Engine engine) {
 	this.engine = engine;
 	actual = new Path();
@@ -55,12 +60,12 @@ public class Evaluator {
 	currentStep = new Step();
 	actual.setTag("Actual");
 	goldStandard.setTag("Gold Standard");
-	goldStandard.add(new Step(new Patient(), new Prescription(), new Tool(
-		"0", "Call Code", ""), new Timer()));
-	goldStandard.add(new Step(new Patient(), new Prescription(), new Tool(
-		"1", "Mask", ""), new Timer()));
-	goldStandard.add(new Step(new Patient(), new Prescription(new Drug(
-		"1stDrug", "", "1"), 1.0, "L"), new Tool(), new Timer()));
+	goldStandard.add(new Step(new Patient(), new Prescription(), 
+	        new Tool("0", "Call Code", ""), new Timer()));
+	goldStandard.add(new Step(new Patient(), new Prescription(), 
+	        new Tool("1", "Mask", ""), new Timer()));
+	goldStandard.add(new Step(new Patient(), new Prescription(
+	        new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool(), new Timer()));
     }
 
     class Report {
