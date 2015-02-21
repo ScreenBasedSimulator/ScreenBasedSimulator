@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.evaluator;
 
-import edu.cmu.lti.bic.sbs.gson.Tool;
+import java.util.ArrayList;
+
 
 /**
  * 
@@ -10,11 +11,25 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
  * @author Ryan Sun
  *
  */
-public class ScoreDP {
+public class ScoreDP 
+{
   
   
-  
+  /**
+   * 
+   * The matrix to store the immediate value of the DP algotithm
+   * 
+   */
   private static double[][] matrix;
+  
+  /**
+   * 
+   * ArrayList to store the backtrack path
+   * 
+   */
+  
+  private static ArrayList<Pair> backtrack;
+  
 //  private static double score;
   
   /**
@@ -22,7 +37,9 @@ public class ScoreDP {
    * 
    */
   
-  public ScoreDP(){
+  public ScoreDP()
+  {
+    backtrack = new ArrayList<Pair>();
   }
   
   /**
@@ -33,7 +50,8 @@ public class ScoreDP {
    *  
    */
   
-  public static double scoreDP(Path p1, Path p2){
+  public static double scoreDP(Path p1, Path p2)
+  {
     // firstly, check which one is the golden standard path
     // make sure p1 always the golden standard path
     if(!p1.getTag().equals("Gold Standard")){
@@ -51,7 +69,8 @@ public class ScoreDP {
     
     // the following is the DP algorithm
       // initialization for base cases:
-      for(int i = 0; i <= l1; i++){
+      for(int i = 0; i <= l1; i++)
+      {
         matrix[i][0] = i*0;
       }
       for(int j = 0; j <= l2; j++){
@@ -59,7 +78,8 @@ public class ScoreDP {
       }
       
       // the dp algorithm for String Alignment
-      for(int i = 1; i <= l1; i++){
+      for(int i = 1; i <= l1; i++)
+      {
         for(int j = 1; j <= l2; j++){
             double match = matrix[i-1][j-1] 
                     + p1.get(i-1).stepScore(p2.get(j-1));
@@ -79,11 +99,13 @@ public class ScoreDP {
    *
    */
   
-  public static void main(String[] args) {
+  public static void main(String[] args) 
+  {
     Path p1 = new Path();
     p1.setTag("Gold Standard");
     Path p2 = new Path();
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 10; i++)
+    {
       p1.add(new Step());
       p2.add(new Step());
     }
@@ -97,5 +119,25 @@ public class ScoreDP {
 //    ScoreDP sdp = new ScoreDP();
     double score = ScoreDP.scoreDP(p1, p2);
     System.out.println(score);
+  }
+
+  public static void setMatrix(double[][] matrix) 
+  {
+    ScoreDP.matrix = matrix;
+  }
+
+  public static void setBacktrack(ArrayList<Pair> backtrack) 
+  {
+    ScoreDP.backtrack = backtrack;
+  }
+
+  public static double[][] getMatrix() 
+  {
+    return matrix;
+  }
+
+  public static ArrayList<Pair> getBacktrack() 
+  {
+    return backtrack;
   }
 }
