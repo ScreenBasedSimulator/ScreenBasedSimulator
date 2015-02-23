@@ -5,38 +5,73 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.MedicalParameter;
 
 public class Received {
-	private MedicalParameter medPara;
-	// I suggest to store drug with dose as a single class.
-	private Drug drug;
-	private double dose;
-	private Tool tool;
+  private MedicalParameter medPara;
 
-	public void setPara(MedicalParameter medPara) {
-		this.medPara = medPara;
-	}
+  // I suggest to store drug with dose as a single class.
+  private Drug drug;
 
-	public void set(Drug drug, double dose) {
-		this.drug = drug;
-		this.dose = dose;
-	}
+  private double dose;
 
-	public void set(Tool eq) {
-		this.tool = eq;
-	}
+  private Tool tool;
 
-	public MedicalParameter getPara() {
-		return medPara;
-	}
+  /**
+   * @return the medPara
+   */
+  public MedicalParameter getMedPara() {
+    return medPara;
+  }
 
-	public Drug getDrug() {
-		return drug;
-	}
+  /**
+   * @param medPara
+   *          the medPara to set
+   */
+  public void setMedPara(MedicalParameter medPara) {
+    this.medPara = medPara;
+  }
 
-	public double getDose() {
-		return dose;
-	}
+  /**
+   * @return the drug
+   */
+  public Drug getDrug() {
+    return drug;
+  }
 
-	public Tool getTool() {
-		return tool;
-	}
+  /**
+   * @param drug
+   *          the drug to set
+   */
+  public void setDrug(Drug drug) {
+    this.drug = drug;
+  }
+
+  /**
+   * @return the dose
+   */
+  public double getDose() {
+    return dose;
+  }
+
+  /**
+   * @param dose
+   *          the dose to set
+   */
+  public void setDose(double dose) {
+    this.dose = dose;
+  }
+
+  /**
+   * @return the tool
+   */
+  public Tool getTool() {
+    return tool;
+  }
+
+  /**
+   * @param tool
+   *          the tool to set
+   */
+  public void setTool(Tool tool) {
+    this.tool = tool;
+  }
+
 }
