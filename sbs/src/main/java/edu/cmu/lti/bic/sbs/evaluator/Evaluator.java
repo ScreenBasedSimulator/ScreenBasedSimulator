@@ -9,6 +9,7 @@ import java.util.Calendar;
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.engine.Engine;
+import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
@@ -32,9 +33,9 @@ public class Evaluator {
 	  currentStep = new Step();
 	  actual.setTag("Actual");
 	  goldStandard.setTag("Gold Standard");
-	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("0", "Call Code", ""), new Time()));
-	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("1", "Mask", ""), new Time()));
-	  goldStandard.add(new Step(new Patient(), new Prescription(new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool(), new Time()));
+	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("0", "Call Code", ""), new Timer()));
+	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("1", "Mask", ""), new Timer()));
+	  goldStandard.add(new Step(new Patient(), new Prescription(new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool(), new Timer()));
 	}
 	
 	class Report{
@@ -116,10 +117,6 @@ public class Evaluator {
 		return "The score is " + score;
 	}
 
-	public Evaluator() {
-		score = 0;
-		paras = new ArrayList<Received>();
-	}
 
 	public void setInitialTime(Calendar initTime) {
 
