@@ -39,7 +39,7 @@ public class Evaluator {
 	goldStandard = new Path();
 	currentStep = new Step();
 	actual.setTag("Actual");
-	goldStandard.setTag("Gold Standard");
+    goldStandard.setTag("Gold Standard");
 	goldStandard.add(new Step(new Patient(), new Prescription(), 
 	        new Tool("0", "Call Code", ""), new Timer()));
 	goldStandard.add(new Step(new Patient(), new Prescription(), 
