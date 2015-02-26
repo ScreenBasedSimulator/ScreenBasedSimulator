@@ -31,4 +31,8 @@ public class Tool {
 		this.id = id;
 		this.name = name;
 	}
+	public Tool(){
+	  
+	}
+	
 }

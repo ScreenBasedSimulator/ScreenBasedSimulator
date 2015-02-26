@@ -21,11 +21,12 @@ class BloodPressure implements MedicalParameter {
 }
 
 public class Evaluator {
-	private float score;
+	private double score;
 	private Path actual;
 	private Path goldStandard;
 	private Step currentStep;
 	private Engine engine;
+	
 	// private String report;
 	public Evaluator(){
 	  actual = new Path();
@@ -42,6 +43,7 @@ public class Evaluator {
 		double score;
 		String report;
 	}
+	
 	/** called by engine to receive the medPara
 	 * 
 	 * @param medPara
@@ -75,7 +77,7 @@ public class Evaluator {
 	
 	public void receive(Prescription prescription){
 	  currentStep.setPrescription(prescription);
-	  System.out.println("Evaluator: USER ACTION: USE DRUG:" + p.getDrug().getName());
+	  System.out.println("Evaluator: USER ACTION: USE DRUG:" + prescription.getDrug().getName());
 	  updateStep();
 	}
 
@@ -109,7 +111,7 @@ public class Evaluator {
 		generateReport();
 	}
 
-	public float getScore() {
+	public double getScore() {
 		return score;
 	}
 
