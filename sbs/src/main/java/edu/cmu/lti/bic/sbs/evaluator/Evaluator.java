@@ -34,9 +34,9 @@ public class Evaluator {
 	  currentStep = new Step();
 	  actual.setTag("Actual");
 	  goldStandard.setTag("Gold Standard");
-	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("0", "Call Code", ""), new Timer()));
-	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("1", "Mask", ""), new Timer()));
-	  goldStandard.add(new Step(new Patient(), new Prescription(new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool(), new Timer()));
+	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("0", "Call Code", ""), Calendar.getInstance()));
+	  goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("1", "Mask", ""), Calendar.getInstance()));
+	  goldStandard.add(new Step(new Patient(), new Prescription(new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool(), Calendar.getInstance()));
 	}
 	
 	class Report{
@@ -69,14 +69,16 @@ public class Evaluator {
     }
 	}
 	
-	public void receive(Patient patient){
+	public void receive(Patient patient, Calendar time){
 	   currentStep.setPatient(patient);
+	   currentStep.setTime(time);
 	   System.out.println("Patient added");
 	   updateStep();
 	}
 	
-	public void receive(Prescription prescription){
+	public void receive(Prescription prescription, Calendar time){
 	  currentStep.setPrescription(prescription);
+	  currentStep.setTime(time);
 	  System.out.println("Evaluator: USER ACTION: USE DRUG:" + prescription.getDrug().getName());
 	  updateStep();
 	}
@@ -94,13 +96,14 @@ public class Evaluator {
 	 *          time used
 	 */
 	
-	public void receive(Tool tool){
+	public void receive(Tool tool, Calendar time){
 	  currentStep.setTool(tool);
+	  currentStep.setTime(time);
 	  System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
 	  updateStep();
   }
 	
-	public void receive(Timer time){
+	public void receive(Calendar time){
 	  currentStep.setTime(time);
 	  System.out.println("Evaluator: USER ACTION: TIME:" + time.toString());
 	  updateStep();
