@@ -65,6 +65,10 @@ public class Step {
               stepRule = new StepRule(ruleFiles, this);
           }
     
+    public void setRule(String ruleFiles){
+      stepRule = new StepRule(ruleFiles, this);
+    }
+    
     /**
      * The patient setter.
      * @param p The incoming patient instance
@@ -135,13 +139,18 @@ public class Step {
     }
 
     public double stepScore(Step a) {
-       
+       if (stepRule == null){
         if (this.toolUsed == a.toolUsed
                 && this.prescriptionUsed == a.prescriptionUsed) {
           return 1.0;
         } else {
           return 0.0;
         }
+       }else{
+         double score = stepRule.maxScore();
+         
+         return score;
+       }
     }
 
     public static void main(String[] args) {
