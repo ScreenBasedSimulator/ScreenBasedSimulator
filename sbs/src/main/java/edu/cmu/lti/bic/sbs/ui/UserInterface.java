@@ -48,6 +48,12 @@ public class UserInterface {
 	public void callCode(String code) {
 		// decisionEngine.callCode(code);
 		ui.addPathography("Code Blue!");
+		try {
+			Sound.play("alarm");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void connectMonitor() {
@@ -71,6 +77,8 @@ public class UserInterface {
 		Prescription prescription = new Prescription(drug, dose, unit);
 		decisionEngine.useDrug(prescription);
 		ui.addPathography("used a drug!");
+		window.closeDrugWindow();
+		this.updateReport(99.0, "You did a good job!");
 	}
 
 	public void setPatientInfo(final Patient patient) {

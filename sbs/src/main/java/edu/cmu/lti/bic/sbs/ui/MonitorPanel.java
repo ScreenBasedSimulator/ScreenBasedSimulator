@@ -105,13 +105,14 @@ public class MonitorPanel extends JPanel {
 	 * @param oxygenLevel the oxygen level of the current status
 	 */
 	public void setOxygenLevel(Double oxygenLevel) {
-		oxygenLevelLabel.setText(oxygenLevel.intValue() + " %");
+		oxygenLevelLabel.setText(Math.floor(oxygenLevel * 1000)/10 + " %");
 	}
 	/**
 	 * set the respiratory rate of the patient
 	 * @param respiratoryRate the respiratory level of the current status
 	 */
 	public void setRespiratoryRate(Double respiratoryRate) {
+		respiratoryRate = Math.floor(respiratoryRate * 10)/10;
 		respiratoryRateLabel.setText(respiratoryRate.toString());
 	}
 	/**

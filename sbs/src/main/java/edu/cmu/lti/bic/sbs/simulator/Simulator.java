@@ -14,12 +14,20 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 //communicate with engine, just like the controller of patient
 public class Simulator {
 
+<<<<<<< HEAD
 	Patient patient;
 
 	//
 	ArrayList<Tool> toolList;
 	ArrayList<Prescription> prescriptionList;
 	
+=======
+	
+	Patient patient;
+
+	// adding default value for four parameter
+
+>>>>>>> master
 	// the initialization function for engine to involve
 	public Patient initialPatient() {
 		patient = new Patient();
@@ -48,9 +56,15 @@ public class Simulator {
 	}
 
 	//the engine can get patient info from simulator
+<<<<<<< HEAD
 	public Patient simPatient() {
 		
 double resultOl = ytFunction(100);
+=======
+	public Patient simPatient( ) {
+		
+		double resultOl = ytFunction(100);
+>>>>>>> master
 		
 		System.out.print("resultOL = " + resultOl);
 		
@@ -142,7 +156,11 @@ double resultOl = ytFunction(100);
 		return patient;
 	}
 	
+<<<<<<< HEAD
 	//helper function
+=======
+	//
+>>>>>>> master
 	public double fFunction(double x){
 		double p1 = 1.667 * Math.pow(10, -6);
 		double p2 = -0.0002536;
@@ -156,6 +174,7 @@ double resultOl = ytFunction(100);
 		return result;
 	}
 	
+<<<<<<< HEAD
 	//helper function
 	public double t0Function(double x0){
 		double result;
@@ -166,6 +185,26 @@ double resultOl = ytFunction(100);
 	}
 	
 	//this function to calculate the curve
+=======
+	//
+	public double t0Function(double x0){
+		double result;
+		
+		result = 1.0*(120 - x0)/2 - 1.0/fFunction(x0) * Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()) / //
+				patient.getOxygenLevel().getOlNum());
+	
+		System.out.println("1.0*(120 - x0)/2 = " + 1.0*(120 - x0)/2);
+		System.out.println("1.0/fFunction(x0) = "+1.0/fFunction(x0));
+		System.out.println("Math.log(1.0*(1-defaultOl) / defaultOl = " + //
+				Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()) / patient.getOxygenLevel().getOlNum()));
+		
+		System.out.println("t0Function's result:"+result);
+		
+		return result;
+	}
+	
+	//
+>>>>>>> master
 	public double ytFunction(double x0){
 		double result;
 		

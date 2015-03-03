@@ -2,44 +2,49 @@ package edu.cmu.lti.bic.sbs.gson;
 
 /**
  * The Tool Class
- * 
+ *
  * @author Victor Zhao
  *
  */
 public class Tool {
-	private String name = null;
-	private String id = null;
-	private double value;
-	
-	public String getName() {
-		return name;
-	}
+  private String name = null;
 
-	public Tool setName(String toolName) {
-		this.name = toolName;
-		return this;
-	}
+  private String id = null;
 
-	public String getId() {
-		return id;
-	}
+  public Tool() {
+    this("Default id", "Default name", "Default description");
+  }
 
-	public String toString() {
-		return "The tool is " + name;
-	}
+  private double value;
 
-	public Tool(String id, String name, String description) {
-		
-		this.id = id;
-		this.name = name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public double getValue() {
-		return value;
-	}
+  public Tool setName(String toolName) {
+    this.name = toolName;
+    return this;
+  }
 
-	public void setValue(double value) {
-		this.value = value;
-	}
-	
+  public String getId() {
+    return id;
+  }
+
+  public String toString() {
+    return "The tool is " + name;
+  }
+
+  public Tool(String id, String name, String description) {
+
+    this.id = id;
+    this.name = name;
+  }
+
+  public double getValue() {
+    return value;
+  }
+
+  public void setValue(double value) {
+    this.value = value;
+  }
 }

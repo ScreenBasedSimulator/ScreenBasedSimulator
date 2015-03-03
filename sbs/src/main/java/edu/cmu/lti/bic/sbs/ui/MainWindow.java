@@ -130,4 +130,8 @@ public class MainWindow {
 		monitorPanel.setOxygenLevel(oxygenLevel);
 		monitorPanel.setRespiratoryRate(respiratoryRate);
 	}
+	
+	public void closeDrugWindow() {
+		nursePanel.closeDrugWindow();
+	}
 }
