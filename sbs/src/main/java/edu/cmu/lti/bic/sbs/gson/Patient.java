@@ -13,7 +13,6 @@ enum Status {
 }
 
 public class Patient {
-<<<<<<< HEAD
 	private String basic; //eg: male, 35, white
 	private String description; //eg: headache, vomit
 	
@@ -27,6 +26,7 @@ public class Patient {
 	
 	GraphicDisplay graDisplay;
 	Status status;
+	
 	public Patient() {
 		
 	}
@@ -75,77 +75,4 @@ public class Patient {
 	public void setRespirationRate(RespirationRate respirationRate) {
 		this.respirationRate = respirationRate;
 	}
-=======
-  private String basic; // eg: male, 35, white
-
-  private String description; // eg: headache, vomit
-
-  private Condition cd;
-
-  private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0);
-
-  private HeartRate heartRate = new HeartRate(50.0);
-
-  private OxygenLevel oxygenLevel = new OxygenLevel(0.50);
-
-  private RespirationRate respirationRate = new RespirationRate(6.0);
-
-  GraphicDisplay graDisplay;
-
-  Status status;
-
-  public Patient() {
-
-  }
-
-  public Patient(String basic, String description) {
-    this.basic = basic;
-    this.description = description;
-  }
-
-  public Patient(Condition cd) {
-    super();
-    this.cd = cd;
-  }
-
-  public String getBasic() {
-    return basic;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public BloodPressure getBloodPressure() {
-    return bloodPressure;
-  }
-
-  public void setBloodPressure(BloodPressure bloodPressure) {
-    this.bloodPressure = bloodPressure;
-  }
-
-  public HeartRate getHeartRate() {
-    return heartRate;
-  }
-
-  public void setHeartRate(HeartRate heartRate) {
-    this.heartRate = heartRate;
-  }
-
-  public OxygenLevel getOxygenLevel() {
-    return oxygenLevel;
-  }
-
-  public void setOxygenLevel(OxygenLevel oxygenLevel) {
-    this.oxygenLevel = oxygenLevel;
-  }
-
-  public RespirationRate getRepiratinoRate() {
-    return respirationRate;
-  }
-
-  public void setRespirationRate(RespirationRate respirationRate) {
-    this.respirationRate = respirationRate;
-  }
->>>>>>> master
 }
