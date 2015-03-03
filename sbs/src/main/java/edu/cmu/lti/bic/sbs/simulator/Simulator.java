@@ -50,12 +50,28 @@ public class Simulator {
 	//the engine can get patient info from simulator
 	public Patient simPatient() {
 		
-		System.out.println("patient's ol:"+patient.getOxygenLevel().getOlNum());
+double resultOl = ytFunction(100);
 		
-		double resultOL = ytFunction(30);
+		System.out.print("resultOL = " + resultOl);
 		
-//		patient.setOxygenLevel(new OxygenLevel(resultOL));
+		patient.setOxygenLevel(new OxygenLevel(resultOl));
 		
+		double resultHR = ytFunction(90);
+		
+		System.out.print("resultHR = "+resultHR );
+		
+		System.out.print("patient's heart rate:" + (1+resultHR/100) * patient.getHeartRate().getHrNum());
+		
+		patient.setHeartRate(new HeartRate((1+resultHR/100) * patient.getHeartRate().getHrNum()));
+		
+		double resultRR = ytFunction(90);
+		
+		System.out.print("resultRR = "+resultRR);
+		
+		System.out.print("patient's respiration rate:" + (1+resultRR/30) * patient.getRepiratinoRate().getRrNum());
+		
+		patient.setRespirationRate(new RespirationRate((1+resultRR/30) * patient.getRepiratinoRate().getRrNum()));
+				
 		return patient;
 	}
 
@@ -126,7 +142,7 @@ public class Simulator {
 		return patient;
 	}
 	
-	//
+	//helper function
 	public double fFunction(double x){
 		double p1 = 1.667 * Math.pow(10, -6);
 		double p2 = -0.0002536;
@@ -137,36 +153,23 @@ public class Simulator {
 		
 		result = p1*Math.pow(x, 3) + p2*Math.pow(x, 2) + p3*x + p4;
 		
-//		System.out.println("fFunction's result:"+result);
-		
 		return result;
 	}
 	
-	//
+	//helper function
 	public double t0Function(double x0){
 		double result;
 		
 		result = 1.0*(120 - x0)/2 - 1.0/fFunction(x0) * Math.log(1.0*(1 - patient.getOxygenLevel().getOlNum()/100.0) / patient.getOxygenLevel().getOlNum()/100.0);
 	
-//		System.out.println("1.0*(120 - x0)/2 = " + 1.0*(120 - x0)/2);
-//		System.out.println("1.0/fFunction(x0) = "+1.0/fFunction(x0));
-//		System.out.println("Math.log(1.0*(1-defaultOl) / defaultOl = " + Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()/100.0) / patient.getOxygenLevel().getOlNum()/100.0 ));
-		
-//		System.out.println("t0Function's result:"+result);
-		
 		return result;
 	}
 	
-	//
+	//this function to calculate the curve
 	public double ytFunction(double x0){
 		double result;
 		
 		result = 1.0/(1 + Math.exp(-fFunction(x0) * ((t0Function(x0) + 1) - 1.0*(120 - x0)/2)));
-		
-//		System.out.println("Math.exp(-fFunction(x0) * (t0Function(x0) + 1) - 1.0*(120 - x0)/2) ="+Math.exp(-fFunction(x0) * (t0Function(x0) + 1) - 1.0*(120 - x0)/2));
-//		System.out.println("");
-		
-		System.out.println("ytFunction's result:"+result);
 		
 		return result;
 	}
@@ -175,7 +178,6 @@ public class Simulator {
 	public double downFunction(){
 		double result;
 		
-		//the interval is 1 second
 		result = 1 - 0.001 * Math.pow(1, 2);
 		
 		return result;
