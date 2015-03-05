@@ -1,7 +1,8 @@
 package edu.cmu.lti.bic.sbs.evaluator;
 
-import edu.cmu.lti.bic.sbs.gson.*;
+import java.util.Calendar;
 
+<<<<<<< HEAD
 /**
  * The Step Class
  * 
@@ -16,6 +17,25 @@ public class Step {
     private Prescription prescriptionUsed;
     private Patient patient;
 
+=======
+import edu.cmu.lti.bic.sbs.gson.*;
+
+/**
+ * The Step Class
+ * 
+ * @author Victor Zhao, Xing Sun
+ * 
+ */
+public class Step {
+
+    // private Medicine medUsed;
+
+    private Calendar timeUsed;
+    private Tool toolUsed;
+    private Prescription prescriptionUsed;
+    private Patient patient;
+    private StepRule stepRule;
+>>>>>>> guanw
     // private undefined patientStatus;
 
     /**
@@ -23,8 +43,13 @@ public class Step {
      * @return The step description in serialize string.
      */
     public String getStep() {
+<<<<<<< HEAD
 	return prescriptionUsed.toString() + timeUsed.toString()
 		+ toolUsed.toString();
+=======
+        return prescriptionUsed.toString() + timeUsed.toString() 
+                + toolUsed.toString();
+>>>>>>> guanw
     }
 
     public Step() {
@@ -34,6 +59,11 @@ public class Step {
     /**
      * Step initializer
      * 
+<<<<<<< HEAD
+=======
+     * Called when building the gold standard
+     * 
+>>>>>>> guanw
      * @param apatient
      *            The patient instance
      * @param prescription
@@ -44,11 +74,32 @@ public class Step {
      *            The time stamp
      */
     public Step(Patient apatient, Prescription prescription, Tool tool,
+<<<<<<< HEAD
 	    Timer time) {
 	prescriptionUsed = prescription;
 	timeUsed = time;
 	toolUsed = tool;
 	patient = apatient;
+=======
+	    Calendar time) {
+        prescriptionUsed = prescription;
+        timeUsed = time;
+        toolUsed = tool;
+        patient = apatient;
+    }
+    
+    public Step(Patient apatient, Prescription prescription, Tool tool,
+            Calendar time, String ruleFiles) {
+              prescriptionUsed = prescription;
+              timeUsed = time;
+              toolUsed = tool;
+              patient = apatient;
+              stepRule = new StepRule(ruleFiles, this);
+          }
+    
+    public void setRule(String ruleFiles){
+      stepRule = new StepRule(ruleFiles, this);
+>>>>>>> guanw
     }
     
     /**
@@ -56,7 +107,11 @@ public class Step {
      * @param p The incoming patient instance
      */
     public void setPatient(Patient p) {
+<<<<<<< HEAD
 	patient = p;
+=======
+        patient = p;
+>>>>>>> guanw
     }
     
     /**
@@ -64,7 +119,11 @@ public class Step {
      * @return The patient instance
      */
     public Patient getPatient() {
+<<<<<<< HEAD
 	return patient;
+=======
+        return patient;
+>>>>>>> guanw
     }
     
     /**
@@ -72,7 +131,11 @@ public class Step {
      * @param p incoming prescription instance
      */
     public void setPrescription(Prescription p) {
+<<<<<<< HEAD
 	prescriptionUsed = p;
+=======
+        prescriptionUsed = p;
+>>>>>>> guanw
     }
     
     /**
@@ -80,7 +143,11 @@ public class Step {
      * @return the prescription within one step
      */
     public Prescription getPrescription() {
+<<<<<<< HEAD
 	return prescriptionUsed;
+=======
+        return prescriptionUsed;
+>>>>>>> guanw
     }
     
     /** 
@@ -88,7 +155,11 @@ public class Step {
      * @param t incoming tool
      */
     public void setTool(Tool t) {
+<<<<<<< HEAD
 	toolUsed = t;
+=======
+        toolUsed = t;
+>>>>>>> guanw
     }
     
     /**
@@ -96,31 +167,50 @@ public class Step {
      * @return the tool instance
      */
     public Tool getTool() {
+<<<<<<< HEAD
 	return toolUsed;
+=======
+        return toolUsed;
+>>>>>>> guanw
     }
     
     /**
      * The time setter
      * @param t the incoming time instance
      */
+<<<<<<< HEAD
     public void setTime(Timer t) {
 	timeUsed = t;
+=======
+    public void setTime(Calendar t) {
+        timeUsed = t;
+>>>>>>> guanw
     }
     
     /**
      * The timer getter
      * @return the timer instance
      */
+<<<<<<< HEAD
     public Timer getTime() {
 	return timeUsed;
     }
     
     public boolean isComplete() {
 	return (prescriptionUsed != null) && (patient != null)
+=======
+    public Calendar getTime() {
+        return timeUsed;
+    }
+    
+    public boolean isComplete() {
+        return (prescriptionUsed != null) && (patient != null)
+>>>>>>> guanw
 		&& (toolUsed != null) && (timeUsed != null);
     }
 
     public double stepScore(Step a) {
+<<<<<<< HEAD
 	if (this.toolUsed == a.toolUsed
 		&& this.prescriptionUsed == a.prescriptionUsed) {
 	    return 1.0;
@@ -133,5 +223,24 @@ public class Step {
 	Step s = new Step();
 	System.out.println(s.getStep());
 	
+=======
+       if (stepRule == null){
+        if (this.toolUsed == a.toolUsed
+                && this.prescriptionUsed == a.prescriptionUsed) {
+          return 1.0;
+        } else {
+          return 0.0;
+        }
+       }else{
+         double score = stepRule.maxScore();
+         
+         return score;
+       }
+    }
+
+    public static void main(String[] args) {
+        Step s = new Step();
+        System.out.println(s.getStep());
+>>>>>>> guanw
     }
 }

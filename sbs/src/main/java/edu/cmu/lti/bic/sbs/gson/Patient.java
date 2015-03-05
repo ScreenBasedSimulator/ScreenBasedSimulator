@@ -7,9 +7,9 @@ import edu.cmu.lti.bic.sbs.simulator.HeartRate;
 import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
 import edu.cmu.lti.bic.sbs.simulator.RespirationRate;
 
-enum Status{
-	great, good, not_good, bad, dying
-	
+enum Status {
+  great, good, not_good, bad, dying
+
 }
 
 public class Patient {
@@ -26,6 +26,7 @@ public class Patient {
 	
 	GraphicDisplay graDisplay;
 	Status status;
+	
 	public Patient() {
 		
 	}

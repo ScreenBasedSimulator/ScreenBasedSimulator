@@ -8,11 +8,13 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.WindowConstants;
 
 public class DrugPanel extends JPanel {
 
@@ -24,6 +26,7 @@ public class DrugPanel extends JPanel {
 	HashMap<String, String> drugInStore = new HashMap<String, String>();// name,
 																																			// id
 	UserInterface ui;
+
 	DefaultComboBoxModel<String> drugModel = new DefaultComboBoxModel<String>();
 	DefaultComboBoxModel<String> unitModel = new DefaultComboBoxModel<String>();
 
@@ -49,6 +52,7 @@ public class DrugPanel extends JPanel {
 	 */
 	public DrugPanel(UserInterface ui) {
 		initialize();
+
 		this.ui = ui;
 		// this.drugWindow=drugWindow;
 	}
@@ -93,6 +97,7 @@ public class DrugPanel extends JPanel {
 				System.out.println("iD:" + id);
 
 				ui.useDrug(id, dose, drugUnit);
+				
 			}
 		});
 	}
