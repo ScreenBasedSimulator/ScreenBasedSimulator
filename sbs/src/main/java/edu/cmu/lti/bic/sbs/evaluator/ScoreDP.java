@@ -1,6 +1,12 @@
 package edu.cmu.lti.bic.sbs.evaluator;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+
+import edu.cmu.lti.bic.sbs.gson.Drug;
+import edu.cmu.lti.bic.sbs.gson.Patient;
+import edu.cmu.lti.bic.sbs.gson.Prescription;
+import edu.cmu.lti.bic.sbs.gson.Tool;
 
 /**
  *
@@ -92,20 +98,29 @@ public class ScoreDP {
     Path p1 = new Path();
     p1.setTag("Gold Standard");
     Path p2 = new Path();
+    Path p3 = new Path();
     for (int i = 0; i < 10; i++) {
       p1.add(new Step());
       p2.add(new Step());
+      p3.add(new Step());
     }
     // test if p1 and p2 are different in the last Step
     // Step s = new Step();
     // s.setTool(new Tool());
     // p1.add(s);
-    p1.add(new Step());
-    p2.add(new Step());
+    p1.add(new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0", "Call Code", ""),
+            Calendar.getInstance()));
+    p2.add(new Step(new Patient(), new Prescription(new Drug(), 11.0, "ml"), new Tool("0", "Call Code", ""),
+            Calendar.getInstance()));
+    p3.add(new Step(new Patient(), new Prescription(new Drug(), 30.0, "ml"), new Tool("0", "Call Code", ""),
+            Calendar.getInstance()));
+    
 
     // ScoreDP sdp = new ScoreDP();
-    double score = ScoreDP.scoreDP(p1, p2);
-    System.out.println(score);
+    double score2 = ScoreDP.scoreDP(p1, p2);
+    double score3 = ScoreDP.scoreDP(p1, p3);
+    System.out.println(score2);
+    System.out.println(score3);
   }
 
   public static void setMatrix(double[][] matrix) {
