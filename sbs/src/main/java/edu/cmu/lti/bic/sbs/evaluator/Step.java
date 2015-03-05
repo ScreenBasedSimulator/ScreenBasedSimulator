@@ -19,6 +19,7 @@ public class Step {
     private Prescription prescriptionUsed;
     private Patient patient;
     private StepRule stepRule;
+
     // private undefined patientStatus;
 
     /**

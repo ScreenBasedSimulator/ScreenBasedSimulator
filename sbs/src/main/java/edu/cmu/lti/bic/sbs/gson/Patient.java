@@ -13,6 +13,7 @@ enum Status {
 }
 
 public class Patient {
+
 	private String basic; //eg: male, 35, white
 	private String description; //eg: headache, vomit
 	
@@ -75,4 +76,5 @@ public class Patient {
 	public void setRespirationRate(RespirationRate respirationRate) {
 		this.respirationRate = respirationRate;
 	}
+
 }

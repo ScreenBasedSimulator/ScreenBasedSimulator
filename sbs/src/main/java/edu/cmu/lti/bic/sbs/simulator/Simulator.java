@@ -17,11 +17,9 @@ public class Simulator {
 
 	Patient patient;
 
-	//
+	
 	ArrayList<Tool> toolList;
 	ArrayList<Prescription> prescriptionList;
-	
-
 
 	// adding default value for four parameter
 
@@ -54,6 +52,7 @@ public class Simulator {
 	}
 
 	//the engine can get patient info from simulator
+	
 	public Patient simPatient( ) {
 		
 		if(toolList.size() == 0 && prescriptionList.size() == 0){
@@ -189,8 +188,6 @@ public class Simulator {
 			
 			return patient;
 		}
-		
-		
 		
 	}
 

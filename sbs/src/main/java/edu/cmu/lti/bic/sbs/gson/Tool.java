@@ -7,6 +7,7 @@ package edu.cmu.lti.bic.sbs.gson;
  *
  */
 public class Tool {
+
   private String name = null;
 
   private String id = null;
