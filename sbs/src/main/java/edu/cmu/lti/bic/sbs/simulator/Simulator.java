@@ -302,8 +302,6 @@ public class Simulator {
 	public double t0Function(double x0){
 		double result;
 		
-<<<<<<< HEAD
-
 		result = 1.0*(120 - x0)/2 - 1.0/fFunction(x0) * Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()) / //
 				patient.getOxygenLevel().getOlNum());
 	
@@ -311,22 +309,6 @@ public class Simulator {
 		System.out.println("1.0/fFunction(x0) = "+1.0/fFunction(x0));
 		System.out.println("Math.log(1.0*(1-defaultOl) / defaultOl = " + //
 				Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()) / patient.getOxygenLevel().getOlNum()));
-
-		result = 1.0*(120 - x0)/2 - 1.0/fFunction(x0) * Math.log(1.0*(1 - patient.getOxygenLevel().getOlNum()/100.0) / patient.getOxygenLevel().getOlNum()/100.0);
-	
-//		System.out.println("1.0*(120 - x0)/2 = " + 1.0*(120 - x0)/2);
-//		System.out.println("1.0/fFunction(x0) = "+1.0/fFunction(x0));
-//		System.out.println("Math.log(1.0*(1-defaultOl) / defaultOl = " + Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()/100.0) / patient.getOxygenLevel().getOlNum()/100.0 ));
-
-=======
-		result = 1.0*(120 - x0)/2 - 1.0/fFunction(x0) * Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()) / //
-				patient.getOxygenLevel().getOlNum());
-	
-		System.out.println("1.0*(120 - x0)/2 = " + 1.0*(120 - x0)/2);
-		System.out.println("1.0/fFunction(x0) = "+1.0/fFunction(x0));
-		System.out.println("Math.log(1.0*(1-defaultOl) / defaultOl = " + //
-				Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()) / patient.getOxygenLevel().getOlNum()));
->>>>>>> origin/jianhel
 		
 		System.out.println("t0Function's result:"+result);
 		
