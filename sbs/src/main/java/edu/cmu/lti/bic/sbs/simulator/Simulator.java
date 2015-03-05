@@ -20,8 +20,6 @@ public class Simulator {
 	//
 	ArrayList<Tool> toolList;
 	ArrayList<Prescription> prescriptionList;
-	
-
 
 	// adding default value for four parameter
 
