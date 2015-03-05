@@ -126,18 +126,19 @@ public class Evaluator {
 	}
 
 	public void regularUpdate(Patient p, Calendar time) {
-	    if(isSimEnd())
-		calculateScore();
-	    	engine.simOver(score, generateReport());
+		if (isSimEnd())
+			calculateScore();
+		engine.simOver(score, generateReport());
 	}
-	
-	public boolean isSimEnd(){
-//	    long timeNow = currentStep.getTime().getTimeInMillis();
-//	    long timeLast = actual.get(actual.size()-1).getTime().getTimeInMillis();
-//	    Patient p = currentStep.getPatient();
-//	    return 10000 < timeNow-timeLast &&
-//		    (p.getOxygenLevel().getOlNum() < .50 || p.getOxygenLevel().getOlNum()>.90);
-	    return actual.size()==3;
+
+	public boolean isSimEnd() {
+		// long timeNow = currentStep.getTime().getTimeInMillis();
+		// long timeLast = actual.get(actual.size()-1).getTime().getTimeInMillis();
+		// Patient p = currentStep.getPatient();
+		// return 10000 < timeNow-timeLast &&
+		// (p.getOxygenLevel().getOlNum() < .50 ||
+		// p.getOxygenLevel().getOlNum()>.90);
+		return actual.size() == 3;
 	}
 
 	/**
