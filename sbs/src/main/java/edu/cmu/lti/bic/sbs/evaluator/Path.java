@@ -36,7 +36,6 @@ public class Path extends ArrayList<Step> {
     return pScore;
   }
 
-  
   public static void main(String[] args) {
     // The pathScore test case.
     // Due to the inefficient test case, calculating multiple scores
@@ -65,4 +64,3 @@ public class Path extends ArrayList<Step> {
   }
 
 }
-
