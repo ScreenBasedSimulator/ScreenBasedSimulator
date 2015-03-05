@@ -13,68 +13,75 @@ enum Status {
 }
 
 public class Patient {
+  private String basic; // eg: male, 35, white
 
-	private String basic; //eg: male, 35, white
-	private String description; //eg: headache, vomit
-	
+  private String description; // eg: headache, vomit
 
-	private Condition cd;
+  private Condition cd;
 
-	private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0);
-	private HeartRate heartRate = new HeartRate(80.0);
-	private OxygenLevel oxygenLevel = new OxygenLevel(0.3);
-	private RespirationRate respirationRate = new RespirationRate(12.0);
-	
-	GraphicDisplay graDisplay;
-	Status status;
-	
-	public Patient() {
-		
-	}
-	public Patient(String basic, String description){
-		this.basic = basic;
-		this.description = description;
-	}
-	public Patient(Condition cd) {
-		super();
-		this.cd = cd;
-	}
-	public String getBasic() {
-		return basic;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public BloodPressure getBloodPressure() {
-		return bloodPressure;
-	}
+  private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0);
 
-	public void setBloodPressure(BloodPressure bloodPressure) {
-		this.bloodPressure = bloodPressure;
-	}
+  private HeartRate heartRate = new HeartRate(50.0);
 
-	public HeartRate getHeartRate() {
-		return heartRate;
-	}
+  private OxygenLevel oxygenLevel = new OxygenLevel(0.50);
 
-	public void setHeartRate(HeartRate heartRate) {
-		this.heartRate = heartRate;
-	}
+  private RespirationRate respirationRate = new RespirationRate(6.0);
 
-	public OxygenLevel getOxygenLevel() {
-		return oxygenLevel;
-	}
+  GraphicDisplay graDisplay;
 
-	public void setOxygenLevel(OxygenLevel oxygenLevel) {
-		this.oxygenLevel = oxygenLevel;
-	}
+  Status status;
 
-	public RespirationRate getRepiratinoRate() {
-		return respirationRate;
-	}
+  public Patient() {
 
-	public void setRespirationRate(RespirationRate respirationRate) {
-		this.respirationRate = respirationRate;
-	}
+  }
 
+  public Patient(String basic, String description) {
+    this.basic = basic;
+    this.description = description;
+  }
+
+  public Patient(Condition cd) {
+    super();
+    this.cd = cd;
+  }
+
+  public String getBasic() {
+    return basic;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public BloodPressure getBloodPressure() {
+    return bloodPressure;
+  }
+
+  public void setBloodPressure(BloodPressure bloodPressure) {
+    this.bloodPressure = bloodPressure;
+  }
+
+  public HeartRate getHeartRate() {
+    return heartRate;
+  }
+
+  public void setHeartRate(HeartRate heartRate) {
+    this.heartRate = heartRate;
+  }
+
+  public OxygenLevel getOxygenLevel() {
+    return oxygenLevel;
+  }
+
+  public void setOxygenLevel(OxygenLevel oxygenLevel) {
+    this.oxygenLevel = oxygenLevel;
+  }
+
+  public RespirationRate getRepiratinoRate() {
+    return respirationRate;
+  }
+
+  public void setRespirationRate(RespirationRate respirationRate) {
+    this.respirationRate = respirationRate;
+  }
 }
