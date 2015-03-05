@@ -126,7 +126,18 @@ public class Evaluator {
 	}
 
 	public void regularUpdate(Patient p, Calendar time) {
-
+	    if(isSimEnd())
+		calculateScore();
+	    	engine.simOver(score, generateReport());
+	}
+	
+	public boolean isSimEnd(){
+//	    long timeNow = currentStep.getTime().getTimeInMillis();
+//	    long timeLast = actual.get(actual.size()-1).getTime().getTimeInMillis();
+//	    Patient p = currentStep.getPatient();
+//	    return 10000 < timeNow-timeLast &&
+//		    (p.getOxygenLevel().getOlNum() < .50 || p.getOxygenLevel().getOlNum()>.90);
+	    return actual.size()==3;
 	}
 
 	/**
@@ -140,7 +151,6 @@ public class Evaluator {
 
 	public void calculateScore() {
 		score = goldStandard.pathScore(actual);
-		generateReport();
 	}
 
 	public double getScore() {
@@ -162,7 +172,7 @@ public class Evaluator {
 
 	}
 
-	private void generateReport() {
+	private String generateReport() {
 		PrintWriter writer = null;
 		try {
 			writer = new PrintWriter("src/test/resources/report.json", "UTF-8");
@@ -180,6 +190,7 @@ public class Evaluator {
 		String report = gson.toJson(r);
 		writer.println(report);
 		writer.close();
+		return report;
 	}
 
 	// Main method for testing

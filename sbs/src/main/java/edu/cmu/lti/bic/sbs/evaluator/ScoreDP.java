@@ -85,7 +85,7 @@ public class ScoreDP {
 	 * The method that is used to return the matched steps between scored path and
 	 * golden standard.
 	 * 
-	 * @return The concatenate step in String type. Seperated by ",".
+	 * @return The concatenate step in String type. Separated by ",".
 	 * @throws Exception
 	 */
 	public String matchedStep() throws Exception {
