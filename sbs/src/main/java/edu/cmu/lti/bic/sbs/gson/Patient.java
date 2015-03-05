@@ -27,6 +27,7 @@ public class Patient {
 	
 	GraphicDisplay graDisplay;
 	Status status;
+	
 	public Patient() {
 		
 	}

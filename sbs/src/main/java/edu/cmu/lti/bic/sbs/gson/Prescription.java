@@ -1,48 +1,48 @@
 package edu.cmu.lti.bic.sbs.gson;
 
 public class Prescription {
-    private Drug drug;
 
-    private Double dose;
+  private Drug drug;
 
-    private String unit;
+  private Double dose;
 
-    // Default initializer that will ensure testing successfully using main
-    // method.
-    public Prescription() {
-	this(new Drug(), 0.0, "Default unit");
-    }
+  private String unit;
 
-    public Prescription(Drug drug, double dose, String unit) {
-	this.setDrug(drug);
-	this.setDose(dose);
-	this.setUnit(unit);
-    }
+  // Default initializer that will ensure testing successfully using main method.
+  public Prescription() {
+    this(new Drug(), 0.0, "Default unit");
+  }
 
-    public String getUnit() {
-	return unit;
-    }
+  public Prescription(Drug drug, double dose, String unit) {
+    this.setDrug(drug);
+    this.setDose(dose);
+    this.setUnit(unit);
+  }
 
-    public Prescription setUnit(String unit) {
-	this.unit = unit;
-	return this;
-    }
+  public String getUnit() {
+    return unit;
+  }
 
-    public Double getDose() {
-	return dose;
-    }
+  public Prescription setUnit(String unit) {
+    this.unit = unit;
+    return this;
+  }
 
-    public Prescription setDose(Double dose) {
-	this.dose = dose;
-	return this;
-    }
+  public Double getDose() {
+    return dose;
+  }
 
-    public Drug getDrug() {
-	return drug;
-    }
+  public Prescription setDose(Double dose) {
+    this.dose = dose;
+    return this;
+  }
 
-    public Prescription setDrug(Drug drug) {
-	this.drug = drug;
-	return this;
-    }
+  public Drug getDrug() {
+    return drug;
+  }
+
+  public Prescription setDrug(Drug drug) {
+    this.drug = drug;
+    return this;
+  }
 }
