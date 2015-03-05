@@ -53,11 +53,17 @@ public class Simulator {
 
 	//the engine can get patient info from simulator
 	public Patient simPatient( ) {
-		double resultOxygenLevel = 0.0;
-		double resultHeartRate = 0.0;
-		double resultSystolicBloodPressure = 0.0;
-		double resultDiastolicBloodPressure = 0.0;
-		double resultRespirationRate = 0.0;
+		
+		double currentOxygenLevel = patient.getOxygenLevel().getOlNum();
+		double currentHeartRate = patient.getHeartRate().getHrNum();
+		double currentSystolicBloodPressure = patient.getBloodPressure().getSystolicBloodPressure();
+		double currentDiastolicBloodPressure = patient.getBloodPressure().getDiastolicBloodPressure();
+		double currentRespirationRate = patient.getRepiratinoRate().getRrNum();
+		double resultOxygenLevel = currentOxygenLevel;
+		double resultHeartRate = currentHeartRate;
+		double resultSystolicBloodPressure = currentSystolicBloodPressure;
+		double resultDiastolicBloodPressure = currentDiastolicBloodPressure;
+		double resultRespirationRate = currentRespirationRate;
 		
 		if(toolList.size() == 0 && prescriptionList.size() == 0){
 			
@@ -70,11 +76,7 @@ public class Simulator {
 			return this.patient;
 		}
 		else{
-			double currentOxygenLevel = patient.getOxygenLevel().getOlNum();
-			double currentHeartRate = patient.getHeartRate().getHrNum();
-			double currentSystolicBloodPressure = patient.getBloodPressure().getSystolicBloodPressure();
-			double currentDiastolicBloodPressure = patient.getBloodPressure().getDiastolicBloodPressure();
-			double currentRespirationRate = patient.getRepiratinoRate().getRrNum();
+			
 			
 			//
 			if (toolList.size() > 0) {
@@ -82,8 +84,8 @@ public class Simulator {
 				double currentValue = currentTool.getValue();
 				
 				//
-				if(currentTool.getName().equals("OxygenMask")){
-					resultOxygenLevel = ytFunctionOxygenLevel(currentValue);
+				if(currentTool.getId().equals("OxygenMask")){
+					resultOxygenLevel = ytFunctionOxygenLevel(currentOxygenLevel);
 				}
 				
 				//the name of the tool do not correct, I just test the function

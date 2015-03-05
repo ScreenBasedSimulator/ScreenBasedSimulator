@@ -109,7 +109,6 @@ public class Evaluator {
 
 	public void receive(Calendar time) {
 		currentStep.setTime(time);
-		System.out.println("Evaluator: USER ACTION: TIME:" + time.toString());
 		updateStep();
 
 	}
@@ -129,7 +128,6 @@ public class Evaluator {
 		// return 10000 < timeNow-timeLast &&
 		// (p.getOxygenLevel().getOlNum() < .50 ||
 		// p.getOxygenLevel().getOlNum()>.90);
-		System.out.println(actual);
 		return actual.size() == 3;
 	}
 
