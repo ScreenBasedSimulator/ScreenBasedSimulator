@@ -53,14 +53,19 @@ public class Simulator {
 
 	//the engine can get patient info from simulator
 	public Patient simPatient( ) {
-
+		double resultOxygenLevel = 0.0;
+		double resultHeartRate = 0.0;
+		double resultSystolicBloodPressure = 0.0;
+		double resultDiastolicBloodPressure = 0.0;
+		double resultRespirationRate = 0.0;
+		
 		if(toolList.size() == 0 && prescriptionList.size() == 0){
 			
-			double resultOxygenLevel = downFunctionOxygenLevel();
-			double resultHeartRate = downFunctionHeartRate();
-			double resultSystolicBloodPressure = downFunctionBloodPressure();
-			double resultDiastolicBloodPressure = downFunctionBloodPressure();
-			double resultRespirationRate = downFunctionRespirationRate();
+			resultOxygenLevel = downFunctionOxygenLevel();
+			resultHeartRate = downFunctionHeartRate();
+			resultSystolicBloodPressure = downFunctionBloodPressure();
+			resultDiastolicBloodPressure = downFunctionBloodPressure();
+			resultRespirationRate = downFunctionRespirationRate();
 			
 			return this.patient;
 		}
@@ -78,11 +83,7 @@ public class Simulator {
 				
 				//
 				if(currentTool.getName().equals("OxygenMask")){
-					double resultOl = ytFunctionOxygenLevel(currentValue);
-					
-					System.out.print("resultOL = " + resultOl);
-					
-					patient.setOxygenLevel(new OxygenLevel(resultOl));
+					resultOxygenLevel = ytFunctionOxygenLevel(currentValue);
 				}
 				
 				//the name of the tool do not correct, I just test the function
@@ -90,13 +91,8 @@ public class Simulator {
 					//
 					double resultRatioForHeartRate = ytFunctionHeartRate(currentValue);
 					
-					System.out.print("resultHR = "+resultRatioForHeartRate );
-					
-					double resultHeartRate = (1+resultRatioForHeartRate/100) * currentHeartRate;
-					
-					System.out.print("patient's heart rate:" +  resultHeartRate);
-					
-					patient.setHeartRate(new HeartRate(resultHeartRate));
+					resultHeartRate = (1+resultRatioForHeartRate/100) * currentHeartRate;
+
 				}
 				
 				//the name of the tool do not correct, I just test the function
@@ -104,29 +100,14 @@ public class Simulator {
 							//
 					double resultRatioForBloodPressure = ytFunctionBloodPressure(currentValue);
 							
-					System.out.print("resultBR = "+resultRatioForBloodPressure );
-							
-					double resultSystolicBloodPressure = (1+resultRatioForBloodPressure/100) * currentSystolicBloodPressure;
-					double resultDiastolicBloodPressure = (1+resultRatioForBloodPressure/100) * currentDiastolicBloodPressure;
-					
-					System.out.print("patient's Systolic blood pressure:" +  resultSystolicBloodPressure);
-					System.out.println("patient's Diastolic blood pressure:" +  resultDiastolicBloodPressure);
-							
-					patient.setBloodPressure(new BloodPressure(currentSystolicBloodPressure, currentDiastolicBloodPressure));
-				}
+					resultSystolicBloodPressure = (1+resultRatioForBloodPressure/100) * currentSystolicBloodPressure;
+					resultDiastolicBloodPressure = (1+resultRatioForBloodPressure/100) * currentDiastolicBloodPressure;				}
 				
 				//the name of the tool do not correct, I just test the function
 				if(currentTool.getName().equals("increase the Respiration Rate")){
 					//
 					double resultRatioForRespirationRate = ytFunctionRespirationRate(currentValue);
-					
-					System.out.print("resultRR = "+resultRatioForRespirationRate );
-					
-					double resultRespirationRate = (1 + resultRatioForRespirationRate/100) * currentRespirationRate;
-					
-					System.out.print("patient's Systolic Respiration Rate:" +  resultRespirationRate);
-					
-					patient.setRespirationRate(new RespirationRate(resultRespirationRate));
+					resultRespirationRate = (1 + resultRatioForRespirationRate/100) * currentRespirationRate;
 				}
 			}
 			
@@ -137,58 +118,37 @@ public class Simulator {
 				
 				//
 				if(currentPrescription.getDrug().getName().equals("OxygenMask")){
-					double resultOl = ytFunctionOxygenLevel(currentDoes);
-					
-					System.out.print("resultOL = " + resultOl);
-					
-					patient.setOxygenLevel(new OxygenLevel(resultOl));
+					resultOxygenLevel = ytFunctionOxygenLevel(currentDoes);
 				}
 				
 				//the name of the tool do not correct, I just test the function
 				if(currentPrescription.getDrug().getName().equals("increase the heart rate")){
 					//
 					double resultRatioForHeartRate = ytFunctionHeartRate(currentDoes);
-					
-					System.out.print("resultHR = "+resultRatioForHeartRate );
-					
-					double resultHeartRate = (1+resultRatioForHeartRate/100) * currentHeartRate;
-					
-					System.out.print("patient's heart rate:" +  resultHeartRate);
-					
-					patient.setHeartRate(new HeartRate(resultHeartRate));
+
+					resultHeartRate = (1+resultRatioForHeartRate/100) * currentHeartRate;
 				}
 				
 				//the name of the tool do not correct, I just test the function
 				if(currentPrescription.getDrug().getName().equals("increase the blood pressure")){
 							//
 					double resultRatioForBloodPressure = ytFunctionBloodPressure(currentDoes);
-							
-					System.out.print("resultBR = "+resultRatioForBloodPressure );
-							
-					double resultSystolicBloodPressure = (1+resultRatioForBloodPressure/100) * currentSystolicBloodPressure;
-					double resultDiastolicBloodPressure = (1+resultRatioForBloodPressure/100) * currentDiastolicBloodPressure;
-					
-					System.out.print("patient's Systolic blood pressure:" +  resultSystolicBloodPressure);
-					System.out.println("patient's Diastolic blood pressure:" +  resultDiastolicBloodPressure);
-							
-					patient.setBloodPressure(new BloodPressure(currentSystolicBloodPressure, currentDiastolicBloodPressure));
+					resultSystolicBloodPressure = (1+resultRatioForBloodPressure/100) * currentSystolicBloodPressure;
+					resultDiastolicBloodPressure = (1+resultRatioForBloodPressure/100) * currentDiastolicBloodPressure;
 				}
 				
 				//the name of the tool do not correct, I just test the function
 				if(currentPrescription.getDrug().getName().equals("increase the Respiration Rate")){
 					//
 					double resultRatioForRespirationRate = ytFunctionRespirationRate(currentDoes);
-					
-					System.out.print("resultRR = "+resultRatioForRespirationRate );
-					
-					double resultRespirationRate = (1 + resultRatioForRespirationRate/100) * currentRespirationRate;
-					
-					System.out.print("patient's Systolic Respiration Rate:" +  resultRespirationRate);
-					
-					patient.setRespirationRate(new RespirationRate(resultRespirationRate));
+					resultRespirationRate = (1 + resultRatioForRespirationRate/100) * currentRespirationRate;
 				}
 			}
 		}
+		patient.setOxygenLevel(new OxygenLevel(resultOxygenLevel));
+		patient.setBloodPressure(new BloodPressure(resultSystolicBloodPressure, resultDiastolicBloodPressure));
+		patient.setHeartRate(new HeartRate(resultHeartRate));
+		patient.setRespirationRate(new RespirationRate(resultRespirationRate));
 		return patient;
 			
 	}
