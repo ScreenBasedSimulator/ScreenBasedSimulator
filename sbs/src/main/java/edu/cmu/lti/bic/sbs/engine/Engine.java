@@ -6,10 +6,9 @@ import java.util.List;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
-import edu.cmu.lti.bic.sbs.gson.OxygenMask;
+
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
-import edu.cmu.lti.bic.sbs.simulator.Condition;
 import edu.cmu.lti.bic.sbs.simulator.HeartRate;
 import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
 import edu.cmu.lti.bic.sbs.simulator.RespirationRate;
@@ -99,10 +98,10 @@ public class Engine {
 		
 		//Load the drug data to user interface
 		try {
-      fileReader = new FileReader("src/test/resources/drug.json");
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
+			fileReader = new FileReader("src/test/resources/drug.json");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		Drug[] drugMap = gson.fromJson(fileReader, Drug[].class);
 		ui.addDrug(drugMap);
 		
