@@ -26,16 +26,12 @@ public class DrugPanel extends JPanel {
 	HashMap<String, String> drugInStore = new HashMap<String, String>();// name,
 																																			// id
 	UserInterface ui;
-<<<<<<< HEAD
-	DefaultComboBoxModel<String> drugModel = new DefaultComboBoxModel<String>();
-	DefaultComboBoxModel<String> unitModel = new DefaultComboBoxModel<String>();
 
-=======
 	DefaultComboBoxModel<String> drugModel=new DefaultComboBoxModel<String>();
 	DefaultComboBoxModel<String> unitModel=new DefaultComboBoxModel<String>();
 	//DrugWindow drugWindow;
 	public JFrame jFrame=null;
->>>>>>> origin/guanw
+
 	/**
 	 * initialize the drug panel and pass the ui parameter in.
 	 * 
@@ -58,14 +54,10 @@ public class DrugPanel extends JPanel {
 	 */
 	public DrugPanel(UserInterface ui) {
 		initialize();
-<<<<<<< HEAD
+
 		this.ui = ui;
 		// this.drugWindow=drugWindow;
-=======
-		this.ui=ui;
-		//this.drugWindow=drugWindow;
-		
->>>>>>> origin/guanw
+
 	}
 
 	/**
