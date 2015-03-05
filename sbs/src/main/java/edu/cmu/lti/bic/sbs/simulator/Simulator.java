@@ -250,11 +250,10 @@ public class Simulator {
 
 	public void simulateWithTool(Tool eq) {
 		// set the parameters according to the equipment from engine
-		System.out.println("using equipments in the function simulateWithTool");
-
-		// when the engine involve the function simulateWithTool, the simulator add
-		// the tool to the toolList
-		toolList.add(eq);
+		if (eq.getName().equals("Mask")){
+			
+		}
+		System.out.println("using equipments in the function simulateWithTool" + eq.getName());
 	}
 
 	public void simWithDrugs(Prescription p) {
