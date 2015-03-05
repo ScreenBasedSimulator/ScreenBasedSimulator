@@ -39,12 +39,12 @@ public class Evaluator {
 		currentStep = new Step();
 		actual.setTag("Actual");
 		goldStandard.setTag("Gold Standard");
-		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("0",
+		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("codeblue",
 				"Call Code", ""), Calendar.getInstance()));
-		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("1",
-				"Mask", ""), Calendar.getInstance()));
+		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("OxygenMask",
+				"Face Mask", ""), Calendar.getInstance()));
 		goldStandard.add(new Step(new Patient(), new Prescription(new Drug(
-				"1stDrug", "", "1"), 1.0, "L"), new Tool(), Calendar.getInstance()));
+				"naloxone", "Naloxone", "1"), 10.0, "ml"), new Tool(), Calendar.getInstance()));
 	}
 
 	class Report {

@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import java.awt.Component;
 import java.awt.EventQueue;
@@ -91,8 +90,6 @@ public class NursePanel extends JPanel {
 		});
 		injectBtn.setBounds(6, 79, 137, 29);
 		this.add(injectBtn);
-		this.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
-				connectMonitorBtn, callCodeBtn, injectBtn }));
 	}
 	public void closeDrugWindow() {
 		window.frame.setVisible(false); //you can't see me!
