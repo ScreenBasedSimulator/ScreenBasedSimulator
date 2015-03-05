@@ -33,18 +33,18 @@ public class Evaluator {
 
 	// private String report;
 	public Evaluator(Engine engine) {
-	  this.engine = engine;
+		this.engine = engine;
 		actual = new Path();
 		goldStandard = new Path();
 		currentStep = new Step();
 		actual.setTag("Actual");
 		goldStandard.setTag("Gold Standard");
-		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("0",
+		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("codeblue",
 				"Call Code", ""), Calendar.getInstance()));
-		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("1",
-				"Mask", ""), Calendar.getInstance()));
+		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("OxygenMask",
+				"Face Mask", ""), Calendar.getInstance()));
 		goldStandard.add(new Step(new Patient(), new Prescription(new Drug(
-				"1stDrug", "", "1"), 1.0, "L"), new Tool(), Calendar.getInstance()));
+				"naloxone", "Naloxone", "1"), 10.0, "ml"), new Tool(), Calendar.getInstance()));
 	}
 
 	class Report {
@@ -67,7 +67,6 @@ public class Evaluator {
 	// private String report;
 
 	// overloading the constructor to support initialize with engine parameter
-
 
 	public void receive(Patient patient, Calendar time) {
 		currentStep.setPatient(patient);
@@ -105,32 +104,31 @@ public class Evaluator {
 		currentStep.setTime(time);
 		System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
 		updateStep();
-		//System.out.println("*************");
+		// System.out.println("*************");
 	}
 
 	public void receive(Calendar time) {
 		currentStep.setTime(time);
-		System.out.println("Evaluator: USER ACTION: TIME:" + time.toString());
 		updateStep();
-		
+
 	}
 
 	public void regularUpdate(Patient p, Calendar time) {
-	  currentStep.setPatient(p);
-	    if(isSimEnd()){
-		calculateScore();
-	    	engine.simOver(score, generateReport());
-	    }
+		currentStep.setPatient(p);
+		if (isSimEnd()) {
+			calculateScore();
+			engine.simOver(score, generateReport());
+		}
 	}
-	
-	public boolean isSimEnd(){
-//	    long timeNow = currentStep.getTime().getTimeInMillis();
-//	    long timeLast = actual.get(actual.size()-1).getTime().getTimeInMillis();
-//	    Patient p = currentStep.getPatient();
-//	    return 10000 < timeNow-timeLast &&
-//		    (p.getOxygenLevel().getOlNum() < .50 || p.getOxygenLevel().getOlNum()>.90);
-	    System.out.println(actual);
-	    return actual.size() == 3;
+
+	public boolean isSimEnd() {
+		// long timeNow = currentStep.getTime().getTimeInMillis();
+		// long timeLast = actual.get(actual.size()-1).getTime().getTimeInMillis();
+		// Patient p = currentStep.getPatient();
+		// return 10000 < timeNow-timeLast &&
+		// (p.getOxygenLevel().getOlNum() < .50 ||
+		// p.getOxygenLevel().getOlNum()>.90);
+		return actual.size() == 3;
 	}
 
 	/**

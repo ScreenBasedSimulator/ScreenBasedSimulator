@@ -76,7 +76,7 @@ public class Engine {
 		// Load Tool data to user interface
 		FileReader fileReader = null;
 		try {
-			fileReader = new FileReader("src/test/resources/equipmentTest.json");
+			fileReader = new FileReader("src/test/resources/toolTest.json");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -98,7 +98,7 @@ public class Engine {
 		
 		//Load the drug data to user interface
 		try {
-      fileReader = new FileReader("src/test/resources/drug.json");
+      fileReader = new FileReader("src/test/resources/drugTest.json");
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
