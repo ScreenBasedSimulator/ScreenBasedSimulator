@@ -117,18 +117,21 @@ public class Evaluator {
 		currentStep.setTime(time);
 		System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
 		updateStep();
+		//System.out.println("*************");
 	}
 
 	public void receive(Calendar time) {
 		currentStep.setTime(time);
 		System.out.println("Evaluator: USER ACTION: TIME:" + time.toString());
 		updateStep();
+		
 	}
 
 	public void regularUpdate(Patient p, Calendar time) {
-	    if(isSimEnd())
+	    if(isSimEnd()){
 		calculateScore();
 	    	engine.simOver(score, generateReport());
+	    }
 	}
 	
 	public boolean isSimEnd(){
@@ -137,7 +140,8 @@ public class Evaluator {
 //	    Patient p = currentStep.getPatient();
 //	    return 10000 < timeNow-timeLast &&
 //		    (p.getOxygenLevel().getOlNum() < .50 || p.getOxygenLevel().getOlNum()>.90);
-	    return actual.size()==3;
+	    System.out.println(actual);
+	    return actual.size() == 3;
 	}
 
 	/**
