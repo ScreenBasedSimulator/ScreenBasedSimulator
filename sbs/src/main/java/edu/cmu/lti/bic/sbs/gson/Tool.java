@@ -37,6 +37,7 @@ public class Tool {
 		this.id = id;
 		this.name = name;
 	}
+<<<<<<< HEAD
 
 	public double getValue() {
 		return value;
@@ -46,4 +47,10 @@ public class Tool {
 		this.value = value;
 	}
 
+=======
+	public Tool(){
+	  
+	}
+	
+>>>>>>> origin/xings
 }
