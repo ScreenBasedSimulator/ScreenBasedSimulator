@@ -44,21 +44,21 @@ public class Simulator {
 	//the engine can get patient info from simulator
 	public Patient simPatient( ) {
 		
-		double resultOl = ytFunction(100);
+		double resultOl = ytFunctionOxygenLevel(100);
 		
 		System.out.print("resultOL = " + resultOl);
 		
 		patient.setOxygenLevel(new OxygenLevel(resultOl));
 		
-		double resultHR = ytFunction(90);
+//		double resultHR = this.ytFunctionBloodPressure((90);
+//		
+//		System.out.print("resultHR = "+resultHR );
+//		
+//		System.out.print("patient's heart rate:" + (1+resultHR/100) * patient.getHeartRate().getHrNum());
 		
-		System.out.print("resultHR = "+resultHR );
+//		patient.setHeartRate(new HeartRate((1+resultHR/100) * patient.getHeartRate().getHrNum()));
 		
-		System.out.print("patient's heart rate:" + (1+resultHR/100) * patient.getHeartRate().getHrNum());
-		
-		patient.setHeartRate(new HeartRate((1+resultHR/100) * patient.getHeartRate().getHrNum()));
-		
-		double resultRR = ytFunction(90);
+		double resultRR = this.ytFunctionRespirationRate(90);
 		
 		System.out.print("resultRR = "+resultRR);
 		
@@ -70,9 +70,6 @@ public class Simulator {
 	}
 
 	
-	public void setPt(Patient pt) {
-		this.patient = pt;
-	}
 	
 //	public void simulateWithTool(List<Tool> toolList){
 //		//set the parameters according to the equipment from engine
@@ -92,6 +89,30 @@ public class Simulator {
 ////		System.out.println(drug.getName());
 //		
 
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+//	public ArrayList<Tool> getToolList() {
+//		return toolList;
+//	}
+//
+//	public void setToolList(ArrayList<Tool> toolList) {
+//		this.toolList = toolList;
+//	}
+//
+//	public ArrayList<Prescription> getPrescriptionList() {
+//		return prescriptionList;
+//	}
+//
+//	public void setPrescriptionList(ArrayList<Prescription> prescriptionList) {
+//		this.prescriptionList = prescriptionList;
+//	}
+
 	public void simulateWithTool(Tool eq) {
 		// set the parameters according to the equipment from engine
 		System.out.println("using equipments in the function simulateWithTool");
@@ -102,22 +123,24 @@ public class Simulator {
 		System.out.println("using drug in the function simulateWithDrug");
 	}
 	
+	//maybe this function is useless
+	/*
+	//the parameter is two list, toolList and drugList
 	public Patient updatePatient(List<Tool> toolList,  List<Drug> drugList){
 		
 		Tool currentTool = toolList.get(toolList.size() - 1);
 		
 		double value = currentTool.getValue();
 		
-		patient.setOxygenLevel(new OxygenLevel(ytFunction(value)));
+		patient.setOxygenLevel(new OxygenLevel(ytFunctionOxygenLevel(value)));
 		
-		if(currentTool.getName() == "oxygenMask"){
+		if(currentTool.getName().equals("oxygenMask")){
 			OxygenMask currentToolOxygenMask = (OxygenMask) currentTool;
 			
 			//System.out.println("id:"+currentToolOxygenMask.getId()+" name:"+currentToolOxygenMask.getName()+" description "+currentToolOxygenMask.getDescription() + " oxygenLevel "+currentToolOxygenMask.getOxygenValue());
 		}
 		
 		System.out.println("invoke function simWithTool");
-		//simulateWithTool(toolList);
 		
 		Drug currentDrug = drugList.get(drugList.size() - 1);
 		
@@ -129,9 +152,11 @@ public class Simulator {
 		System.out.println("return patient");
 		return patient;
 	}
+	*/
 	
-	//
-	public double fFunction(double x){
+
+		//helper function 
+	double fFunction(double x){
 		double p1 = 1.667 * Math.pow(10, -6);
 		double p2 = -0.0002536;
 		double p3 = 0.01458;
@@ -140,13 +165,11 @@ public class Simulator {
 		double result;
 		
 		result = p1*Math.pow(x, 3) + p2*Math.pow(x, 2) + p3*x + p4;
-		
-		System.out.println("fFunction's result:"+result);
-		
 		return result;
 	}
 	
-	//
+
+	//helper function
 	public double t0Function(double x0){
 		double result;
 		
@@ -163,20 +186,36 @@ public class Simulator {
 		return result;
 	}
 	
-	//
-	public double ytFunction(double x0){
+	//this function calculate the curve(oxygen level)
+	public double ytFunctionOxygenLevel(double x0){
 		double result;
 		
-		result = 1.0/(1 + Math.exp(-fFunction(x0) * ((t0Function(x0) + 1) - 1.0*(120 - x0)/2)));
-		
-		System.out.println("Math.exp(-fFunction(x0) * (t0Function(x0) + 1) - 1.0*(120 - x0)/2) ="+Math.exp(-fFunction(x0) * (t0Function(x0) + 1) - 1.0*(120 - x0)/2));
-		System.out.println("");
-		
-		System.out.println("ytFunction's result:"+result);
+		result = 1.0/(1 + Math.exp(-fFunction(x0) * ((t0Function(x0) + 1.0/10) - 1.0*(120 - x0)/2)));
 		
 		return result;
 	}
 	
 	
+	//this function calculate the curve(BloodPressure)
+	public double ytFunctionBloodPressure(double x0){
 	
+		double result;
+			
+		result = 1.0/(1 + Math.exp(-fFunction(x0) * ((t0Function(x0) + 1.0/17) - 1.0*(120 - x0)/2)));
+				
+		return result;
+	}	
+	
+	//this function calculate the curve(RespirationRate)
+	public double ytFunctionRespirationRate(double x0){
+		
+		double result;
+			
+		result = 1.0/(1 + Math.exp(-fFunction(x0) * ((t0Function(x0) + 1.0/8) - 1.0*(120 - x0)/2)));
+				
+		return result;
+	}
+	
+	
+
 }
