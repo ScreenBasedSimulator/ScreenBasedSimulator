@@ -15,9 +15,6 @@ public class Prescription {
 		this.setUnit(unit);
 	}
 	
-	public Prescription(){
-	}
-	
 	public String getUnit() {
 		return unit;
 	}

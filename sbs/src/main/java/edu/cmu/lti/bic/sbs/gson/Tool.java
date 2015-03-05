@@ -37,7 +37,6 @@ public class Tool {
 		this.id = id;
 		this.name = name;
 	}
-<<<<<<< HEAD
 
 	public double getValue() {
 		return value;
@@ -46,11 +45,4 @@ public class Tool {
 	public void setValue(double value) {
 		this.value = value;
 	}
-
-=======
-	public Tool(){
-	  
-	}
-	
->>>>>>> origin/xings
 }
