@@ -17,8 +17,7 @@ public class NursePanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -3126359881920225699L;
-	private UserInterface ui;
-
+	DrugWindow window;
 	/**
 	 * Launch the application.
 	 */
@@ -31,14 +30,13 @@ public class NursePanel extends JPanel {
 	 * Initialize the contents of the frame and sets up three event listener.
 	 */
 	private void initialize(UserInterface ui) {
-		this.ui = ui;
 
 		this.setBorder(new TitledBorder(null, "Nurse", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 
 		this.setLayout(null);
 
-		JButton connectMonitorBtn = new JButton("Connect Monitor");
+		final JButton connectMonitorBtn = new JButton("Connect Monitor");
 		connectMonitorBtn.addMouseListener(new MouseAdapter() {
 			/**
 			 * mouseClicked sets up the event when the connect monitor button is
@@ -58,8 +56,7 @@ public class NursePanel extends JPanel {
 		JButton callCodeBtn = new JButton("Code Blue");
 		callCodeBtn.addMouseListener(new MouseAdapter() {
 			/**
-			 * mouseClicked sets up the event when the call code button is
-			 * clicked
+			 * mouseClicked sets up the event when the call code button is clicked
 			 */
 
 			@Override
@@ -83,7 +80,7 @@ public class NursePanel extends JPanel {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							DrugWindow window = new DrugWindow(ui);
+							window = new DrugWindow(ui);
 							window.frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -96,5 +93,9 @@ public class NursePanel extends JPanel {
 		this.add(injectBtn);
 		this.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
 				connectMonitorBtn, callCodeBtn, injectBtn }));
+	}
+	public void closeDrugWindow() {
+		window.frame.setVisible(false); //you can't see me!
+		window.frame.dispose(); //Destroy the JFrame object
 	}
 }

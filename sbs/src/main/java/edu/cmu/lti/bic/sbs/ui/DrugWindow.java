@@ -1,40 +1,42 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import java.awt.EventQueue;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
+
+import edu.cmu.lti.bic.sbs.gson.Drug;
 
 public class DrugWindow {
 
 	JFrame frame;
-	private DrugPanel drugPanel;
-	private UserInterface ui;
+	UserInterface ui;
 	/**
-	 * Launch the application.
-	 */
-	
-
-	/**
-	 * Create the application.
+	 *  Create the application.
+	 * @param ui user interface
 	 */
 	public DrugWindow(UserInterface ui) {
-		this.ui = ui;
+	  this.ui=ui;
 		initialize(new DrugPanel(ui));
+		
 	}
+
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @param drugPanel
 	 */
 	private void initialize(DrugPanel drugPanel) {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 70);
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		this.drugPanel=drugPanel;
-		drugPanel.setBounds(200,200 , 100, 50);
+		frame.setBounds(100, 100, 500, 70);
+		drugPanel.setBounds(200, 200, 100, 50);
 		frame.getContentPane().add(drugPanel);
-		
-		
+		HashMap<String,Drug> drugMap=ui.getDrugMap();
+		//drugPanel.addDrug(name, id)
+		for(Drug drug:drugMap.values()){
+		  drugPanel.addDrug(drug.getName(), drug.getId());
+		}
+	
 	}
+	
 
 }
