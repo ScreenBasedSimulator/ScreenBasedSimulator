@@ -32,11 +32,6 @@ public class Step {
     }
 
     public Step() {
-      timeUsed = Calendar.getInstance();
-      toolUsed = new Tool();
-      prescriptionUsed = new Prescription();
-      patient = new Patient();
-      stepRule = new StepRule();
     }
 
     /**

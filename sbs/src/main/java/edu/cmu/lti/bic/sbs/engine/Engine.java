@@ -120,20 +120,22 @@ public class Engine {
 
 	public void useTool(Tool tool) {
 		scenario.useTool(tool);
-		//evaluator.receive(tool, time);
+		evaluator.receive(tool, time);
+		evaluator.receive(new Prescription(),time);
 		simulator.simulateWithTool(tool);
 	}
 
 	public void useDrug(Prescription p) {
 		scenario.useDrug(p.getDrug(), p.getDose());
-		//evaluator.receive(p, time);
+		evaluator.receive(new Tool(),time);
+		evaluator.receive(p, time);
 		simulator.simWithDrugs(p);
 	}
 
 	public void update(int interval) {
 		time.add(Calendar.MILLISECOND, interval);
 		ui.updateTime(time);
-
+		evaluator.receive(time);
 		Patient p = simulator.simPatient();
 		evaluator.regularUpdate(p, time);
 		if (isMonitorConnected) {
