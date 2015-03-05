@@ -45,5 +45,4 @@ public class Tool {
 	public void setValue(double value) {
 		this.value = value;
 	}
-
 }
