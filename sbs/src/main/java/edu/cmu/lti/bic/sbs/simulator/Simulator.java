@@ -97,7 +97,7 @@ public class Simulator {
 				}
 				
 				//the name of the tool do not correct, I just test the function
-				if(currentTool.getName().equals("increase the blood pressure")){
+				if(currentTool.getId().equals("OxygenMask")){
 							//
 					double resultRatioForBloodPressure = ytFunctionBloodPressure(currentValue);
 							
@@ -105,7 +105,7 @@ public class Simulator {
 					resultDiastolicBloodPressure = (1+resultRatioForBloodPressure/100) * currentDiastolicBloodPressure;				}
 				
 				//the name of the tool do not correct, I just test the function
-				if(currentTool.getName().equals("increase the Respiration Rate")){
+				if(currentTool.getId().equals("OxygenMask")){
 					//
 					double resultRatioForRespirationRate = ytFunctionRespirationRate(currentValue);
 					resultRespirationRate = (1 + resultRatioForRespirationRate/100) * currentRespirationRate;
@@ -118,12 +118,12 @@ public class Simulator {
 				double currentDoes = currentPrescription.getDose();
 				
 				//
-				if(currentPrescription.getDrug().getName().equals("OxygenMask")){
-					resultOxygenLevel = ytFunctionOxygenLevel(currentDoes);
-				}
+//				if(currentPrescription.getDrug().getName().equals("OxygenMask")){
+//					resultOxygenLevel = ytFunctionOxygenLevel(currentDoes);
+//				}
 				
 				//the name of the tool do not correct, I just test the function
-				if(currentPrescription.getDrug().getName().equals("increase the heart rate")){
+				if(currentPrescription.getDrug().getId().equals("naloxone")){
 					//
 					double resultRatioForHeartRate = ytFunctionHeartRate(currentDoes);
 
@@ -131,7 +131,7 @@ public class Simulator {
 				}
 				
 				//the name of the tool do not correct, I just test the function
-				if(currentPrescription.getDrug().getName().equals("increase the blood pressure")){
+				if(currentPrescription.getDrug().getId().equals("naloxone")){
 							//
 					double resultRatioForBloodPressure = ytFunctionBloodPressure(currentDoes);
 					resultSystolicBloodPressure = (1+resultRatioForBloodPressure/100) * currentSystolicBloodPressure;
@@ -139,7 +139,7 @@ public class Simulator {
 				}
 				
 				//the name of the tool do not correct, I just test the function
-				if(currentPrescription.getDrug().getName().equals("increase the Respiration Rate")){
+				if(currentPrescription.getDrug().getId().equals("naloxone")){
 					//
 					double resultRatioForRespirationRate = ytFunctionRespirationRate(currentDoes);
 					resultRespirationRate = (1 + resultRatioForRespirationRate/100) * currentRespirationRate;
@@ -354,7 +354,7 @@ public class Simulator {
 	
 		double result;
 	
-		result = 1 - 0.0005 * Math.pow(1, 2);
+		result = 1 - 0.001 * Math.pow(1, 2);
 		
 		double currentHeartRate = patient.getHeartRate().getHrNum();
 		
