@@ -32,7 +32,8 @@ public class Evaluator {
 	private Step currentStep;
 
 	// private String report;
-	public Evaluator() {
+	public Evaluator(Engine engine) {
+	  this.engine = engine;
 		actual = new Path();
 		goldStandard = new Path();
 		currentStep = new Step();
@@ -66,20 +67,7 @@ public class Evaluator {
 	// private String report;
 
 	// overloading the constructor to support initialize with engine parameter
-	public Evaluator(Engine engine) {
-		this.engine = engine;
-		actual = new Path();
-		goldStandard = new Path();
-		currentStep = new Step();
-		actual.setTag("Actual");
-		goldStandard.setTag("Gold Standard");
-		// goldStandard.add(new Step(new Patient(), new Prescription(),
-		// new Tool("0", "Call Code", ""), new Timer()));
-		// goldStandard.add(new Step(new Patient(), new Prescription(),
-		// new Tool("1", "Mask", ""), new Timer()));
-		// goldStandard.add(new Step(new Patient(), new Prescription(
-		// new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool(), new Timer()));
-	}
+
 
 	public void receive(Patient patient, Calendar time) {
 		currentStep.setPatient(patient);
@@ -128,6 +116,7 @@ public class Evaluator {
 	}
 
 	public void regularUpdate(Patient p, Calendar time) {
+	  currentStep.setPatient(p);
 	    if(isSimEnd()){
 		calculateScore();
 	    	engine.simOver(score, generateReport());
@@ -199,11 +188,6 @@ public class Evaluator {
 
 	// Main method for testing
 	public static void main(String[] args) {
-		Evaluator eva = new Evaluator();
-		eva.receivePara(new BloodPressure());
-		eva.calculateScore();
-		eva.getScore();
-		System.out.println(eva.toString());
 
 	}
 }

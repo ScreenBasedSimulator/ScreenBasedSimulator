@@ -46,7 +46,7 @@ public class Simulator {
 		
 		double resultOl = ytFunctionOxygenLevel(100);
 		
-		System.out.print("resultOL = " + resultOl);
+//		System.out.print("resultOL = " + resultOl);
 		
 		patient.setOxygenLevel(new OxygenLevel(resultOl));
 		
@@ -60,9 +60,9 @@ public class Simulator {
 		
 		double resultRR = this.ytFunctionRespirationRate(90);
 		
-		System.out.print("resultRR = "+resultRR);
+//		System.out.print("resultRR = "+resultRR);
 		
-		System.out.print("patient's respiration rate:" + (1+resultRR/30) * patient.getRepiratinoRate().getRrNum());
+//		System.out.print("patient's respiration rate:" + (1+resultRR/30) * patient.getRepiratinoRate().getRrNum());
 		
 		patient.setRespirationRate(new RespirationRate((1+resultRR/30) * patient.getRepiratinoRate().getRrNum()));
 				
@@ -115,12 +115,12 @@ public class Simulator {
 
 	public void simulateWithTool(Tool eq) {
 		// set the parameters according to the equipment from engine
-		System.out.println("using equipments in the function simulateWithTool");
+//		System.out.println("using equipments in the function simulateWithTool");
 	}
 
 	public void simWithDrugs(Prescription p) {
 		// set the parameters according to the drug from engine
-		System.out.println("using drug in the function simulateWithDrug");
+//		System.out.println("using drug in the function simulateWithDrug");
 	}
 	
 	//maybe this function is useless
@@ -176,12 +176,12 @@ public class Simulator {
 		result = 1.0*(120 - x0)/2 - 1.0/fFunction(x0) * Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()) / //
 				patient.getOxygenLevel().getOlNum());
 	
-		System.out.println("1.0*(120 - x0)/2 = " + 1.0*(120 - x0)/2);
-		System.out.println("1.0/fFunction(x0) = "+1.0/fFunction(x0));
-		System.out.println("Math.log(1.0*(1-defaultOl) / defaultOl = " + //
-				Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()) / patient.getOxygenLevel().getOlNum()));
+//		System.out.println("1.0*(120 - x0)/2 = " + 1.0*(120 - x0)/2);
+//		System.out.println("1.0/fFunction(x0) = "+1.0/fFunction(x0));
+//		System.out.println("Math.log(1.0*(1-defaultOl) / defaultOl = " + //
+				Math.log(1.0*(1-patient.getOxygenLevel().getOlNum()) / patient.getOxygenLevel().getOlNum());
 		
-		System.out.println("t0Function's result:"+result);
+//		System.out.println("t0Function's result:"+result);
 		
 		return result;
 	}
