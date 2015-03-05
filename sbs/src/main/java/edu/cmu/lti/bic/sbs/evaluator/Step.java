@@ -31,7 +31,11 @@ public class Step {
     }
 
     public Step() {
-
+      timeUsed = Calendar.getInstance();
+      toolUsed = new Tool();
+      prescriptionUsed = new Prescription();
+      patient = new Patient();
+      stepRule = new StepRule();
     }
 
     /**
@@ -144,13 +148,12 @@ public class Step {
                 && this.prescriptionUsed.getDrug().getId() == a.prescriptionUsed.getDrug().getId()) {
           double dosePenalty = 0.0;
           double timePenalty = 0.0;
-          if(this.prescriptionUsed.getDrug().getDoes()!=0)
+          if(this.prescriptionUsed.getDose()!=0)
             dosePenalty = Math.abs(
-                    this.prescriptionUsed.getDrug().getDoes()-a.prescriptionUsed.getDrug().getDoes())
-                    /this.prescriptionUsed.getDrug().getDoes();
+                    this.prescriptionUsed.getDose()-a.prescriptionUsed.getDose())
+                    /this.prescriptionUsed.getDose();
           timePenalty = this.timeUsed.getTimeInMillis()-a.timeUsed.getTimeInMillis();
-          System.out.println(dosePenalty);
-          System.out.println(timePenalty);
+          //if(dosePenalty>=1||timePenalty>=10000) return 0;
           return 1.0*(1-dosePenalty)*(1.0-timePenalty/10000);
         } else {
           return 0.0;
@@ -163,9 +166,9 @@ public class Step {
     }
 
     public static void main(String[] args) {
-        Step s = new Step(new Patient(), new Prescription(), new Tool("0", "Call Code", ""),
+        Step s = new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0", "Call Code", ""),
                 Calendar.getInstance());
-        Step a = new Step(new Patient(), new Prescription(), new Tool("0", "Call Code", ""),
+        Step a = new Step(new Patient(), new Prescription(new Drug(), 20.0, "ml"), new Tool("0", "Call Code", ""),
                 Calendar.getInstance());
         System.out.println(s.stepScore(a));
         
