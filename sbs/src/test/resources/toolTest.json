@@ -1,6 +1,7 @@
 [{
 	"id":"OxygenMask",
-	"name":"Face Mask"
+	"name":"Face Mask",
+	"value" : 100.0
 },{
 	"id":2,
 	"name":"Oral Airway"

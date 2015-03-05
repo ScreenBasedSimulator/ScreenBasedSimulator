@@ -27,7 +27,6 @@ public class Simulator {
 	// the initialization function for engine to involve
 	public Patient initialPatient() {
 		patient = new Patient();
-		// pt.getBloodPressure().setBpNum(defaultBp);
 		patient.getBloodPressure().setSystolicBloodPressure(90.0);
 		patient.getBloodPressure().setDiastolicBloodPressure(60.0);
 		patient.getHeartRate().setHrNum(80.0);
@@ -47,6 +46,7 @@ public class Simulator {
 	public Simulator(Patient pt) {
 		super();
 		this.patient = pt;
+		initialPatient();
 		toolList = new ArrayList<Tool>();
 		prescriptionList = new ArrayList<Prescription>();
 	}
@@ -84,15 +84,14 @@ public class Simulator {
 				double currentValue = currentTool.getValue();
 				
 				//
-				if(currentTool.getId().equals("OxygenMask")){
-					resultOxygenLevel = ytFunctionOxygenLevel(currentOxygenLevel);
-				}
+//				if(currentTool.getId().equals("OxygenMask")){
+//					resultOxygenLevel = ytFunctionOxygenLevel(currentOxygenLevel);
+//				}
 				
 				//the name of the tool do not correct, I just test the function
-				if(currentTool.getName().equals("increase the heart rate")){
+				if(currentTool.getId().equals("OxygenMask")){
 					//
 					double resultRatioForHeartRate = ytFunctionHeartRate(currentValue);
-					
 					resultHeartRate = (1+resultRatioForHeartRate/100) * currentHeartRate;
 
 				}
@@ -201,7 +200,7 @@ public class Simulator {
 
 	public void simulateWithTool(Tool eq) {
 		// set the parameters according to the equipment from engine
-		System.out.println("using equipments in the function simulateWithTool");
+		System.out.println("using equipments in the function simulateWithTool" + eq.getId());
 		
 		//when the engine involve the function simulateWithTool, the simulator add the tool to the toolList
 		toolList.add(eq);
@@ -344,8 +343,6 @@ public class Simulator {
 		double currentSystolicBloodPressure = patient.getBloodPressure().getSystolicBloodPressure();
 		double currentDiastolicBloodPressure = patient.getBloodPressure().getDiastolicBloodPressure();
 		
-		System.out.println("currentSystolicBloodPressure = " + currentSystolicBloodPressure);
-		System.out.println("currentDiastolicBloodPressure = " + currentDiastolicBloodPressure);
 		
 		this.patient.setBloodPressure(new BloodPressure(currentSystolicBloodPressure * result, currentDiastolicBloodPressure * result));
 		

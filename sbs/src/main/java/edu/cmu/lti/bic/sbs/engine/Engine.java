@@ -76,7 +76,7 @@ public class Engine {
 		// Load Tool data to user interface
 		FileReader fileReader = null;
 		try {
-			fileReader = new FileReader("src/test/resources/equipmentTest.json");
+			fileReader = new FileReader("src/test/resources/toolTest.json");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
