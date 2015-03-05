@@ -48,12 +48,13 @@ public class Step {
 	 * @param time
 	 *          The time stamp
 	 */
-	public Step(Patient apatient, Prescription prescription, Tool tool,
+	public Step(Patient patient, Prescription prescription, Tool tool,
 			Calendar time) {
 		prescriptionUsed = prescription;
 		timeUsed = time;
 		toolUsed = tool;
-		patient = apatient;
+		// TODO Check if the patient will change over time, or it is a snapshot. 
+		this.patient = patient;
 	}
 
 	public Step(Patient apatient, Prescription prescription, Tool tool,
