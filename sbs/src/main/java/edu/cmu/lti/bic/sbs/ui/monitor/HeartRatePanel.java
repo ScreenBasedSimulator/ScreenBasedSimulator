@@ -17,6 +17,7 @@ public class HeartRatePanel extends JPanel {
 	public HeartRatePanel() {
 		heartRateLabel = new JLabel("HR: ? bpm");
 		this.add(heartRateLabel);
+		this.setOpaque(false);
 	}
 
 	public void setBloodPressure(int heartRateData) {
