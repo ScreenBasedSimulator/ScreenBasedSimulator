@@ -23,6 +23,7 @@ public class PatientPanel extends JPanel {
 		descriptionLabel = new JLabel();
 		this.add(basicLabel);
 		this.add(descriptionLabel);
+		this.setOpaque(false);
 	}
 	/**
 	 * setDescription sets up the description of patient
