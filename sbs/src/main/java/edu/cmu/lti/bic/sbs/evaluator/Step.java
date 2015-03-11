@@ -32,11 +32,6 @@ public class Step {
     }
 
     public Step() {
-      timeUsed = Calendar.getInstance();
-      toolUsed = new Tool();
-      prescriptionUsed = new Prescription();
-      patient = new Patient();
-      stepRule = new StepRule();
     }
 
     /**
@@ -145,8 +140,8 @@ public class Step {
 
     public double stepScore(Step a) {
       if (stepRule == null){
-        if (this.toolUsed.getId() == a.toolUsed.getId()
-                && this.prescriptionUsed.getDrug().getId() == a.prescriptionUsed.getDrug().getId()) {
+        if (this.toolUsed.getId().equals(a.toolUsed.getId())
+                && this.prescriptionUsed.getDrug().getId().equals(a.prescriptionUsed.getDrug().getId())) {
           double dosePenalty = 0.0;
           double timePenalty = 0.0;
           if(this.prescriptionUsed.getDose()!=0)

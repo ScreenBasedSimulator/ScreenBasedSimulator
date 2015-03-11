@@ -32,18 +32,19 @@ public class Evaluator {
 	private Step currentStep;
 
 	// private String report;
-	public Evaluator() {
+	public Evaluator(Engine engine) {
+		this.engine = engine;
 		actual = new Path();
 		goldStandard = new Path();
 		currentStep = new Step();
 		actual.setTag("Actual");
 		goldStandard.setTag("Gold Standard");
-		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("0",
+		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("codeblue",
 				"Call Code", ""), Calendar.getInstance()));
-		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("1",
-				"Mask", ""), Calendar.getInstance()));
+		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("OxygenMask",
+				"Face Mask", ""), Calendar.getInstance()));
 		goldStandard.add(new Step(new Patient(), new Prescription(new Drug(
-				"1stDrug", "", "1"), 1.0, "L"), new Tool(), Calendar.getInstance()));
+				"naloxone", "Naloxone", "1"), 10.0, "ml"), new Tool(), Calendar.getInstance()));
 	}
 
 	class Report {
@@ -66,20 +67,6 @@ public class Evaluator {
 	// private String report;
 
 	// overloading the constructor to support initialize with engine parameter
-	public Evaluator(Engine engine) {
-		this.engine = engine;
-		actual = new Path();
-		goldStandard = new Path();
-		currentStep = new Step();
-		actual.setTag("Actual");
-		goldStandard.setTag("Gold Standard");
-		// goldStandard.add(new Step(new Patient(), new Prescription(),
-		// new Tool("0", "Call Code", ""), new Timer()));
-		// goldStandard.add(new Step(new Patient(), new Prescription(),
-		// new Tool("1", "Mask", ""), new Timer()));
-		// goldStandard.add(new Step(new Patient(), new Prescription(
-		// new Drug("1stDrug", "", "1"), 1.0, "L"), new Tool(), new Timer()));
-	}
 
 	public void receive(Patient patient, Calendar time) {
 		currentStep.setPatient(patient);
@@ -117,18 +104,21 @@ public class Evaluator {
 		currentStep.setTime(time);
 		System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
 		updateStep();
+		// System.out.println("*************");
 	}
 
 	public void receive(Calendar time) {
 		currentStep.setTime(time);
-		System.out.println("Evaluator: USER ACTION: TIME:" + time.toString());
 		updateStep();
+
 	}
 
 	public void regularUpdate(Patient p, Calendar time) {
-		if (isSimEnd())
+		currentStep.setPatient(p);
+		if (isSimEnd()) {
 			calculateScore();
-		engine.simOver(score, generateReport());
+			engine.simOver(score, generateReport());
+		}
 	}
 
 	public boolean isSimEnd() {
@@ -196,11 +186,6 @@ public class Evaluator {
 
 	// Main method for testing
 	public static void main(String[] args) {
-		Evaluator eva = new Evaluator();
-		eva.receivePara(new BloodPressure());
-		eva.calculateScore();
-		eva.getScore();
-		System.out.println(eva.toString());
 
 	}
 }
