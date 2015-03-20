@@ -78,7 +78,6 @@ public class UserInterface {
 		decisionEngine.useDrug(prescription);
 		ui.addPathography("used a drug!");
 		window.closeDrugWindow();
-		this.updateReport(99.0, "You did a good job!");
 	}
 
 	public void setPatientInfo(final Patient patient) {

@@ -45,6 +45,43 @@ public class ScoreDP {
    *
    */
 
+  public static double scoreDPpending(Path p1, Path p2){
+    // firstly, check which one is the golden standard path
+    // make sure p1 always the golden standard path
+    if (!p1.getTag().equals("Gold Standard")) {
+      if (!p2.getTag().equals("Gold Standard")) {
+        throw new IllegalArgumentException(
+                "None of the input is golden standard path, illegal input!");
+      } else {
+        return scoreDP(p2, p1);
+      }
+    }
+
+    int l1 = p1.size();
+    int l2 = p2.size();
+    matrix = new double[l1 + 1][l2 + 1];
+
+    // the following is the DP algorithm
+    // initialization for base cases:
+    for (int i = 0; i <= l1; i++) {
+      matrix[i][0] = i * -1;
+    }
+    for (int j = 0; j <= l2; j++) {
+      matrix[0][j] = j * -1;
+    }
+
+    // the dp algorithm for String Alignment
+    for (int i = 1; i <= l1; i++) {
+      for (int j = 1; j <= l2; j++) {
+        double match = matrix[i - 1][j - 1] + p1.get(i - 1).stepScore(p2.get(j - 1));
+        double skip1 = matrix[i][j - 1]-1;
+        double skip2 = matrix[i - 1][j];
+        matrix[i][j] = Math.max(match, Math.max(skip1, skip2));
+      }
+    }
+    return matrix[l1][l2];
+  }
+  
   public static double scoreDP(Path p1, Path p2) {
     // firstly, check which one is the golden standard path
     // make sure p1 always the golden standard path
@@ -64,18 +101,18 @@ public class ScoreDP {
     // the following is the DP algorithm
     // initialization for base cases:
     for (int i = 0; i <= l1; i++) {
-      matrix[i][0] = i * 0;
+      matrix[i][0] = i * -1;
     }
     for (int j = 0; j <= l2; j++) {
-      matrix[0][j] = j * 0;
+      matrix[0][j] = j * -1;
     }
 
     // the dp algorithm for String Alignment
     for (int i = 1; i <= l1; i++) {
       for (int j = 1; j <= l2; j++) {
         double match = matrix[i - 1][j - 1] + p1.get(i - 1).stepScore(p2.get(j - 1));
-        double skip1 = matrix[i][j - 1];
-        double skip2 = matrix[i - 1][j];
+        double skip1 = matrix[i][j - 1]-1;
+        double skip2 = matrix[i - 1][j]-1;
         matrix[i][j] = Math.max(match, Math.max(skip1, skip2));
       }
     }
