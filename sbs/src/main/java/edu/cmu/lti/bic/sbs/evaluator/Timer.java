@@ -11,10 +11,7 @@ import java.util.Date;
  *
  */
 public class Timer {
-<<<<<<< HEAD
 
-=======
->>>>>>> guanw
   // The time has two field, one is start offset, the other
   // is the end offset.
   private float[] offset;
@@ -49,8 +46,5 @@ public class Timer {
     System.out.println(t.getTime());
     System.out.println(t.toString());
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> guanw
 }

@@ -10,10 +10,7 @@ import java.util.List;
  *
  */
 public class Path extends ArrayList<Step> {
-<<<<<<< HEAD
 
-=======
->>>>>>> guanw
   String tag = ""; // tag the type of this path: goldStandard or actual
 
   /**
@@ -68,7 +65,3 @@ public class Path extends ArrayList<Step> {
   }
 
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> guanw

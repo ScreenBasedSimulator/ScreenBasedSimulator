@@ -26,12 +26,7 @@ class BloodPressure implements MedicalParameter {
  *
  */
 public class Evaluator {
-<<<<<<< HEAD
 
-  private double score;
-
-  private Path actual;
-=======
 	private double score;
 	private Path actual;
 	private Path goldStandard;
@@ -57,7 +52,6 @@ public class Evaluator {
 		double score;
 		String report;
 	}
->>>>>>> guanw
 
 	/**
 	 * called by engine to receive the medPara
@@ -194,9 +188,7 @@ public class Evaluator {
 	// Main method for testing
 	public static void main(String[] args) {
 
-<<<<<<< HEAD
 
-=======
 	}
->>>>>>> guanw
+
 }
