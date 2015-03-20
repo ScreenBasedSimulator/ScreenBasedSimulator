@@ -16,7 +16,7 @@ public class StepRule {
   double dosePenalty = 1;
   
   
-  private StepRule(){
+  public StepRule(){
     
   }
   

@@ -36,9 +36,8 @@ public class MonitorPanel extends JPanel {
 		this.setBorder(new TitledBorder(null, "Monitor", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		this.setBounds(327, 61, 100, 230);
-		// this.setSize(100, 230);
-		// frame.getContentPane().add(monitorPanel);
 		this.setLayout(null);
+		this.setOpaque(false);
 
 		bloodPressurePanel = new JPanel();
 		bloodPressurePanel.setBorder(new TitledBorder(null, "BP",
