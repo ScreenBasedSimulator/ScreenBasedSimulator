@@ -83,13 +83,6 @@ public class Evaluator {
 		updateStep();
 	}
 
-	public void receive(Prescription prescription) {
-		currentStep.setPrescription(prescription);
-		System.out.println("Evaluator: USER ACTION: USE DRUG:"
-				+ prescription.getDrug().getName());
-		updateStep();
-	}
-
 	/**
 	 * called by engine to receive the Equipment variables
 	 * 
@@ -104,7 +97,6 @@ public class Evaluator {
 		currentStep.setTime(time);
 		System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
 		updateStep();
-		// System.out.println("*************");
 	}
 
 	public void receive(Calendar time) {
@@ -141,7 +133,11 @@ public class Evaluator {
 	 */
 
 	public void calculateScore() {
-		score = goldStandard.pathScore(actual);
+		score = ScoreDP.scoreDP(goldStandard, actual);
+	}
+	
+	public void calculateScorePending(){
+	  score = ScoreDP.scoreDPpending(goldStandard, actual);
 	}
 
 	public double getScore() {

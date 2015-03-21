@@ -160,6 +160,21 @@ public class Step {
          return score;
        }
     }
+    
+    public double stepPatientScore(){
+      double res = 0.0;
+      double oLpenalty = 0.1;
+      if(stepRule == null){
+        double oL = patient.getOxygenLevel().getOlNum()-80;
+        if (oL < 0){
+          res -= oL * oLpenalty;
+        }
+      }else{
+        
+      }
+      return res;
+      
+    }
 
     public static void main(String[] args) {
         Step s = new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0", "Call Code", ""),
