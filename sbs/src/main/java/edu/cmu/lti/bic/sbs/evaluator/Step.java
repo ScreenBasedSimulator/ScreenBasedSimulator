@@ -149,9 +149,11 @@ public class Step {
                     this.prescriptionUsed.getDrug().getDoes()-a.prescriptionUsed.getDrug().getDoes())
                     /this.prescriptionUsed.getDrug().getDoes();
           timePenalty = this.timeUsed.getTimeInMillis()-a.timeUsed.getTimeInMillis();
+
+          //if(dosePenalty>=1||timePenalty>=10000) return 0;
           System.out.println(dosePenalty);
           System.out.println(timePenalty);
-          return 1.0*(1-dosePenalty)*(1.0-timePenalty/10000);
+          return 1.0;//*(1-dosePenalty/10000)*(1.0-timePenalty/1000000000);
         } else {
           return 0.0;
         }
@@ -160,6 +162,21 @@ public class Step {
          
          return score;
        }
+    }
+    
+    public double stepPatientScore(){
+      double res = 0.0;
+      double oLpenalty = 0.1;
+      if(stepRule == null){
+        double oL = patient.getOxygenLevel().getOlNum()-80;
+        if (oL < 0){
+          res -= oL * oLpenalty;
+        }
+      }else{
+        
+      }
+      return res;
+      
     }
 
     public static void main(String[] args) {
