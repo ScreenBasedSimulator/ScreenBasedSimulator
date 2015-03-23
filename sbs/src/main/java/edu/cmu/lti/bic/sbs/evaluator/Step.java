@@ -25,13 +25,20 @@ public class Step {
     /**
      * 
      * @return The step description in serialize string.
+     * 
      */
     public String getStep() {
         return prescriptionUsed.toString() + timeUsed.toString() 
                 + toolUsed.toString();
     }
 
+    
+    /**
+     * Default constructor
+     * all of the attributes are null
+     */
     public Step() {
+      
     }
 
     /**
@@ -56,6 +63,22 @@ public class Step {
         patient = apatient;
     }
     
+    /**
+     * 
+     * Called when ruleFiles are specified in goldstandard
+     * 
+     * @param apatient
+     *          The patient instance
+     * @param prescription
+     *          The prescription instance
+     * @param tool
+     *          The tool instance
+     * @param time
+     *          The time stamp
+     * @param ruleFiles
+     *          the rule related to this step
+     * 
+     */
     public Step(Patient apatient, Prescription prescription, Tool tool,
             Calendar time, String ruleFiles) {
               prescriptionUsed = prescription;
@@ -65,6 +88,11 @@ public class Step {
               stepRule = new StepRule(ruleFiles, this);
           }
     
+    /**
+     * The rule setter
+     * @param ruleFiles
+     *          the rule related to this step
+     */
     public void setRule(String ruleFiles){
       stepRule = new StepRule(ruleFiles, this);
     }
@@ -133,11 +161,22 @@ public class Step {
         return timeUsed;
     }
     
+    /**
+     * check the step is complete
+     * @return true if prescription, patient, tool and time are not null
+     */
     public boolean isComplete() {
         return (prescriptionUsed != null) && (patient != null)
 		&& (toolUsed != null) && (timeUsed != null);
     }
 
+    /**
+     * 
+     * compare this step to the gold standard step
+     * @param a the gold standard step
+     * @return the step score as compared to step a
+     * 
+     */
     public double stepScore(Step a) {
       if (stepRule == null){
         if (this.toolUsed.getId().equals(a.toolUsed.getId())
@@ -161,6 +200,12 @@ public class Step {
        }
     }
     
+    /**
+     * 
+     * get the patient score in this step
+     * @return the patient score
+     * 
+     */
     public double stepPatientScore(){
       double res = 0.0;
       double oLpenalty = 0.1;
@@ -176,6 +221,9 @@ public class Step {
       
     }
 
+    /**
+     * test cases
+     */
     public static void main(String[] args) {
         Step s = new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0", "Call Code", ""),
                 Calendar.getInstance());
