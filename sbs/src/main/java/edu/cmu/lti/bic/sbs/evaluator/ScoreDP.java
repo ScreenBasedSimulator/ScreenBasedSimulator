@@ -10,10 +10,9 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 
 /**
  *
- * This class, we try to use dynamic programming algorithm to implement the
- * score generation function for the Evaluator.
  * This class, we try to use dynamic programming algorithm to implement the score generation
- * function for the Evaluator.
+ * function for the Evaluator. This class, we try to use dynamic programming algorithm to implement
+ * the score generation function for the Evaluator.
  *
  * @author Ryan Sun
  *
@@ -25,6 +24,7 @@ public class ScoreDP {
    *
    */
   private static double[][] matrix;
+
   private static Pair[][] path;
 
   /**
@@ -52,7 +52,7 @@ public class ScoreDP {
    *
    */
 
-  public static double scoreDPpending(Path p1, Path p2){
+  public static double scoreDPpending(Path p1, Path p2) {
     // firstly, check which one is the golden standard path
     // make sure p1 always the golden standard path
     if (!p1.getTag().equals("Gold Standard")) {
@@ -82,24 +82,24 @@ public class ScoreDP {
     for (int i = 1; i <= l1; i++) {
       for (int j = 1; j <= l2; j++) {
         double match = matrix[i - 1][j - 1] + p1.get(i - 1).stepScore(p2.get(j - 1));
-        double skip1 = matrix[i][j - 1]-1;
+        double skip1 = matrix[i][j - 1] - 1;
         double skip2 = matrix[i - 1][j];
-        if(skip1 >= skip2){
-            if(match > skip1){
-                matrix[i][j] = skip1;
-                path[i][j] = new Pair(i-1, j-1);
-            }else{
-                matrix[i][j] = match;
-                path[i][j] = new Pair(i, j-1);
-            }
-        }else{
-            if(match > skip2){
-              matrix[i][j] = skip2;
-              path[i][j] = new Pair(i-1, j-1);
-            }else{
-              matrix[i][j] = match;
-              path[i][j] = new Pair(i-1, j);
-            }
+        if (skip1 >= skip2) {
+          if (match > skip1) {
+            matrix[i][j] = skip1;
+            path[i][j] = new Pair(i - 1, j - 1);
+          } else {
+            matrix[i][j] = match;
+            path[i][j] = new Pair(i, j - 1);
+          }
+        } else {
+          if (match > skip2) {
+            matrix[i][j] = skip2;
+            path[i][j] = new Pair(i - 1, j - 1);
+          } else {
+            matrix[i][j] = match;
+            path[i][j] = new Pair(i - 1, j);
+          }
         }
         matrix[i][j] = Math.max(match, Math.max(skip1, skip2));
       }
@@ -107,7 +107,7 @@ public class ScoreDP {
     doBackTrack(l1, l2);
     return matrix[l1][l2];
   }
-  
+
   public static double scoreDP(Path p1, Path p2) {
     // firstly, check which one is the golden standard path
     // make sure p1 always the golden standard path
@@ -137,23 +137,23 @@ public class ScoreDP {
     for (int i = 1; i <= l1; i++) {
       for (int j = 1; j <= l2; j++) {
         double match = matrix[i - 1][j - 1] + p1.get(i - 1).stepScore(p2.get(j - 1));
-        double skip1 = matrix[i][j - 1]-1;
-        double skip2 = matrix[i - 1][j]-1;
-        if(skip1 >= skip2){
-          if(match > skip1){
-              matrix[i][j] = skip1;
-              path[i][j] = new Pair(i-1, j-1);
-          }else{
-              matrix[i][j] = match;
-              path[i][j] = new Pair(i, j-1);
-          }
-        }else{
-          if(match > skip2){
-            matrix[i][j] = skip2;
-            path[i][j] = new Pair(i-1, j-1);
-          }else{
+        double skip1 = matrix[i][j - 1] - 1;
+        double skip2 = matrix[i - 1][j] - 1;
+        if (skip1 >= skip2) {
+          if (match > skip1) {
+            matrix[i][j] = skip1;
+            path[i][j] = new Pair(i - 1, j - 1);
+          } else {
             matrix[i][j] = match;
-            path[i][j] = new Pair(i-1, j);
+            path[i][j] = new Pair(i, j - 1);
+          }
+        } else {
+          if (match > skip2) {
+            matrix[i][j] = skip2;
+            path[i][j] = new Pair(i - 1, j - 1);
+          } else {
+            matrix[i][j] = match;
+            path[i][j] = new Pair(i - 1, j);
           }
         }
       }
@@ -162,16 +162,16 @@ public class ScoreDP {
     return matrix[l1][l2];
   }
 
-  
-  private static void doBackTrack(int l1, int l2){
-    l1--;l2--;  
-    while(l1 >= 0 && l2 >= 0){
-          backtrack.add(path[l1][l2]);
-          l1 = (int) path[l1][l2].getFirst();
-          l2 = (int) path[l1][l2].getSecond();
-      }
+  private static void doBackTrack(int l1, int l2) {
+    l1--;
+    l2--;
+    while (l1 >= 0 && l2 >= 0) {
+      backtrack.add(path[l1][l2]);
+      l1 = (int) path[l1][l2].getFirst();
+      l2 = (int) path[l1][l2].getSecond();
+    }
   }
-  
+
   /**
    *
    * Main function for Unit test
@@ -192,13 +192,12 @@ public class ScoreDP {
     // Step s = new Step();
     // s.setTool(new Tool());
     // p1.add(s);
-    p1.add(new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0", "Call Code", ""),
-            Calendar.getInstance()));
-    p2.add(new Step(new Patient(), new Prescription(new Drug(), 11.0, "ml"), new Tool("0", "Call Code", ""),
-            Calendar.getInstance()));
-    p3.add(new Step(new Patient(), new Prescription(new Drug(), 30.0, "ml"), new Tool("0", "Call Code", ""),
-            Calendar.getInstance()));
-    
+    p1.add(new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0",
+            "Call Code", ""), Calendar.getInstance()));
+    p2.add(new Step(new Patient(), new Prescription(new Drug(), 11.0, "ml"), new Tool("0",
+            "Call Code", ""), Calendar.getInstance()));
+    p3.add(new Step(new Patient(), new Prescription(new Drug(), 30.0, "ml"), new Tool("0",
+            "Call Code", ""), Calendar.getInstance()));
 
     // ScoreDP sdp = new ScoreDP();
     double score2 = ScoreDP.scoreDP(p1, p2);
