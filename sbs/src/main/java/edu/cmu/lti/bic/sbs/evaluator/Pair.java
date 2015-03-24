@@ -11,8 +11,8 @@ package edu.cmu.lti.bic.sbs.evaluator;
 public class Pair {
   
   
-    private static Object o1;
-    private static Object o2;
+    private static Step o1;
+    private static Step o2;
     
     /**
      * 
@@ -21,14 +21,23 @@ public class Pair {
      * @param o1
      * @param o2
      */
-    public Pair(Object o1, Object o2) { 
+    public Pair(Step o1, Step o2) { 
       this.o1 = o1; this.o2 = o2; 
     }
    
+    /**
+     * 
+     * toString() function, return the O2, the true step
+     * 
+     */
+    
+    public String toString(){
+      return o2.getStep();
+    }
     
     /**
      * 
-     * The isSame function to compare the two object in the pair
+     * The isSame function to compare the two Step in the pair
      *  if they are the same, return true
      *  otherwise return false
      * 
@@ -37,7 +46,7 @@ public class Pair {
      * @return
      */
     
-    public static boolean isSame(Object o1, Object o2) {
+    public static boolean isSame(Step o1, Step o2) {
       if(o1 == null && o2 == null){
         return true;
       }else if(o1 == null){
@@ -51,56 +60,56 @@ public class Pair {
    
     /**
      * 
-     * function to get the first Object
+     * function to get the first Step
      * 
      * @return
      */
-    public Object getFirst() { 
+    public Step getFirst() { 
       return o1; 
     }
     
     /**
      * 
-     * function to get the second Object
+     * function to get the second Step
      * 
      * @return
      */
-    public Object getSecond() { 
+    public Step getSecond() { 
       return o2; 
     }
    
     /**
      * 
-     * function to set the first Object
+     * function to set the first Step
      * 
      * @return
      */
-    public void setFirst(Object o) {
+    public void setFirst(Step o) {
       o1 = o; 
     }
     
     /**
      * 
-     * function to set the second Object
+     * function to set the second Step
      * 
      * @return
      */
-    public void setSecond(Object o) { 
+    public void setSecond(Step o) { 
       o2 = o; 
     }
    
     
     /**
      * 
-     * the equals function overriding the one in Object
-     * compare the Object obj with this Object
+     * the equals function overriding the one in Step
+     * compare the Step obj with this Step
      * 
      */
-    public boolean equals(Object obj) {
-      if( ! (obj instanceof Pair)){
-        return false;
-      }
-      Pair p = (Pair) obj;
+    public boolean equals(Pair obj) {
+//      if( ! (obj instanceof Pair)){
+//        return false;
+//      }
+      Pair p = obj;
       
       return isSame(p.o1, this.o1) 
               && isSame(p.o2, this.o2);
@@ -109,24 +118,24 @@ public class Pair {
       /**
        * Simple example test program.
        */
-      public static void main(String[] args) {
-          Pair
-              p1 = new Pair("a", "b"),
-              p2 = new Pair("a", null),
-              p3 = new Pair("a", "b"),
-              p4 = new Pair(null, null);
-          System.out.println(p1.equals(new Pair(new Integer(1), new Integer(2))) + " should be false");
-          System.out.println(p4.equals(p2) + " should be false");
-          System.out.println(p2.equals(p4) + " should be false");
-          System.out.println(p1.equals(p3) + " should be true");
-          System.out.println(p4.equals(p4) + " should be true");
-      }
+//      public static void main(String[] args) {
+//          Pair
+//              p1 = new Pair("a", "b"),
+//              p2 = new Pair("a", null),
+//              p3 = new Pair("a", "b"),
+//              p4 = new Pair(null, null);
+//          System.out.println(p1.equals(new Pair(new Integer(1), new Integer(2))) + " should be false");
+//          System.out.println(p4.equals(p2) + " should be false");
+//          System.out.println(p2.equals(p4) + " should be false");
+//          System.out.println(p1.equals(p3) + " should be true");
+//          System.out.println(p4.equals(p4) + " should be true");
+//      }
 
 
       /**
        * @return the o1
        */
-      public static Object getO1() {
+      public static Step getO1() {
         return o1;
       }
 
@@ -134,7 +143,7 @@ public class Pair {
       /**
        * @param o1 the o1 to set
        */
-      public static void setO1(Object o1) {
+      public static void setO1(Step o1) {
         Pair.o1 = o1;
       }
 
@@ -142,7 +151,7 @@ public class Pair {
       /**
        * @return the o2
        */
-      public static Object getO2() {
+      public static Step getO2() {
         return o2;
       }
 
@@ -150,7 +159,7 @@ public class Pair {
       /**
        * @param o2 the o2 to set
        */
-      public static void setO2(Object o2) {
+      public static void setO2(Step o2) {
         Pair.o2 = o2;
   }
 

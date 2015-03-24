@@ -107,7 +107,7 @@ public class ScoreDP {
       }else{
         i--;
       }
-      backtrack.add(0, new Pair(i, j));
+      backtrack.add(0, new Pair(p1.get(i), p1.get(j)));
     }
   }
 

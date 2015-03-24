@@ -27,8 +27,9 @@ public class Step {
      * @return The step description in serialize string.
      */
     public String getStep() {
-        return prescriptionUsed.toString() + timeUsed.toString() 
-                + toolUsed.toString();
+//        return prescriptionUsed.toString() + "\t" + timeUsed.toString() 
+//                + "\t" + toolUsed.toString() + "\n";
+      return prescriptionUsed.toString() + "\t" + toolUsed.toString() + "\n";
     }
 
     public Step() {

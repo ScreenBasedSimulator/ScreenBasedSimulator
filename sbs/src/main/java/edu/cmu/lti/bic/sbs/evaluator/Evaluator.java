@@ -48,7 +48,7 @@ public class Evaluator {
 	}
 
 	class Report {
-		double score;
+		int score;
 		String report;
 	}
 
@@ -174,7 +174,7 @@ public class Evaluator {
 		Gson gson = new Gson();
 		Report r = new Report();
 		r.report = this.toString();
-		r.score = this.score;
+		r.score = (int)this.score;
 		String report = gson.toJson(r);
 		writer.println(report);
 		writer.close();
