@@ -182,7 +182,7 @@ public class Evaluator {
 		// Add the traceback information
 		StringBuilder sb = new StringBuilder(report);
 		sb.append("\n");
-    sb.append("The patient score is:" + "\n");
+    sb.append("The patient score is:" +actual.patientScore()+ "\n");
 		for (Pair p : ScoreDP.getBacktrack()) {
 		    sb.append(p.toString() + "\t");
 		    sb.append("\n");
