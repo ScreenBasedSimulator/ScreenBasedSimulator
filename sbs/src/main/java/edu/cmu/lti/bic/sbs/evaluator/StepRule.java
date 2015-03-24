@@ -20,7 +20,7 @@ public class StepRule {
     
   }
   
-  public StepRule(String ruleFile, Step step){
+  public StepRule(String ruleFile){
     
   }
   
