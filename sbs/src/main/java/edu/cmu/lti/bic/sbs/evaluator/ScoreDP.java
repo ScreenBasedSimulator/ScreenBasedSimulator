@@ -25,6 +25,7 @@ public class ScoreDP {
    *
    */
   private static double[][] matrix;
+  private static Pair[][] path;
 
   /**
    *
@@ -66,6 +67,7 @@ public class ScoreDP {
     int l1 = p1.size();
     int l2 = p2.size();
     matrix = new double[l1 + 1][l2 + 1];
+    path = new Pair[l1 + 1][l2 + 1];
 
     // the following is the DP algorithm
     // initialization for base cases:
@@ -82,9 +84,27 @@ public class ScoreDP {
         double match = matrix[i - 1][j - 1] + p1.get(i - 1).stepScore(p2.get(j - 1));
         double skip1 = matrix[i][j - 1]-1;
         double skip2 = matrix[i - 1][j];
+        if(skip1 >= skip2){
+            if(match > skip1){
+                matrix[i][j] = skip1;
+                path[i][j] = new Pair(i-1, j-1);
+            }else{
+                matrix[i][j] = match;
+                path[i][j] = new Pair(i, j-1);
+            }
+        }else{
+            if(match > skip2){
+              matrix[i][j] = skip2;
+              path[i][j] = new Pair(i-1, j-1);
+            }else{
+              matrix[i][j] = match;
+              path[i][j] = new Pair(i-1, j);
+            }
+        }
         matrix[i][j] = Math.max(match, Math.max(skip1, skip2));
       }
     }
+    doBackTrack(l1, l2);
     return matrix[l1][l2];
   }
   
@@ -119,12 +139,39 @@ public class ScoreDP {
         double match = matrix[i - 1][j - 1] + p1.get(i - 1).stepScore(p2.get(j - 1));
         double skip1 = matrix[i][j - 1]-1;
         double skip2 = matrix[i - 1][j]-1;
-        matrix[i][j] = Math.max(match, Math.max(skip1, skip2));
+        if(skip1 >= skip2){
+          if(match > skip1){
+              matrix[i][j] = skip1;
+              path[i][j] = new Pair(i-1, j-1);
+          }else{
+              matrix[i][j] = match;
+              path[i][j] = new Pair(i, j-1);
+          }
+        }else{
+          if(match > skip2){
+            matrix[i][j] = skip2;
+            path[i][j] = new Pair(i-1, j-1);
+          }else{
+            matrix[i][j] = match;
+            path[i][j] = new Pair(i-1, j);
+          }
+        }
       }
     }
+    doBackTrack(l1, l2);
     return matrix[l1][l2];
   }
 
+  
+  private static void doBackTrack(int l1, int l2){
+    l1--;l2--;  
+    while(l1 >= 0 && l2 >= 0){
+          backtrack.add(path[l1][l2]);
+          l1 = (int) path[l1][l2].getFirst();
+          l2 = (int) path[l1][l2].getSecond();
+      }
+  }
+  
   /**
    *
    * Main function for Unit test
