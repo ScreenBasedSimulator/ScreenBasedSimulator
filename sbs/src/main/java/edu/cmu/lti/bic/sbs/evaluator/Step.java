@@ -19,6 +19,10 @@ public class Step {
   private Tool toolUsed;
 
   private Prescription prescriptionUsed;
+    /**
+     * 
+     * @return The step description in serialize string.
+     */
 
   private Patient patient;
 
