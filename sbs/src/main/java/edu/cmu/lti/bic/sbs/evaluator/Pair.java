@@ -45,7 +45,7 @@ public class Pair {
       }else if(o2 == null){
         return false;
       }else{
-        return o1 == o2;
+        return o1.equals(o2);
       }
     }
    
