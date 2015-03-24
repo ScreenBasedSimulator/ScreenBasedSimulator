@@ -24,7 +24,25 @@ public class Step {
      * @return The step description in serialize string.
      */
 
+
   private Patient patient;
+
+    
+    
+    /**
+     * 
+     * Construtor copy another step
+     * 
+     * @param s
+     * 
+     */
+    public Step(Step s){
+      this.timeUsed = s.getTime();
+      this.toolUsed = s.getTool();
+      this.prescriptionUsed = s.getPrescription();
+      this.patient = s.getPatient();
+      this.stepRule = s.getStepRule();
+    }
 
   private StepRule stepRule;
 
@@ -36,7 +54,7 @@ public class Step {
    * 
    */
   public String getStep() {
-    return prescriptionUsed.toString() + timeUsed.toString() + toolUsed.toString();
+    return prescriptionUsed.toString() + toolUsed.toString();
   }
 
   /**
@@ -100,6 +118,10 @@ public class Step {
    */
   public void setRule(String ruleFiles) {
     stepRule = new StepRule(ruleFiles);
+  }
+  
+  public StepRule getStepRule(){
+    return this.stepRule;
   }
 
   /**
@@ -209,9 +231,9 @@ public class Step {
                   / this.prescriptionUsed.getDose();
         timePenalty = this.timeUsed.getTimeInMillis() - a.timeUsed.getTimeInMillis();
         // if(dosePenalty>=1||timePenalty>=10000) return 0;
-        return 1.0 * (1 - dosePenalty) * (1.0 - timePenalty / 10000);
+        return 2.0 * (1 - dosePenalty) * (1.0 - timePenalty / 10000);
       } else {
-        return 0.0;
+        return -2.0;
       }
     } else {
       double score = stepRule.maxScore();
