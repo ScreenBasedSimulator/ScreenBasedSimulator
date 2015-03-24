@@ -51,8 +51,11 @@ public class ScoreDP {
    * Standard Path, another is the real Path from the user
    *
    */
-
-  public static double scoreDPpending(Path p1, Path p2) {
+  public static double scoreDPpending(Path p1, Path p2){
+      return scoreDP(p1, p2);
+  }
+ 
+  public static double scoreDP(Path p1, Path p2) {
     // firstly, check which one is the golden standard path
     // make sure p1 always the golden standard path
     if (!p1.getTag().equals("Gold Standard")) {
@@ -83,92 +86,28 @@ public class ScoreDP {
       for (int j = 1; j <= l2; j++) {
         double match = matrix[i - 1][j - 1] + p1.get(i - 1).stepScore(p2.get(j - 1));
         double skip1 = matrix[i][j - 1] - 1;
-        double skip2 = matrix[i - 1][j];
-        if (skip1 >= skip2) {
-          if (match > skip1) {
-            matrix[i][j] = skip1;
-            path[i][j] = new Pair(i - 1, j - 1);
-          } else {
-            matrix[i][j] = match;
-            path[i][j] = new Pair(i, j - 1);
-          }
-        } else {
-          if (match > skip2) {
-            matrix[i][j] = skip2;
-            path[i][j] = new Pair(i - 1, j - 1);
-          } else {
-            matrix[i][j] = match;
-            path[i][j] = new Pair(i - 1, j);
-          }
-        }
+        double skip2 = matrix[i - 1][j] - 1;
         matrix[i][j] = Math.max(match, Math.max(skip1, skip2));
       }
     }
-    doBackTrack(l1, l2);
+    doBackTrack(p1, p2);
     return matrix[l1][l2];
   }
 
-  public static double scoreDP(Path p1, Path p2) {
-    // firstly, check which one is the golden standard path
-    // make sure p1 always the golden standard path
-    if (!p1.getTag().equals("Gold Standard")) {
-      if (!p2.getTag().equals("Gold Standard")) {
-        throw new IllegalArgumentException(
-                "None of the input is golden standard path, illegal input!");
-      } else {
-        return scoreDP(p2, p1);
+  private static void doBackTrack(Path p1, Path p2) {
+    backtrack = new ArrayList<Pair>();
+    int i = p1.size();
+    int j = p2.size();
+//    backtrack.add(0, new Pair(i, j));
+    while (i > 0 && j > 0) {   
+      if(matrix[i][j] == matrix[i - 1][j - 1] + p1.get(i - 1).stepScore(p2.get(j - 1))){
+        i--; j--;
+      }else if(matrix[i][j] == matrix[i][j - 1] - 1){
+        j--;
+      }else{
+        i--;
       }
-    }
-
-    int l1 = p1.size();
-    int l2 = p2.size();
-    matrix = new double[l1 + 1][l2 + 1];
-
-    // the following is the DP algorithm
-    // initialization for base cases:
-    for (int i = 0; i <= l1; i++) {
-      matrix[i][0] = i * -1;
-    }
-    for (int j = 0; j <= l2; j++) {
-      matrix[0][j] = j * -1;
-    }
-
-    // the dp algorithm for String Alignment
-    for (int i = 1; i <= l1; i++) {
-      for (int j = 1; j <= l2; j++) {
-        double match = matrix[i - 1][j - 1] + p1.get(i - 1).stepScore(p2.get(j - 1));
-        double skip1 = matrix[i][j - 1] - 1;
-        double skip2 = matrix[i - 1][j] - 1;
-        if (skip1 >= skip2) {
-          if (match > skip1) {
-            matrix[i][j] = skip1;
-            path[i][j] = new Pair(i - 1, j - 1);
-          } else {
-            matrix[i][j] = match;
-            path[i][j] = new Pair(i, j - 1);
-          }
-        } else {
-          if (match > skip2) {
-            matrix[i][j] = skip2;
-            path[i][j] = new Pair(i - 1, j - 1);
-          } else {
-            matrix[i][j] = match;
-            path[i][j] = new Pair(i - 1, j);
-          }
-        }
-      }
-    }
-    doBackTrack(l1, l2);
-    return matrix[l1][l2];
-  }
-
-  private static void doBackTrack(int l1, int l2) {
-    l1--;
-    l2--;
-    while (l1 >= 0 && l2 >= 0) {
-      backtrack.add(path[l1][l2]);
-      l1 = (int) path[l1][l2].getFirst();
-      l2 = (int) path[l1][l2].getSecond();
+      backtrack.add(0, new Pair(i, j));
     }
   }
 
