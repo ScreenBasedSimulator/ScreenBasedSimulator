@@ -48,7 +48,7 @@ public class Evaluator {
 	}
 
 	class Report {
-		int score;
+		double score;
 		String report;
 	}
 
@@ -174,7 +174,7 @@ public class Evaluator {
 		Gson gson = new Gson();
 		Report r = new Report();
 		r.report = this.toString();
-		r.score = (int)this.score;
+		r.score = this.score;
 		String report = gson.toJson(r);
 		writer.println(report);
 		writer.close();
@@ -182,11 +182,12 @@ public class Evaluator {
 		// Add the traceback information
 		StringBuilder sb = new StringBuilder(report);
 		sb.append("\n");
+    sb.append("The patient score is:" + "\n");
 		for (Pair p : ScoreDP.getBacktrack()) {
-		    sb.append(p.toString());
+		    sb.append(p.toString() + "\t");
 		    sb.append("\n");
 		}
-		sb.append("The patient score is:");
+		System.out.println(sb.toString());
 		// TODO: Set the patient score.
 		// Where can I set the patient score??
 		return sb.toString();
