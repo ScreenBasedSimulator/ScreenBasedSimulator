@@ -52,7 +52,7 @@ public class Path extends ArrayList<Step> {
         res -= 0;
       }else{
         res += (temp.stepPatientScore()+prev.stepPatientScore())*
-                (1)*0.1;
+                (1)*0.01;
       }
       prev = temp;
     }

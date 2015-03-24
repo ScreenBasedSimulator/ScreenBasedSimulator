@@ -248,7 +248,7 @@ public class Step {
     double bP = Math.max(patient.getBloodPressure().getDiastolicBloodPressure() - 100
             + patient.getBloodPressure().getSystolicBloodPressure() - 160, 140
             - patient.getBloodPressure().getDiastolicBloodPressure()
-            + patient.getBloodPressure().getSystolicBloodPressure());
+            - patient.getBloodPressure().getSystolicBloodPressure());
     if (bP > 0) {
       res -= bP * bPpenalty;
     }
