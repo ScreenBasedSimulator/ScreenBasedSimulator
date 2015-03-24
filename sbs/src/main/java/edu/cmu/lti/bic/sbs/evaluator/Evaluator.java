@@ -30,21 +30,34 @@ public class Evaluator {
 	private Path actual;
 	private Path goldStandard;
 	private Step currentStep;
+	private ScoreDP scoreDP;
 
 	// private String report;
 	public Evaluator(Engine engine) {
 		this.engine = engine;
 		actual = new Path();
-		goldStandard = new Path();
 		currentStep = new Step();
 		actual.setTag("Actual");
-		goldStandard.setTag("Gold Standard");
-		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("codeblue",
-				"Call Code", ""), Calendar.getInstance()));
-		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("OxygenMask",
-				"Face Mask", ""), Calendar.getInstance()));
-		goldStandard.add(new Step(new Patient(), new Prescription(new Drug(
-				"naloxone", "Naloxone", "1"), 10.0, "ml"), new Tool(), Calendar.getInstance()));
+		initGoden();
+		scoreDP = new ScoreDP();
+	}
+	  
+	  /**
+	   * Initialize Golden Standard Path
+	   * 
+	   * @author Ryan
+	   *
+	   */
+	
+	private void initGoden(){
+	   goldStandard = new Path();
+	   goldStandard.setTag("Gold Standard");
+	    goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("codeblue",
+	        "Call Code", ""), Calendar.getInstance()));
+	    goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("OxygenMask",
+	        "Face Mask", ""), Calendar.getInstance()));
+	    goldStandard.add(new Step(new Patient(), new Prescription(new Drug(
+	        "naloxone", "Naloxone", "1"), 10.0, "ml"), new Tool(), Calendar.getInstance()));
 	}
 
 	class Report {
@@ -133,11 +146,11 @@ public class Evaluator {
 	 */
 
 	public void calculateScore() {
-		score = ScoreDP.scoreDP(goldStandard, actual);
+		score = scoreDP.scoreDP(goldStandard, actual);
 	}
 	
 	public void calculateScorePending(){
-	  score = ScoreDP.scoreDPpending(goldStandard, actual);
+	  score = scoreDP.scoreDPpending(goldStandard, actual);
 	}
 
 	public double getScore() {
@@ -182,10 +195,10 @@ public class Evaluator {
 		// Add the traceback information
 		StringBuilder sb = new StringBuilder(report);
 		sb.append("\n");
-    sb.append("The patient score is:" + "\n");
-		for (Pair p : ScoreDP.getBacktrack()) {
-		    sb.append(p.toString() + "\t");
-		    sb.append("\n");
+    sb.append("The user's correct actions are :" + "\n");
+		for (Step s : scoreDP.getBacktrack()) {
+		    sb.append(s.getStep());
+//		    sb.append("\n");
 		}
 		System.out.println(sb.toString());
 		// TODO: Set the patient score.

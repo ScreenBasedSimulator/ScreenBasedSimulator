@@ -32,7 +32,28 @@ public class Step {
       return prescriptionUsed.toString() + "\t" + toolUsed.toString() + "\n";
     }
 
+    /**
+     * 
+     * default constructor
+     * 
+     */
     public Step() {
+    }
+    
+    
+    /**
+     * 
+     * Construtor copy another step
+     * 
+     * @param s
+     * 
+     */
+    public Step(Step s){
+      this.timeUsed = s.getTime();
+      this.toolUsed = s.getTool();
+      this.prescriptionUsed = s.getPrescription();
+      this.patient = s.getPatient();
+      this.stepRule = s.getStepRule();
     }
 
     /**
@@ -184,5 +205,61 @@ public class Step {
                 Calendar.getInstance());
         System.out.println(s.stepScore(a));
         
+    }
+
+    /**
+     * @return the timeUsed
+     */
+    public Calendar getTimeUsed() {
+      return timeUsed;
+    }
+
+    /**
+     * @param timeUsed the timeUsed to set
+     */
+    public void setTimeUsed(Calendar timeUsed) {
+      this.timeUsed = timeUsed;
+    }
+
+    /**
+     * @return the toolUsed
+     */
+    public Tool getToolUsed() {
+      return toolUsed;
+    }
+
+    /**
+     * @param toolUsed the toolUsed to set
+     */
+    public void setToolUsed(Tool toolUsed) {
+      this.toolUsed = toolUsed;
+    }
+
+    /**
+     * @return the prescriptionUsed
+     */
+    public Prescription getPrescriptionUsed() {
+      return prescriptionUsed;
+    }
+
+    /**
+     * @param prescriptionUsed the prescriptionUsed to set
+     */
+    public void setPrescriptionUsed(Prescription prescriptionUsed) {
+      this.prescriptionUsed = prescriptionUsed;
+    }
+
+    /**
+     * @return the stepRule
+     */
+    public StepRule getStepRule() {
+      return stepRule;
+    }
+
+    /**
+     * @param stepRule the stepRule to set
+     */
+    public void setStepRule(StepRule stepRule) {
+      this.stepRule = stepRule;
     }
 }
