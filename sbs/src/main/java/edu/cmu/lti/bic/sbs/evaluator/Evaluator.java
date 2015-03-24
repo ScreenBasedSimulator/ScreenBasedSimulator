@@ -158,7 +158,8 @@ public class Evaluator {
 	public void setInitialTime(Calendar initTime) {
 
 	}
-
+	
+	
 	private String generateReport() {
 		PrintWriter writer = null;
 		try {
@@ -177,7 +178,18 @@ public class Evaluator {
 		String report = gson.toJson(r);
 		writer.println(report);
 		writer.close();
-		return report;
+		
+		// Add the traceback information
+		StringBuilder sb = new StringBuilder(report);
+		sb.append("\n");
+		for (Pair p : ScoreDP.getBacktrack()) {
+		    sb.append(p.toString());
+		    sb.append("\n");
+		}
+		sb.append("The patient score is:");
+		// TODO: Set the patient score.
+		// Where can I set the patient score??
+		return sb.toString();
 	}
 
 	// Main method for testing
