@@ -15,10 +15,6 @@ import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.MedicalParameter;
 
-// Test class
-class BloodPressure implements MedicalParameter {
-
-}
 
 /**
  * 
