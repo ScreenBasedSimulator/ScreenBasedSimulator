@@ -196,6 +196,7 @@ public class Evaluator {
 		StringBuilder sb = new StringBuilder(report);
 		sb.append("\n");
     sb.append("The user's correct actions are :" + "\n");
+
 		for (Step s : scoreDP.getBacktrack()) {
 		    sb.append(s.getStep());
 //		    sb.append("\n");

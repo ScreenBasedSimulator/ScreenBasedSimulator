@@ -97,6 +97,7 @@ public class ScoreDP {
   private static void doBackTrack(Path p1, Path p2) {
     int i = p1.size();
     int j = p2.size();
+
 //    backtrack.add(0, new Pair(i, j));
     while (i > 0 && j > 0) {   
       if(matrix[i][j] == matrix[i - 1][j - 1] + p1.get(i - 1).stepScore(p2.get(j - 1))){
