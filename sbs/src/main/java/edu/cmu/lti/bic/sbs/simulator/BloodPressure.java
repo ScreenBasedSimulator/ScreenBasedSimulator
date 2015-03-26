@@ -1,21 +1,29 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
 public class BloodPressure implements MedicalParameter {
-	float bpNum;
+	Double systolicBloodPressure, diastolicBloodPressure;
 
-	public BloodPressure(float bp) {
+	//constructor function
+	public BloodPressure(Double systolicBloodPressure,
+			Double diastolicBloodPressure) {
 		super();
-		this.bpNum = bp;
+		this.systolicBloodPressure = systolicBloodPressure;
+		this.diastolicBloodPressure = diastolicBloodPressure;
 	}
 
-	public float getBp() {
-		return bpNum;
+	public Double getSystolicBloodPressure() {
+		return systolicBloodPressure;
 	}
 
-	public void setBp(float bp) {
-		this.bpNum = bp;
+	public Double getDiastolicBloodPressure() {
+		return diastolicBloodPressure;
 	}
-	
-	
-	
+
+	public void setSystolicBloodPressure(Double bp) {
+		this.systolicBloodPressure = bp;
+	}
+
+	public void setDiastolicBloodPressure(Double bp) {
+		this.diastolicBloodPressure = bp;
+	}
 }
