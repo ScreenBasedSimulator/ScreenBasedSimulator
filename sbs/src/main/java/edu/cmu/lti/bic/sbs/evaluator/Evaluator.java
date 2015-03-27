@@ -26,6 +26,7 @@ class BloodPressure implements MedicalParameter {
  *
  */
 public class Evaluator {
+
   private double score;
 
   private Path actual;
@@ -205,7 +206,6 @@ public class Evaluator {
       sb.append(s.getStep());
       // sb.append("\n");
     }
-
     System.out.println(sb.toString());
     // TODO: Set the patient score.
     // Where can I set the patient score??
