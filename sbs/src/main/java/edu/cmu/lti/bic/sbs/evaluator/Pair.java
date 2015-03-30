@@ -8,7 +8,6 @@ package edu.cmu.lti.bic.sbs.evaluator;
  * @author Ryan Sun
  *
  */
-
 public class Pair {
 
   private static Step o1;
@@ -32,8 +31,7 @@ public class Pair {
    * toString() function, return the O2, the true step
    * 
    */
-  
-  @Override
+
   public String toString() {
     return o2.getStep();
   }
@@ -47,8 +45,7 @@ public class Pair {
    * @param o2
    * @return
    */
-  
-  @Override
+
   public static boolean isSame(Step o1, Step o2) {
     if (o1 == null && o2 == null) {
       return true;
@@ -67,8 +64,6 @@ public class Pair {
    * 
    * @return
    */
-  
-  @Override
   public Step getFirst() {
     return o1;
   }
@@ -79,8 +74,6 @@ public class Pair {
    * 
    * @return
    */
-  
-  @Override
   public Step getSecond() {
     return o2;
   }
