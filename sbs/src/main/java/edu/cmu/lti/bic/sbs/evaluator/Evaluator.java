@@ -50,8 +50,6 @@ public class Evaluator {
   /**
    * Initialize Golden Standard Path
    * 
-   * @author Ryan
-   *
    */
 
   private void initGoden() {
