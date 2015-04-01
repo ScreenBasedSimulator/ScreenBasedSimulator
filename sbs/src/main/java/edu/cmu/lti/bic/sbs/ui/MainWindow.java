@@ -40,25 +40,29 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		frame = new MainJFrame();
-		frame.setBounds(100, 100, 550, 300);
+		//frame.setBounds(100, 100, 550, 300);
+		frame.setBounds(100, 100, 650, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
+		//frame.setResizable(false);
 
 		monitorPanel = new MonitorPanel();
-		monitorPanel.setBounds(10, 10, 106, 230);
+		//monitorPanel.setBounds(10, 10, 106, 230);
+		//monitorPanel.setBounds(10, 10, 106, 270);
 		frame.getContentPane().add(monitorPanel);
 
 		clockPanel = new ClockPanel();
-		clockPanel.setBounds(424, 10, 120, 43);
+		//clockPanel.setBounds(10, 10, 120, 43);
+		clockPanel.setBounds(10, 10, 188, 66);
 		frame.getContentPane().add(clockPanel);
 
 		patientPanel = new PatientPanel();
-		patientPanel.setBounds(424, 55, 120, 185);
+		patientPanel.setBounds(520, 185, 120, 185);
 		frame.getContentPane().add(patientPanel);
 
 		toolPanel = new ToolPanel(ui);
-		toolPanel.setBounds(122, 10, 136, 230);
+		toolPanel.setBounds(264, 130, 136, 130);
+		//toolPanel.setBounds(122, 10, 136, 230);
 		frame.getContentPane().add(toolPanel);
 
 		nursePanel = new NursePanel(ui);
@@ -66,7 +70,8 @@ public class MainWindow {
 		frame.getContentPane().add(nursePanel);
 
 		pathographyPanel = new PathographyPanel();
-		pathographyPanel.setBounds(264, 130, 158, 110);
+		pathographyPanel.setBounds(10, 85, 188, 130);
+		//pathographyPanel.setBounds(264, 130, 158, 110);
 		frame.getContentPane().add(pathographyPanel);
 	}
 

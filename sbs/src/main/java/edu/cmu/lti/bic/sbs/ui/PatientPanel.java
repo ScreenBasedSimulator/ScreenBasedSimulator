@@ -1,5 +1,7 @@
 package edu.cmu.lti.bic.sbs.ui;
 
+import java.awt.Color;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
@@ -18,7 +20,10 @@ public class PatientPanel extends JPanel {
 	 * constructor initialize the patient panel
 	 */
 	public PatientPanel() {
-		this.setBorder(new TitledBorder(null, "Patient", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		//integrate this title border
+		TitledBorder tb=new TitledBorder(null, "Patient", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255,255,255));
+		this.setBorder(tb);
+		
 		basicLabel = new JLabel();
 		descriptionLabel = new JLabel();
 		this.add(basicLabel);
@@ -30,6 +35,7 @@ public class PatientPanel extends JPanel {
 	 * @param str
 	 */
 	void setDescription(String str) {
+		descriptionLabel.setForeground(new Color(255, 255, 255));
 		descriptionLabel.setText(String.format("<html><div style=\"width:%dpx;\">%s</div><html>", 50, str));
 	}
 	/**
@@ -37,6 +43,7 @@ public class PatientPanel extends JPanel {
 	 * @param str
 	 */
 	void setBasic(String str) {
+		basicLabel.setForeground(new Color(255, 255, 255));
 		basicLabel.setText(String.format("<html><div style=\"width:%dpx;\">%s</div><html>", 50, str));
 	}
 }

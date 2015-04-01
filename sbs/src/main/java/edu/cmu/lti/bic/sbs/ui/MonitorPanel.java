@@ -35,35 +35,40 @@ public class MonitorPanel extends JPanel {
 
 		this.setBorder(new TitledBorder(null, "Monitor", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
-		this.setBounds(327, 61, 100, 230);
+		this.setBounds(424, 10, 200, 150);
+		//this.setBounds(327, 61, 100, 230);
 		this.setLayout(null);
 		this.setOpaque(false);
 
 		bloodPressurePanel = new JPanel();
 		bloodPressurePanel.setBorder(new TitledBorder(null, "BP",
-				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		bloodPressurePanel.setBounds(6, 20, 90, 50);
+				TitledBorder.LEADING, TitledBorder.TOP, null,null));
+		//bloodPressurePanel.setBounds(6, 20, 90, 50);
+		bloodPressurePanel.setBounds(6, 30, 90, 50);
 		this.add(bloodPressurePanel);
 		// monitorPanel.add(bloodPressurePanel);
 
 		heartRatePanel = new JPanel();
 		heartRatePanel.setBorder(new TitledBorder(null, "HR",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		heartRatePanel.setBounds(6, 70, 90, 50);
+		//heartRatePanel.setBounds(6, 80, 90, 50);
+		heartRatePanel.setBounds(106, 30, 90, 50);
 		this.add(heartRatePanel);
 		// monitorPanel.add(heartRatePanel);
 
 		JPanel oxygenLevelPanel = new JPanel();
 		oxygenLevelPanel.setBorder(new TitledBorder(null, "SpO2",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		oxygenLevelPanel.setBounds(6, 120, 90, 50);
+		//oxygenLevelPanel.setBounds(6, 120, 90, 50);
+		oxygenLevelPanel.setBounds(6, 90, 90, 50);
 		this.add(oxygenLevelPanel);
 		// monitorPanel.add(oxygenLevelPanel);
 
 		JPanel respiratoryRatePanel = new JPanel();
 		respiratoryRatePanel.setBorder(new TitledBorder(null, "RR",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		respiratoryRatePanel.setBounds(6, 170, 90, 50);
+		//respiratoryRatePanel.setBounds(6, 170, 90, 50);
+		respiratoryRatePanel.setBounds(106, 90, 90, 50);
 		this.add(respiratoryRatePanel);
 		// monitorPanel.add(respiratoryRatePanel);
 
