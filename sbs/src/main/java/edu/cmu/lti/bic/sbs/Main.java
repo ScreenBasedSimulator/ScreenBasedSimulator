@@ -7,7 +7,6 @@ public class Main {
   public static void main(String[] args) throws Exception {
     new Engine();
     edu.cmu.lti.bic.sbs.web.Server.start();
-    ChatLauncher.start();
     System.out.println("Finished Starting");
   }
 }
