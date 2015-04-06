@@ -33,7 +33,7 @@ public class ScoreDP {
    *
    */
 
-  private static ArrayList<Pair> backtrack;
+  private static ArrayList<Step> backtrack;
 
   // private static double score;
 
@@ -43,7 +43,7 @@ public class ScoreDP {
    */
 
   public ScoreDP() {
-    backtrack = new ArrayList<Pair>();
+    backtrack = new ArrayList<Step>();
   }
 
   /**
@@ -51,10 +51,10 @@ public class ScoreDP {
    * Standard Path, another is the real Path from the user
    *
    */
-  public static double scoreDPpending(Path p1, Path p2){
-      return scoreDP(p1, p2);
+  public static double scoreDPpending(Path p1, Path p2) {
+    return scoreDP(p1, p2);
   }
- 
+
   public static double scoreDP(Path p1, Path p2) {
     // firstly, check which one is the golden standard path
     // make sure p1 always the golden standard path
@@ -95,20 +95,23 @@ public class ScoreDP {
   }
 
   private static void doBackTrack(Path p1, Path p2) {
-    backtrack = new ArrayList<Pair>();
-    int i = p1.size() - 1;
-    int j = p2.size() - 1;
-//    backtrack.add(0, new Pair(i, j));
-    while (i > 0 && j > 0) {   
-      if(matrix[i][j] == matrix[i - 1][j - 1] + p1.get(i - 1).stepScore(p2.get(j - 1))){
-        i--; j--;
-      }else if(matrix[i][j] == matrix[i][j - 1] - 1){
+    int i = p1.size();
+    int j = p2.size();
+    // backtrack.add(0, new Pair(i, j));
+    while (i > 0 && j > 0) {
+      if (matrix[i][j] == matrix[i - 1][j - 1] + p1.get(i - 1).stepScore(p2.get(j - 1))) {
+        i--;
         j--;
-      }else{
+        // System.out.println(p2.get(j).getStep());
+        backtrack.add(0, new Step(p2.get(j)));
+      } else if (matrix[i][j] == matrix[i][j - 1] - 1) {
+        j--;
+      } else {
         i--;
       }
-      backtrack.add(0, new Pair(p1.get(i), p1.get(j)));
     }
+    // for(Pair p : backtrack)
+    // System.out.println(p.getSecond().getStep());
   }
 
   /**
@@ -149,7 +152,7 @@ public class ScoreDP {
     ScoreDP.matrix = matrix;
   }
 
-  public static void setBacktrack(ArrayList<Pair> backtrack) {
+  public static void setBacktrack(ArrayList<Step> backtrack) {
     ScoreDP.backtrack = backtrack;
   }
 
@@ -157,8 +160,8 @@ public class ScoreDP {
     return matrix;
   }
 
-  public static ArrayList<Pair> getBacktrack() {
+  public ArrayList<Step> getBacktrack() {
     return backtrack;
   }
-  
+
 }
