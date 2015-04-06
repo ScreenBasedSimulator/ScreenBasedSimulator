@@ -14,7 +14,7 @@ public class Step {
 
   // private Medicine medUsed;
 
-  private Calendar timeUsed;
+  private int timeUsed = -1;
 
   private Tool toolUsed;
 
@@ -74,14 +74,14 @@ public class Step {
    * @param time
    *          The time stamp
    */
-  public Step(Patient apatient, Prescription prescription, Tool tool, Calendar time) {
+  public Step(Patient apatient, Prescription prescription, Tool tool, int time) {
     prescriptionUsed = prescription;
     timeUsed = time;
     toolUsed = tool;
     patient = apatient;
   }
 
-  public Step(Patient apatient, Prescription prescription, Tool tool, Calendar time,
+  public Step(Patient apatient, Prescription prescription, Tool tool, int time,
           String ruleFiles) {
     prescriptionUsed = prescription;
     timeUsed = time;
@@ -157,7 +157,7 @@ public class Step {
    * @param t
    *          the incoming time instance
    */
-  public void setTime(Calendar t) {
+  public void setTime(int t) {
     timeUsed = t;
   }
 
@@ -166,13 +166,13 @@ public class Step {
    * 
    * @return the timer instance
    */
-  public Calendar getTime() {
+  public int getTime() {
     return timeUsed;
   }
 
   public boolean isComplete() {
     return (prescriptionUsed != null) && (patient != null) && (toolUsed != null)
-            && (timeUsed != null);
+            && (timeUsed != -1);
   }
 
   public double stepScore(Step a) {
@@ -185,7 +185,7 @@ public class Step {
         if (this.prescriptionUsed.getDose() != 0)
           dosePenalty = Math.abs(this.prescriptionUsed.getDose() - a.prescriptionUsed.getDose())
                   / this.prescriptionUsed.getDose();
-        timePenalty = this.timeUsed.getTimeInMillis() - a.timeUsed.getTimeInMillis();
+        timePenalty = timeUsed - a.timeUsed;
         // if(dosePenalty>=1||timePenalty>=10000) return 0;
         return 1.0 * (1 - dosePenalty) * (1.0 - timePenalty / 10000);
       } else {
@@ -213,9 +213,9 @@ public class Step {
 
   public static void main(String[] args) {
     Step s = new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0",
-            "Call Code", ""), Calendar.getInstance());
+            "Call Code", ""), (int)Calendar.getInstance().getTimeInMillis());
     Step a = new Step(new Patient(), new Prescription(new Drug(), 20.0, "ml"), new Tool("0",
-            "Call Code", ""), Calendar.getInstance());
+            "Call Code", ""), (int)Calendar.getInstance().getTimeInMillis());
     System.out.println(s.stepScore(a));
 
   }
@@ -223,7 +223,7 @@ public class Step {
   /**
    * @return the timeUsed
    */
-  public Calendar getTimeUsed() {
+  public int getTimeUsed() {
     return timeUsed;
   }
 
@@ -231,7 +231,7 @@ public class Step {
    * @param timeUsed
    *          the timeUsed to set
    */
-  public void setTimeUsed(Calendar timeUsed) {
+  public void setTimeUsed(int timeUsed) {
     this.timeUsed = timeUsed;
   }
 

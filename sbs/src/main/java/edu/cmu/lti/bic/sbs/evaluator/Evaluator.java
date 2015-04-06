@@ -37,6 +37,8 @@ public class Evaluator {
 
   private ScoreDP scoreDP;
 
+  private long baseTimeInMills = 0;
+  
   // private String report;
   public Evaluator(Engine engine) {
     this.engine = engine;
@@ -45,6 +47,7 @@ public class Evaluator {
     actual.setTag("Actual");
     initGoden();
     scoreDP = new ScoreDP();
+    baseTimeInMills = Calendar.getInstance().getTimeInMillis();
   }
 
   /**
@@ -56,12 +59,12 @@ public class Evaluator {
     goldStandard = new Path();
     goldStandard.setTag("Gold Standard");
     goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-            ""), Calendar.getInstance()));
+            ""), (int)Calendar.getInstance().getTimeInMillis()));
     goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("OxygenMask",
-            "Face Mask", ""), Calendar.getInstance()));
+            "Face Mask", ""), (int)Calendar.getInstance().getTimeInMillis()));
     goldStandard
             .add(new Step(new Patient(), new Prescription(new Drug("naloxone", "Naloxone", "1"),
-                    10.0, "ml"), new Tool(), Calendar.getInstance()));
+                    10.0, "ml"), new Tool(), (int)Calendar.getInstance().getTimeInMillis()));
   }
 
   class Report {
@@ -88,14 +91,16 @@ public class Evaluator {
 
   public void receive(Patient patient, Calendar time) {
     currentStep.setPatient(patient);
-    currentStep.setTime(time);
+    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    currentStep.setTime(curTime);
     System.out.println("Patient added");
     updateStep();
   }
 
   public void receive(Prescription prescription, Calendar time) {
     currentStep.setPrescription(prescription);
-    currentStep.setTime(time);
+    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    currentStep.setTime(curTime);
     System.out.println("Evaluator: USER ACTION: USE DRUG:" + prescription.getDrug().getName());
     updateStep();
   }
@@ -111,13 +116,15 @@ public class Evaluator {
 
   public void receive(Tool tool, Calendar time) {
     currentStep.setTool(tool);
-    currentStep.setTime(time);
+    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    currentStep.setTime(curTime);
     System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
     updateStep();
   }
 
   public void receive(Calendar time) {
-    currentStep.setTime(time);
+    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    currentStep.setTime(curTime);
     updateStep();
 
   }
@@ -131,13 +138,12 @@ public class Evaluator {
   }
 
   public boolean isSimEnd() {
-    // long timeNow = currentStep.getTime().getTimeInMillis();
-    // long timeLast = actual.get(actual.size()-1).getTime().getTimeInMillis();
-    // Patient p = currentStep.getPatient();
-    // return 10000 < timeNow-timeLast &&
-    // (p.getOxygenLevel().getOlNum() < .50 ||
-    // p.getOxygenLevel().getOlNum()>.90);
-    return actual.size() == 3;
+     int timeNow = currentStep.getTime();
+     int timeLast = actual.get(actual.size()-1).getTime();
+     Patient p = currentStep.getPatient();
+     return 10000 < timeNow-timeLast &&
+             (p.getOxygenLevel().getOlNum() < .50 ||
+                     p.getOxygenLevel().getOlNum()>.90);
   }
 
   /**
