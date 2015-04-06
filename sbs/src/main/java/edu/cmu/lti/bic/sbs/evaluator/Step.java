@@ -19,31 +19,9 @@ public class Step {
   private Tool toolUsed;
 
   private Prescription prescriptionUsed;
-    /**
-     * 
-     * @return The step description in serialize string.
-     */
-
 
   private Patient patient;
-
-    
-    
-    /**
-     * 
-     * Construtor copy another step
-     * 
-     * @param s
-     * 
-     */
-    public Step(Step s){
-      this.timeUsed = s.getTime();
-      this.toolUsed = s.getTool();
-      this.prescriptionUsed = s.getPrescription();
-      this.patient = s.getPatient();
-      this.stepRule = s.getStepRule();
-    }
-
+  
   private StepRule stepRule;
 
   // private undefined patientStatus;
@@ -51,17 +29,35 @@ public class Step {
   /**
    * 
    * @return The step description in serialize string.
-   * 
+   *
    */
   public String getStep() {
-    return prescriptionUsed.toString() + toolUsed.toString();
+    // return prescriptionUsed.toString() + "\t" + timeUsed.toString()
+    // + "\t" + toolUsed.toString() + "\n";
+    return prescriptionUsed.toString() + "\t" + toolUsed.toString() + "\n";
   }
 
   /**
-   * Default constructor all of the attributes are null
+   * 
+   * default constructor
+   * 
    */
   public Step() {
+  }
 
+  /**
+   * 
+   * Construtor copy another step
+   * 
+   * @param s
+   * 
+   */
+  public Step(Step s) {
+    this.timeUsed = s.getTime();
+    this.toolUsed = s.getTool();
+    this.prescriptionUsed = s.getPrescription();
+    this.patient = s.getPatient();
+    this.stepRule = s.getStepRule();
   }
 
   /**
@@ -85,43 +81,17 @@ public class Step {
     patient = apatient;
   }
 
-  /**
-   * 
-   * Called when ruleFiles are specified in goldstandard
-   * 
-   * @param apatient
-   *          The patient instance
-   * @param prescription
-   *          The prescription instance
-   * @param tool
-   *          The tool instance
-   * @param time
-   *          The time stamp
-   * @param ruleFiles
-   *          the rule related to this step
-   * 
-   */
   public Step(Patient apatient, Prescription prescription, Tool tool, Calendar time,
           String ruleFiles) {
     prescriptionUsed = prescription;
     timeUsed = time;
     toolUsed = tool;
     patient = apatient;
-    stepRule = new StepRule(ruleFiles);
+    stepRule = new StepRule(ruleFiles, this);
   }
 
-  /**
-   * The rule setter
-   * 
-   * @param ruleFiles
-   *          the rule related to this step
-   */
   public void setRule(String ruleFiles) {
-    stepRule = new StepRule(ruleFiles);
-  }
-  
-  public StepRule getStepRule(){
-    return this.stepRule;
+    stepRule = new StepRule(ruleFiles, this);
   }
 
   /**
@@ -200,25 +170,11 @@ public class Step {
     return timeUsed;
   }
 
-  /**
-   * check the step is complete
-   * 
-   * @return true if prescription, patient, tool and time are not null
-   */
   public boolean isComplete() {
     return (prescriptionUsed != null) && (patient != null) && (toolUsed != null)
             && (timeUsed != null);
   }
 
-  /**
-   * 
-   * compare this step to the gold standard step
-   * 
-   * @param a
-   *          the gold standard step
-   * @return the step score as compared to step a
-   * 
-   */
   public double stepScore(Step a) {
     if (stepRule == null) {
       if (this.toolUsed.getId().equals(a.toolUsed.getId())
@@ -231,62 +187,30 @@ public class Step {
                   / this.prescriptionUsed.getDose();
         timePenalty = this.timeUsed.getTimeInMillis() - a.timeUsed.getTimeInMillis();
         // if(dosePenalty>=1||timePenalty>=10000) return 0;
-        return 2.0 * (1 - dosePenalty) * (1.0 - timePenalty / 10000);
+        return 1.0 * (1 - dosePenalty) * (1.0 - timePenalty / 10000);
       } else {
-        return -2.0;
+        return 0.0;
       }
     } else {
       double score = stepRule.maxScore();
-
       return score;
     }
   }
 
-  /**
-   * 
-   * get the patient score in this step
-   * 
-   * @return the patient score
-   * 
-   */
   public double stepPatientScore() {
     double res = 0.0;
-    double oLpenalty = 1;
-    double rRpenalty = 1;
-    double bPpenalty = 1;
-    double hRpenalty = 1;
-    if (stepRule != null) {
-      // add code here
+    double oLpenalty = 0.1;
+    if (stepRule == null) {
+      double oL = patient.getOxygenLevel().getOlNum() - 80;
+      if (oL < 0) {
+        res -= oL * oLpenalty;
+      }
+    } else {
     }
-    double oL = patient.getOxygenLevel().getOlNum() - 80;
-    if (oL < 0) {
-      res += oL * oLpenalty;
-    }
-    double rR = Math.max(12.0 - patient.getRepiratinoRate().getRrNum(), patient.getRepiratinoRate()
-            .getRrNum() - 20.0);
-    if (rR > 0) {
-      res -= rR * rRpenalty;
-    }
-    double bP = Math.max(patient.getBloodPressure().getDiastolicBloodPressure() - 100
-            + patient.getBloodPressure().getSystolicBloodPressure() - 160, 140
-            - patient.getBloodPressure().getDiastolicBloodPressure()
-            - patient.getBloodPressure().getSystolicBloodPressure());
-    if (bP > 0) {
-      res -= bP * bPpenalty;
-    }
-    double hR = Math.max(patient.getHeartRate().getHrNum() - 100, 60 - patient.getHeartRate()
-            .getHrNum());
-    if (hR > 0) {
-      res -= hR * hRpenalty;
-    }
-
     return res;
-
   }
 
-  /**
-   * test cases
-   */
+
   public static void main(String[] args) {
     Step s = new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0",
             "Call Code", ""), Calendar.getInstance());
@@ -294,5 +218,65 @@ public class Step {
             "Call Code", ""), Calendar.getInstance());
     System.out.println(s.stepScore(a));
 
+  }
+
+  /**
+   * @return the timeUsed
+   */
+  public Calendar getTimeUsed() {
+    return timeUsed;
+  }
+
+  /**
+   * @param timeUsed
+   *          the timeUsed to set
+   */
+  public void setTimeUsed(Calendar timeUsed) {
+    this.timeUsed = timeUsed;
+  }
+
+  /**
+   * @return the toolUsed
+   */
+  public Tool getToolUsed() {
+    return toolUsed;
+  }
+
+  /**
+   * @param toolUsed
+   *          the toolUsed to set
+   */
+  public void setToolUsed(Tool toolUsed) {
+    this.toolUsed = toolUsed;
+  }
+
+  /**
+   * @return the prescriptionUsed
+   */
+  public Prescription getPrescriptionUsed() {
+    return prescriptionUsed;
+  }
+
+  /**
+   * @param prescriptionUsed
+   *          the prescriptionUsed to set
+   */
+  public void setPrescriptionUsed(Prescription prescriptionUsed) {
+    this.prescriptionUsed = prescriptionUsed;
+  }
+
+  /**
+   * @return the stepRule
+   */
+  public StepRule getStepRule() {
+    return stepRule;
+  }
+
+  /**
+   * @param stepRule
+   *          the stepRule to set
+   */
+  public void setStepRule(StepRule stepRule) {
+    this.stepRule = stepRule;
   }
 }

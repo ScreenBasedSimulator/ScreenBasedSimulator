@@ -6,26 +6,46 @@ import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 
+
+/**
+ * The StepRule Class
+ * 
+ * @author Victor Zhao, Ryan Sun
+ * 
+ */
+
+
 public class StepRule {
   double maxScore = 1;
+
   double maxSimilarity = 1;
+
   double minScore = 0;
+
   double passSimilarityPenalty = 1;
+
   double passScorePenalty = 0;
+
   double timePenalty = 1;
+
   double dosePenalty = 1;
-  
-  
-  public StepRule(){
-    
+
+  public StepRule() {
+
   }
+<<<<<<< HEAD
   
   public StepRule(String ruleFile){
     
+=======
+
+  public StepRule(String ruleFile, Step step) {
+
+>>>>>>> refs/heads/master
   }
-  
+
   public StepRule(double maxSc, double maxSi, double minSc, double passSiP, double passScP,
-          double timeP, double doseP){
+          double timeP, double doseP) {
     maxScore = maxSc;
     maxSimilarity = maxSi;
     minScore = minSc;
@@ -34,33 +54,33 @@ public class StepRule {
     timePenalty = timeP;
     dosePenalty = doseP;
   }
-  
-  public double maxScore(){
+
+  public double maxScore() {
     return maxScore;
   }
-  
-  public double maxSimilarity(){
+
+  public double maxSimilarity() {
     return maxSimilarity;
   }
-  
-  public double minScore(){
+
+  public double minScore() {
     return minScore;
   }
-  
-  public double passSimilarityPenalty(){
+
+  public double passSimilarityPenalty() {
     return passSimilarityPenalty;
   }
-  
-  public double passScorePenalty(){
+
+  public double passScorePenalty() {
     return passScorePenalty;
   }
-  
-  public double timePenalty(){
+
+  public double timePenalty() {
     return timePenalty;
   }
-  
-  public double dosePenalty(){
+
+  public double dosePenalty() {
     return dosePenalty;
   }
-  
+
 }
