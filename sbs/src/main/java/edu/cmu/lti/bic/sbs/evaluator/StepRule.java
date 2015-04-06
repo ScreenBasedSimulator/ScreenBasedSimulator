@@ -33,15 +33,9 @@ public class StepRule {
   public StepRule() {
 
   }
-<<<<<<< HEAD
-  
-  public StepRule(String ruleFile){
-    
-=======
 
   public StepRule(String ruleFile, Step step) {
 
->>>>>>> refs/heads/master
   }
 
   public StepRule(double maxSc, double maxSi, double minSc, double passSiP, double passScP,
