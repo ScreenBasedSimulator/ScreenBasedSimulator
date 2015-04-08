@@ -7,9 +7,9 @@ import edu.cmu.lti.bic.sbs.simulator.HeartRate;
 import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
 import edu.cmu.lti.bic.sbs.simulator.RespirationRate;
 
-enum Status{
-	great, good, not_good, bad, dying
-	
+enum Status {
+  great, good, not_good, bad, dying
+
 }
 
 public class Patient {
@@ -20,12 +20,15 @@ public class Patient {
 	private Condition cd;
 
 	private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0);
-	private HeartRate heartRate = new HeartRate(80.0);
-	private OxygenLevel oxygenLevel = new OxygenLevel(99.0);
+
+	private HeartRate heartRate = new HeartRate(70.0);
+	private OxygenLevel oxygenLevel = new OxygenLevel(0.8);
+
 	private RespirationRate respirationRate = new RespirationRate(12.0);
 	
 	GraphicDisplay graDisplay;
 	Status status;
+	
 	public Patient() {
 		
 	}

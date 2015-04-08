@@ -6,10 +6,9 @@ import java.util.List;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
-import edu.cmu.lti.bic.sbs.gson.OxygenMask;
+
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
-import edu.cmu.lti.bic.sbs.simulator.Condition;
 import edu.cmu.lti.bic.sbs.simulator.HeartRate;
 import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
 import edu.cmu.lti.bic.sbs.simulator.RespirationRate;
@@ -77,7 +76,7 @@ public class Engine {
 		// Load Tool data to user interface
 		FileReader fileReader = null;
 		try {
-			fileReader = new FileReader("src/test/resources/equipmentTest.json");
+			fileReader = new FileReader("src/test/resources/toolTest.json");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -99,7 +98,7 @@ public class Engine {
 		
 		//Load the drug data to user interface
 		try {
-      fileReader = new FileReader("src/test/resources/drug.json");
+      fileReader = new FileReader("src/test/resources/drugTest.json");
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
@@ -121,20 +120,22 @@ public class Engine {
 
 	public void useTool(Tool tool) {
 		scenario.useTool(tool);
-		//evaluator.receive(tool, time);
+		evaluator.receive(tool, time);
+		evaluator.receive(new Prescription(),time);
 		simulator.simulateWithTool(tool);
 	}
 
 	public void useDrug(Prescription p) {
 		scenario.useDrug(p.getDrug(), p.getDose());
-		//evaluator.receive(p, time);
+		evaluator.receive(new Tool(),time);
+		evaluator.receive(p, time);
 		simulator.simWithDrugs(p);
 	}
 
 	public void update(int interval) {
 		time.add(Calendar.MILLISECOND, interval);
 		ui.updateTime(time);
-
+		evaluator.receive(time);
 		Patient p = simulator.simPatient();
 		evaluator.regularUpdate(p, time);
 		if (isMonitorConnected) {

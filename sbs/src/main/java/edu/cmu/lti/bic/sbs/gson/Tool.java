@@ -7,43 +7,44 @@ package edu.cmu.lti.bic.sbs.gson;
  *
  */
 public class Tool {
-	private String name = null;
-	private String id = null;
+  private String name = null;
 
-	public Tool() {
-	    this("Default id", "Default name", "Default description");
-	}
-	private double value;
+  private String id = null;
 
-	public String getName() {
-		return name;
-	}
+  public Tool() {
+    this("Default id", "Default name", "Default description");
+  }
 
-	public Tool setName(String toolName) {
-		this.name = toolName;
-		return this;
-	}
+  private double value;
 
-	public String getId() {
-		return id;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public String toString() {
-		return "The tool is " + name;
-	}
+  public Tool setName(String toolName) {
+    this.name = toolName;
+    return this;
+  }
 
-	public Tool(String id, String name, String description) {
+  public String getId() {
+    return id;
+  }
 
-		this.id = id;
-		this.name = name;
-	}
+  public String toString() {
+    return "The tool is " + "\t" + name;
+  }
 
-	public double getValue() {
-		return value;
-	}
+  public Tool(String id, String name, String description) {
 
-	public void setValue(double value) {
-		this.value = value;
-	}
+    this.id = id;
+    this.name = name;
+  }
 
+  public double getValue() {
+    return value;
+  }
+
+  public void setValue(double value) {
+    this.value = value;
+  }
 }

@@ -46,7 +46,4 @@ public class Condition {
 	public void setRr(RespirationRate rr) {
 		this.rr = rr;
 	}
-	
-	
-	
 }

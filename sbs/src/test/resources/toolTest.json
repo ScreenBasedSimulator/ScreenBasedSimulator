@@ -1,0 +1,11 @@
+[{
+	"id":"OxygenMask",
+	"name":"Face Mask",
+	"value" : 100.0
+},{
+	"id":2,
+	"name":"Oral Airway"
+},{
+	"id":3,
+	"name":"Bag-valve Dev"
+}]

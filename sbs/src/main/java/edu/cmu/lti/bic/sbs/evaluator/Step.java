@@ -1,20 +1,24 @@
 package edu.cmu.lti.bic.sbs.evaluator;
 
+import java.util.Calendar;
+
 import edu.cmu.lti.bic.sbs.gson.*;
 
 /**
  * The Step Class
  * 
- * @author Victor Zhao
+ * @author Victor Zhao, Xing Sun
  * 
  */
 public class Step {
+
     // private Medicine medUsed;
 
-    private Timer timeUsed;
+    private Calendar timeUsed;
     private Tool toolUsed;
     private Prescription prescriptionUsed;
     private Patient patient;
+    private StepRule stepRule;
 
     // private undefined patientStatus;
 
@@ -23,16 +27,18 @@ public class Step {
      * @return The step description in serialize string.
      */
     public String getStep() {
-	return prescriptionUsed.toString() + timeUsed.toString()
-		+ toolUsed.toString();
+//        return prescriptionUsed.toString() + "\t" + timeUsed.toString() 
+//                + "\t" + toolUsed.toString() + "\n";
+      return prescriptionUsed.toString() + "\t" + toolUsed.toString() + "\n";
     }
 
     public Step() {
-
     }
 
     /**
      * Step initializer
+     * 
+     * Called when building the gold standard
      * 
      * @param apatient
      *            The patient instance
@@ -44,11 +50,24 @@ public class Step {
      *            The time stamp
      */
     public Step(Patient apatient, Prescription prescription, Tool tool,
-	    Timer time) {
-	prescriptionUsed = prescription;
-	timeUsed = time;
-	toolUsed = tool;
-	patient = apatient;
+	    Calendar time) {
+        prescriptionUsed = prescription;
+        timeUsed = time;
+        toolUsed = tool;
+        patient = apatient;
+    }
+    
+    public Step(Patient apatient, Prescription prescription, Tool tool,
+            Calendar time, String ruleFiles) {
+              prescriptionUsed = prescription;
+              timeUsed = time;
+              toolUsed = tool;
+              patient = apatient;
+              stepRule = new StepRule(ruleFiles, this);
+          }
+    
+    public void setRule(String ruleFiles){
+      stepRule = new StepRule(ruleFiles, this);
     }
     
     /**
@@ -56,7 +75,7 @@ public class Step {
      * @param p The incoming patient instance
      */
     public void setPatient(Patient p) {
-	patient = p;
+        patient = p;
     }
     
     /**
@@ -64,7 +83,7 @@ public class Step {
      * @return The patient instance
      */
     public Patient getPatient() {
-	return patient;
+        return patient;
     }
     
     /**
@@ -72,7 +91,7 @@ public class Step {
      * @param p incoming prescription instance
      */
     public void setPrescription(Prescription p) {
-	prescriptionUsed = p;
+        prescriptionUsed = p;
     }
     
     /**
@@ -80,7 +99,7 @@ public class Step {
      * @return the prescription within one step
      */
     public Prescription getPrescription() {
-	return prescriptionUsed;
+        return prescriptionUsed;
     }
     
     /** 
@@ -88,7 +107,7 @@ public class Step {
      * @param t incoming tool
      */
     public void setTool(Tool t) {
-	toolUsed = t;
+        toolUsed = t;
     }
     
     /**
@@ -96,42 +115,74 @@ public class Step {
      * @return the tool instance
      */
     public Tool getTool() {
-	return toolUsed;
+        return toolUsed;
     }
     
     /**
      * The time setter
      * @param t the incoming time instance
      */
-    public void setTime(Timer t) {
-	timeUsed = t;
+    public void setTime(Calendar t) {
+        timeUsed = t;
     }
     
     /**
      * The timer getter
      * @return the timer instance
      */
-    public Timer getTime() {
-	return timeUsed;
+    public Calendar getTime() {
+        return timeUsed;
     }
     
     public boolean isComplete() {
-	return (prescriptionUsed != null) && (patient != null)
+        return (prescriptionUsed != null) && (patient != null)
 		&& (toolUsed != null) && (timeUsed != null);
     }
 
     public double stepScore(Step a) {
-	if (this.toolUsed == a.toolUsed
-		&& this.prescriptionUsed == a.prescriptionUsed) {
-	    return 1.0;
-	} else {
-	    return 0.0;
-	}
+      if (stepRule == null){
+        if (this.toolUsed.getId().equals(a.toolUsed.getId())
+                && this.prescriptionUsed.getDrug().getId().equals(a.prescriptionUsed.getDrug().getId())) {
+          double dosePenalty = 0.0;
+          double timePenalty = 0.0;
+          if(this.prescriptionUsed.getDose()!=0)
+            dosePenalty = Math.abs(
+                    this.prescriptionUsed.getDose()-a.prescriptionUsed.getDose())
+                    /this.prescriptionUsed.getDose();
+          timePenalty = this.timeUsed.getTimeInMillis()-a.timeUsed.getTimeInMillis();
+          //if(dosePenalty>=1||timePenalty>=10000) return 0;
+          return 1.0*(1-dosePenalty)*(1.0-timePenalty/10000);
+        } else {
+          return 0.0;
+        }
+       }else{
+         double score = stepRule.maxScore();
+         
+         return score;
+       }
+    }
+    
+    public double stepPatientScore(){
+      double res = 0.0;
+      double oLpenalty = 0.1;
+      if(stepRule == null){
+        double oL = patient.getOxygenLevel().getOlNum()-80;
+        if (oL < 0){
+          res -= oL * oLpenalty;
+        }
+      }else{
+        
+      }
+      return res;
+      
     }
 
     public static void main(String[] args) {
-	Step s = new Step();
-	System.out.println(s.getStep());
-	
+        Step s = new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0", "Call Code", ""),
+                Calendar.getInstance());
+        Step a = new Step(new Patient(), new Prescription(new Drug(), 20.0, "ml"), new Tool("0", "Call Code", ""),
+                Calendar.getInstance());
+        System.out.println(s.stepScore(a));
+        
     }
 }
