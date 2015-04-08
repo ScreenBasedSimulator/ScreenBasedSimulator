@@ -21,8 +21,9 @@ public class Patient {
 
 	private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0);
 
-	private HeartRate heartRate = new HeartRate(80.0);
-	private OxygenLevel oxygenLevel = new OxygenLevel(0.3);
+	private HeartRate heartRate = new HeartRate(70.0);
+	private OxygenLevel oxygenLevel = new OxygenLevel(0.8);
+
 	private RespirationRate respirationRate = new RespirationRate(12.0);
 	
 	GraphicDisplay graDisplay;
