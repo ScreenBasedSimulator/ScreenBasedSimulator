@@ -31,7 +31,7 @@ public class Tool {
   }
 
   public String toString() {
-    return "The tool is " + name;
+    return "The tool is " + "\t" + name;
   }
 
   public Tool(String id, String name, String description) {

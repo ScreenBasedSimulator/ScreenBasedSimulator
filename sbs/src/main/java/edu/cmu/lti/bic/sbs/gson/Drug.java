@@ -7,8 +7,6 @@ public class Drug {
 
   private String id = "";
 
-  private double does;
-
   public Drug() {
     this.name = "Default Drug";
     this.description = "Default description";
@@ -64,20 +62,4 @@ public class Drug {
   public void setId(String id) {
     this.id = id;
   }
-
-  /**
-   * @return the does
-   */
-  public double getDoes() {
-    return does;
-  }
-
-  /**
-   * @param does the does to set
-   */
-  public void setDoes(double does) {
-    this.does = does;
-  }
-
-
 }

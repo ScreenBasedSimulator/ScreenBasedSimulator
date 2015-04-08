@@ -35,6 +35,29 @@ public class Path extends ArrayList<Step> {
     }
     return pScore;
   }
+  
+  public double patientScore(){
+    Iterator<Step> itrThis;
+    Step prev = null;
+    try{
+      itrThis = this.iterator();
+    } catch (NullPointerException e){
+      throw new NullPointerException();
+    }
+    double res = 100;
+    
+    while (itrThis.hasNext()){
+      Step temp = itrThis.next();
+      if(prev == null){
+        res -= 0;
+      }else{
+        res -= (temp.stepPatientScore()+prev.stepPatientScore())*
+                (temp.getTime().getTimeInMillis()-prev.getTime().getTimeInMillis())*0.0000001;
+      }
+      prev = temp;
+    }
+    return res;
+  }
 
   public static void main(String[] args) {
     // The pathScore test case.
