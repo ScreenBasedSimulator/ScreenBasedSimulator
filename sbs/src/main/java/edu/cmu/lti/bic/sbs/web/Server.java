@@ -9,6 +9,7 @@ public class Server {
 		});
 		post("/pickup", (request, response) -> {
 			System.out.println(request.queryParams());
+			System.out.println("Someone picked up a :" + request.queryParams("name"));
 			return "You picked up a " + request.queryParams("name");
 		});
 	}
