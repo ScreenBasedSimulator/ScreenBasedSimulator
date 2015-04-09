@@ -73,12 +73,12 @@ public class Engine {
 		scenario = new Scenario(ui);
 
 		// Load Tool data to user interface
-		
-//		try {
-//			fileReader = new FileReader("src/test/resources/toolTest.json");
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
+
+		// try {
+		// fileReader = new FileReader("src/test/resources/toolTest.json");
+		// } catch (FileNotFoundException e) {
+		// e.printStackTrace();
+		// }
 
 		Tool[] tools = scenario.readTool();
 		// tools to ui
@@ -86,21 +86,21 @@ public class Engine {
 			ui.addTool(tool);
 		}
 		// Load Patient data to user interface
-//		try {
-//			fileReader = new FileReader("src/test/resources/patientTest.json");
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
+		// try {
+		// fileReader = new FileReader("src/test/resources/patientTest.json");
+		// } catch (FileNotFoundException e) {
+		// e.printStackTrace();
+		// }
 
 		Patient patient = scenario.readPatient();
 		ui.setPatientInfo(patient);
 		state = new State(patient);
 		// Load the drug data to user interface
-//		try {
-//			fileReader = new FileReader("src/test/resources/drugTest.json");
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
+		// try {
+		// fileReader = new FileReader("src/test/resources/drugTest.json");
+		// } catch (FileNotFoundException e) {
+		// e.printStackTrace();
+		// }
 		Drug[] drugMap = scenario.readDrug();
 		ui.addDrug(drugMap);
 
@@ -129,13 +129,8 @@ public class Engine {
 	public void update(int interval) {
 		time.add(Calendar.MILLISECOND, interval);
 		ui.updateTime(time);
-		evaluator.receive(time);
 		Patient p = simulator.simPatient();
-
-		state.setCheckPoint(p.clone());
-
-		evaluator.regularUpdate(p, time);
-
+		scenario.update(evaluator,p,state,time);
 		if (isMonitorConnected) {
 			ui.updateMonitor(p);
 		}

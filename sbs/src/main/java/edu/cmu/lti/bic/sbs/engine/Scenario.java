@@ -27,6 +27,7 @@ public class Scenario {
 	Patient pt;
 	boolean isMonitorConnected;
 	private Gson gson = new Gson();
+	State state = null;
 	public Scenario(UserInterface ui) {
 		// just for test
 		this.ui = ui;
@@ -109,7 +110,7 @@ public class Scenario {
 		return patient;
 
 	}
-	public Tool [] readTool() {
+	public Tool[] readTool() {
 		try {
 			fileReader = new FileReader("src/test/resources/toolTest.json");
 		} catch (FileNotFoundException e) {
@@ -117,5 +118,11 @@ public class Scenario {
 		}
 		Tool[] tools = gson.fromJson(fileReader, Tool[].class);
 		return tools;
+	}
+	public void update(Evaluator evaluator, Patient p, State state, Calendar time) {
+		evaluator.receive(time);
+		state.setCheckPoint(p.clone());
+		evaluator.regularUpdate(p, time);
+		// return tools;
 	}
 }
