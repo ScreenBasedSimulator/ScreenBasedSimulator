@@ -2,14 +2,14 @@ package edu.cmu.lti.bic.sbs.evaluator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * 
- * @author victorzhao, xings, Ryan Sun
+ * @author victorzhao, xings
  *
  */
 public class Path extends ArrayList<Step> {
+
   String tag = ""; // tag the type of this path: goldStandard or actual
 
   /**
@@ -35,24 +35,24 @@ public class Path extends ArrayList<Step> {
     }
     return pScore;
   }
-
-  public double patientScore() {
+  
+  public double patientScore(){
     Iterator<Step> itrThis;
     Step prev = null;
-    try {
+    try{
       itrThis = this.iterator();
-    } catch (NullPointerException e) {
+    } catch (NullPointerException e){
       throw new NullPointerException();
     }
     double res = 100;
-
-    while (itrThis.hasNext()) {
+    
+    while (itrThis.hasNext()){
       Step temp = itrThis.next();
-      if (prev == null) {
+      if(prev == null){
         res -= 0;
-      } else {
-        res -= (temp.stepPatientScore() + prev.stepPatientScore())
-                * (temp.getTime().getTimeInMillis() - prev.getTime().getTimeInMillis()) * 0.0000001;
+      }else{
+        res -= (temp.stepPatientScore()+prev.stepPatientScore())*
+                (temp.getTime().getTimeInMillis()-prev.getTime().getTimeInMillis())*0.0000001;
       }
       prev = temp;
     }

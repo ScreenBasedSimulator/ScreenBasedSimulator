@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 /**
@@ -67,5 +68,6 @@ public class ClockPanel extends JPanel {
 		timeLabel.setText(0 + "");
 		this.add(timeLabel);
 		this.setTime(12, 0, 0);
+		this.setOpaque(false);
 	}
 }

@@ -1,5 +1,6 @@
 package edu.cmu.lti.bic.sbs.ui.monitor;
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 /**
  * 
  * @author Guan Wang
@@ -15,6 +16,7 @@ public class OxygenLevelPanel extends JPanel{
 	public OxygenLevelPanel() {
 		oxygenLevelLabel = new JLabel("SpO2: ? %");
 		this.add(oxygenLevelLabel);
+		this.setOpaque(false);
 	}
 
 	public void setOxygenLevel(int oxygenLevelData) {

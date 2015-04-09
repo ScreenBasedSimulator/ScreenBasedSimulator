@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.ui.monitor;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * 
@@ -17,6 +18,7 @@ public class HeartRatePanel extends JPanel {
 	public HeartRatePanel() {
 		heartRateLabel = new JLabel("HR: ? bpm");
 		this.add(heartRateLabel);
+		this.setOpaque(false);
 	}
 
 	public void setBloodPressure(int heartRateData) {

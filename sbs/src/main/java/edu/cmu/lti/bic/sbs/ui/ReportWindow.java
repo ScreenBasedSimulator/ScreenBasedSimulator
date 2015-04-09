@@ -1,8 +1,8 @@
 package edu.cmu.lti.bic.sbs.ui;
 
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 
 public class ReportWindow {
 

@@ -1,14 +1,14 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.border.TitledBorder;
-
-
-import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 public class NursePanel extends JPanel {
 
@@ -90,6 +90,15 @@ public class NursePanel extends JPanel {
 		});
 		injectBtn.setBounds(6, 79, 137, 29);
 		this.add(injectBtn);
+		
+		JButton resetButton = new JButton("Restart");
+		resetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ui.restart();
+			}
+		});
+		resetButton.setBounds(6, 120, 137, 29);
+		add(resetButton);
 	}
 	public void closeDrugWindow() {
 		window.frame.setVisible(false); //you can't see me!

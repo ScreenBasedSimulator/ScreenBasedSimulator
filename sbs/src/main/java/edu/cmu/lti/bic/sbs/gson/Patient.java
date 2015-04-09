@@ -1,7 +1,7 @@
 package edu.cmu.lti.bic.sbs.gson;
 
-import edu.cmu.lti.bic.sbs.simulator.Condition;
 import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
+import edu.cmu.lti.bic.sbs.simulator.Condition;
 import edu.cmu.lti.bic.sbs.simulator.GraphicDisplay;
 import edu.cmu.lti.bic.sbs.simulator.HeartRate;
 import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
@@ -12,17 +12,19 @@ enum Status {
 
 }
 
-public class Patient {
+public class Patient implements Cloneable {
 	private String basic; //eg: male, 35, white
 	private String description; //eg: headache, vomit
 	
 
 	private Condition cd;
-
+	//bloodPressure range from (100, 190) and (40, 70)
 	private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0);
-
-	private HeartRate heartRate = new HeartRate(80.0);
-	private OxygenLevel oxygenLevel = new OxygenLevel(0.3);
+	//heartRate range from (50, 150)
+	private HeartRate heartRate = new HeartRate(70.0);
+	//oxygenLevel range from (0.6, 1.0)
+	private OxygenLevel oxygenLevel = new OxygenLevel(0.8);
+	//respirationRate range from (10, 30)
 	private RespirationRate respirationRate = new RespirationRate(12.0);
 	
 	GraphicDisplay graDisplay;
@@ -75,5 +77,14 @@ public class Patient {
 
 	public void setRespirationRate(RespirationRate respirationRate) {
 		this.respirationRate = respirationRate;
+	}
+	public Patient clone(){
+		try {
+			return (Patient)super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

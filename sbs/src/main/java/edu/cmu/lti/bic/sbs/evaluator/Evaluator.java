@@ -15,203 +15,197 @@ import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.MedicalParameter;
 
-// Test class
-class BloodPressure implements MedicalParameter {
-
-}
 
 /**
  * 
- * @author victorzhao, xings, ryan sun
+ * @author victorzhao, xings, Ryan Sun
  *
  */
 public class Evaluator {
 
-  private double score;
+	private double score;
+	private Path actual;
+	private Path goldStandard;
+	private Step currentStep;
 
-  private Path actual;
+	// private String report;
+	public Evaluator(Engine engine) {
+		this.engine = engine;
+		actual = new Path();
+		goldStandard = new Path();
+		currentStep = new Step();
+		actual.setTag("Actual");
+		goldStandard.setTag("Gold Standard");
+		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("codeblue",
+				"Call Code", ""), Calendar.getInstance()));
+		goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("OxygenMask",
+				"Face Mask", ""), Calendar.getInstance()));
+		goldStandard.add(new Step(new Patient(), new Prescription(new Drug(
+				"naloxone", "Naloxone", "1"), 10.0, "ml"), new Tool(), Calendar.getInstance()));
+	}
 
-  private Path goldStandard;
+	class Report {
+		double score;
+		String report;
+	}
 
-  private Step currentStep;
+	/**
+	 * called by engine to receive the medPara
+	 * 
+	 * @param medPara
+	 *          , MedicalParameter is an interface in simulator package
+	 */
+	public void receivePara(MedicalParameter medPara) {
+		System.out.println("evaluator.ReceivePara called by engine!");
+	}
 
-  private ScoreDP scoreDP;
+	private Engine engine;
 
-  // private String report;
-  public Evaluator(Engine engine) {
-    this.engine = engine;
-    actual = new Path();
-    currentStep = new Step();
-    actual.setTag("Actual");
-    initGoden();
-    scoreDP = new ScoreDP();
-  }
+	// private String report;
 
-  /**
-   * Initialize Golden Standard Path
-   * 
-   */
+	// overloading the constructor to support initialize with engine parameter
 
-  private void initGoden() {
-    goldStandard = new Path();
-    goldStandard.setTag("Gold Standard");
-    goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-            ""), Calendar.getInstance()));
-    goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("OxygenMask",
-            "Face Mask", ""), Calendar.getInstance()));
-    goldStandard
-            .add(new Step(new Patient(), new Prescription(new Drug("naloxone", "Naloxone", "1"),
-                    10.0, "ml"), new Tool(), Calendar.getInstance()));
-  }
+	public void receive(Patient patient, Calendar time) {
+		currentStep.setPatient(patient);
+		currentStep.setTime(time);
+		System.out.println("Patient added");
+		updateStep();
+	}
 
-  class Report {
-    double score;
+	public void receive(Prescription prescription, Calendar time) {
+		currentStep.setPrescription(prescription);
+		currentStep.setTime(time);
+		System.out.println("Evaluator: USER ACTION: USE DRUG:"
+				+ prescription.getDrug().getName());
+		updateStep();
+	}
 
-    String report;
-  }
+	/**
+	 * called by engine to receive the Equipment variables
+	 * 
+	 * @param tool
+	 *          Equipment is a Class defined in gson package
+	 * @param time
+	 *          time used
+	 */
 
-  /**
-   * called by engine to receive the medPara
-   * 
-   * @param medPara
-   *          , MedicalParameter is an interface in simulator package
-   */
-  public void receivePara(MedicalParameter medPara) {
-    System.out.println("evaluator.ReceivePara called by engine!");
-  }
+	public void receive(Tool tool, Calendar time) {
+		currentStep.setTool(tool);
+		currentStep.setTime(time);
+		System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
+		updateStep();
+	}
 
-  private Engine engine;
+	public void receive(Calendar time) {
+		currentStep.setTime(time);
+		updateStep();
 
-  // private String report;
+	}
 
-  // overloading the constructor to support initialize with engine parameter
+	public void regularUpdate(Patient p, Calendar time) {
+		currentStep.setPatient(p);
+		if (isSimEnd()) {
+			calculateScore();
+			engine.simOver(score, generateReport());
+		}
+	}
 
-  public void receive(Patient patient, Calendar time) {
-    currentStep.setPatient(patient);
-    currentStep.setTime(time);
-    System.out.println("Patient added");
-    updateStep();
-  }
+	public boolean isSimEnd() {
+		// long timeNow = currentStep.getTime().getTimeInMillis();
+		// long timeLast = actual.get(actual.size()-1).getTime().getTimeInMillis();
+		// Patient p = currentStep.getPatient();
+		// return 10000 < timeNow-timeLast &&
+		// (p.getOxygenLevel().getOlNum() < .50 ||
+		// p.getOxygenLevel().getOlNum()>.90);
+		return actual.size() == 3;
+	}
 
-  public void receive(Prescription prescription, Calendar time) {
-    currentStep.setPrescription(prescription);
-    currentStep.setTime(time);
-    System.out.println("Evaluator: USER ACTION: USE DRUG:" + prescription.getDrug().getName());
-    updateStep();
-  }
+	/**
+	 * called by engine to receive the Equipment variables
+	 *
+	 * @param tool
+	 *          Equipment is a Class defined in gson package
+	 * @param time
+	 *          time used
+	 */
 
-  /**
-   * called by engine to receive the Equipment variables
-   * 
-   * @param tool
-   *          Equipment is a Class defined in gson package
-   * @param time
-   *          time used
-   */
+	public void calculateScore() {
+		score = ScoreDP.scoreDP(goldStandard, actual);
+	}
+	
+	public void calculateScorePending(){
+	  score = ScoreDP.scoreDPpending(goldStandard, actual);
+	}
 
-  public void receive(Tool tool, Calendar time) {
-    currentStep.setTool(tool);
-    currentStep.setTime(time);
-    System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
-    updateStep();
-  }
+	public double getScore() {
+		return score;
+	}
 
-  public void receive(Calendar time) {
-    currentStep.setTime(time);
-    updateStep();
+	public void updateStep() {
+		if (currentStep.isComplete()) {
+			actual.add(currentStep);
+			currentStep = new Step();
+		}
+	}
 
-  }
+	public String toString() {
+		return "The score is " + score;
+	}
 
-  public void regularUpdate(Patient p, Calendar time) {
-    currentStep.setPatient(p);
-    if (isSimEnd()) {
-      calculateScore();
-      engine.simOver(score, generateReport());
-    }
-  }
+	public void setInitialTime(Calendar initTime) {
 
-  public boolean isSimEnd() {
-    // long timeNow = currentStep.getTime().getTimeInMillis();
-    // long timeLast = actual.get(actual.size()-1).getTime().getTimeInMillis();
-    // Patient p = currentStep.getPatient();
-    // return 10000 < timeNow-timeLast &&
-    // (p.getOxygenLevel().getOlNum() < .50 ||
-    // p.getOxygenLevel().getOlNum()>.90);
-    return actual.size() == 3;
-  }
-
-  /**
-   * called by engine to receive the Equipment variables
-   *
-   * @param tool
-   *          Equipment is a Class defined in gson package
-   * @param time
-   *          time used
-   */
-
-  public void calculateScore() {
-    score = scoreDP.scoreDP(goldStandard, actual);
-  }
-
-  public void calculateScorePending() {
-    score = scoreDP.scoreDPpending(goldStandard, actual);
-  }
-
-  public double getScore() {
-    return score;
-  }
-
-  public void updateStep() {
-    if (currentStep.isComplete()) {
-      actual.add(currentStep);
-      currentStep = new Step();
-    }
-  }
-
-  public String toString() {
-    return "The score is " + score;
-  }
-
-  public void setInitialTime(Calendar initTime) {
-
-  }
-
-  private String generateReport() {
-    PrintWriter writer = null;
-    try {
-      writer = new PrintWriter("src/test/resources/report.json", "UTF-8");
-    } catch (FileNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (UnsupportedEncodingException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    Gson gson = new Gson();
-    Report r = new Report();
-    r.report = this.toString();
-    r.score = this.score;
-    String report = gson.toJson(r);
-    writer.println(report);
-    writer.close();
-
-    // Add the traceback information
-    StringBuilder sb = new StringBuilder(report);
-    sb.append("\n");
+	}
+	
+	
+	private String generateReport() {
+		PrintWriter writer = null;
+		try {
+			writer = new PrintWriter("src/test/resources/report.json", "UTF-8");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Gson gson = new Gson();
+		Report r = new Report();
+		r.report = this.toString();
+		r.score = this.score;
+		String report = gson.toJson(r);
+		writer.println(report);
+		writer.close();
+		
+		// Add the traceback information
+		StringBuilder sb = new StringBuilder(report);
+		sb.append("\n");
     sb.append("The user's correct actions are :" + "\n");
+		for (Pair p : ScoreDP.getBacktrack()) {
+		    sb.append(p.toString() + "\t");
+		    sb.append("\n");
+		}
+		System.out.println(sb.toString());
+		
+    // generate the txt report for temperate use
+    txtReportGenerator(score, ScoreDP.getBacktrack());
+    
+    
+		// TODO: Set the patient score.
+		// Where can I set the patient score??
+		return sb.toString();
+	}
+	
+	  private void txtReportGenerator(double score, ArrayList<Pair> backtrack){
+	    System.out.printf("\n \n \n");
+	    System.out.println(score);
+	    
+	    
+	  }
 
-    for (Step s : scoreDP.getBacktrack()) {
-      sb.append(s.getStep());
-      // sb.append("\n");
-    }
-    System.out.println(sb.toString());
-    // TODO: Set the patient score.
-    // Where can I set the patient score??
-    return sb.toString();
-  }
+	// Main method for testing
+	public static void main(String[] args) {
 
-  // Main method for testing
-  public static void main(String[] args) {
 
-  }
+	}
+
 }

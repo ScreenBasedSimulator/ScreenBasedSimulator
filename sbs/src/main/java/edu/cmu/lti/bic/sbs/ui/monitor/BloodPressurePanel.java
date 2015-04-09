@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.ui.monitor;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * 
@@ -17,6 +18,7 @@ public class BloodPressurePanel extends JPanel {
 	public BloodPressurePanel() {
 		bloodPressureLabel = new JLabel("BP: ?/? mmHg");
 		this.add(bloodPressureLabel);
+		this.setOpaque(false);
 	}
 
 	public void setBloodPressure(int upperBloodPressureData,
