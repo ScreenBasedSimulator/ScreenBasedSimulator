@@ -185,4 +185,5 @@ public class Step {
         System.out.println(s.stepScore(a));
         
     }
+
 }

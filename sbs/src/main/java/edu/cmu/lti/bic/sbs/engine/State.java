@@ -31,13 +31,19 @@ public class State {
 	}
 	
 	// default return the first state of patient
-	public Patient getCheckPoint() {
+	public Patient getCheckPointZero() {
 		if (listOfPt.size() > 0) {
 			System.out.println("Return the first state of patient");
 			return listOfPt.get(0);
 		} else {
 			return p;
 		}
+	}
+	public Patient getCheckpoint(int index){
+		if(index == 0)
+			return getCheckPointZero();
+		//if(index >= listOfPt.size())
+		return listOfPt.get(index);
 	}
 	
 	public int getId(){

@@ -16,6 +16,7 @@ public class RespiratoryRatePanel extends JPanel {
 	public RespiratoryRatePanel(){
 		respiratoryRateLabel=new JLabel("RR: ?");
 		this.add(respiratoryRateLabel);
+		this.setOpaque(false);
 	}
 	public void setRespiratoryRate(int respiratoryRateData){
 		respiratoryRateLabel.setText("RR: "+respiratoryRateData+"");

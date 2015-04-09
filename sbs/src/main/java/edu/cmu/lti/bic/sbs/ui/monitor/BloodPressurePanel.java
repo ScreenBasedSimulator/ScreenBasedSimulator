@@ -17,6 +17,7 @@ public class BloodPressurePanel extends JPanel {
 	public BloodPressurePanel() {
 		bloodPressureLabel = new JLabel("BP: ?/? mmHg");
 		this.add(bloodPressureLabel);
+		this.setOpaque(false);
 	}
 
 	public void setBloodPressure(int upperBloodPressureData,

@@ -28,6 +28,7 @@ public class ToolPanel extends JPanel {
 		this.ui = ui;
 		this.setBorder(new TitledBorder(null, "Tool", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
+		this.setOpaque(false);
 	}
 
 	/**

@@ -58,7 +58,7 @@ public class UserInterface {
 	}
 	
 	public void restart() {
-		
+		decisionEngine.restartSim();
 	}
 
 	public void connectMonitor() {

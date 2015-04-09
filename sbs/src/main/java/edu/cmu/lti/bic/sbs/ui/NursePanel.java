@@ -96,6 +96,7 @@ public class NursePanel extends JPanel {
 		JButton resetButton = new JButton("Restart");
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ui.restart();
 			}
 		});
 		resetButton.setBounds(6, 120, 137, 29);

@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.gson;
 
 public class Prescription {
+
   private Drug drug;
 
   private Double dose;
