@@ -6,13 +6,16 @@ import javax.swing.*;
  *
  */
 public class OxygenLevelPanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2415395982005131811L;
 	private JLabel oxygenLevelLabel = null;
-	private final static int width = 17;
-	private final static int height = 3;
 
 	public OxygenLevelPanel() {
 		oxygenLevelLabel = new JLabel("SpO2: ? %");
 		this.add(oxygenLevelLabel);
+		this.setOpaque(false);
 	}
 
 	public void setOxygenLevel(int oxygenLevelData) {

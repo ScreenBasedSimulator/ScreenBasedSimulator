@@ -8,13 +8,16 @@ import javax.swing.*;
  *
  */
 public class BloodPressurePanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6517202788272692449L;
 	private JLabel bloodPressureLabel = null;
-	private final static int width = 17;
-	private final static int height = 3;
 
 	public BloodPressurePanel() {
 		bloodPressureLabel = new JLabel("BP: ?/? mmHg");
 		this.add(bloodPressureLabel);
+		this.setOpaque(false);
 	}
 
 	public void setBloodPressure(int upperBloodPressureData,

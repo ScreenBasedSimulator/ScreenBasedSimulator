@@ -8,13 +8,16 @@ import javax.swing.*;
  *
  */
 public class HeartRatePanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3036496866526146305L;
 	private JLabel heartRateLabel = null;
-	private final static int width = 17;
-	private final static int height = 3;
 
 	public HeartRatePanel() {
 		heartRateLabel = new JLabel("HR: ? bpm");
 		this.add(heartRateLabel);
+		this.setOpaque(false);
 	}
 
 	public void setBloodPressure(int heartRateData) {
