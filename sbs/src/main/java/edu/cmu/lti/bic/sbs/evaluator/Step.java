@@ -196,20 +196,41 @@ public class Step {
       return score;
     }
   }
-
+  
   public double stepPatientScore() {
     double res = 0.0;
-    double oLpenalty = 0.1;
-    if (stepRule == null) {
-      double oL = patient.getOxygenLevel().getOlNum() - 80;
-      if (oL < 0) {
-        res -= oL * oLpenalty;
-      }
-    } else {
+    double oLpenalty = 1;
+    double rRpenalty = 1;
+    double bPpenalty = 1;
+    double hRpenalty = 1;
+    if (stepRule != null) {
+      // add code here
     }
-    return res;
-  }
+    double oL = patient.getOxygenLevel().getOlNum() - 80;
+    if (oL < 0) {
+      res += oL * oLpenalty;
+    }
+    double rR = Math.max(12.0 - patient.getRepiratinoRate().getRrNum(), patient.getRepiratinoRate()
+            .getRrNum() - 20.0);
+    if (rR > 0) {
+      res -= rR * rRpenalty;
+    }
+    double bP = Math.max(patient.getBloodPressure().getDiastolicBloodPressure() - 100
+            + patient.getBloodPressure().getSystolicBloodPressure() - 160, 140
+            - patient.getBloodPressure().getDiastolicBloodPressure()
+            - patient.getBloodPressure().getSystolicBloodPressure());
+    if (bP > 0) {
+      res -= bP * bPpenalty;
+    }
+    double hR = Math.max(patient.getHeartRate().getHrNum() - 100, 60 - patient.getHeartRate()
+            .getHrNum());
+    if (hR > 0) {
+      res -= hR * hRpenalty;
+    }
 
+    return res;
+
+  }
 
   public static void main(String[] args) {
     Step s = new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0",
