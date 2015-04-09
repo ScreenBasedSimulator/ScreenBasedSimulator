@@ -39,7 +39,7 @@ public class MainWindow {
 	 * @throws HeadlessException
 	 */
 	private void initialize() {
-		frame = new MainJFrame();
+		frame = new JFrame();
 		frame.setBounds(100, 100, 550, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
