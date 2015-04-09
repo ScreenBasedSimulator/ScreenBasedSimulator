@@ -189,7 +189,7 @@ public class Step {
         // if(dosePenalty>=1||timePenalty>=10000) return 0;
         return 1.0 * (1 - dosePenalty) * (1.0 - timePenalty / 10000);
       } else {
-        return 0.0;
+        return Integer.MIN_VALUE;
       }
     } else {
       double score = stepRule.maxScore();
