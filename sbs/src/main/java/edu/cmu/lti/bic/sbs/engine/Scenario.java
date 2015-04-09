@@ -1,8 +1,13 @@
 package edu.cmu.lti.bic.sbs.engine;
 
+import java.util.Calendar;
+
+import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Patient;
+import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
+import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
 /**
  * The Scenario Class
@@ -64,9 +69,11 @@ public class Scenario {
 		isMonitorConnected = true;
 	}
 
-	public void useTool(Tool tool) {
+	public void useTool(Tool tool, Evaluator evaluator, Simulator simulator, Calendar time) {
 		System.out.println("Scenario: Tool " + tool.getName() + " is called.");
-
+		evaluator.receive(tool, time);
+		evaluator.receive(new Prescription(), time);
+		simulator.simulateWithTool(tool);
 	}
 
 	public void useDrug(Drug drug, Double dose) {

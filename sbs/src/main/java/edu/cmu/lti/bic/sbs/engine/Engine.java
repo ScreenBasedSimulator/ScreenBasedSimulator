@@ -120,10 +120,10 @@ public class Engine {
 	}
 	
 	public void useTool(Tool tool) {
-		scenario.useTool(tool);
-		evaluator.receive(tool, time);
-		evaluator.receive(new Prescription(), time);
-		simulator.simulateWithTool(tool);
+		scenario.useTool(tool, evaluator,simulator, time);
+//		evaluator.receive(tool, time);
+//		evaluator.receive(new Prescription(), time);
+//		simulator.simulateWithTool(tool);
 	}
 
 	public void useDrug(Prescription p) {
