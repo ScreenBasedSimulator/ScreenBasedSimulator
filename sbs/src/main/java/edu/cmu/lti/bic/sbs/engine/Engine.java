@@ -1,6 +1,5 @@
 package edu.cmu.lti.bic.sbs.engine;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +7,6 @@ import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
 
 import edu.cmu.lti.bic.sbs.gson.Tool;
-import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
-import edu.cmu.lti.bic.sbs.simulator.HeartRate;
-import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
-import edu.cmu.lti.bic.sbs.simulator.RespirationRate;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,10 +15,7 @@ import java.util.Timer;
 
 import com.google.gson.Gson;
 
-import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
-import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
-import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
@@ -36,19 +28,19 @@ import edu.cmu.lti.bic.sbs.ui.UserInterface;
  */
 public class Engine {
 	UserInterface ui = null;
-	//
 	Patient pt = null;
-	
-	
+
 	List<Tool> toolList = new ArrayList<Tool>();
 	List<Drug> drugList = new ArrayList<Drug>();
-
 
 	Simulator simulator = null;
 	Evaluator evaluator = null;
 	Scenario scenario = null;
+	State state = null;
+
 	Calendar time = Calendar.getInstance();
 	Timer timer = new Timer();
+
 	private Gson gson = new Gson();
 
 	boolean isMonitorConnected = false;
@@ -59,9 +51,8 @@ public class Engine {
 	 * 
 	 * @throws Exception
 	 */
-
-
 	public Engine() throws Exception {
+
 		// User interface initialization
 		try {
 			System.out.println("Initializing the user interface");
@@ -73,6 +64,7 @@ public class Engine {
 
 		// Scenario initialization
 		scenario = new Scenario(ui);
+
 		// Load Tool data to user interface
 		FileReader fileReader = null;
 		try {
@@ -92,42 +84,44 @@ public class Engine {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		// patient to ui and simulation
+
 		Patient patient = gson.fromJson(fileReader, Patient.class);
 		ui.setPatientInfo(patient);
-		
-		//Load the drug data to user interface
+
+		state = new State(patient);
+
+		// Load the drug data to user interface
 		try {
-      fileReader = new FileReader("src/test/resources/drugTest.json");
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
+			fileReader = new FileReader("src/test/resources/drugTest.json");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		Drug[] drugMap = gson.fromJson(fileReader, Drug[].class);
 		ui.addDrug(drugMap);
-		
-		// Patient and Simulator initialization
-		// Raw data should be loaded by file input later...
 
+		// Simulator initialization
 		simulator = new Simulator(patient);
-
-
 		// Evaluator initialization
 		evaluator = new Evaluator(this);
-		// Start looping
 
+		// Start looping
 		timer.scheduleAtFixedRate(new CoreTimerTask(1000, this), 0, 1000);
+	}
+
+	public void connectMonitor() {
+		isMonitorConnected = true;
 	}
 
 	public void useTool(Tool tool) {
 		scenario.useTool(tool);
 		evaluator.receive(tool, time);
-		evaluator.receive(new Prescription(),time);
+		evaluator.receive(new Prescription(), time);
 		simulator.simulateWithTool(tool);
 	}
 
 	public void useDrug(Prescription p) {
 		scenario.useDrug(p.getDrug(), p.getDose());
-		evaluator.receive(new Tool(),time);
+		evaluator.receive(new Tool(), time);
 		evaluator.receive(p, time);
 		simulator.simWithDrugs(p);
 	}
@@ -137,18 +131,33 @@ public class Engine {
 		ui.updateTime(time);
 		evaluator.receive(time);
 		Patient p = simulator.simPatient();
+
+		state.setCheckPoint(p.clone());
+
 		evaluator.regularUpdate(p, time);
+
 		if (isMonitorConnected) {
 			ui.updateMonitor(p);
 		}
 	}
 
-	public void connectMonitor() {
-		isMonitorConnected = true;
+	public void recover(int index) {
+
+		pt = state.getCheckpoint(index);
 	}
-	
-	public void simOver(double score, String report){
+
+	public void restartSim() {
+		// patient reset
+		pt = state.getCheckPointZero();
+		state.listOfPt.clear();
+		simulator.resetPatient(pt);
+		evaluator = new Evaluator(this);
+
+	}
+
+	public void simOver(double score, String report) {
 		timer.cancel();
 		ui.updateReport(score, report);
+		System.out.println("Finished this scenario simulation~~");
 	}
 }

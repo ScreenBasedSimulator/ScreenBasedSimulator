@@ -288,8 +288,11 @@ public class Simulator {
 		return patient;
 	}
 
-	public void setPatient(Patient patient) {
+	public void resetPatient(Patient patient) {
 		this.patient = patient;
+		this.prescriptionList.clear();
+		this.toolList.clear();
+		System.out.println("reset pt in simulator!!!!!");
 	}
 
 	public ArrayList<Tool> getToolList() {

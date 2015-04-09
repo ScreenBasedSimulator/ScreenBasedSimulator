@@ -15,10 +15,6 @@ import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.MedicalParameter;
 
-// Test class
-class BloodPressure implements MedicalParameter {
-
-}
 
 /**
  * 
@@ -26,6 +22,7 @@ class BloodPressure implements MedicalParameter {
  *
  */
 public class Evaluator {
+
 	private double score;
 	private Path actual;
 	private Path goldStandard;
@@ -196,5 +193,7 @@ public class Evaluator {
 	// Main method for testing
 	public static void main(String[] args) {
 
+
 	}
+
 }

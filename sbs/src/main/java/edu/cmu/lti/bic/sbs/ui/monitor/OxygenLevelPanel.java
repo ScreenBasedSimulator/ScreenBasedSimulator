@@ -15,6 +15,7 @@ public class OxygenLevelPanel extends JPanel{
 	public OxygenLevelPanel() {
 		oxygenLevelLabel = new JLabel("SpO2: ? %");
 		this.add(oxygenLevelLabel);
+		this.setOpaque(false);
 	}
 
 	public void setOxygenLevel(int oxygenLevelData) {

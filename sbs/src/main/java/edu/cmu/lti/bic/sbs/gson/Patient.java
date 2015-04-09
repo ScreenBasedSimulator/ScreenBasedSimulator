@@ -12,7 +12,7 @@ enum Status {
 
 }
 
-public class Patient {
+public class Patient implements Cloneable {
 	private String basic; //eg: male, 35, white
 	private String description; //eg: headache, vomit
 	
@@ -77,5 +77,14 @@ public class Patient {
 
 	public void setRespirationRate(RespirationRate respirationRate) {
 		this.respirationRate = respirationRate;
+	}
+	public Patient clone(){
+		try {
+			return (Patient)super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
