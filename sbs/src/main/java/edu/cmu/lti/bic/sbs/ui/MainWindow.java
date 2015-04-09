@@ -118,6 +118,10 @@ public class MainWindow {
 	public void addPathography(String record) {
 		pathographyPanel.addRecord(record);
 	}
+	
+	public void clearPathography() {
+		pathographyPanel.clearRecord();
+	}
 
 	/**
 	 * updateClock update the current time on clock panel

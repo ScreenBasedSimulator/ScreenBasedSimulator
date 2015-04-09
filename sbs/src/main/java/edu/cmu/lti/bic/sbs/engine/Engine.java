@@ -7,10 +7,6 @@ import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
 
 import edu.cmu.lti.bic.sbs.gson.Tool;
-import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
-import edu.cmu.lti.bic.sbs.simulator.HeartRate;
-import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
-import edu.cmu.lti.bic.sbs.simulator.RespirationRate;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -19,10 +15,7 @@ import java.util.Timer;
 
 import com.google.gson.Gson;
 
-import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
-import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
-import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
@@ -44,22 +37,22 @@ public class Engine {
 	Evaluator evaluator = null;
 	Scenario scenario = null;
 	State state = null;
-	
+
 	Calendar time = Calendar.getInstance();
 	Timer timer = new Timer();
-	
+
 	private Gson gson = new Gson();
 
 	boolean isMonitorConnected = false;
 
 	/**
-	 * Constructor function, responsible for creating UserInterface, Simulator
-	 * and Evaluator
+	 * Constructor function, responsible for creating UserInterface, Simulator and
+	 * Evaluator
 	 * 
 	 * @throws Exception
 	 */
 	public Engine() throws Exception {
-		
+
 		// User interface initialization
 		try {
 			System.out.println("Initializing the user interface");
@@ -71,7 +64,7 @@ public class Engine {
 
 		// Scenario initialization
 		scenario = new Scenario(ui);
-		
+
 		// Load Tool data to user interface
 		FileReader fileReader = null;
 		try {
@@ -91,10 +84,10 @@ public class Engine {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		Patient patient = gson.fromJson(fileReader, Patient.class);
 		ui.setPatientInfo(patient);
-		
+
 		state = new State(patient);
 
 		// Load the drug data to user interface
@@ -110,7 +103,7 @@ public class Engine {
 		simulator = new Simulator(patient);
 		// Evaluator initialization
 		evaluator = new Evaluator(this);
-		
+
 		// Start looping
 		timer.scheduleAtFixedRate(new CoreTimerTask(1000, this), 0, 1000);
 	}
@@ -118,7 +111,7 @@ public class Engine {
 	public void connectMonitor() {
 		isMonitorConnected = true;
 	}
-	
+
 	public void useTool(Tool tool) {
 		scenario.useTool(tool);
 		evaluator.receive(tool, time);
@@ -138,29 +131,30 @@ public class Engine {
 		ui.updateTime(time);
 		evaluator.receive(time);
 		Patient p = simulator.simPatient();
-		
+
 		state.setCheckPoint(p.clone());
-		
+
 		evaluator.regularUpdate(p, time);
-		
+
 		if (isMonitorConnected) {
 			ui.updateMonitor(p);
 		}
 	}
-	
-	public void recover(int index){
-		
+
+	public void recover(int index) {
+
 		pt = state.getCheckpoint(index);
 	}
-	
-	public void restartSim(){
+
+	public void restartSim() {
 		// patient reset
 		pt = state.getCheckPointZero();
 		state.listOfPt.clear();
-		simulator.setPatient(pt);
+		simulator.resetPatient(pt);
 		evaluator = new Evaluator(this);
 
 	}
+
 	public void simOver(double score, String report) {
 		timer.cancel();
 		ui.updateReport(score, report);

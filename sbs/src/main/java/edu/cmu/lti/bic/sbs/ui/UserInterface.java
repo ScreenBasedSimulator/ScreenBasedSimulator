@@ -59,6 +59,7 @@ public class UserInterface {
 	
 	public void restart() {
 		decisionEngine.restartSim();
+		window.clearPathography();
 	}
 
 	public void connectMonitor() {
@@ -171,7 +172,7 @@ public class UserInterface {
 			}
 		});
 	}
-	
+
 	public HashMap<String,Drug> getDrugMap(){
 	  System.out.println(drugMap);
 	  return drugMap;
