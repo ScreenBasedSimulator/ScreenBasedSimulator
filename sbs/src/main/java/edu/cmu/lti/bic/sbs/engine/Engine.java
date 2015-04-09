@@ -35,7 +35,7 @@ import edu.cmu.lti.bic.sbs.web.Server;
  */
 public class Engine {
 	UserInterface ui = null;
-	Server server = null;
+	//Server server = null;
 	Patient pt = null;
 
 	List<Tool> toolList = new ArrayList<Tool>();
@@ -70,10 +70,9 @@ public class Engine {
 			e.printStackTrace();
 		}
 		
-		server = new Server(this);
-		server.start();
+		//server = new Server(this);
+		//server.start();
 		
-
 		// Scenario initialization
 		scenario = new Scenario(ui);
 		
@@ -89,7 +88,7 @@ public class Engine {
 		// tools to ui
 		for (Tool tool : tools) {
 			ui.addTool(tool);
-			server.addTool(tool);
+			//server.addTool(tool);
 		}
 		// Load Patient data to user interface
 		try {
@@ -100,7 +99,7 @@ public class Engine {
 		
 		Patient patient = gson.fromJson(fileReader, Patient.class);
 		ui.setPatientInfo(patient);
-		server.setPatientInfo(patient);
+		//server.setPatientInfo(patient);
 		
 		state = new State(patient);
 
@@ -112,12 +111,9 @@ public class Engine {
 		}
 		Drug[] drugMap = gson.fromJson(fileReader, Drug[].class);
 		ui.addDrug(drugMap);
-		for (Drug drug:drugMap) {
-			server.addDrug(drug);
-		}
-		
-		// Patient and Simulator initialization
-		// Raw data should be loaded by file input later...
+//		for (Drug drug:drugMap) {
+//			server.addDrug(drug);
+//		}
 
 
 		// Simulator initialization
@@ -150,7 +146,7 @@ public class Engine {
 	public void update(int interval) {
 		time.add(Calendar.MILLISECOND, interval);
 		ui.updateTime(time);
-		server.updateTime(time);
+		//server.updateTime(time);
 		evaluator.receive(time);
 		Patient p = simulator.simPatient();
 		
@@ -160,13 +156,16 @@ public class Engine {
 		
 		if (isMonitorConnected) {
 			ui.updateMonitor(p);
-			server.updatePatient(p);
+			//server.updatePatient(p);
 		}
 	}
 	
 	public void recover(int index){
 		
 		pt = state.getCheckpoint(index);
+	}
+	public Patient getPatient() {
+		return simulator.getPatient();
 	}
 	
 	public void restartSim(){
@@ -180,6 +179,6 @@ public class Engine {
 	public void simOver(double score, String report) {
 		timer.cancel();
 		ui.updateReport(score, report);
-		server.updateReport(score, report);
+		//server.updateReport(score, report);
 	}
 }
