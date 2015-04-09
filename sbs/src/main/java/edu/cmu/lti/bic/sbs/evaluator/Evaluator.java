@@ -80,13 +80,6 @@ public class Evaluator {
 		updateStep();
 	}
 
-	public void receive(Prescription prescription) {
-		currentStep.setPrescription(prescription);
-		System.out.println("Evaluator: USER ACTION: USE DRUG:"
-				+ prescription.getDrug().getName());
-		updateStep();
-	}
-
 	/**
 	 * called by engine to receive the Equipment variables
 	 * 
@@ -101,7 +94,6 @@ public class Evaluator {
 		currentStep.setTime(time);
 		System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
 		updateStep();
-		// System.out.println("*************");
 	}
 
 	public void receive(Calendar time) {
@@ -138,7 +130,11 @@ public class Evaluator {
 	 */
 
 	public void calculateScore() {
-		score = goldStandard.pathScore(actual);
+		score = ScoreDP.scoreDP(goldStandard, actual);
+	}
+	
+	public void calculateScorePending(){
+	  score = ScoreDP.scoreDPpending(goldStandard, actual);
 	}
 
 	public double getScore() {
@@ -159,7 +155,8 @@ public class Evaluator {
 	public void setInitialTime(Calendar initTime) {
 
 	}
-
+	
+	
 	private String generateReport() {
 		PrintWriter writer = null;
 		try {
@@ -178,7 +175,19 @@ public class Evaluator {
 		String report = gson.toJson(r);
 		writer.println(report);
 		writer.close();
-		return report;
+		
+		// Add the traceback information
+		StringBuilder sb = new StringBuilder(report);
+		sb.append("\n");
+    sb.append("The user's correct actions are :" + "\n");
+		for (Pair p : ScoreDP.getBacktrack()) {
+		    sb.append(p.toString() + "\t");
+		    sb.append("\n");
+		}
+		System.out.println(sb.toString());
+		// TODO: Set the patient score.
+		// Where can I set the patient score??
+		return sb.toString();
 	}
 
 	// Main method for testing

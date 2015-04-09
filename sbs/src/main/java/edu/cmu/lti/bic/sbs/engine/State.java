@@ -13,21 +13,20 @@ public class State {
 	// list used for storing patient for now,
 	// using for checkpoint 
 	List<Patient> listOfPt;
-	int cur;
+	
 	
 	public State(Patient pt){
 		this.StateId = 1;
 		this.p = pt;
 		listOfPt = new LinkedList<Patient>();
-		cur = 0;
+		
 		System.out.println("I am a new State with id " + StateId + "!!!");
 	}
 	
 	// store the patient state into listOfPt
 	public void setCheckPoint(Patient pt) {
 		listOfPt.add(pt);
-		cur++;
-		System.out.println("Added a new checkpoint indexing at " + cur);
+		//System.out.println("Added a new checkpoint indexing at " + listOfPt.size());
 	}
 	
 	// default return the first state of patient

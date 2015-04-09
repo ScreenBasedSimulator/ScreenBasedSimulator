@@ -139,7 +139,7 @@ public class Engine {
 		evaluator.receive(time);
 		Patient p = simulator.simPatient();
 		
-		state.setCheckPoint(p);
+		state.setCheckPoint(p.clone());
 		
 		evaluator.regularUpdate(p, time);
 		
@@ -156,6 +156,10 @@ public class Engine {
 	public void restartSim(){
 		// patient reset
 		pt = state.getCheckPointZero();
+		state.listOfPt.clear();
+		simulator.setPatient(pt);
+		evaluator = new Evaluator(this);
+
 	}
 	public void simOver(double score, String report) {
 		timer.cancel();

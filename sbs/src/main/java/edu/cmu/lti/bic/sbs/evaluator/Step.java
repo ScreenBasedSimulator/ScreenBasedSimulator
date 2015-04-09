@@ -27,8 +27,9 @@ public class Step {
      * @return The step description in serialize string.
      */
     public String getStep() {
-        return prescriptionUsed.toString() + timeUsed.toString() 
-                + toolUsed.toString();
+//        return prescriptionUsed.toString() + "\t" + timeUsed.toString() 
+//                + "\t" + toolUsed.toString() + "\n";
+      return prescriptionUsed.toString() + "\t" + toolUsed.toString() + "\n";
     }
 
     public Step() {
@@ -159,6 +160,21 @@ public class Step {
          
          return score;
        }
+    }
+    
+    public double stepPatientScore(){
+      double res = 0.0;
+      double oLpenalty = 0.1;
+      if(stepRule == null){
+        double oL = patient.getOxygenLevel().getOlNum()-80;
+        if (oL < 0){
+          res -= oL * oLpenalty;
+        }
+      }else{
+        
+      }
+      return res;
+      
     }
 
     public static void main(String[] args) {

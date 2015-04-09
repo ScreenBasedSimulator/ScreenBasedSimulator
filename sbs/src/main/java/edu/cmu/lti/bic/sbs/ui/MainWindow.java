@@ -39,7 +39,7 @@ public class MainWindow {
 	 * @throws HeadlessException
 	 */
 	private void initialize() {
-		frame = new MainJFrame();
+		frame = new JFrame();
 		frame.setBounds(100, 100, 550, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -58,15 +58,15 @@ public class MainWindow {
 		frame.getContentPane().add(patientPanel);
 
 		toolPanel = new ToolPanel(ui);
-		toolPanel.setBounds(122, 10, 136, 230);
+		toolPanel.setBounds(122, 10, 136, 116);
 		frame.getContentPane().add(toolPanel);
-
-		nursePanel = new NursePanel(ui);
-		nursePanel.setBounds(264, 10, 158, 116);
+		
+		nursePanel=new NursePanel(ui);
+		nursePanel.setBounds(264, 10, 158, 230);
 		frame.getContentPane().add(nursePanel);
 
 		pathographyPanel = new PathographyPanel();
-		pathographyPanel.setBounds(264, 130, 158, 110);
+		pathographyPanel.setBounds(122, 130, 136, 110);
 		frame.getContentPane().add(pathographyPanel);
 	}
 

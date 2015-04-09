@@ -12,7 +12,7 @@ enum Status {
 
 }
 
-public class Patient {
+public class Patient implements Cloneable {
 	private String basic; //eg: male, 35, white
 	private String description; //eg: headache, vomit
 	
@@ -21,8 +21,9 @@ public class Patient {
 
 	private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0);
 
-	private HeartRate heartRate = new HeartRate(80.0);
-	private OxygenLevel oxygenLevel = new OxygenLevel(0.3);
+	private HeartRate heartRate = new HeartRate(70.0);
+	private OxygenLevel oxygenLevel = new OxygenLevel(0.8);
+
 	private RespirationRate respirationRate = new RespirationRate(12.0);
 	
 	GraphicDisplay graDisplay;
@@ -75,5 +76,14 @@ public class Patient {
 
 	public void setRespirationRate(RespirationRate respirationRate) {
 		this.respirationRate = respirationRate;
+	}
+	public Patient clone(){
+		try {
+			return (Patient)super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
