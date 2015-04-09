@@ -22,7 +22,7 @@ class BloodPressure implements MedicalParameter {
 
 /**
  * 
- * @author victorzhao, xings, ryan sun
+ * @author victorzhao, xings, Ryan Sun
  *
  */
 public class Evaluator {
