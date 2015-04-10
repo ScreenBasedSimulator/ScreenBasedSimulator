@@ -18,11 +18,13 @@ public class Patient {
 	
 
 	private Condition cd;
-
+	//bloodPressure range from (100, 190) and (40, 70)
 	private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0);
-
-	private HeartRate heartRate = new HeartRate(80.0);
-	private OxygenLevel oxygenLevel = new OxygenLevel(0.3);
+	//heartRate range from (50, 150)
+	private HeartRate heartRate = new HeartRate(70.0);
+	//oxygenLevel range from (0.6, 1.0)
+	private OxygenLevel oxygenLevel = new OxygenLevel(0.8);
+	//respirationRate range from (10, 30)
 	private RespirationRate respirationRate = new RespirationRate(12.0);
 	
 	GraphicDisplay graDisplay;
