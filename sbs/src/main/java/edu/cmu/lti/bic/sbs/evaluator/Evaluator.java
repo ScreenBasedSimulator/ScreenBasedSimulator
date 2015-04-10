@@ -167,6 +167,10 @@ public class Evaluator {
   public double getScore() {
     return score;
   }
+  
+  public double getPatientScore(){
+    return actual.patientScore();
+  }
 
   public void updateStep() {
     if (currentStep.isComplete()) {
@@ -204,6 +208,9 @@ public class Evaluator {
 
     // Add the traceback information
     StringBuilder sb = new StringBuilder(report);
+    sb.append("\n");
+    sb.append("Patient score is: ");
+    sb.append(getPatientScore());
     sb.append("\n");
     sb.append("The user's correct actions are :" + "\n");
 
