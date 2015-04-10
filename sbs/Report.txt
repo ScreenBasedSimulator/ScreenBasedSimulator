@@ -1,0 +1,23 @@
+
+Here is the report for John Smith:
+
+The final scoreJohnget is : 66.67
+The helpful steps and detailsJohn did is listed below : 
+
+Action Time	 Drug Used		 Drug Dose	 Drug Unit		    Action
+	2		Default Drug		0.0		Default unit		Code Blue
+	5		Default Drug		0.0		Default unit		Face Mask
+
+
+
+The true steps and detailsJohn did is listed below : 
+
+Action Time	 Drug Used		 Drug Dose	 Drug Unit		    Action
+	2		Default Drug		0.0		Default unit		Code Blue
+	4		Naloxone		9.9		mL		Default name
+	5		Default Drug		0.0		Default unit		Face Mask
+	6		Default Drug		0.0		Default unit		Bag-valve Dev
+	7		Default Drug		0.0		Default unit		Oral Airway
+	9		Default Drug		0.0		Default unit		Default name
+	10		Naloxone		9.9		mL		Face Mask
+	11		Default Drug		0.0		Default unit		Bag-valve Dev

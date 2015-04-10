@@ -1,6 +1,8 @@
 package edu.cmu.lti.bic.sbs.evaluator;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -212,12 +214,59 @@ public class Evaluator {
       // sb.append("\n");
     }
     System.out.println(sb.toString());
+    
+    
+    // generate the txt report
+    txtReportGenerator(score);
+    
+    
     // TODO: Set the patient score.
     // Where can I set the patient score??
     return sb.toString();
   }
 
 
+  private void txtReportGenerator(double score){
+    String outputFile = "Report.txt";
+    try {
+      BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile, false));
+      StringBuilder output = new StringBuilder();
+      output.append("\nHere is the report for ");
+      output.append("John Smith" + ":" + "\n");
+      output.append("\nThe final score" + "John" + "get is : " 
+                      + String.format("%.2f\n", score));
+      
+      output.append("The helpful steps and details "  
+                      + "John " + " did is listed below : \n\n");
+      
+      output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+      
+      for (Step s : scoreDP.getBacktrack()) {
+        output.append(s.getStep());
+        // sb.append("\n");
+      }
+      
+      
+      output.append("\n\n\nThe actual steps and details "  
+              + " John " + " did is listed below : \n\n");
+
+      output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+      
+      for (Step s : actual) {
+        output.append(s.getStep());
+        // sb.append("\n");
+      }
+      
+      
+      bw.write(output.toString());
+      System.out.println(output);
+      
+      bw.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+  
   // Main method for testing
   public static void main(String[] args) {
 
