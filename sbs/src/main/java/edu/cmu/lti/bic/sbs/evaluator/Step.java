@@ -2,7 +2,10 @@ package edu.cmu.lti.bic.sbs.evaluator;
 
 import java.util.Calendar;
 
-import edu.cmu.lti.bic.sbs.gson.*;
+import edu.cmu.lti.bic.sbs.gson.Drug;
+import edu.cmu.lti.bic.sbs.gson.Patient;
+import edu.cmu.lti.bic.sbs.gson.Prescription;
+import edu.cmu.lti.bic.sbs.gson.Tool;
 
 /**
  * The Step Class

@@ -1,11 +1,13 @@
 package edu.cmu.lti.bic.sbs.ui;
 
+import java.awt.event.ActionEvent;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
-
-import java.awt.event.ActionEvent;
 
 /**
  * 
