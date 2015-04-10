@@ -2,11 +2,7 @@ package edu.cmu.lti.bic.sbs.simulator;
 
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
-import edu.cmu.lti.bic.sbs.gson.Drug;
-import edu.cmu.lti.bic.sbs.gson.OxygenMask;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;

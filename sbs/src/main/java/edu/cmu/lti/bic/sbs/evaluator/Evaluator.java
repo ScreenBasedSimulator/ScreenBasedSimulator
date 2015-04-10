@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.google.gson.Gson;
@@ -228,16 +227,18 @@ public class Evaluator {
 
   private void txtReportGenerator(double score){
     String outputFile = "Report.txt";
+    String familyName = "Smith";
+    String firstName = "John";
     try {
       BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile, false));
       StringBuilder output = new StringBuilder();
       output.append("\nHere is the report for ");
-      output.append("John Smith" + ":" + "\n");
-      output.append("\nThe final score" + "John" + "get is : " 
-                      + String.format("%.2f\n", score));
+      output.append(firstName + " " + familyName + ":" + "\n");
+      output.append("\nThe final score " + firstName + " get is : " 
+                      + String.format("%.2f\n\n", score));
       
       output.append("The helpful steps and details "  
-                      + "John " + " did is listed below : \n\n");
+                      + firstName + " did is listed below : \n\n");
       
       output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
       
@@ -248,7 +249,7 @@ public class Evaluator {
       
       
       output.append("\n\n\nThe actual steps and details "  
-              + " John " + " did is listed below : \n\n");
+              + firstName + " did is listed below : \n\n");
 
       output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
       

@@ -1,7 +1,7 @@
 package edu.cmu.lti.bic.sbs.gson;
 
-import edu.cmu.lti.bic.sbs.simulator.Condition;
 import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
+import edu.cmu.lti.bic.sbs.simulator.Condition;
 import edu.cmu.lti.bic.sbs.simulator.GraphicDisplay;
 import edu.cmu.lti.bic.sbs.simulator.HeartRate;
 import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
