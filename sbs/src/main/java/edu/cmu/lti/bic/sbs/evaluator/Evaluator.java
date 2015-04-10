@@ -252,6 +252,7 @@ public class Evaluator {
 
   // Main method for testing
   public static void main(String[] args) {
+      // Test for generate the path gson for Xing Sun to write the json file. 
       Gson gson = new Gson();
       ArrayList<Step> a = new ArrayList<Step>();
       a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
