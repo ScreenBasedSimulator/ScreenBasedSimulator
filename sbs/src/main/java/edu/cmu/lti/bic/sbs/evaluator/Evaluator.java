@@ -220,10 +220,10 @@ public class Evaluator {
     return sb.toString();
   }
 
-  public static Path loadGS(String path) throws Exception{
+  public static Path loadGS(String filepath) throws Exception{
       String str;
       try {
-	  File file = new File(path);
+	  File file = new File(filepath);
 	  FileInputStream fis = new FileInputStream(file);
 	  byte[] data = new byte[(int) file.length()];
 	  fis.read(data);
@@ -245,6 +245,14 @@ public class Evaluator {
 
   // Main method for testing
   public static void main(String[] args) {
-
+      Gson gson = new Gson();
+      ArrayList<Step> a = new ArrayList<Step>();
+      a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
+	            ""), (int)Calendar.getInstance().getTimeInMillis()));
+      a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
+	            ""), (int)Calendar.getInstance().getTimeInMillis()));
+      a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
+	            ""), (int)Calendar.getInstance().getTimeInMillis()));
+      System.out.println(gson.toJson(a));
   }
 }
