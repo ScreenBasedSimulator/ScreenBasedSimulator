@@ -1,5 +1,7 @@
 package edu.cmu.lti.bic.sbs.evaluator;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -7,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import edu.cmu.lti.bic.sbs.engine.Engine;
 import edu.cmu.lti.bic.sbs.gson.Drug;
@@ -217,6 +220,28 @@ public class Evaluator {
     return sb.toString();
   }
 
+  public static Path loadGS(String path) throws Exception{
+      String str;
+      try {
+	  File file = new File(path);
+	  FileInputStream fis = new FileInputStream(file);
+	  byte[] data = new byte[(int) file.length()];
+	  fis.read(data);
+	  fis.close();
+	  str = new String(data, "UTF-8");
+      } catch (Exception e) {
+	  throw e;
+      }      
+      
+      Gson gson = new Gson();
+      Path gs;
+      try {
+	  gs = gson.fromJson(str, Path.class);
+      } catch (JsonSyntaxException e) {
+	  throw new Exception(e);
+      }
+      return gs;
+  }
 
   // Main method for testing
   public static void main(String[] args) {
