@@ -1,6 +1,6 @@
 package edu.cmu.lti.bic.sbs.ui.monitor;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 /**
  * 

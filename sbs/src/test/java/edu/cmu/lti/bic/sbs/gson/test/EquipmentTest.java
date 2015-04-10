@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.gson.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
