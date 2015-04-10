@@ -120,27 +120,23 @@ public class Engine {
 	public void useTool(Tool tool) {
 		scenario.useTool(tool, evaluator, simulator, time);
 	}
-
 	public void useDrug(Prescription p) {
 		scenario.useDrug(p.getDrug(), p.getDose(), evaluator, simulator, time,
 				p);
 	}
-
 	public void update(int interval) {
 		time.add(Calendar.MILLISECOND, interval);
 		ui.updateTime(time);
 		Patient p = simulator.simPatient();
-		scenario.update(evaluator,p,state,time);
+		scenario.update(evaluator, p, state, time);
 		if (isMonitorConnected) {
 			ui.updateMonitor(p);
 		}
 	}
-
 	public void recover(int index) {
 
 		pt = state.getCheckpoint(index);
 	}
-
 	public void restartSim() {
 		// patient reset
 		pt = state.getCheckPointZero();
