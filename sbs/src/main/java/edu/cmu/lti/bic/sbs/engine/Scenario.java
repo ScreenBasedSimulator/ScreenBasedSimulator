@@ -13,6 +13,7 @@ import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
+
 /**
  * The Scenario Class
  * 
@@ -28,6 +29,7 @@ public class Scenario {
 	boolean isMonitorConnected;
 	private Gson gson = new Gson();
 	State state = null;
+
 	public Scenario(UserInterface ui) {
 		// just for test
 		this.ui = ui;
@@ -66,8 +68,38 @@ public class Scenario {
 	/*
 	 * Interaction functions with all other packages, used by engine class
 	 */
-	public void callCode(String code) {
-		System.out.println("Call code now is " + code + "!!");
+	// public void callCode(String code) {
+	// System.out.println("Call code now is " + code + "!!");
+	// }
+
+	public Drug[] readDrug() {
+		try {
+			fileReader = new FileReader("src/test/resources/drugTest.json");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		Drug[] drug = gson.fromJson(fileReader, Drug[].class);
+		return drug;
+	}
+
+	public Patient readPatient() {
+		try {
+			fileReader = new FileReader("src/test/resources/patientTest.json");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		Patient patient = gson.fromJson(fileReader, Patient.class);
+		return patient;
+	}
+
+	public Tool[] readTool() {
+		try {
+			fileReader = new FileReader("src/test/resources/toolTest.json");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		Tool[] tools = gson.fromJson(fileReader, Tool[].class);
+		return tools;
 	}
 
 	public void connectMonitor() {
@@ -90,39 +122,28 @@ public class Scenario {
 		evaluator.receive(p, time);
 		simulator.simWithDrugs(p);
 	}
-	public Drug[] readDrug() {
-		try {
-			fileReader = new FileReader("src/test/resources/drugTest.json");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		Drug[] drug = gson.fromJson(fileReader, Drug[].class);
-		return drug;
 
-	}
-	public Patient readPatient() {
-		try {
-			fileReader = new FileReader("src/test/resources/patientTest.json");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		Patient patient = gson.fromJson(fileReader, Patient.class);
-		return patient;
+	public void update(UserInterface ui, Evaluator evaluator,
+			Simulator simulator, State state, Calendar time) {
 
-	}
-	public Tool[] readTool() {
-		try {
-			fileReader = new FileReader("src/test/resources/toolTest.json");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		Tool[] tools = gson.fromJson(fileReader, Tool[].class);
-		return tools;
-	}
-	public void update(Evaluator evaluator, Patient p, State state, Calendar time) {
+		ui.updateTime(time);
 		evaluator.receive(time);
+		Patient p = simulator.simPatient();
 		state.setCheckPoint(p.clone());
 		evaluator.regularUpdate(p, time);
-		// return tools;
+		if (isMonitorConnected) {
+			ui.updateMonitor(p);
+			// server.updatePatient(p);
+		}
+
+	}
+
+	public void restart(Simulator simulator, State state) {
+		// patient reset
+		pt = state.getCheckPointZero();
+		state.listOfPt.clear();
+		// simulation and evaluator reset
+		simulator.setPatient(pt);
+		
 	}
 }
