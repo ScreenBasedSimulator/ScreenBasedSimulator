@@ -7,7 +7,7 @@ import edu.cmu.lti.bic.sbs.gson.*;
 /**
  * The Step Class
  * 
- * @author Victor Zhao, Xing Sun
+ * @author Victor Zhao, Xing Sun, Ryan Sun
  * 
  */
 public class Step {
@@ -34,7 +34,8 @@ public class Step {
   public String getStep() {
     // return prescriptionUsed.toString() + "\t" + timeUsed.toString()
     // + "\t" + toolUsed.toString() + "\n";
-    return prescriptionUsed.toString() + "\t" + toolUsed.toString() + "\n";
+    System.out.println(timeUsed);
+    return "\t" + timeUsed/1000 + "\t\t" + prescriptionUsed.toString() + "\t\t" + toolUsed.toString() + "\n";
   }
 
   /**
@@ -43,6 +44,8 @@ public class Step {
    * 
    */
   public Step() {
+
+  
   }
 
   /**
