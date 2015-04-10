@@ -109,10 +109,12 @@ public class Engine {
 	}
 
 	public void useTool(Tool tool) {
+	    	if (!tool.getId().equals("codeblue")) {
+	    	    simulator.simulateWithTool(tool);
+	    	}
 		scenario.useTool(tool);
 		evaluator.receive(tool, time);
 		evaluator.receive(new Prescription(),time);
-		simulator.simulateWithTool(tool);
 	}
 
 	public void useDrug(Prescription p) {

@@ -228,12 +228,12 @@ public class Evaluator {
     
     
     // generate the txt report
-    txtReportGenerator(score);
+    String reportTxt = txtReportGenerator(score);
     
     
     // TODO: Set the patient score.
-    // Where can I set the patient score??
-    return sb.toString();
+    // Where can I set the patie<nt score??
+    return reportTxt;
   }
 
   public static Path loadGS(String filepath) throws Exception{
@@ -259,13 +259,14 @@ public class Evaluator {
       return gs;
   }
 
-  private void txtReportGenerator(double score){
+  private String txtReportGenerator(double score){
     String outputFile = "Report.txt";
     String familyName = "Smith";
     String firstName = "John";
+    StringBuilder output = new StringBuilder();
     try {
       BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile, false));
-      StringBuilder output = new StringBuilder();
+      
       output.append("\nHere is the report for ");
       output.append(firstName + " " + familyName + ":" + "\n");
       output.append("\nThe final score " + firstName + " get is : " 
@@ -300,6 +301,7 @@ public class Evaluator {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    return output.toString();
   }
   
   // Main method for testing
