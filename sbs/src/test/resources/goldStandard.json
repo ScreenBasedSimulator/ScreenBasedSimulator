@@ -15,6 +15,33 @@
     }
   }
   {
-
+    "timeUsed": 0,
+    "tool":{
+      "name": "Default name",
+      "id" : "Default id"
+    },
+    "prescription": {
+      "drug": {
+        "name": "Default Drug",
+        "description": "Default description",
+        "id": "Default id"
+      },
+      "dose": 0.0,
+    }
+  }
+  {
+    "timeUsed": 0,
+    "tool":{
+      "name": "Default name",
+      "id" : "Default id"
+    },
+    "prescription": {
+      "drug": {
+        "name": "Default Drug",
+        "description": "Default description",
+        "id": "Default id"
+      },
+      "dose": 0.0,
+    }
   }
 }
