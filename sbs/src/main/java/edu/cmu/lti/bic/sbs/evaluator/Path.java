@@ -51,8 +51,8 @@ public class Path extends ArrayList<Step> {
       if (prev == null) {
         res -= 0;
       } else {
-        res -= (temp.stepPatientScore() + prev.stepPatientScore())
-                * (temp.getTime() - prev.getTime()) * 0.0001;
+        res += (temp.stepPatientScore() + prev.stepPatientScore())
+                * (temp.getTime() - prev.getTime()) * 0.00001;
       }
       prev = temp;
     }
