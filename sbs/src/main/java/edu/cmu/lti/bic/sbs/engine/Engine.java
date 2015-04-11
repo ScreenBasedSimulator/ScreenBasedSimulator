@@ -6,7 +6,6 @@ import java.util.List;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
-
 import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
 import edu.cmu.lti.bic.sbs.simulator.HeartRate;
@@ -27,6 +26,7 @@ import edu.cmu.lti.bic.sbs.gson.Tool;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
+import edu.cmu.lti.bic.sbs.web.Server;
 
 /**
  * The Engine Class
@@ -36,6 +36,7 @@ import edu.cmu.lti.bic.sbs.ui.UserInterface;
  */
 public class Engine {
 	UserInterface ui = null;
+	Server server = null;
 	//
 	Patient pt = null;
 	
@@ -70,6 +71,10 @@ public class Engine {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		server = new Server(this);
+		server.start();
+		
 
 		// Scenario initialization
 		scenario = new Scenario(ui);
@@ -85,6 +90,7 @@ public class Engine {
 		// tools to ui
 		for (Tool tool : tools) {
 			ui.addTool(tool);
+			server.addTool(tool);
 		}
 		// Load Patient data to user interface
 		try {
@@ -95,6 +101,7 @@ public class Engine {
 		// patient to ui and simulation
 		Patient patient = gson.fromJson(fileReader, Patient.class);
 		ui.setPatientInfo(patient);
+		server.setPatientInfo(patient);
 		
 		//Load the drug data to user interface
 		try {
@@ -104,6 +111,9 @@ public class Engine {
     }
 		Drug[] drugMap = gson.fromJson(fileReader, Drug[].class);
 		ui.addDrug(drugMap);
+		for (Drug drug:drugMap) {
+			server.addDrug(drug);
+		}
 		
 		// Patient and Simulator initialization
 		// Raw data should be loaded by file input later...
@@ -135,11 +145,13 @@ public class Engine {
 	public void update(int interval) {
 		time.add(Calendar.MILLISECOND, interval);
 		ui.updateTime(time);
+		server.updateTime(time);
 		evaluator.receive(time);
 		Patient p = simulator.simPatient();
 		evaluator.regularUpdate(p, time);
 		if (isMonitorConnected) {
 			ui.updateMonitor(p);
+			server.updatePatient(p);
 		}
 	}
 
@@ -150,5 +162,6 @@ public class Engine {
 	public void simOver(double score, String report){
 		timer.cancel();
 		ui.updateReport(score, report);
+		server.updateReport(score, report);
 	}
 }
