@@ -44,4 +44,8 @@ public class Prescription {
     this.drug = drug;
     return this;
   }
+  
+  public String toString(){
+    return drug.getName() + "\t\t" + dose + "\t\t" + unit;
+  }
 }

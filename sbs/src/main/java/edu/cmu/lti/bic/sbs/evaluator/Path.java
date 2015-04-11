@@ -2,11 +2,10 @@ package edu.cmu.lti.bic.sbs.evaluator;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * 
- * @author victorzhao, xings
+ * @author victorzhao, xings, Ryan Sun
  *
  */
 public class Path extends ArrayList<Step> {
@@ -34,6 +33,29 @@ public class Path extends ArrayList<Step> {
       pScore += itrThis.next().stepScore(itrP2.next());
     }
     return pScore;
+  }
+
+  public double patientScore() {
+    Iterator<Step> itrThis;
+    Step prev = null;
+    try {
+      itrThis = this.iterator();
+    } catch (NullPointerException e) {
+      throw new NullPointerException();
+    }
+    double res = 100;
+
+    while (itrThis.hasNext()) {
+      Step temp = itrThis.next();
+      if (prev == null) {
+        res -= 0;
+      } else {
+        res -= (temp.stepPatientScore() + prev.stepPatientScore())
+                * (temp.getTime() - prev.getTime()) * 0.0001;
+      }
+      prev = temp;
+    }
+    return res;
   }
 
   public static void main(String[] args) {

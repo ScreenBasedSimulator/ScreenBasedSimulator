@@ -1,13 +1,12 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.border.TitledBorder;
-
-
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 public class NursePanel extends JPanel {
 
@@ -33,7 +32,6 @@ public class NursePanel extends JPanel {
 				TitledBorder.TOP, null, null));
 
 		this.setLayout(null);
-		this.setOpaque(false);
 
 		final JButton connectMonitorBtn = new JButton("Connect Monitor");
 		connectMonitorBtn.addMouseListener(new MouseAdapter() {

@@ -1,29 +1,20 @@
 package edu.cmu.lti.bic.sbs.engine;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
-import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
-import edu.cmu.lti.bic.sbs.gson.Drug;
-import edu.cmu.lti.bic.sbs.gson.Tool;
-import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
-import edu.cmu.lti.bic.sbs.simulator.HeartRate;
-import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
-import edu.cmu.lti.bic.sbs.simulator.RespirationRate;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
+import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
-import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
 import edu.cmu.lti.bic.sbs.web.Server;
@@ -129,10 +120,12 @@ public class Engine {
 	}
 
 	public void useTool(Tool tool) {
+	    	if (!tool.getId().equals("codeblue")) {
+	    	    simulator.simulateWithTool(tool);
+	    	}
 		scenario.useTool(tool);
 		evaluator.receive(tool, time);
 		evaluator.receive(new Prescription(),time);
-		simulator.simulateWithTool(tool);
 	}
 
 	public void useDrug(Prescription p) {

@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 public class PatientPanel extends JPanel {
@@ -23,7 +24,6 @@ public class PatientPanel extends JPanel {
 		descriptionLabel = new JLabel();
 		this.add(basicLabel);
 		this.add(descriptionLabel);
-		this.setOpaque(false);
 	}
 	/**
 	 * setDescription sets up the description of patient
