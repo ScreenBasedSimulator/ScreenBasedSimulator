@@ -24,8 +24,12 @@ public class Server {
 	private Report report = null;
 	private Calendar time = null;
 	private boolean isOver = false;
+	private HashMap<String, Engine> engineMap;
 	
-
+	public Server(){
+		engineMap = new HashMap<String, Engine>();
+	}
+	
 	public Server(Engine engine) {
 		this.engine = engine;
 		this.toolMap = new HashMap<String, Tool>();
@@ -64,15 +68,38 @@ public class Server {
 		assert (tool != null);
 		toolMap.put(tool.getId(), tool);
 	}
-	
+	// Each user holds a distinguished engine, relationship stored in engineMap
+	public Engine getEngine(String name){
+		if(engineMap.containsKey(name)){
+			return engineMap.get(name);
+		}
+		else {
+			Engine engine = null;
+			try {
+				engine = new Engine();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			engineMap.put(name, engine);
+			return engine;
+		}
+		
+	}
 	public void start() {
 		port(8080);
 		staticFileLocation("/public");
-		post("/", (request, response) -> {
-			System.out.println(request.queryParams());
-			return "You picked up a " + request.queryParams("name");
+		//still needed?
+		post("/:name/new-game", (request, response) -> {
+			String name = request.params("name");
+			if (engineMap.get(name) == null) {
+				engineMap.put(name, new Engine());
+			}
+			return gson.toJson(new Acknowledgment(200, "OK"));
 		});
-		get("/regular-update", (req, res) -> {
+
+		get("/:name/regular-update", (req, res) -> {
+			Engine engine = getEngine(req.params("name"));
 			/* vital, isOver, time */
 			if (this.patient == null) {
 				return gson.toJson(new Acknowledgment(400, "Resource not found"));
@@ -83,11 +110,13 @@ public class Server {
 			
 			return gson.toJson(regularUpdate);
 		});
-		get("/patientInfo", (req, res) -> {
+		get("/:name/patientInfo", (req, res) -> {
+			Engine engine = getEngine(req.params("name"));
 			return gson.toJson(this.patient);
 		});
 
-		get("/report", (req, res) -> {
+		get("/:name/report", (req, res) -> {
+			Engine engine = getEngine(req.params("name"));
 			if (report == null) {
 				return gson.toJson(new Acknowledgment(400, "Report is not ready"));
 			} else {
@@ -95,10 +124,11 @@ public class Server {
 			}
 		});
 
-		post("/tool/:name", (req, res) -> {
+		post("/:name/tool/:toolname", (req, res) -> {
+			Engine engine = getEngine(req.params("name"));
 			// code blue
 			// use code
-				String name = req.params("name");
+				String name = req.params("toolname");
 
 				Tool tool = toolMap.get(name);
 				if (tool == null) {
@@ -109,8 +139,10 @@ public class Server {
 				return gson.toJson(new Acknowledgment(200, "Success"));
 			});
 
-		post("/drug/:name", (req, res) -> {
-			String name = req.params("name");
+		post("/:name/drug/:drugname", (req, res) -> {
+			Engine engine = getEngine(req.params("name"));
+			
+			String name = req.params("drugname");
 
 			Drug drug = drugMap.get(name);
 
@@ -137,4 +169,5 @@ public class Server {
 			return gson.toJson(new Acknowledgment(200, "Success"));
 		});
 	}
+	
 }
