@@ -33,6 +33,13 @@ class BloodPressure implements MedicalParameter {
  */
 public class Evaluator {
 
+  
+  /**
+   * 
+   * Here this score is based on doctor's behavior and actions.
+   * Not based on the patients physiology.
+   * 
+   */
   private double score;
 
   private Path actual;
@@ -213,53 +220,7 @@ public class Evaluator {
     writer.close();
 
     // Add the traceback information
-    StringBuilder sb = new StringBuilder(report);
-    sb.append("\n");
-    sb.append("Patient score is: ");
-    sb.append(getPatientScore());
-    sb.append("\n");
-    sb.append("The user's correct actions are :" + "\n");
-
-    for (Step s : scoreDP.getBacktrack()) {
-      sb.append(s.getStep());
-      // sb.append("\n");
-    }
-    System.out.println(sb.toString());
-    
-    
-    // generate the txt report
-    txtReportGenerator(score);
-    
-    
-    // TODO: Set the patient score.
-    // Where can I set the patient score??
-    return sb.toString();
-  }
-
-  public static Path loadGS(String filepath) throws Exception{
-      String str;
-      try {
-	  File file = new File(filepath);
-	  FileInputStream fis = new FileInputStream(file);
-	  byte[] data = new byte[(int) file.length()];
-	  fis.read(data);
-	  fis.close();
-	  str = new String(data, "UTF-8");
-      } catch (Exception e) {
-	  throw e;
-      }      
-      
-      Gson gson = new Gson();
-      Path gs;
-      try {
-	  gs = gson.fromJson(str, Path.class);
-      } catch (JsonSyntaxException e) {
-	  throw new Exception(e);
-      }
-      return gs;
-  }
-
-  private void txtReportGenerator(double score){
+    StringBuilder sb = new StringBuilder();
     String outputFile = "Report.txt";
     String familyName = "Smith";
     String firstName = "John";
@@ -269,7 +230,7 @@ public class Evaluator {
       output.append("\nHere is the report for ");
       output.append(firstName + " " + familyName + ":" + "\n");
       output.append("\nThe final score " + firstName + " get is : " 
-                      + String.format("%.2f\n\n", score));
+                      + String.format("%.2f\n\n", getPatientScore()));
       
       output.append("The helpful steps and details "  
                       + firstName + " did is listed below : \n\n");
@@ -300,6 +261,37 @@ public class Evaluator {
     } catch (Exception e) {
       e.printStackTrace();
     }
+    
+    return sb.toString();
+  }
+
+  public static Path loadGS(String filepath) throws Exception{
+      String str;
+      try {
+	  File file = new File(filepath);
+	  FileInputStream fis = new FileInputStream(file);
+	  byte[] data = new byte[(int) file.length()];
+	  fis.read(data);
+	  fis.close();
+	  str = new String(data, "UTF-8");
+      } catch (Exception e) {
+	  throw e;
+      }      
+      
+      Gson gson = new Gson();
+      Path gs;
+      try {
+	  gs = gson.fromJson(str, Path.class);
+      } catch (JsonSyntaxException e) {
+	  throw new Exception(e);
+      }
+      return gs;
+  }
+
+  // was used to test the report generator
+  // no longer used 
+  private void txtReportGenerator(double score){
+    
   }
   
   // Main method for testing
