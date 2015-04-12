@@ -284,6 +284,7 @@ public class Simulator {
 		return patient;
 	}
 
+	// reset patient 
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 		System.out.println("reset pt in simulator!!!!!");
