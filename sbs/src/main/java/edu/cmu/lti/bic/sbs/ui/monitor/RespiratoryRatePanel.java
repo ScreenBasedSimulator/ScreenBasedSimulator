@@ -1,6 +1,7 @@
 package edu.cmu.lti.bic.sbs.ui.monitor;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 /**
  * 
  * @author Guan Wang
@@ -16,7 +17,6 @@ public class RespiratoryRatePanel extends JPanel {
 	public RespiratoryRatePanel(){
 		respiratoryRateLabel=new JLabel("RR: ?");
 		this.add(respiratoryRateLabel);
-		this.setOpaque(false);
 	}
 	public void setRespiratoryRate(int respiratoryRateData){
 		respiratoryRateLabel.setText("RR: "+respiratoryRateData+"");
