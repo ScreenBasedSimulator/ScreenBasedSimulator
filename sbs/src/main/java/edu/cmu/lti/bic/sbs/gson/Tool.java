@@ -3,12 +3,11 @@ package edu.cmu.lti.bic.sbs.gson;
 /**
  * The Tool Class
  *
- * @author Victor Zhao
+ * @author Victor Zhao, Ryan Sun
  *
  */
 public class Tool {
-
-  private String name = null;
+  private String name = "Default Tool";
 
   private String id = null;
 
@@ -32,7 +31,7 @@ public class Tool {
   }
 
   public String toString() {
-    return "The tool is " + "\t" + name;
+    return name;
   }
 
   public Tool(String id, String name, String description) {
@@ -48,5 +47,4 @@ public class Tool {
   public void setValue(double value) {
     this.value = value;
   }
-
 }
