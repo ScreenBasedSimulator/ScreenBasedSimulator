@@ -45,7 +45,7 @@ public class Server {
 		staticFileLocation("/public");
 		//still needed?
 		post("/:name/new-game", (req, res) -> {
-			getOrCreateEngine(req.params("name"));
+			engineMap.put(req.params("name"), new Engine());
 			return gson.toJson(new Acknowledgment(200, "OK"));
 		});
 
