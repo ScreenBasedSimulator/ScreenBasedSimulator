@@ -286,7 +286,6 @@ public class Simulator {
 
 	// reset patient 
 	public void setPatient(Patient patient) {
-
 		this.patient = patient;
 		this.prescriptionList.clear();
 		this.toolList.clear();

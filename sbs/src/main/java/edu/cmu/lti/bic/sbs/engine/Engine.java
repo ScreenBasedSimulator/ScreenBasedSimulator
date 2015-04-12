@@ -39,7 +39,6 @@ public class Engine {
 	 * @throws Exception
 	 */
 	public Engine() throws Exception {
-
 		// User interface initialization
 		try {
 			System.out.println("Initializing the user interface");
@@ -66,7 +65,6 @@ public class Engine {
 		//set simulator and evaluator
 		simulator = new Simulator(patient);
 		evaluator = new Evaluator(this);
-
 		// Start looping
 		timer.scheduleAtFixedRate(new CoreTimerTask(1000, this), 0, 1000);
 	}
