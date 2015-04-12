@@ -1,7 +1,6 @@
 package edu.cmu.lti.bic.sbs.gson;
 
 public class Prescription {
-
   private Drug drug;
 
   private Double dose;
@@ -47,6 +46,6 @@ public class Prescription {
   }
   
   public String toString(){
-    return drug.getName() + "\t" + dose + "\t" + unit;
+    return drug.getName() + "\t\t" + dose + "\t\t" + unit;
   }
 }

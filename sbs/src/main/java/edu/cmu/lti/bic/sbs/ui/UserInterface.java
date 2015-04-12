@@ -56,10 +56,6 @@ public class UserInterface {
 			e.printStackTrace();
 		}
 	}
-	
-	public void restart() {
-		decisionEngine.restartSim();
-	}
 
 	public void connectMonitor() {
 		decisionEngine.connectMonitor();

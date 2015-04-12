@@ -1,16 +1,5 @@
 package edu.cmu.lti.bic.sbs.engine;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
-import edu.cmu.lti.bic.sbs.gson.Drug;
-import edu.cmu.lti.bic.sbs.gson.Tool;
-import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
-import edu.cmu.lti.bic.sbs.simulator.HeartRate;
-import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
-import edu.cmu.lti.bic.sbs.simulator.RespirationRate;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Calendar;
@@ -59,7 +48,6 @@ public class Engine {
 	 * @throws Exception
 	 */
 	public Engine() throws Exception {
-
 		// User interface initialization
 		try {
 			System.out.println("Initializing the user interface");
@@ -96,7 +84,6 @@ public class Engine {
 		simulator = new Simulator(patient);
 		// Evaluator initialization
 		evaluator = new Evaluator(this);
-
 		// Start looping
 		timer.scheduleAtFixedRate(new CoreTimerTask(1000, this), 0, 1000);
 	}
@@ -141,3 +128,4 @@ public class Engine {
 		// server.updateReport(score, report);
 	}
 }
+

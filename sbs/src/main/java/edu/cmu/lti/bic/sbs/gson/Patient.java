@@ -1,7 +1,7 @@
 package edu.cmu.lti.bic.sbs.gson;
 
-import edu.cmu.lti.bic.sbs.simulator.Condition;
 import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
+import edu.cmu.lti.bic.sbs.simulator.Condition;
 import edu.cmu.lti.bic.sbs.simulator.GraphicDisplay;
 import edu.cmu.lti.bic.sbs.simulator.HeartRate;
 import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
@@ -11,6 +11,7 @@ enum Status {
   great, good, not_good, bad, dying
 
 }
+
 // implements Cloneable for clone() function call to deep copy patient 
 // object for checkpoint function
 public class Patient implements Cloneable {
@@ -19,12 +20,13 @@ public class Patient implements Cloneable {
 	
 
 	private Condition cd;
-
+	//bloodPressure range from (100, 190) and (40, 70)
 	private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0);
-
+	//heartRate range from (50, 150)
 	private HeartRate heartRate = new HeartRate(70.0);
+	//oxygenLevel range from (0.6, 1.0)
 	private OxygenLevel oxygenLevel = new OxygenLevel(0.8);
-
+	//respirationRate range from (10, 30)
 	private RespirationRate respirationRate = new RespirationRate(12.0);
 	
 	GraphicDisplay graDisplay;
