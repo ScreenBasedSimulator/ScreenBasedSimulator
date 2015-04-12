@@ -216,7 +216,7 @@ public class Step {
     if (oL < 0) {
       res += oL * oLpenalty;
     }
-    double rR = Math.max(12.0 - patient.getRepiratinoRate().getRrNum(), patient.getRepiratinoRate()
+    double rR = Math.max(12.0 - patient.getRepirationRate().getRrNum(), patient.getRepirationRate()
             .getRrNum() - 20.0);
     if (rR > 0) {
       res -= rR * rRpenalty;

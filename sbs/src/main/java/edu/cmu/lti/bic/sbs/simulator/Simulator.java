@@ -30,7 +30,7 @@ public class Simulator {
 		patient.getBloodPressure().setDiastolicBloodPressure(60.0);
 		patient.getHeartRate().setHrNum(90.0);
 		patient.getOxygenLevel().setOlNum(0.8);
-		patient.getRepiratinoRate().setRrNum(16.0);
+		patient.getRepirationRate().setRrNum(16.0);
 
 		return patient;
 	}
@@ -48,7 +48,7 @@ public class Simulator {
 				diastolicBloodPressure);
 		patient.getHeartRate().setHrNum(heartRate);
 		patient.getOxygenLevel().setOlNum(oxygenLevel);
-		patient.getRepiratinoRate().setRrNum(repirationRate);
+		patient.getRepirationRate().setRrNum(repirationRate);
 
 		return patient;
 	}
@@ -88,7 +88,7 @@ public class Simulator {
 					.getSystolicBloodPressure();
 			double currentDiastolicBloodPressure = patient.getBloodPressure()
 					.getDiastolicBloodPressure();
-			double currentRespirationRate = patient.getRepiratinoRate()
+			double currentRespirationRate = patient.getRepirationRate()
 					.getRrNum();
 			if (toolList.size() > 0) {
 				// get tool information
@@ -481,7 +481,7 @@ public class Simulator {
 	public double downFunctionRespirationRate() {
 		double result;
 		result = 1 - 0.0008 * Math.pow(1, 2);
-		double currentRespirationRate = patient.getRepiratinoRate().getRrNum();
+		double currentRespirationRate = patient.getRepirationRate().getRrNum();
 
 		double resultRespirationRate = currentRespirationRate * result;
 

@@ -146,12 +146,12 @@ public class UserInterface {
 		assert (p.getBloodPressure() != null);
 		assert (p.getHeartRate() != null);
 		assert (p.getOxygenLevel() != null);
-		assert (p.getRepiratinoRate() != null);
+		assert (p.getRepirationRate() != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				window.setMonitor(p.getBloodPressure().getDiastolicBloodPressure(), p
 						.getBloodPressure().getSystolicBloodPressure(), p.getHeartRate()
-						.getHrNum(), p.getOxygenLevel().getOlNum(), p.getRepiratinoRate()
+						.getHrNum(), p.getOxygenLevel().getOlNum(), p.getRepirationRate()
 						.getRrNum());
 			}
 		});
