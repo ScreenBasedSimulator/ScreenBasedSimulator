@@ -3,6 +3,7 @@ package edu.cmu.lti.bic.sbs.engine;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import com.google.gson.Gson;
 
@@ -30,6 +31,9 @@ public class Scenario {
 	private Gson gson = new Gson();
 	State state = null;
 
+	HashMap<String, Drug> drugMap = new HashMap<String, Drug>();
+	HashMap<String, Tool> toolMap = new HashMap<String, Tool>();
+	
 	public Scenario(UserInterface ui) {
 		// just for test
 		this.ui = ui;
@@ -68,9 +72,7 @@ public class Scenario {
 	/*
 	 * Interaction functions with all other packages, used by engine class
 	 */
-	// public void callCode(String code) {
-	// System.out.println("Call code now is " + code + "!!");
-	// }
+
 
 	public Drug[] readDrug() {
 		try {
@@ -78,8 +80,18 @@ public class Scenario {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		Drug[] drug = gson.fromJson(fileReader, Drug[].class);
-		return drug;
+		Drug[] drugList = gson.fromJson(fileReader, Drug[].class);
+		for (Drug drug : drugList) {
+			drugMap.put(drug.getId(), drug);
+		}
+		return drugList;
+	}
+	public HashMap<String, Drug> getDrugMap() {
+		return drugMap;
+	}
+	
+	public HashMap<String, Tool> getToolMap() {
+		return toolMap;
 	}
 
 	public Patient readPatient() {
@@ -98,8 +110,11 @@ public class Scenario {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		Tool[] tools = gson.fromJson(fileReader, Tool[].class);
-		return tools;
+		Tool[] toolList = gson.fromJson(fileReader, Tool[].class);
+		for (Tool tool : toolList) {
+			toolMap.put(tool.getId(), tool);
+		}
+		return toolList;
 	}
 
 	public void connectMonitor() {
@@ -146,4 +161,5 @@ public class Scenario {
 		simulator.setPatient(pt);
 		
 	}
+	
 }
