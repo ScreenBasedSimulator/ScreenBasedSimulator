@@ -11,7 +11,8 @@ enum Status {
   great, good, not_good, bad, dying
 
 }
-
+// implements Cloneable for clone() function call to deep copy patient 
+// object for checkpoint function
 public class Patient implements Cloneable {
 	private String basic; //eg: male, 35, white
 	private String description; //eg: headache, vomit
