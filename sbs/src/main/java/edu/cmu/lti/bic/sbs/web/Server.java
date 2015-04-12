@@ -57,7 +57,7 @@ public class Server {
 				return gson.toJson(new Acknowledgment(400, "Resource not found"));
 			}
 			RegularUpdate regularUpdate = new RegularUpdate(patient.getBloodPressure(),
-					patient.getHeartRate(), patient.getOxygenLevel(), patient.getRepiratinoRate(),
+					patient.getHeartRate(), patient.getOxygenLevel(), patient.getRepirationRate(),
 					engine.getTime().getTimeInMillis(), engine.isStop());
 			
 			return gson.toJson(regularUpdate);
