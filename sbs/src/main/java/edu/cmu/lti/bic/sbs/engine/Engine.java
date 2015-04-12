@@ -1,20 +1,17 @@
 package edu.cmu.lti.bic.sbs.engine;
 
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Timer;
 
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
-import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
+import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
 import edu.cmu.lti.bic.sbs.web.Server;
@@ -33,7 +30,6 @@ public class Engine {
 	//List<Tool> toolList = new ArrayList<Tool>();
 	//List<Drug> drugList = new ArrayList<Drug>();
 
-
 	Simulator simulator = null;
 	Evaluator evaluator = null;
 	Scenario scenario = null;
@@ -46,13 +42,11 @@ public class Engine {
 
 
 	/**
-	 * Constructor function, responsible for creating UserInterface, Simulator and
-	 * Evaluator
+	 * Constructor function, responsible for creating UserInterface, Simulator
+	 * and Evaluator
 	 * 
 	 * @throws Exception
 	 */
-
-
 	public Engine() throws Exception {
 		// User interface initialization
 		try {
@@ -86,13 +80,11 @@ public class Engine {
 
 		state = new State(patient);
 
+		// Simulator initialization
 		simulator = new Simulator(patient);
-
-
 		// Evaluator initialization
 		evaluator = new Evaluator(this);
 		// Start looping
-
 		timer.scheduleAtFixedRate(new CoreTimerTask(1000, this), 0, 1000);
 	}
 
@@ -136,3 +128,4 @@ public class Engine {
 		// server.updateReport(score, report);
 	}
 }
+
