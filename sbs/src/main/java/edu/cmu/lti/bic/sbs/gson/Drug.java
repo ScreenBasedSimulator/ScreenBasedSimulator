@@ -1,8 +1,6 @@
 package edu.cmu.lti.bic.sbs.gson;
 
 public class Drug {
-
-
   private String name = "";
 
   private String description = "";
@@ -64,5 +62,4 @@ public class Drug {
   public void setId(String id) {
     this.id = id;
   }
-
 }

@@ -39,8 +39,5 @@ public class PathographyPanel extends JScrollPane {
 		model.addElement(s);
 		needScroll = true;
 	}
-	
-	public void clearRecord() {
-		model.clear();
-	}
+
 }

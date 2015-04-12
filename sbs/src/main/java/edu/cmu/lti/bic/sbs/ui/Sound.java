@@ -1,8 +1,10 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
-import sun.audio.*;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 public class Sound {
   static AudioStream audioStream;
