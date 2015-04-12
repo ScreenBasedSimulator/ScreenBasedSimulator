@@ -239,9 +239,7 @@ public class Evaluator {
       
       for (Step s : scoreDP.getBacktrack()) {
         output.append(s.getStep());
-        // sb.append("\n");
       }
-      
       
       output.append("\n\n\nThe actual steps and details "  
               + firstName + " did is listed below : \n\n");
@@ -250,7 +248,6 @@ public class Evaluator {
       
       for (Step s : actual) {
         output.append(s.getStep());
-        // sb.append("\n");
       }
       
       
@@ -286,12 +283,6 @@ public class Evaluator {
 	  throw new Exception(e);
       }
       return gs;
-  }
-
-  // was used to test the report generator
-  // no longer used 
-  private void txtReportGenerator(double score){
-    
   }
   
   // Main method for testing
