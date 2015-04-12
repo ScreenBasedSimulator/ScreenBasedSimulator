@@ -12,7 +12,13 @@ enum Status {
 
 }
 
-public class Patient {
+
+
+
+// implements Cloneable for clone() function call to deep copy patient 
+// object for checkpoint function
+public class Patient implements Cloneable {
+
 	private String basic; //eg: male, 35, white
 	private String description; //eg: headache, vomit
 	
@@ -78,4 +84,20 @@ public class Patient {
 	public void setRespirationRate(RespirationRate respirationRate) {
 		this.respirationRate = respirationRate;
 	}
+
+	
+	/*
+	 * This is the override function for clone()
+	 * @see java.lang.Object#clone()
+	 */
+	public Patient clone(){
+		try {
+			return (Patient)super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

@@ -1,22 +1,31 @@
 package edu.cmu.lti.bic.sbs.engine;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
+import edu.cmu.lti.bic.sbs.gson.Drug;
+import edu.cmu.lti.bic.sbs.gson.Tool;
+import edu.cmu.lti.bic.sbs.simulator.BloodPressure;
+import edu.cmu.lti.bic.sbs.simulator.HeartRate;
+import edu.cmu.lti.bic.sbs.simulator.OxygenLevel;
+import edu.cmu.lti.bic.sbs.simulator.RespirationRate;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Timer;
 
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
-import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
+import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
+import edu.cmu.lti.bic.sbs.web.Server;
 
 /**
  * The Engine Class
@@ -26,32 +35,31 @@ import edu.cmu.lti.bic.sbs.ui.UserInterface;
  */
 public class Engine {
 	UserInterface ui = null;
-	//
+	// Server server = null;
 	Patient pt = null;
-	
-	
-	List<Tool> toolList = new ArrayList<Tool>();
-	List<Drug> drugList = new ArrayList<Drug>();
 
+	//List<Tool> toolList = new ArrayList<Tool>();
+	//List<Drug> drugList = new ArrayList<Drug>();
 
 	Simulator simulator = null;
 	Evaluator evaluator = null;
 	Scenario scenario = null;
+	State state = null;
+
 	Calendar time = Calendar.getInstance();
 	Timer timer = new Timer();
-	private Gson gson = new Gson();
 
-	boolean isMonitorConnected = false;
+	//private Gson gson = new Gson();
+
 
 	/**
-	 * Constructor function, responsible for creating UserInterface, Simulator and
-	 * Evaluator
+	 * Constructor function, responsible for creating UserInterface, Simulator
+	 * and Evaluator
 	 * 
 	 * @throws Exception
 	 */
-
-
 	public Engine() throws Exception {
+
 		// User interface initialization
 		try {
 			System.out.println("Initializing the user interface");
@@ -61,86 +69,76 @@ public class Engine {
 			e.printStackTrace();
 		}
 
+		// server = new Server(this);
+		// server.start();
+
 		// Scenario initialization
 		scenario = new Scenario(ui);
-		// Load Tool data to user interface
-		FileReader fileReader = null;
-		try {
-			fileReader = new FileReader("src/test/resources/toolTest.json");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
 
-		Tool[] tools = gson.fromJson(fileReader, Tool[].class);
-		// tools to ui
+		// load tool, drug and patient through scenario
+		Tool[] tools = scenario.readTool();
 		for (Tool tool : tools) {
 			ui.addTool(tool);
+			// server.addTool(tool);
 		}
-		// Load Patient data to user interface
-		try {
-			fileReader = new FileReader("src/test/resources/patientTest.json");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		// patient to ui and simulation
-		Patient patient = gson.fromJson(fileReader, Patient.class);
-		ui.setPatientInfo(patient);
-		
-		//Load the drug data to user interface
-		try {
-      fileReader = new FileReader("src/test/resources/drugTest.json");
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-		Drug[] drugMap = gson.fromJson(fileReader, Drug[].class);
+		Drug[] drugMap = scenario.readDrug();
 		ui.addDrug(drugMap);
-		
-		// Patient and Simulator initialization
-		// Raw data should be loaded by file input later...
+		// for (Drug drug:drugMap) {
+		// server.addDrug(drug);
+		// }
+		Patient patient = scenario.readPatient();
+		ui.setPatientInfo(patient);
+		// server.setPatientInfo(patient);
 
+		state = new State(patient);
+
+		// Simulator initialization
 		simulator = new Simulator(patient);
-
-
 		// Evaluator initialization
 		evaluator = new Evaluator(this);
-		// Start looping
 
+		// Start looping
 		timer.scheduleAtFixedRate(new CoreTimerTask(1000, this), 0, 1000);
 	}
 
+	public void connectMonitor() {
+		scenario.connectMonitor();
+	}
+
 	public void useTool(Tool tool) {
-	    	if (!tool.getId().equals("codeblue")) {
-	    	    simulator.simulateWithTool(tool);
-	    	}
-		scenario.useTool(tool);
-		evaluator.receive(tool, time);
-		evaluator.receive(new Prescription(),time);
+		scenario.useTool(tool, evaluator, simulator, time);
 	}
 
 	public void useDrug(Prescription p) {
-		scenario.useDrug(p.getDrug(), p.getDose());
-		evaluator.receive(new Tool(),time);
-		evaluator.receive(p, time);
-		simulator.simWithDrugs(p);
+		scenario.useDrug(p.getDrug(), p.getDose(), evaluator, simulator, time,
+				p);
 	}
 
 	public void update(int interval) {
 		time.add(Calendar.MILLISECOND, interval);
-		ui.updateTime(time);
-		evaluator.receive(time);
-		Patient p = simulator.simPatient();
-		evaluator.regularUpdate(p, time);
-		if (isMonitorConnected) {
-			ui.updateMonitor(p);
-		}
+
+		// server.updateTime(time);
+		scenario.update(ui, evaluator, simulator, state, time);
+
 	}
 
-	public void connectMonitor() {
-		isMonitorConnected = true;
+	public void recover(int index) {
+		pt = state.getCheckpoint(index);
 	}
-	
-	public void simOver(double score, String report){
+
+	public Patient getPatient() {
+		return simulator.getPatient();
+	}
+
+	public void restartSim() {
+		scenario.restart(simulator, state);
+		evaluator = new Evaluator(this);
+	}
+
+	public void simOver(double score, String report) {
 		timer.cancel();
 		ui.updateReport(score, report);
+		// server.updateReport(score, report);
 	}
 }
+
