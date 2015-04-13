@@ -1,7 +1,7 @@
 package edu.cmu.lti.bic.sbs.ui;
 
-import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 public class MonitorPanel extends JPanel {
