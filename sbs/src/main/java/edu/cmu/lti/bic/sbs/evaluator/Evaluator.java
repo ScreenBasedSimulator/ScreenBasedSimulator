@@ -97,7 +97,8 @@ public class Evaluator {
 
   public void receive(Patient patient, Calendar time) {
     currentStep.setPatient(patient);
-    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
+    System.out.print(curTime);
     currentStep.setTime(curTime);
     System.out.println("Patient added");
     updateStep();
@@ -105,7 +106,7 @@ public class Evaluator {
 
   public void receive(Prescription prescription, Calendar time) {
     currentStep.setPrescription(prescription);
-    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
     currentStep.setTime(curTime);
     System.out.println("Evaluator: USER ACTION: USE DRUG:" + prescription.getDrug().getName());
     updateStep();
@@ -122,14 +123,14 @@ public class Evaluator {
 
   public void receive(Tool tool, Calendar time) {
     currentStep.setTool(tool);
-    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
     currentStep.setTime(curTime);
     System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
     updateStep();
   }
 
   public void receive(Calendar time) {
-    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
     currentStep.setTime(curTime);
     updateStep();
 
