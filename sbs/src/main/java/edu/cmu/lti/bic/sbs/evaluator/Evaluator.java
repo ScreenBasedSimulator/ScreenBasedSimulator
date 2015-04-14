@@ -149,7 +149,7 @@ public class Evaluator {
      int timeNow = currentStep.getTime();
      int timeLast = actual.get(actual.size()-1).getTime();
      Patient p = currentStep.getPatient();
-     return 10000 < timeNow-timeLast ||
+     return 10000 < timeNow-timeLast &&
              (p.getOxygenLevel().getOlNum() < .50 ||
                      p.getOxygenLevel().getOlNum()>.90);
   }
