@@ -73,7 +73,7 @@ public class Patient implements Cloneable {
 		this.oxygenLevel = oxygenLevel;
 	}
 
-	public RespirationRate getRepiratinoRate() {
+	public RespirationRate getRepirationRate() {
 		return respirationRate;
 	}
 
