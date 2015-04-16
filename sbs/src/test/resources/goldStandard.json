@@ -1,20 +1,80 @@
-{
-  "step":{
+[
+  {
     "timeUsed": 0,
-    "tool":{
-      "name": "Default name",
-      "id" : "Default id"
+    "toolUsed":{
+      "name": "Call Code",
+      "id" : "codeblue",
+      "value":0.0
     },
-    "prescription": {
-      "drug": {
-        "name": "Default Drug",
-        "description": "Default description",
-        "id": "Default id"
+    "prescriptionUsed": {
+      "drug":{
+        "name":"Default Drug",
+        "description":"Default description",
+        "id":"Default id"
       },
       "dose": 0.0,
+      "unit":"Default unit"
+    },
+    "patient":{
+      "bloodPressure":{
+          "systolicBloodPressure":90.0,
+          "diastolicBloodPressure":60.0
+        },
+        "heartRate":{"hrNum":80.0},
+        "oxygenLevel":{"olNum":0.3},
+        "respirationRate":{"rrNum":12.0}
     }
   }
   {
-
+    "timeUsed": 0,
+    "toolUsed":{
+      "name": "Face Mask",
+      "id" : "OxygenMask",
+      "value":0.0
+    },
+    "prescriptionUsed": {
+      "drug":{
+        "name":"Default Drug",
+        "description":"Default description",
+        "id":"Default id"
+      },
+      "dose": 0.0,
+      "unit":"Default unit"
+    },
+    "patient":{
+      "bloodPressure":{
+          "systolicBloodPressure":90.0,
+          "diastolicBloodPressure":60.0
+        },
+        "heartRate":{"hrNum":80.0},
+        "oxygenLevel":{"olNum":0.3},
+        "respirationRate":{"rrNum":12.0}
+    }
   }
-}
+  {
+    "timeUsed": 0,
+    "toolUsed":{
+      "name": "Default name",
+      "id" : "Default id",
+      "value":0.0
+    },
+    "prescriptionUsed": {
+      "drug":{
+        "name":"Naloxone",
+        "description":"naloxone",
+        "id":"naloxone"
+      },
+      "dose": 10.0,
+      "unit":"ml"
+    },
+    "patient":{
+      "bloodPressure":{
+          "systolicBloodPressure":90.0,
+          "diastolicBloodPressure":60.0
+        },
+        "heartRate":{"hrNum":80.0},
+        "oxygenLevel":{"olNum":0.3},
+        "respirationRate":{"rrNum":12.0}
+    }
+  }
+]
