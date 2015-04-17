@@ -13,7 +13,6 @@ import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
 
-
 /**
  * The Engine Class
  * 
@@ -30,11 +29,12 @@ public class Engine {
 	Calendar time = Calendar.getInstance();
 	Timer timer = new Timer();
 
-	boolean isOver = false; 
+	boolean isOver = false;
 	private Report report = null;
+
 	/**
 	 * Constructor function, responsible for creating UserInterface, Simulator
-	 * and Evaluator
+	 * and Evaluator for the Scenario, as well as start time looping
 	 * 
 	 * @throws Exception
 	 */
@@ -62,7 +62,7 @@ public class Engine {
 		ui.setPatientInfo(patient);
 		// state for checkpoint
 		state = new State(patient);
-		//set simulator and evaluator
+		// set simulator and evaluator
 		simulator = new Simulator(patient);
 		evaluator = new Evaluator(this);
 		// Start looping
@@ -95,50 +95,46 @@ public class Engine {
 	public void update(int interval) {
 		time.add(Calendar.MILLISECOND, interval);
 		scenario.update(ui, evaluator, simulator, state, time);
-
-	}
-
-	public void recover(int index) {
-		//patient = state.getCheckpoint(index);
 	}
 	
-	
-	// getters
-	public Patient getPatient() {
-		return simulator.getPatient();
-	}
-	public Calendar getTime(){
-		return time;
-	}
-	public Report getReport() {
-		return report;
-	}
-	public boolean isStop(){
-		return isOver;
-	}
-	public void restartSim() {
-		scenario.restart(simulator, state);
-		evaluator = new Evaluator(this);
-	}
-
 	public void simOver(double score, String content) {
 		timer.cancel();
 		isOver = true;
 		setReport(new Report(score, content));
 		ui.updateReport(score, content);
 	}
+	public void recover(int index) {
+		// patient = state.getCheckpoint(index);
+	}
 
+	public void restartSim() {
+		// scenario.restart(simulator, state);
+		// evaluator = new Evaluator(this);
+	}
 
-
+	// setters and getters
 	private void setReport(Report report) {
 		this.report = report;
 	}
 
 	public void setDebrief(String queryParams) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
-	
-}
+	public Patient getPatient() {
+		return simulator.getPatient();
+	}
 
+	public Calendar getTime() {
+		return time;
+	}
+
+	public Report getReport() {
+		return report;
+	}
+
+	public boolean isStop() {
+		return isOver;
+	}
+
+}

@@ -33,7 +33,7 @@ public class Scenario {
 
 	HashMap<String, Drug> drugMap = new HashMap<String, Drug>();
 	HashMap<String, Tool> toolMap = new HashMap<String, Tool>();
-	
+
 	public Scenario(UserInterface ui) {
 		// just for test
 		this.ui = ui;
@@ -73,7 +73,6 @@ public class Scenario {
 	 * Interaction functions with all other packages, used by engine class
 	 */
 
-
 	public Drug[] readDrug() {
 		try {
 			fileReader = new FileReader("src/test/resources/drugTest.json");
@@ -85,13 +84,6 @@ public class Scenario {
 			drugMap.put(drug.getId(), drug);
 		}
 		return drugList;
-	}
-	public HashMap<String, Drug> getDrugMap() {
-		return drugMap;
-	}
-	
-	public HashMap<String, Tool> getToolMap() {
-		return toolMap;
 	}
 
 	public Patient readPatient() {
@@ -117,6 +109,14 @@ public class Scenario {
 		return toolList;
 	}
 
+	public HashMap<String, Drug> getDrugMap() {
+		return drugMap;
+	}
+
+	public HashMap<String, Tool> getToolMap() {
+		return toolMap;
+	}
+
 	public void connectMonitor() {
 		isMonitorConnected = true;
 	}
@@ -140,7 +140,6 @@ public class Scenario {
 
 	public void update(UserInterface ui, Evaluator evaluator,
 			Simulator simulator, State state, Calendar time) {
-
 		ui.updateTime(time);
 		evaluator.receive(time);
 		Patient p = simulator.simPatient();
@@ -159,7 +158,6 @@ public class Scenario {
 		state.listOfPt.clear();
 		// simulation and evaluator reset
 		simulator.setPatient(pt);
-		
 	}
-	
+
 }
