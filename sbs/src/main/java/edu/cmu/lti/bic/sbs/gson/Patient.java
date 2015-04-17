@@ -115,7 +115,7 @@ public class Patient implements Cloneable {
 	  // check heart rate
     boolean res = heartRate.getHrNum() < 10 || heartRate.getHrNum() > 180;
     // check respiratory rate
-    res = res || respirationRate.getRrNum() < 1 || respirationRate.getRrNum() > 50;
+    res = res || respirationRate.getRrNum() > 50;
     // check blood pressure
     res = res || (bloodPressure.getDiastolicBloodPressure() 
             + bloodPressure.getSystolicBloodPressure() > 360) ||
