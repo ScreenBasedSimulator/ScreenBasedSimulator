@@ -157,7 +157,7 @@ public class Evaluator {
      int timeNow = currentStep.getTime();
      int timeLast = actual.get(actual.size()-1).getTime();
      Patient p = currentStep.getPatient();
-     return 10000 < timeNow-timeLast && (p.isConditionStable() || p.isConditionBad());
+     return 60000 < timeNow-timeLast && (p.isConditionStable() || p.isConditionBad());
   }
 
   /**
