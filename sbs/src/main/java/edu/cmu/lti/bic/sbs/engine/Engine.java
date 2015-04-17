@@ -125,6 +125,10 @@ public class Engine {
 		scenario.restart(simulator, state);
 		evaluator = new Evaluator(this);
 	}
+	
+	public void setName(String name) {
+		evaluator.receive(name);
+	}
 
 	public void simOver(double score, String content) {
 		timer.cancel();

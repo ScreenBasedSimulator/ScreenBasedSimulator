@@ -41,7 +41,10 @@ public class Server {
 		staticFileLocation("/public");
 		//still needed?
 		get("/:name/new-game", (req, res) -> {
-			engineMap.put(req.params("name"), new Engine());
+			Engine engine = new Engine();
+			String name = req.params("name");
+			engineMap.put(name, engine);
+			engine.setName(name);
 			return gson.toJson(new Acknowledgment(200, "OK"));
 		});
 
