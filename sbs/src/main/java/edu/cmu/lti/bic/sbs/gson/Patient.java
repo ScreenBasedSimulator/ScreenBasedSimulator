@@ -102,10 +102,10 @@ public class Patient implements Cloneable {
 	  // check respiratory rate
 	  res = res && respirationRate.getRrNum() > 12 && respirationRate.getRrNum() < 20;
 	  // check blood pressure
-	  //res = res && (bloodPressure.getDiastolicBloodPressure() 
-    //        + bloodPressure.getSystolicBloodPressure() < 260) &&
-     //       (bloodPressure.getDiastolicBloodPressure()
-      //      + bloodPressure.getSystolicBloodPressure() > 140);
+	  res = res && (bloodPressure.getDiastolicBloodPressure() 
+            + bloodPressure.getSystolicBloodPressure() < 260) &&
+            (bloodPressure.getDiastolicBloodPressure()
+            + bloodPressure.getSystolicBloodPressure() > 140);
 	  // check oxygen level
 	  res = res && oxygenLevel.getOlNum()>.90 ;
 	  return res;
@@ -113,12 +113,12 @@ public class Patient implements Cloneable {
 	
 	public boolean isConditionBad(){
 	  // check heart rate
-    boolean res = heartRate.getHrNum() > 10 || heartRate.getHrNum() < 180;
+    boolean res = heartRate.getHrNum() < 10 || heartRate.getHrNum() > 180;
     // check respiratory rate
-    res = res || respirationRate.getRrNum() < 1 && respirationRate.getRrNum() > 50;
+    res = res || respirationRate.getRrNum() < 1 || respirationRate.getRrNum() > 50;
     // check blood pressure
     res = res || (bloodPressure.getDiastolicBloodPressure() 
-            + bloodPressure.getSystolicBloodPressure() > 360) &&
+            + bloodPressure.getSystolicBloodPressure() > 360) ||
             (bloodPressure.getDiastolicBloodPressure()
             + bloodPressure.getSystolicBloodPressure() < 40);
     // check oxygen level
