@@ -113,8 +113,8 @@ public class Engine {
 			ui.updateReport(score, content);
 		}
 	}
-	public void recover(Evaluator evaluator) {
-		State state = evaluator.lastHealthyState();
+	public void recover(Evaluator eval) {
+		State state = eval.lastHealthyState();
 		Patient patient = state.getPatient();
 		ArrayList<Prescription> prescriptions = state.getPrescriptions();
 		ArrayList<Tool> tools= state.getTools();
