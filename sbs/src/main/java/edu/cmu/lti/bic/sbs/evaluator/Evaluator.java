@@ -45,6 +45,8 @@ public class Evaluator {
 
   private long baseTimeInMills = 0;
   
+  private String userName;
+  
   // private String report;
   public Evaluator(Engine engine) {
     this.engine = engine;
@@ -65,9 +67,9 @@ public class Evaluator {
     goldStandard = new Path();
     goldStandard.setTag("Gold Standard");
     goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-            ""), (int)Calendar.getInstance().getTimeInMillis()));
+            0), (int)Calendar.getInstance().getTimeInMillis()));
     goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("OxygenMask",
-            "Face Mask", ""), (int)Calendar.getInstance().getTimeInMillis()));
+            "Face Mask", 100), (int)Calendar.getInstance().getTimeInMillis()));
     goldStandard
             .add(new Step(new Patient(), new Prescription(new Drug("naloxone", "Naloxone", "1"),
                     10.0, "ml"), new Tool(), (int)Calendar.getInstance().getTimeInMillis()));
@@ -97,7 +99,8 @@ public class Evaluator {
 
   public void receive(Patient patient, Calendar time) {
     currentStep.setPatient(patient);
-    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
+    System.out.print(curTime);
     currentStep.setTime(curTime);
     System.out.println("Patient added");
     updateStep();
@@ -105,10 +108,14 @@ public class Evaluator {
 
   public void receive(Prescription prescription, Calendar time) {
     currentStep.setPrescription(prescription);
-    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
     currentStep.setTime(curTime);
     System.out.println("Evaluator: USER ACTION: USE DRUG:" + prescription.getDrug().getName());
     updateStep();
+  }
+  
+  public void receive(String name){
+    this.userName = name;
   }
 
   /**
@@ -122,14 +129,14 @@ public class Evaluator {
 
   public void receive(Tool tool, Calendar time) {
     currentStep.setTool(tool);
-    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
     currentStep.setTime(curTime);
     System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
     updateStep();
   }
 
   public void receive(Calendar time) {
-    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
     currentStep.setTime(curTime);
     updateStep();
 
@@ -137,20 +144,36 @@ public class Evaluator {
 
   public void regularUpdate(Patient p, Calendar time) {
     currentStep.setPatient(p);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
+    currentStep.setTime(curTime);
     if (isSimEnd()) {
       calculateScore();
       engine.simOver(score, generateReport());
     }
   }
 
+  public State lastHealthyState(){
+    int i = actual.size()-1;
+    while(actual.get(i).getPatient().isConditionBad()){
+      i--;
+      if (i<0) return null;
+    }
+    Step lastHealthy = actual.get(i);
+    State result = new State();
+    result.p = lastHealthy.getPatient();
+    while(i>=0){
+      result.prescriptions.add(actual.get(i).getPrescription());
+      result.tools.add(actual.get(i).getTool());
+    }
+    return result;
+  }
+  
   public boolean isSimEnd() {
     if (actual.size()==0) return false;
      int timeNow = currentStep.getTime();
      int timeLast = actual.get(actual.size()-1).getTime();
      Patient p = currentStep.getPatient();
-     return 10000 < timeNow-timeLast ||
-             (p.getOxygenLevel().getOlNum() < .50 ||
-                     p.getOxygenLevel().getOlNum()>.90);
+     return 60000 < timeNow-timeLast && (p.isConditionStable() || p.isConditionBad());
   }
 
   /**
@@ -261,19 +284,17 @@ public class Evaluator {
 
   private String txtReportGenerator(double score){
     String outputFile = "Report.txt";
-    String familyName = "Smith";
-    String firstName = "John";
     StringBuilder output = new StringBuilder();
     try {
       BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile, false));
       
       output.append("\nHere is the report for ");
-      output.append(firstName + " " + familyName + ":" + "\n");
-      output.append("\nThe final score " + firstName + " get is : " 
+      output.append(userName + ":" + "\n");
+      output.append("\nThe final score " + userName + " get is : " 
                       + String.format("%.2f\n\n", score));
       
       output.append("The helpful steps and details "  
-                      + firstName + " did is listed below : \n\n");
+                      + userName + " did is listed below : \n\n");
       
       output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
       
@@ -284,7 +305,7 @@ public class Evaluator {
       
       
       output.append("\n\n\nThe actual steps and details "  
-              + firstName + " did is listed below : \n\n");
+              + userName + " did is listed below : \n\n");
 
       output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
       
@@ -310,11 +331,11 @@ public class Evaluator {
       Gson gson = new Gson();
       ArrayList<Step> a = new ArrayList<Step>();
       a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-	            ""), (int)Calendar.getInstance().getTimeInMillis()));
+	            0), (int)Calendar.getInstance().getTimeInMillis()));
       a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-	            ""), (int)Calendar.getInstance().getTimeInMillis()));
+	            0), (int)Calendar.getInstance().getTimeInMillis()));
       a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-	            ""), (int)Calendar.getInstance().getTimeInMillis()));
+	            0), (int)Calendar.getInstance().getTimeInMillis()));
       System.out.println(gson.toJson(a));
   }
 }

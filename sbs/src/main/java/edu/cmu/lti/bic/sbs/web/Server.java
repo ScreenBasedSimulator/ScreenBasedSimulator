@@ -1,12 +1,12 @@
 package edu.cmu.lti.bic.sbs.web;
 
 import static spark.Spark.*;
+
 import java.util.HashMap;
 import com.google.gson.Gson;
 import edu.cmu.lti.bic.sbs.engine.Engine;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Report;
-
 
 public class Server {
 	private Gson gson = new Gson();
@@ -38,29 +38,32 @@ public class Server {
 	public void start() {
 		port(8080);
 		staticFileLocation("/public");
+
 		// still needed?
-		post("/:name/new-game", (req, res) -> {
-			getOrCreateEngine(req.params("name"));
+
+		//still needed?
+		get("/:name/new-game", (req, res) -> {
+			Engine engine = new Engine();
+			String name = req.params("name");
+			engineMap.put(name, engine);
+			engine.setName(name);
 			return gson.toJson(new Acknowledgment(200, "OK"));
 		});
 
-		get("/:name/regular-update",
-				(req, res) -> {
-					Engine engine = getOrCreateEngine(req.params("name"));
-					/* vital, isOver, time */
-					Patient patient = engine.getPatient();
-					if (patient == null) {
-						return gson.toJson(new Acknowledgment(400,
-								"Resource not found"));
-					}
-					RegularUpdate regularUpdate = new RegularUpdate(patient
-							.getBloodPressure(), patient.getHeartRate(),
-							patient.getOxygenLevel(), patient
-									.getRepiratinoRate(), engine.getTime()
-									.getTimeInMillis(), engine.isStop());
+		get("/:name/regular-update", (req, res) -> {
+			Engine engine = getOrCreateEngine(req.params("name"));
+			/* vital, isOver, time */
+			Patient patient = engine.getPatient();
+			if (patient == null) {
+				return gson.toJson(new Acknowledgment(400, "Resource not found"));
+			}
+			RegularUpdate regularUpdate = new RegularUpdate(patient.getBloodPressure(),
+					patient.getHeartRate(), patient.getOxygenLevel(), patient.getRepirationRate(),
+					engine.getTime().getTimeInMillis(), engine.isStop());
+			
+			return gson.toJson(regularUpdate);
+		});
 
-					return gson.toJson(regularUpdate);
-				});
 		get("/:name/patient-info", (req, res) -> {
 			Engine engine = getOrCreateEngine(req.params("name"));
 			return gson.toJson(engine.getPatient());

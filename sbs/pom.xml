@@ -16,6 +16,16 @@
 			<version>2.1</version>
 		</dependency>
 		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.19</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jcommon</artifactId>
+			<version>1.0.23</version>
+		</dependency>		
+		<dependency>
 			<groupId>com.corundumstudio.socketio</groupId>
 			<artifactId>netty-socketio</artifactId>
 			<version>1.7.7</version>

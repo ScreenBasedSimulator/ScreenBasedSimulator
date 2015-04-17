@@ -216,7 +216,7 @@ public class Step {
     if (oL < 0) {
       res += oL * oLpenalty;
     }
-    double rR = Math.max(12.0 - patient.getRepiratinoRate().getRrNum(), patient.getRepiratinoRate()
+    double rR = Math.max(12.0 - patient.getRepirationRate().getRrNum(), patient.getRepirationRate()
             .getRrNum() - 20.0);
     if (rR > 0) {
       res -= rR * rRpenalty;
@@ -240,9 +240,9 @@ public class Step {
 
   public static void main(String[] args) {
     Step s = new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0",
-            "Call Code", ""), (int)Calendar.getInstance().getTimeInMillis());
+            "Call Code", 0), (int)Calendar.getInstance().getTimeInMillis());
     Step a = new Step(new Patient(), new Prescription(new Drug(), 20.0, "ml"), new Tool("0",
-            "Call Code", ""), (int)Calendar.getInstance().getTimeInMillis());
+            "Call Code", 0), (int)Calendar.getInstance().getTimeInMillis());
     System.out.println(s.stepScore(a));
 
   }

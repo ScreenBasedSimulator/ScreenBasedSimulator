@@ -12,6 +12,8 @@ import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
+import edu.cmu.lti.bic.sbs.Setting;
+
 
 /**
  * The Engine Class
@@ -20,6 +22,7 @@ import edu.cmu.lti.bic.sbs.ui.UserInterface;
  *
  */
 public class Engine {
+	
 	UserInterface ui = null;
 	Simulator simulator = null;
 	Evaluator evaluator = null;
@@ -40,12 +43,14 @@ public class Engine {
 	 */
 	public Engine() throws Exception {
 		// User interface initialization
-		try {
-			System.out.println("Initializing the user interface");
-			ui = new UserInterface(this);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (Setting.LOCAL_MODE) {
+			try {
+				System.out.println("Initializing the user interface");
+				ui = new UserInterface(this);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		// Scenario initialization
@@ -53,13 +58,15 @@ public class Engine {
 
 		// load tool, drug and patient through scenario
 		Tool[] tools = scenario.readTool();
-		for (Tool tool : tools) {
-			ui.addTool(tool);
-		}
 		Drug[] drugMap = scenario.readDrug();
-		ui.addDrug(drugMap);
 		Patient patient = scenario.readPatient();
-		ui.setPatientInfo(patient);
+		if (Setting.LOCAL_MODE) {
+			for (Tool tool : tools) {
+				ui.addTool(tool);
+			}
+			ui.addDrug(drugMap);
+			ui.setPatientInfo(patient);
+		}
 		// state for checkpoint
 		state = new State(patient);
 		// set simulator and evaluator
@@ -97,11 +104,17 @@ public class Engine {
 		scenario.update(ui, evaluator, simulator, state, time);
 	}
 	
+	public void setName(String name) {
+		evaluator.receive(name);
+	}
+
 	public void simOver(double score, String content) {
 		timer.cancel();
 		isOver = true;
 		setReport(new Report(score, content));
-		ui.updateReport(score, content);
+		if (Setting.LOCAL_MODE) {
+			ui.updateReport(score, content);
+		}
 	}
 	public void recover(int index) {
 		// patient = state.getCheckpoint(index);

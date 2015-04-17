@@ -21,13 +21,14 @@ public class Patient implements Cloneable {
 
 	private Condition cd;
 	//bloodPressure range from (100, 190) and (40, 70)
-	private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0);
+	private BloodPressure bloodPressure = new BloodPressure(90.0, 100.0, 190.0, 60.0, 40.0, 70.0);
 	//heartRate range from (50, 150)
-	private HeartRate heartRate = new HeartRate(70.0);
+	private HeartRate heartRate = new HeartRate(70.0, 50.0, 150.0);
 	//oxygenLevel range from (0.6, 1.0)
-	private OxygenLevel oxygenLevel = new OxygenLevel(0.8);
-	//respirationRate range from (10, 30)
-	private RespirationRate respirationRate = new RespirationRate(12.0);
+	private OxygenLevel oxygenLevel = new OxygenLevel(0.8, 0.6, 1.0);
+
+	//respirationRate range from (10, 20)
+	private RespirationRate respirationRate = new RespirationRate(12.0, 10.0, 20.0);
 	
 	GraphicDisplay graDisplay;
 	Status status;
@@ -73,7 +74,7 @@ public class Patient implements Cloneable {
 		this.oxygenLevel = oxygenLevel;
 	}
 
-	public RespirationRate getRepiratinoRate() {
+	public RespirationRate getRepirationRate() {
 		return respirationRate;
 	}
 
@@ -93,5 +94,35 @@ public class Patient implements Cloneable {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public boolean isConditionStable(){
+	  // check heart rate
+	  boolean res = heartRate.getHrNum() > 60 && heartRate.getHrNum() < 151;
+	  // check respiratory rate
+	  res = res && respirationRate.getRrNum() > 12 && respirationRate.getRrNum() < 20.1;
+	  // check blood pressure
+	  res = res && (bloodPressure.getDiastolicBloodPressure() 
+            + bloodPressure.getSystolicBloodPressure() < 261) &&
+            (bloodPressure.getDiastolicBloodPressure()
+            + bloodPressure.getSystolicBloodPressure() > 140);
+	  // check oxygen level
+	  res = res && oxygenLevel.getOlNum()>.90 ;
+	  return res;
+	}
+	
+	public boolean isConditionBad(){
+	  // check heart rate
+    boolean res = heartRate.getHrNum() < 10 || heartRate.getHrNum() > 180;
+    // check respiratory rate
+    res = res || respirationRate.getRrNum() > 50;
+    // check blood pressure
+    res = res || (bloodPressure.getDiastolicBloodPressure() 
+            + bloodPressure.getSystolicBloodPressure() > 360) ||
+            (bloodPressure.getDiastolicBloodPressure()
+            + bloodPressure.getSystolicBloodPressure() < 40);
+    // check oxygen level
+    res = res || oxygenLevel.getOlNum()<.50 ;
+    return res;
 	}
 }
