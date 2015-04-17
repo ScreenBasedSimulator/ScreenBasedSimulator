@@ -17,6 +17,7 @@ public class RegularUpdate {
 	private boolean isOver;
 	public RegularUpdate(BloodPressure bloodPressure, HeartRate heartRate, OxygenLevel oxygenLevel,
 			RespirationRate respirationRate, long time, boolean isOver) {
+		this.bloodPressure = bloodPressure;
 		this.heartRate = heartRate;
 		this.oxygenLevel = oxygenLevel;
 		this.respirationRate = respirationRate;

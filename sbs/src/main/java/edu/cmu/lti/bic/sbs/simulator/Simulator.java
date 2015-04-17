@@ -1,49 +1,106 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.HashMap;
 
-import edu.cmu.lti.bic.sbs.gson.Drug;
-import edu.cmu.lti.bic.sbs.gson.OxygenMask;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
 
-//communicate with engine, just like the controller of patient
+/*
+ * Class Simulator stores the patient model of Oxygen Level, Blood Pressure, 
+ * Heart Rate and Respiration Rate
+ */
 public class Simulator {
 
-	Patient patient;
+	// the model of patient
+	private Patient patient;
 
 	// toolList and pescriptionList to store the information of tool and
 	// prescription which have effects on the patient.
-	ArrayList<Tool> toolList;
-	ArrayList<Prescription> prescriptionList;
+	private ArrayList<Tool> toolList;
+	private ArrayList<Prescription> prescriptionList;
 
-	// adding default value for four parameter
+	// dictionary of boundaries for each parameter
+	private static HashMap<String, Double> lowerBoundDict = new HashMap<String, Double>();
+	private static HashMap<String, Double> upperBoundDict = new HashMap<String, Double>();
 
 	// the initialization function for engine to involve
+	// adding default value for each parameters
 	public Patient initialPatient() {
-		patient = new Patient();
+		return initialPatient(90.0, 60.0, 90.0, 0.8, 16.0);
+		
+		/*patient = new Patient();
 		// pt.getBloodPressure().setBpNum(defaultBp);
+
 		patient.getBloodPressure().setSystolicBloodPressure(90.0);
 		patient.getBloodPressure().setDiastolicBloodPressure(60.0);
 		patient.getHeartRate().setHrNum(90.0);
 		patient.getOxygenLevel().setOlNum(0.8);
-		patient.getRepiratinoRate().setRrNum(16.0);
+		patient.getRepirationRate().setRrNum(16.0);
+		return patient;*/
+	}
+
+	/*
+	 * Initialize patient with given parameters
+	 */
+	public Patient initialPatient(double systolicBloodPressure,
+			double diastolicBloodPressure, double heartRate,
+			double oxygenLevel, double repirationRate) {
+		patient = new Patient();
+		
+		patient.setBloodPressure(new BloodPressure(
+				systolicBloodPressure, lowerBoundDict
+						.get("systolicBloodPressure"),
+				upperBoundDict.get("systolicBloodPressure"),
+				diastolicBloodPressure, lowerBoundDict
+						.get("diastolicBloodPressure"),
+				upperBoundDict.get("diastolicBloodPressure")));
+		
+		patient.setHeartRate(new HeartRate(heartRate,
+				lowerBoundDict.get("heartRate"), upperBoundDict
+						.get("heartRate")));
+		
+		patient.setOxygenLevel(new OxygenLevel(oxygenLevel,
+				lowerBoundDict.get("oxygenLevel"), upperBoundDict
+						.get("oxygenLevel")));
+
+		patient.setRespirationRate(new RespirationRate(repirationRate,
+				lowerBoundDict.get("respirationRate"), upperBoundDict
+						.get("respirationRate")));
 
 		return patient;
+	}
+
+	private void initBound() {
+		// set default boundaries for each parameters
+		lowerBoundDict.put("respirationRate", 10.0);
+		upperBoundDict.put("respirationRate", 30.0);
+
+		lowerBoundDict.put("heartRate", 50.0);
+		upperBoundDict.put("heartRate", 120.0);
+
+		lowerBoundDict.put("diastolicBloodPressure", 40.0);
+		upperBoundDict.put("diastolicBloodPressure", 100.0);
+
+		lowerBoundDict.put("systolicBloodPressure", 70.0);
+		upperBoundDict.put("systolicBloodPressure", 190.0);
+
+		lowerBoundDict.put("oxygenLevel", 0.6);
+		upperBoundDict.put("oxygenLevel", 1.0);
 	}
 
 	public Simulator() {
 		super();
 		initialPatient();
+		initBound();
 		toolList = new ArrayList<Tool>();
 		prescriptionList = new ArrayList<Prescription>();
 	}
 
 	public Simulator(Patient pt) {
 		super();
+		initBound();
 		this.patient = pt;
 		toolList = new ArrayList<Tool>();
 		prescriptionList = new ArrayList<Prescription>();
@@ -56,11 +113,11 @@ public class Simulator {
 		// parameters
 		if (toolList.size() == 0 && prescriptionList.size() == 0) {
 			// invoke the downFunction for all four parameters
-			double resultOxygenLevel = downFunctionOxygenLevel();
-			double resultHeartRate = downFunctionHeartRate();
-			double resultSystolicBloodPressure = downFunctionBloodPressure();
-			double resultDiastolicBloodPressure = downFunctionBloodPressure();
-			double resultRespirationRate = downFunctionRespirationRate();
+			downFunctionOxygenLevel();
+			downFunctionHeartRate();
+			downFunctionBloodPressure();
+			downFunctionBloodPressure();
+			downFunctionRespirationRate();
 			return this.patient;
 		} else {
 			// get current value for all four medical parameters
@@ -70,7 +127,7 @@ public class Simulator {
 					.getSystolicBloodPressure();
 			double currentDiastolicBloodPressure = patient.getBloodPressure()
 					.getDiastolicBloodPressure();
-			double currentRespirationRate = patient.getRepiratinoRate()
+			double currentRespirationRate = patient.getRepirationRate()
 					.getRrNum();
 			if (toolList.size() > 0) {
 				// get tool information
@@ -79,10 +136,11 @@ public class Simulator {
 
 				// check the tool according to the name of the tool
 				if (currentTool.getId().equals("OxygenMask")) {
-					double resultOl = ytFunctionOxygenLevel(currentValue);
+					double resultOxygenLevel = ytFunctionOxygenLevel(currentValue);
 					// System.out.print("resultOL = " + resultOl);
 					// reset the oxygenLevel of the patient
-					patient.setOxygenLevel(new OxygenLevel(resultOl));
+					
+					patient.getOxygenLevel().setOlNum(resultOxygenLevel);
 				}
 
 				// the name of the tool do not correct, I just test the function
@@ -93,16 +151,9 @@ public class Simulator {
 					double resultHeartRate = (1 + resultRatioForHeartRate / 100)
 							* currentHeartRate;
 
-					// set boundery for heartRate
-					if (resultHeartRate < 120) {
-						// do nothing
-					} else {
-						// set the boundery
-						resultHeartRate = 120;
-					}
 					// System.out.print("patient's heart rate:" +
 					// resultHeartRate);
-					patient.setHeartRate(new HeartRate(resultHeartRate));
+					patient.getHeartRate().setHrNum(resultHeartRate);
 				}
 
 				// the name of the tool do not correct, I just test the function
@@ -116,30 +167,13 @@ public class Simulator {
 					double resultDiastolicBloodPressure = (1 + resultRatioForBloodPressure / 100)
 							* currentDiastolicBloodPressure;
 
-					// set boundery for bloodPressue
-					if (resultSystolicBloodPressure < 190) {
-						// doing nothing
-					} else {
-						// set boundery
-						resultSystolicBloodPressure = 190;
-					}
-
-					// set boundery for bloodPressue
-					if (resultDiastolicBloodPressure < 100) {
-						// doing nothing
-					} else {
-						// set boundery
-						resultDiastolicBloodPressure = 100;
-					}
-
 					// System.out.print("patient's Systolic blood pressure:"
 					// + resultSystolicBloodPressure);
 					// System.out.println("patient's Diastolic blood pressure:"
 					// + resultDiastolicBloodPressure);
 
-					patient.setBloodPressure(new BloodPressure(
-							currentSystolicBloodPressure,
-							currentDiastolicBloodPressure));
+					patient.getBloodPressure().setDiastolicBloodPressure(resultDiastolicBloodPressure);
+					patient.getBloodPressure().setSystolicBloodPressure(resultSystolicBloodPressure);
 				}
 
 				// the name of the tool do not correct, I just test the function
@@ -153,18 +187,13 @@ public class Simulator {
 							* currentRespirationRate;
 
 					// set boundery for respirationRate
-					if (resultRespirationRate < 30) {
-						// doing nothing
-					} else {
-						// set boundery
+					if (resultRespirationRate > 30) {
 						resultRespirationRate = 30;
 					}
 
 					// System.out.print("patient's Systolic Respiration Rate:"
 					// + resultRespirationRate);
-
-					patient.setRespirationRate(new RespirationRate(
-							resultRespirationRate));
+					patient.getRepirationRate().setRrNum(resultRespirationRate);
 				}
 			}
 
@@ -177,9 +206,11 @@ public class Simulator {
 
 				// get prescription information
 				if (currentPrescription.getDrug().getId().equals("naloxone")) {
-					double resultOl = ytFunctionOxygenLevel(currentDoes);
-//					System.out.print("resultOL = " + resultOl);
-					patient.setOxygenLevel(new OxygenLevel(resultOl));
+					double resultOxygenLevel = ytFunctionOxygenLevel(currentDoes);
+					// System.out.print("resultOL = " + resultOl);
+					patient.setOxygenLevel(new OxygenLevel(resultOxygenLevel,
+							lowerBoundDict.get("oxygenLevel"), upperBoundDict
+									.get("oxygenLevel")));
 				}
 
 				// **********************the prescription
@@ -199,15 +230,7 @@ public class Simulator {
 					// System.out.print("patient's heart rate:" +
 					// resultHeartRate);
 
-					// set boundery for heartRate
-					if (resultHeartRate < 120) {
-						// do nothing
-					} else {
-						// set the boundery
-						resultHeartRate = 120;
-					}
-
-					patient.setHeartRate(new HeartRate(resultHeartRate));
+					patient.getHeartRate().setHrNum(resultHeartRate);
 				}
 
 				// the name of the tool do not correct, I just test the function
@@ -223,30 +246,13 @@ public class Simulator {
 					double resultDiastolicBloodPressure = (1 + resultRatioForBloodPressure / 100)
 							* currentDiastolicBloodPressure;
 
-					// set boundery for bloodPressue
-					if (resultSystolicBloodPressure < 190) {
-						// doing nothing
-					} else {
-						// set boundery
-						resultSystolicBloodPressure = 190;
-					}
-
-					// set boundery for bloodPressue
-					if (resultDiastolicBloodPressure < 100) {
-						// doing nothing
-					} else {
-						// set boundery
-						resultDiastolicBloodPressure = 100;
-					}
-
 					// System.out.print("patient's Systolic blood pressure:"+
 					// resultSystolicBloodPressure);
 					// System.out.println("patient's Diastolic blood pressure:"
 					// + resultDiastolicBloodPressure);
 
-					patient.setBloodPressure(new BloodPressure(
-							resultSystolicBloodPressure,
-							resultDiastolicBloodPressure));
+					patient.getBloodPressure().setDiastolicBloodPressure(resultDiastolicBloodPressure);
+					patient.getBloodPressure().setSystolicBloodPressure(resultSystolicBloodPressure);
 				}
 
 				// the name of the tool do not correct, I just test the function
@@ -260,19 +266,10 @@ public class Simulator {
 					double resultRespirationRate = (1 + resultRatioForRespirationRate / 100)
 							* currentRespirationRate;
 
-					// set boundery for respirationRate
-					if (resultRespirationRate < 30) {
-						// doing nothing
-					} else {
-						// set boundery
-						resultRespirationRate = 30;
-					}
-
 					// System.out.print("patient's Systolic Respiration Rate:" +
 					// resultRespirationRate);
 
-					patient.setRespirationRate(new RespirationRate(
-							resultRespirationRate));
+					patient.getRepirationRate().setRrNum(resultRespirationRate);
 				}
 			}
 
@@ -284,7 +281,7 @@ public class Simulator {
 		return patient;
 	}
 
-	// reset patient 
+	// reset patient
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 		this.prescriptionList.clear();
@@ -328,14 +325,14 @@ public class Simulator {
 
 	// helper function
 	double fFunction(double x) {
-		double p1 = 1.667 * Math.pow(10, -6);
+		double p1 = 1.667 * Math.pow(10.0, -6.0);
 		double p2 = -0.0002536;
 		double p3 = 0.01458;
 		double p4 = -0.2743;
 
 		double result;
 
-		result = p1 * Math.pow(x, 3) + p2 * Math.pow(x, 2) + p3 * x + p4;
+		result = p1 * Math.pow(x, 3.0) + p2 * Math.pow(x, 2.0) + p3 * x + p4;
 
 		return result;
 	}
@@ -348,38 +345,30 @@ public class Simulator {
 				* Math.log(1.0 * (1 - patient.getOxygenLevel().getOlNum()) / //
 						patient.getOxygenLevel().getOlNum());
 
-//		System.out.println("1.0*(120 - x0)/2 = " + 1.0 * (120 - x0) / 2);
-//		System.out.println("1.0/fFunction(x0) = " + 1.0 / fFunction(x0));
-//		System.out.println("Math.log(1.0*(1-defaultOl) / defaultOl = " + //
-//				Math.log(1.0 * (1 - patient.getOxygenLevel().getOlNum())
-//						/ patient.getOxygenLevel().getOlNum()));
-//
-//		System.out.println("t0Function's result:" + result);
+		// System.out.println("1.0*(120 - x0)/2 = " + 1.0 * (120 - x0) / 2);
+		// System.out.println("1.0/fFunction(x0) = " + 1.0 / fFunction(x0));
+		// System.out.println("Math.log(1.0*(1-defaultOl) / defaultOl = " + //
+		// Math.log(1.0 * (1 - patient.getOxygenLevel().getOlNum())
+		// / patient.getOxygenLevel().getOlNum()));
+		//
+		// System.out.println("t0Function's result:" + result);
 
 		return result;
 	}
 
 	// this function calculate the curve(oxygenLevel)
 	public double ytFunctionOxygenLevel(double x0) {
-		double result;
 		// invoke two helper function
-		result = 1.0 / (1 + Math.exp(-fFunction(x0)
+		double resultOxygenLevel = 1.0 / (1 + Math.exp(-fFunction(x0)
 				* ((t0Function(x0) + 1.0 / 10) - 1.0 * (120 - x0) / 2)));
-		if (result < 1.00) {
-			this.patient.setOxygenLevel(new OxygenLevel(result));
-		}
-		// set a bound to oxgen level
-		else {
-			result = 1.00;
-			this.patient.setOxygenLevel(new OxygenLevel(result));
-		}
-		return result;
+
+		this.patient.getOxygenLevel().setOlNum(resultOxygenLevel);
+		return resultOxygenLevel;
 	}
 
 	// this function calculate the curve(BloodPressure)
 	public double ytFunctionBloodPressure(double x0) {
-		double result;
-		result = 1.0 / (1 + Math.exp(-fFunction(x0)
+		double result = 1.0 / (1 + Math.exp(-fFunction(x0)
 				* ((t0Function(x0) + 1.0 / 15) - 1.0 * (120 - x0) / 2)));
 		return result;
 	}
@@ -387,18 +376,16 @@ public class Simulator {
 	// this function calculate the curve(HeartRate)
 	public double ytFunctionHeartRate(double x0) {
 
-		double result;
-		result = 1.0 / (1 + Math.exp(-fFunction(x0)
+		double result = 1.0 / (1 + Math.exp(-fFunction(x0)
 				* ((t0Function(x0) + 1.0 / 17) - 1.0 * (120 - x0) / 2)));
+
 		return result;
 	}
 
 	// this function calculate the curve(RespirationRate)
 	public double ytFunctionRespirationRate(double x0) {
 
-		double result;
-
-		result = 1.0 / (1 + Math.exp(-fFunction(x0)
+		double result = 1.0 / (1.0 + Math.exp(-fFunction(x0)
 				* ((t0Function(x0) + 1.0 / 8) - 1.0 * (120 - x0) / 2)));
 
 		return result;
@@ -406,28 +393,19 @@ public class Simulator {
 
 	// invoke the function OxygenLevel when there is no action
 	public double downFunctionOxygenLevel() {
-		double result;
-		result = 1 - 0.001 * Math.pow(1, 2);
+		double result = 1.0 - 0.001 * Math.pow(1.0, 2.0);
 		double currentOxygenLevel = patient.getOxygenLevel().getOlNum();
 
 		double resultOxygenLevel = currentOxygenLevel * result;
 
-		// set the boundery for the oxygenLevel
-		if (resultOxygenLevel < 0.6) {
-			resultOxygenLevel = 0.6;
-		} else {
-			// doing nothing
-		}
-
 		// reset the oxygenLevel of the patient
-		this.patient.setOxygenLevel(new OxygenLevel(resultOxygenLevel));
+		this.patient.getOxygenLevel().setOlNum(resultOxygenLevel);;
 		return result;
 	}
 
 	// invoke the function BloodPressure when there is no action
 	public double downFunctionBloodPressure() {
-		double result;
-		result = 1 - 0.001 * Math.pow(1, 2);
+		double result = 1.0 - 0.001 * Math.pow(1.0, 2.0);
 		double currentSystolicBloodPressure = patient.getBloodPressure()
 				.getSystolicBloodPressure();
 		double currentDiastolicBloodPressure = patient.getBloodPressure()
@@ -438,67 +416,38 @@ public class Simulator {
 		double resultDiastolicBloodPressure = result
 				* currentDiastolicBloodPressure;
 
-		// set the boundery for the bloodPressure
-		if (resultSystolicBloodPressure < 70) {
-			resultSystolicBloodPressure = 70;
-		} else {
-			// doing nothing
-		}
-		if (resultDiastolicBloodPressure < 40) {
-			resultDiastolicBloodPressure = 40;
-		} else {
-			// doing nothing
-		}
-
 		// System.out.println("currentSystolicBloodPressure = "
 		// + currentSystolicBloodPressure);
 		// System.out.println("currentDiastolicBloodPressure = "
 		// + currentDiastolicBloodPressure);
 
-		// reset the SystolicBloodPressure and DiastolicBloodPressure of the
-		// patient
-		this.patient.setBloodPressure(new BloodPressure(
-				resultSystolicBloodPressure, resultDiastolicBloodPressure));
-
+		// reset the blood pressure of patient
+		patient.getBloodPressure().setDiastolicBloodPressure(resultDiastolicBloodPressure);
+		patient.getBloodPressure().setSystolicBloodPressure(resultSystolicBloodPressure);
 		return result;
 	}
 
 	// invoke the function HeartRate when there is no action
 	public double downFunctionHeartRate() {
-		double result;
-		result = 1 - 0.0005 * Math.pow(1, 2);
+		double result = 1.0 - 0.0005 * Math.pow(1.0, 2.0);
 		double currentHeartRate = patient.getHeartRate().getHrNum();
 		// reset the heartRate of the patient
 
 		double resultHeartRate = currentHeartRate * result;
 
-		// set the boundery
-		if (resultHeartRate < 50) {
-			resultHeartRate = 50;
-		} else {
-			// doing nothing
-		}
-
-		this.patient.setHeartRate(new HeartRate(resultHeartRate));
+		this.patient.getHeartRate().setHrNum(resultHeartRate);
 		return result;
 	}
 
 	// invoke the function RespirationRate when there is no action
 	public double downFunctionRespirationRate() {
-		double result;
-		result = 1 - 0.0008 * Math.pow(1, 2);
-		double currentRespirationRate = patient.getRepiratinoRate().getRrNum();
+		double result = 1.0 - 0.0008 * Math.pow(1.0, 2.0);
+		double currentRespirationRate = patient.getRepirationRate().getRrNum();
 
 		double resultRespirationRate = currentRespirationRate * result;
 
-		if (resultRespirationRate < 10) {
-			resultRespirationRate = 10;
-		} else {
-			// doing nothing
-		}
 		// reset the respirationRate of the patient
-		this.patient.setRespirationRate(new RespirationRate(
-				resultRespirationRate));
+		this.patient.getRepirationRate().setRrNum(resultRespirationRate);
 		return result;
 	}
 
