@@ -67,9 +67,9 @@ public class Evaluator {
     goldStandard = new Path();
     goldStandard.setTag("Gold Standard");
     goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-            ""), (int)Calendar.getInstance().getTimeInMillis()));
+            0), (int)Calendar.getInstance().getTimeInMillis()));
     goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("OxygenMask",
-            "Face Mask", ""), (int)Calendar.getInstance().getTimeInMillis()));
+            "Face Mask", 100), (int)Calendar.getInstance().getTimeInMillis()));
     goldStandard
             .add(new Step(new Patient(), new Prescription(new Drug("naloxone", "Naloxone", "1"),
                     10.0, "ml"), new Tool(), (int)Calendar.getInstance().getTimeInMillis()));
@@ -315,11 +315,11 @@ public class Evaluator {
       Gson gson = new Gson();
       ArrayList<Step> a = new ArrayList<Step>();
       a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-	            ""), (int)Calendar.getInstance().getTimeInMillis()));
+	            0), (int)Calendar.getInstance().getTimeInMillis()));
       a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-	            ""), (int)Calendar.getInstance().getTimeInMillis()));
+	            0), (int)Calendar.getInstance().getTimeInMillis()));
       a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-	            ""), (int)Calendar.getInstance().getTimeInMillis()));
+	            0), (int)Calendar.getInstance().getTimeInMillis()));
       System.out.println(gson.toJson(a));
   }
 }
