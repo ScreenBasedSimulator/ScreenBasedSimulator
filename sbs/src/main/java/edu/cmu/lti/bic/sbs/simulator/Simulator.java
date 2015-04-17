@@ -16,6 +16,11 @@ public class Simulator {
 	// the model of patient
 	private Patient patient;
 
+	static boolean checkBloodPressure = false;
+	static boolean checkHeartRate = false;
+	static boolean checkOxygenLevel = false;
+	static boolean checkRespirationRate = false;
+	
 	// toolList and pescriptionList to store the information of tool and
 	// prescription which have effects on the patient.
 	private ArrayList<Tool> toolList;
@@ -75,7 +80,7 @@ public class Simulator {
 	private void initBound() {
 		// set default boundaries for each parameters
 		lowerBoundDict.put("respirationRate", 10.0);
-		upperBoundDict.put("respirationRate", 30.0);
+		upperBoundDict.put("respirationRate", 20.0);
 
 		lowerBoundDict.put("heartRate", 50.0);
 		upperBoundDict.put("heartRate", 120.0);
@@ -120,6 +125,20 @@ public class Simulator {
 			downFunctionRespirationRate();
 			return this.patient;
 		} else {
+			
+			if (!checkBloodPressure) {
+				downFunctionBloodPressure();
+			}
+			if (!checkHeartRate) {
+				downFunctionHeartRate();
+			}
+			if (!checkOxygenLevel) {
+				downFunctionOxygenLevel();
+			}
+			if (!checkRespirationRate) {
+				downFunctionRespirationRate();
+			}
+			
 			// get current value for all four medical parameters
 			double currentOxygenLevel = patient.getOxygenLevel().getOlNum();
 			double currentHeartRate = patient.getHeartRate().getHrNum();
@@ -141,6 +160,7 @@ public class Simulator {
 					// reset the oxygenLevel of the patient
 					
 					patient.getOxygenLevel().setOlNum(resultOxygenLevel);
+					checkOxygenLevel = true;
 				}
 
 				// the name of the tool do not correct, I just test the function
@@ -187,8 +207,8 @@ public class Simulator {
 							* currentRespirationRate;
 
 					// set boundery for respirationRate
-					if (resultRespirationRate > 30) {
-						resultRespirationRate = 30;
+					if (resultRespirationRate > 20) {
+						resultRespirationRate = 20;
 					}
 
 					// System.out.print("patient's Systolic Respiration Rate:"
@@ -212,8 +232,7 @@ public class Simulator {
 							lowerBoundDict.get("oxygenLevel"), upperBoundDict
 									.get("oxygenLevel")));
 					
-					
-					
+					checkOxygenLevel = true;
 				}
 
 				// **********************the prescription
@@ -233,6 +252,7 @@ public class Simulator {
 					// resultHeartRate);
 
 					patient.getHeartRate().setHrNum(resultHeartRate);
+					checkHeartRate = true;
 				}
 
 				// the name of the tool do not correct, I just test the function
@@ -255,6 +275,8 @@ public class Simulator {
 
 					patient.getBloodPressure().setDiastolicBloodPressure(resultDiastolicBloodPressure);
 					patient.getBloodPressure().setSystolicBloodPressure(resultSystolicBloodPressure);
+				
+					checkBloodPressure = true;
 				}
 
 				// the name of the tool do not correct, I just test the function
@@ -272,6 +294,7 @@ public class Simulator {
 					// resultRespirationRate);
 
 					patient.getRepirationRate().setRrNum(resultRespirationRate);
+					checkRespirationRate = true;
 				}
 			}
 
