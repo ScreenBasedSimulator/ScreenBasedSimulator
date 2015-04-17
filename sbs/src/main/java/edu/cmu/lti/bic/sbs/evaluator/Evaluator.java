@@ -152,6 +152,22 @@ public class Evaluator {
     }
   }
 
+  public State lastHealthyState(){
+    int i = actual.size()-1;
+    while(actual.get(i).getPatient().isConditionBad()){
+      i--;
+      if (i<0) return null;
+    }
+    Step lastHealthy = actual.get(i);
+    State result = new State();
+    result.p = lastHealthy.getPatient();
+    while(i>=0){
+      result.prescriptions.add(actual.get(i).getPrescription());
+      result.tools.add(actual.get(i).getTool());
+    }
+    return result;
+  }
+  
   public boolean isSimEnd() {
     if (actual.size()==0) return false;
      int timeNow = currentStep.getTime();
