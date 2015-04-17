@@ -25,20 +25,20 @@ import edu.cmu.lti.bic.sbs.ui.UserInterface;
 public class Scenario {
 	int ScenId;
 	String ScenName;
-	FileReader fileReader = null;
+	
 	UserInterface ui;
-	Patient pt;
+	Patient patient;
 	boolean isMonitorConnected;
+	
+	private FileReader fileReader = null;
 	private Gson gson = new Gson();
-	State state = null;
 
 	HashMap<String, Drug> drugMap = new HashMap<String, Drug>();
 	HashMap<String, Tool> toolMap = new HashMap<String, Tool>();
 
 	public Scenario(UserInterface ui) {
-		// just for test
 		this.ui = ui;
-		this.ScenId = 1;
+		this.ScenId = 1; // just for test
 		System.out.println("I am a new Scenario~~~");
 
 	}
@@ -140,12 +140,11 @@ public class Scenario {
 	}
 
 	public void update(UserInterface ui, Evaluator evaluator,
-			Simulator simulator, State state, Calendar time) {
+			Simulator simulator, Calendar time) {
 
 		ui.updateTime(time);
 		evaluator.receive(time);
 		Patient p = simulator.simPatient();
-		state.setCheckPoint(p.clone());
 		evaluator.regularUpdate(p, time);
 		if (Setting.LOCAL_MODE) {
 			if (isMonitorConnected) {
@@ -155,12 +154,11 @@ public class Scenario {
 		}
 	}
 
-	public void restart(Simulator simulator, State state) {
+	public void restart(Simulator simulator) {
 		// patient reset
-		pt = state.getCheckPointZero();
-		state.listOfPt.clear();
-		// simulation and evaluator reset
-		simulator.setPatient(pt);
+		patient = readPatient();
+		// simulation and reset
+		simulator.setPatient(patient);
 	}
 
 }

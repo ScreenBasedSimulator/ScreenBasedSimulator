@@ -160,10 +160,10 @@ public class Evaluator {
     }
     Step lastHealthy = actual.get(i);
     State result = new State();
-    result.p = lastHealthy.getPatient();
+    result.setPatient(lastHealthy.getPatient());
     while(i>=0){
-      result.prescriptions.add(actual.get(i).getPrescription());
-      result.tools.add(actual.get(i).getTool());
+      result.getPrescriptions().add(actual.get(i).getPrescription());
+      result.getTools().add(actual.get(i).getTool());
     }
     return result;
   }

@@ -18,30 +18,18 @@ public class Server {
 	}
 
 	// Each user holds a distinguished engine, relationship stored in engineMap
-	public Engine getOrCreateEngine(String name) {
+	public Engine getOrCreateEngine(String name) throws EngineNotFoundException {
 		if (engineMap.containsKey(name)) {
 			return engineMap.get(name);
 		} else {
-			Engine engine = null;
-			try {
-				engine = new Engine();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			engineMap.put(name, engine);
-			return engine;
+			throw new EngineNotFoundException();
 		}
-
 	}
 
 	public void start() {
 		port(8080);
 		staticFileLocation("/public");
-
-		// still needed?
-
-		//still needed?
+		
 		get("/:name/new-game", (req, res) -> {
 			Engine engine = new Engine();
 			String name = req.params("name");
@@ -128,6 +116,10 @@ public class Server {
 			// remove user from engineMap after debriefing
 			engineMap.remove(req.params("name"));
 			return gson.toJson(new Acknowledgment(200, "Success"));
+		});
+		
+		exception(EngineNotFoundException.class, (e, req, res) -> {
+			res.body(gson.toJson(new Acknowledgment(404, "Engine not found")));
 		});
 	}
 

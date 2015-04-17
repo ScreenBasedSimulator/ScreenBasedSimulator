@@ -4,17 +4,16 @@ import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Report;
 import edu.cmu.lti.bic.sbs.gson.Tool;
-
-import java.util.Calendar;
-import java.util.Timer;
-
+import edu.cmu.lti.bic.sbs.evaluator.State;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
 import edu.cmu.lti.bic.sbs.Setting;
 
-
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Timer;
 /**
  * The Engine Class
  * 
@@ -27,7 +26,6 @@ public class Engine {
 	Simulator simulator = null;
 	Evaluator evaluator = null;
 	Scenario scenario = null;
-	State state = null;
 
 	Calendar time = Calendar.getInstance();
 	Timer timer = new Timer();
@@ -67,8 +65,7 @@ public class Engine {
 			ui.addDrug(drugMap);
 			ui.setPatientInfo(patient);
 		}
-		// state for checkpoint
-		state = new State(patient);
+
 		// set simulator and evaluator
 		simulator = new Simulator(patient);
 		evaluator = new Evaluator(this);
@@ -101,7 +98,7 @@ public class Engine {
 
 	public void update(int interval) {
 		time.add(Calendar.MILLISECOND, interval);
-		scenario.update(ui, evaluator, simulator, state, time);
+		scenario.update(ui, evaluator, simulator, time);
 	}
 	
 	public void setName(String name) {
@@ -116,15 +113,21 @@ public class Engine {
 			ui.updateReport(score, content);
 		}
 	}
-	public void recover(int index) {
-		// patient = state.getCheckpoint(index);
+	public void recover(Evaluator evaluator) {
+		State state = evaluator.lastHealthyState();
+		Patient patient = state.getPatient();
+		ArrayList<Prescription> prescriptions = state.getPrescriptions();
+		ArrayList<Tool> tools= state.getTools();
+		simulator = new Simulator(patient, prescriptions, tools);
+		evaluator = new Evaluator(this);
 	}
 
 	public void restartSim() {
-		// scenario.restart(simulator, state);
-		// evaluator = new Evaluator(this);
+		scenario.restart(simulator);
+		evaluator = new Evaluator(this);
 	}
 
+	
 	// setters and getters
 	private void setReport(Report report) {
 		this.report = report;
