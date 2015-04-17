@@ -114,7 +114,7 @@ public class Evaluator {
     updateStep();
   }
   
-  public void receive(String name, Calendar time){
+  public void receive(String name){
     this.userName = name;
   }
 
