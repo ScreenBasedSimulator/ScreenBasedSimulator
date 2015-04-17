@@ -2,11 +2,20 @@ package edu.cmu.lti.bic.sbs.simulator;
 
 public class BloodPressure implements MedicalParameter {
 
-	Double systolicBloodPressure, systolicBloodPressureLowerBound,
-			systolicBloodPressureUpperBound;
-	
-	Double diastolicBloodPressure, diastolicBloodPressureLowerBound,
+	Double systolicBloodPressure, diastolicBloodPressure;
+
+	static Double systolicBloodPressureLowerBound,
+			systolicBloodPressureUpperBound, diastolicBloodPressureLowerBound,
 			diastolicBloodPressureUpperBound;
+
+	
+	
+	public BloodPressure(Double systolicBloodPressure,
+			Double diastolicBloodPressure) {
+		super();
+		this.systolicBloodPressure = systolicBloodPressure;
+		this.diastolicBloodPressure = diastolicBloodPressure;
+	}
 
 	// constructor function
 	public BloodPressure(Double systolicBloodPressure,
@@ -36,7 +45,7 @@ public class BloodPressure implements MedicalParameter {
 		} else if (systolicBloodPressure < systolicBloodPressureLowerBound) {
 			systolicBloodPressure = systolicBloodPressureLowerBound;
 		}
-		
+
 		if (diastolicBloodPressure > diastolicBloodPressureUpperBound) {
 			diastolicBloodPressure = diastolicBloodPressureUpperBound;
 		} else if (diastolicBloodPressure < diastolicBloodPressureLowerBound) {
