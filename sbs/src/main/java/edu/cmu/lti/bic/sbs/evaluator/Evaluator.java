@@ -288,13 +288,13 @@ public class Evaluator {
     try {
       BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile, false));
       
-      output.append("\nHere is the report for ");
+      output.append("Here is the report for ");
       output.append(userName + ":" + "\n");
-      output.append("\nThe final score " + userName + " get is : " 
-                      + String.format("%.2f\n\n", score));
+      output.append("The final score " + userName + " get is : " 
+                      + String.format("%.2f\n", score));
       
       output.append("The helpful steps and details "  
-                      + userName + " did is listed below : \n\n");
+                      + userName + " did is listed below : \n");
       
       output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
       
@@ -304,8 +304,8 @@ public class Evaluator {
       }
       
       
-      output.append("\n\n\nThe actual steps and details "  
-              + userName + " did is listed below : \n\n");
+      output.append("\nThe actual steps and details "  
+              + userName + " did is listed below : \n");
 
       output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
       

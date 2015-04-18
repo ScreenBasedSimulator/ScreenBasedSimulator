@@ -1,19 +1,15 @@
-
-Here is the report for null:
-
-The final score null get is : 60.00
-
-The helpful steps and details null did is listed below : 
-
+Here is the report for cc:
+The final score cc get is : 60.00
+The helpful steps and details cc did is listed below : 
 Action Time	 Drug Used		 Drug Dose	 Drug Unit		    Action
-	3		Default Drug		0.0		Default unit		Code Blue!
-	4		Default Drug		0.0		Default unit		Face Mask
+	5		Default Drug		0.0		Default unit		Code Blue!
+	14		Default Drug		0.0		Default unit		Face Mask
 
-
-
-The actual steps and details null did is listed below : 
-
+The actual steps and details cc did is listed below : 
 Action Time	 Drug Used		 Drug Dose	 Drug Unit		    Action
-	3		Default Drug		0.0		Default unit		Code Blue!
-	4		Default Drug		0.0		Default unit		Face Mask
-	7		Naloxone		9.9		mL		Default name
+	4		Default Drug		0.0		Default unit		Code Blue!
+	5		Default Drug		0.0		Default unit		Code Blue!
+	14		Default Drug		0.0		Default unit		Face Mask
+	24		Naloxone		400.0		mg		Default name
+	37		Naloxone		231.8		mg		Default name
+	46		Default Drug		0.0		Default unit		Code Blue!
