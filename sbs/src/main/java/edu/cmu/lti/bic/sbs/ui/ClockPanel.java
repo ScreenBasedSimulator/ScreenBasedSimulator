@@ -1,7 +1,14 @@
 package edu.cmu.lti.bic.sbs.ui;
 
+<<<<<<< HEAD
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+=======
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.*;
+>>>>>>> 50dcf14a682657f681f5bb3700d6ea479e56c0f3
 import javax.swing.border.TitledBorder;
 
 /**
@@ -55,6 +62,8 @@ public class ClockPanel extends JPanel {
 			text.append(second);
 		}
 		timeLabel.setText(text.toString());
+		timeLabel.setFont(new Font("TimesRoman", Font.PLAIN, 25));
+		timeLabel.setForeground(new Color(255,255,255));
 	}
 
 	/**

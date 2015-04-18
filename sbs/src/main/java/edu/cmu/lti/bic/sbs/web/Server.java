@@ -114,11 +114,18 @@ public class Server {
 			
 			return gson.toJson(new Acknowledgment(200, "Success"));
 		});
+<<<<<<< HEAD
 		post("/:name/debrief", (req, res) -> {
 			Engine engine = getOrCreateEngine(req.params("name"));
 			engine.setDebrief(req.queryParams("debrief"));
 			engineMap.remove(req.params("name"));
 			return gson.toJson(new Acknowledgment(200, "Success"));
+=======
+		post("/pickup", (request, response) -> {
+			System.out.println(request.queryParams());
+			System.out.println("Someone picked up a :" + request.queryParams("name"));
+			return "You picked up a " + request.queryParams("name");
+>>>>>>> 50dcf14a682657f681f5bb3700d6ea479e56c0f3
 		});
 	}
 	

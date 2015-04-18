@@ -2,5 +2,13 @@
 	{
 		"id": "naloxone",
 		"name": "Naloxone"
+	},
+	{
+		"id": "morphine",
+		"name": "Morphine"
+	},
+	{
+		"id":"atropine",
+		"name":"Atropine"
 	}
 ]
