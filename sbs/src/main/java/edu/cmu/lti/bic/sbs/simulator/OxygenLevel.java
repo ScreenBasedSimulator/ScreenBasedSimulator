@@ -2,8 +2,13 @@ package edu.cmu.lti.bic.sbs.simulator;
 
 public class OxygenLevel implements MedicalParameter {
 	private Double olNum;
-	private Double lowerBound;
-	private Double upperBound;
+	static private Double lowerBound;
+	static private Double upperBound;
+
+	public OxygenLevel(Double olNum) {
+		super();
+		this.olNum = olNum;
+	}
 
 	public OxygenLevel(Double olNum, Double lowerBound, Double upperBound) {
 		super();

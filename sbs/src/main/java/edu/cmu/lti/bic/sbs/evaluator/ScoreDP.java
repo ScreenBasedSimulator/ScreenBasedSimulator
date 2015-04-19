@@ -145,11 +145,11 @@ public class ScoreDP {
     // s.setTool(new Tool());
     // p1.add(s);
     p1.add(new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0",
-            "Call Code", ""), (int)Calendar.getInstance().getTimeInMillis()));
+            "Call Code", 100), (int)Calendar.getInstance().getTimeInMillis()));
     p2.add(new Step(new Patient(), new Prescription(new Drug(), 11.0, "ml"), new Tool("0",
-            "Call Code", ""), (int)Calendar.getInstance().getTimeInMillis()));
+            "Call Code", 100), (int)Calendar.getInstance().getTimeInMillis()));
     p3.add(new Step(new Patient(), new Prescription(new Drug(), 30.0, "ml"), new Tool("0",
-            "Call Code", ""), (int)Calendar.getInstance().getTimeInMillis()));
+            "Call Code", 100), (int)Calendar.getInstance().getTimeInMillis()));
 
     // ScoreDP sdp = new ScoreDP();
     double score2 = ScoreDP.scoreDP(p1, p2);

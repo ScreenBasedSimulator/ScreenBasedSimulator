@@ -2,17 +2,13 @@ package edu.cmu.lti.bic.sbs.web;
 
 import static spark.Spark.*;
 
-import java.util.Calendar;
 import java.util.HashMap;
 
 import com.google.gson.Gson;
 
 import edu.cmu.lti.bic.sbs.engine.Engine;
-import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Patient;
-import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Report;
-import edu.cmu.lti.bic.sbs.gson.Tool;
 
 public class Server {
 	private Gson gson = new Gson();
@@ -44,8 +40,11 @@ public class Server {
 		port(8080);
 		staticFileLocation("/public");
 		//still needed?
-		post("/:name/new-game", (req, res) -> {
-			engineMap.put(req.params("name"), new Engine());
+		get("/:name/new-game", (req, res) -> {
+			Engine engine = new Engine();
+			String name = req.params("name");
+			engineMap.put(name, engine);
+			engine.setName(name);
 			return gson.toJson(new Acknowledgment(200, "OK"));
 		});
 

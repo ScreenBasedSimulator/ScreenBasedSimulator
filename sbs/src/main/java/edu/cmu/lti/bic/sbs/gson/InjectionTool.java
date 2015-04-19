@@ -4,7 +4,7 @@ public class InjectionTool extends Tool {
   String drugInfo;
 
   public InjectionTool(String id, String name, String description, String drugInfo) {
-    super(id, name, description);
+    super(id, name, 0);
     this.drugInfo = drugInfo;
   }
 

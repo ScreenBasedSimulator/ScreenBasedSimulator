@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import com.google.gson.Gson;
 
+import edu.cmu.lti.bic.sbs.Setting;
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Patient;
@@ -141,16 +142,16 @@ public class Scenario {
 	public void update(UserInterface ui, Evaluator evaluator,
 			Simulator simulator, State state, Calendar time) {
 
-		ui.updateTime(time);
 		evaluator.receive(time);
 		Patient p = simulator.simPatient();
 		state.setCheckPoint(p.clone());
 		evaluator.regularUpdate(p, time);
-		if (isMonitorConnected) {
-			ui.updateMonitor(p);
-			// server.updatePatient(p);
+		if (Setting.LOCAL_MODE) {
+			if (isMonitorConnected) {
+				ui.updateTime(time);
+				ui.updateMonitor(p);
+			}
 		}
-
 	}
 
 	public void restart(Simulator simulator, State state) {
