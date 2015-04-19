@@ -125,14 +125,8 @@ public class Simulator {
 			downFunctionBloodPressure();
 			downFunctionRespirationRate();
 			return this.patient;
-		} else {
-			
-			downFunctionOxygenLevel();
-			downFunctionHeartRate();
-			downFunctionBloodPressure();
-			downFunctionBloodPressure();
-			downFunctionRespirationRate();
-			/*if (!checkBloodPressure) {
+		} else {			
+			if (!checkBloodPressure) {
 				downFunctionBloodPressure();
 			}
 			if (!checkHeartRate) {
@@ -143,7 +137,7 @@ public class Simulator {
 			}
 			if (!checkRespirationRate) {
 				downFunctionRespirationRate();
-			}*/
+			}
 			
 			// get current value for all four medical parameters
 			double currentOxygenLevel = patient.getOxygenLevel().getOlNum();
