@@ -13,8 +13,8 @@ public class OxygenLevel implements MedicalParameter {
 	public OxygenLevel(Double olNum, Double lowerBound, Double upperBound) {
 		super();
 		this.olNum = olNum;
-		this.lowerBound = lowerBound;
-		this.upperBound = upperBound;
+		OxygenLevel.lowerBound = lowerBound;
+		OxygenLevel.upperBound = upperBound;
 		validateParameter();
 	}
 
@@ -44,5 +44,10 @@ public class OxygenLevel implements MedicalParameter {
 
 	public Double oxygenFunc(float prevLevel, float interval) {
 		return 0.0;
+	}
+	
+	@Override
+	public String toString(){
+		return "OxygenLevel: " + this.getOlNum();
 	}
 }

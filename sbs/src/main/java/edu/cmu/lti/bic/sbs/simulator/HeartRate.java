@@ -42,4 +42,9 @@ public class HeartRate implements MedicalParameter {
 		validateParameter();
 		//return this;
 	}
+	
+	@Override
+	public String toString(){
+		return "HeartRate: " + this.getHrNum();
+	}
 }
