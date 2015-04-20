@@ -37,7 +37,6 @@ public class Simulator {
 		
 		/*patient = new Patient();
 		// pt.getBloodPressure().setBpNum(defaultBp);
-
 		patient.getBloodPressure().setSystolicBloodPressure(90.0);
 		patient.getBloodPressure().setDiastolicBloodPressure(60.0);
 		patient.getHeartRate().setHrNum(90.0);
@@ -53,6 +52,7 @@ public class Simulator {
 			double diastolicBloodPressure, double heartRate,
 			double oxygenLevel, double repirationRate) {
 		patient = new Patient();
+		
 		patient.setBloodPressure(new BloodPressure(
 				systolicBloodPressure, lowerBoundDict
 						.get("systolicBloodPressure"),
@@ -96,8 +96,8 @@ public class Simulator {
 
 	public Simulator() {
 		super();
-		initBound();
 		initialPatient();
+		initBound();
 		toolList = new ArrayList<Tool>();
 		prescriptionList = new ArrayList<Prescription>();
 	}
@@ -109,19 +109,10 @@ public class Simulator {
 		toolList = new ArrayList<Tool>();
 		prescriptionList = new ArrayList<Prescription>();
 	}
-	public Simulator(Patient pt, ArrayList<Prescription> prescriptions, ArrayList<Tool> tools){
-		super();
-		initBound();
-		this.patient = pt;
-		toolList = tools;
-		prescriptionList = prescriptions;
-	}
 
 	// the engine can get patient info from simulator
 	public Patient simPatient() {
-		//for debug
-		//displayParameter();
-		
+
 		// no tool and no prescription, invoke the downFunction for all four
 		// parameters
 		if (toolList.size() == 0 && prescriptionList.size() == 0) {
@@ -132,7 +123,8 @@ public class Simulator {
 			downFunctionBloodPressure();
 			downFunctionRespirationRate();
 			return this.patient;
-		} else {			
+		} else {
+			
 			if (!checkBloodPressure) {
 				downFunctionBloodPressure();
 			}
@@ -530,14 +522,6 @@ public class Simulator {
 					resultRespirationRate));
 			return result;
 		}
-		
-		public void displayParameter(){
-			System.out.println(this.patient.getOxygenLevel().toString());
-			System.out.println(this.patient.getHeartRate().toString());
-			System.out.println(this.patient.getBloodPressure().toString());
-			System.out.println(this.patient.getRepirationRate().toString());
-			System.out.println();
-		}
 
 		/*
 		 * public double newSimulationFunction(double value){ init_spo2 =
@@ -575,17 +559,5 @@ public class Simulator {
 		 * 
 		 * }
 		 */
-		
-		public static void main(String[] args){
-			Simulator s = new Simulator();
-			for(int i = 0; i< 10; i++) {
-			    try {
-			        //sending the actual Thread of execution to sleep X milliseconds
-			        Thread.sleep(1000);
-			    } catch(Exception e) {
-			        System.out.println("Exception : "+e.getMessage());
-			    }
-			    s.simPatient();
-			}
-		}
+
 }
