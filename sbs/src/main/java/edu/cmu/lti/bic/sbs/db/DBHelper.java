@@ -56,17 +56,22 @@ public class DBHelper {
 			close();
 		}
 	}
-	
-	public static void updateDatabase(String userName, int scenarioId, double score, String report, String debrief){	
+	/**
+	 * 
+	 * @param userName
+	 * @param scenarioId
+	 * @param score
+	 * @param report
+	 * @return id of the insertion row
+	 */
+	public static int insertResult(String userName, int scenarioId, double score, String report){	
 		if(userName == null){
 			userName = "";
 		}
 		if(report == null){
 			report = "";
 		}
-		if(debrief == null){
-			debrief = "";
-		}
+
 		// PreparedStatements can use variables and are more efficient
 		try {
 			//establish connection
@@ -80,16 +85,47 @@ public class DBHelper {
 			preparedStatement.setInt(2, scenarioId);
 			preparedStatement.setFloat(3, (float) score);
 			preparedStatement.setString(4, report);
-			preparedStatement.setString(5, debrief);
+			preparedStatement.setString(5, "No debriefing.");
+			
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = conn.prepareStatement("SELECT LAST_INSERT_ID()");
+			ResultSet res = preparedStatement.executeQuery();
+			res.absolute(1);
+			return res.getInt(1);
+			
+		} catch (SQLException e) {
+			System.err.println("Error occurs while database updating!");
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return -1;
+	}
+	
+	
+	public static void updateDebrief(int id, String debrief){	
+
+		// PreparedStatements can use variables and are more efficient
+		try {
+			//establish connection
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/sbs_db?"
+					+ "user=root&password=");
+			
+			preparedStatement = conn
+					.prepareStatement("UPDATE sbs_userdata SET debrief = ? WHERE id = ?");
+			// Parameters start with 1
+			preparedStatement.setString(1, debrief);
+			preparedStatement.setInt(2, id);
+	
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println("Error occurs while update database!");
+			System.err.println("Error occurs while database updating!");
 			e.printStackTrace();
 		} finally {
 			close();
 		}
 	}
-	
 	public static void removeById(int Id){
 		try {
 			//establish connection
@@ -140,8 +176,10 @@ public class DBHelper {
 		
 	//test functions
 	public static void main(String[] args) throws Exception {
-		//DBHelper.updateDatabase("test2", 1, 10.0, "aaa", "bbb");
-		//DBHelper.removeById(2);
-		//DBHelper.displayDataBase();
+//		DBHelper.insertResult("test1", 1, 10.0, "aaa");
+//		DBHelper.insertResult("test2", 1, 10.0, "bbb");
+//		DBHelper.removeById(2);
+//		DBHelper.updateDebrief(17, "lalala");
+//		DBHelper.displayDataBase();
 	}
 }

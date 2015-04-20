@@ -1,5 +1,6 @@
 package edu.cmu.lti.bic.sbs.engine;
 
+import edu.cmu.lti.bic.sbs.db.DBHelper;
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Report;
@@ -33,7 +34,9 @@ public class Engine {
 	boolean isOver = false;
 	private Report report = null;
 	private String debrief = null;
-	// database declaration
+	private String name = null;
+	private int id = 0;
+
 
 	/**
 	 * Constructor function, responsible for creating UserInterface, Simulator
@@ -103,9 +106,6 @@ public class Engine {
 		scenario.update(ui, evaluator, simulator, time);
 	}
 	
-	public void setName(String name) {
-		evaluator.receive(name);
-	}
 
 	public void simOver(double score, String content) {
 		timer.cancel();
@@ -114,7 +114,7 @@ public class Engine {
 		if (Setting.LOCAL_MODE) {
 			ui.updateReport(score, content);
 		} 
-		// database insertion
+		this.id = DBHelper.insertResult(name, scenario.ScenId, score, content);
 	}
 	
 	public void recover(Evaluator eval) {
@@ -133,13 +133,18 @@ public class Engine {
 
 	
 	// setters and getters
+	public void setName(String username) {
+		evaluator.receive(username);
+		this.name = username;
+	}
+
 	private void setReport(Report report) {
 		this.report = report;
 	}
 
 	public void setDebrief(String debriefing) {
 		this.debrief = debriefing;
-		// database update
+		DBHelper.updateDebrief(id, debriefing);
 	}
 
 	public Patient getPatient() {
