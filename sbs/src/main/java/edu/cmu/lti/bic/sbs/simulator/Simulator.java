@@ -3,6 +3,8 @@ package edu.cmu.lti.bic.sbs.simulator;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Tool;
@@ -232,6 +234,10 @@ public class Simulator {
 							lowerBoundDict.get("oxygenLevel"), upperBoundDict
 									.get("oxygenLevel")));
 					
+					
+					System.out.println("current does = " + currentDoes);
+					System.out.println("resultOxygenLevel = " + resultOxygenLevel);
+					
 					checkOxygenLevel = true;
 				}
 
@@ -242,6 +248,11 @@ public class Simulator {
 					//
 					double resultRatioForHeartRate = ytFunctionHeartRate(currentDoes);
 
+					
+//					System.out.println("current does = " + currentDoes);
+//					System.out.println("resultRatioForHeartRate = " + resultRatioForHeartRate);
+					
+					
 					// System.out.print("resultHR = " +
 					// resultRatioForHeartRate);
 
