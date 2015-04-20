@@ -109,6 +109,14 @@ public class Simulator {
 		toolList = new ArrayList<Tool>();
 		prescriptionList = new ArrayList<Prescription>();
 	}
+	
+	public Simulator(Patient pt, ArrayList<Prescription> prescriptions, ArrayList<Tool> tools){
+		super();
+		initBound();
+		this.patient = pt;
+		toolList = tools;
+		prescriptionList = prescriptions;
+	}
 
 	// the engine can get patient info from simulator
 	public Patient simPatient() {
