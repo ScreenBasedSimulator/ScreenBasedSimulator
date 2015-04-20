@@ -142,7 +142,6 @@ public class Scenario {
 	public void update(UserInterface ui, Evaluator evaluator,
 			Simulator simulator, Calendar time) {
 
-		ui.updateTime(time);
 		evaluator.receive(time);
 		Patient p = simulator.simPatient();
 		evaluator.regularUpdate(p, time);
