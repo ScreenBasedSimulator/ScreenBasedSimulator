@@ -32,6 +32,8 @@ public class Engine {
 
 	boolean isOver = false;
 	private Report report = null;
+	private String debrief = null;
+	// database declaration
 
 	/**
 	 * Constructor function, responsible for creating UserInterface, Simulator
@@ -111,8 +113,10 @@ public class Engine {
 		setReport(new Report(score, content));
 		if (Setting.LOCAL_MODE) {
 			ui.updateReport(score, content);
-		}
+		} 
+		// database insertion
 	}
+	
 	public void recover(Evaluator eval) {
 		State state = eval.lastHealthyState();
 		Patient patient = state.getPatient();
@@ -133,8 +137,9 @@ public class Engine {
 		this.report = report;
 	}
 
-	public void setDebrief(String queryParams) {
-
+	public void setDebrief(String debriefing) {
+		this.debrief = debriefing;
+		// database update
 	}
 
 	public Patient getPatient() {
