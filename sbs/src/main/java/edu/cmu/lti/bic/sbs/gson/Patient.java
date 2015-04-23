@@ -12,18 +12,23 @@ enum Status {
 
 }
 
-public class Patient {
+// implements Cloneable for clone() function call to deep copy patient 
+// object for checkpoint function
+public class Patient implements Cloneable {
 	private String basic; //eg: male, 35, white
 	private String description; //eg: headache, vomit
 	
 
 	private Condition cd;
+	//bloodPressure range from (100, 190) and (40, 70)
+	private BloodPressure bloodPressure = new BloodPressure(90.0, 100.0, 190.0, 60.0, 40.0, 70.0);
+	//heartRate range from (50, 150)
+	private HeartRate heartRate = new HeartRate(70.0, 50.0, 150.0);
+	//oxygenLevel range from (0.6, 1.0)
+	private OxygenLevel oxygenLevel = new OxygenLevel(0.8, 0.6, 1.0);
 
-	private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0);
-
-	private HeartRate heartRate = new HeartRate(80.0);
-	private OxygenLevel oxygenLevel = new OxygenLevel(0.3);
-	private RespirationRate respirationRate = new RespirationRate(12.0);
+	//respirationRate range from (10, 30)
+	private RespirationRate respirationRate = new RespirationRate(12.0, 10.0, 30.0);
 	
 	GraphicDisplay graDisplay;
 	Status status;
@@ -69,11 +74,25 @@ public class Patient {
 		this.oxygenLevel = oxygenLevel;
 	}
 
-	public RespirationRate getRepiratinoRate() {
+	public RespirationRate getRepirationRate() {
 		return respirationRate;
 	}
 
 	public void setRespirationRate(RespirationRate respirationRate) {
 		this.respirationRate = respirationRate;
+	}
+	
+	/*
+	 * This is the override function for clone()
+	 * @see java.lang.Object#clone()
+	 */
+	public Patient clone(){
+		try {
+			return (Patient)super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

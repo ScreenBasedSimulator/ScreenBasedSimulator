@@ -48,7 +48,12 @@ public class UserInterface {
 	public void callCode(String code) {
 		// decisionEngine.callCode(code);
 		ui.addPathography("Code Blue!");
-		decisionEngine.useTool(new Tool("codeblue", "Code Blue", ""));
+		try {
+			decisionEngine.useTool("codeblue");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			Sound.play("alarm");
 		} catch (Exception e) {
@@ -63,20 +68,23 @@ public class UserInterface {
 	}
 
 	public void useTool(String id) {
-		Tool tool = toolMap.get(id);
-		assert (tool != null);
-		this.addPathography("UI: " + tool.getName() + " is used.");
-		System.out.println("UI: Tool " + tool.getName() + " is used.");
-		decisionEngine.useTool(tool);
+		try {
+			decisionEngine.useTool(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 
 	public void useDrug(String id, Double dose, String unit) {
 		assert (id != null);
-		Drug drug = drugMap.get(id);
-		assert (drug != null);
-		Prescription prescription = new Prescription(drug, dose, unit);
-		decisionEngine.useDrug(prescription);
+		try {
+			decisionEngine.useDrug(id, dose, unit);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		ui.addPathography("used a drug!");
 		window.closeDrugWindow();
 	}
@@ -138,12 +146,12 @@ public class UserInterface {
 		assert (p.getBloodPressure() != null);
 		assert (p.getHeartRate() != null);
 		assert (p.getOxygenLevel() != null);
-		assert (p.getRepiratinoRate() != null);
+		assert (p.getRepirationRate() != null);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				window.setMonitor(p.getBloodPressure().getDiastolicBloodPressure(), p
 						.getBloodPressure().getSystolicBloodPressure(), p.getHeartRate()
-						.getHrNum(), p.getOxygenLevel().getOlNum(), p.getRepiratinoRate()
+						.getHrNum(), p.getOxygenLevel().getOlNum(), p.getRepirationRate()
 						.getRrNum());
 			}
 		});
