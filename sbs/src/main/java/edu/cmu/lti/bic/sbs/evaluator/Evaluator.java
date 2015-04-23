@@ -71,7 +71,7 @@ public class Evaluator {
     goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("OxygenMask",
             "Face Mask", 100), (int)Calendar.getInstance().getTimeInMillis()));
     goldStandard
-            .add(new Step(new Patient(), new Prescription(new Drug("naloxone", "Naloxone", "1"),
+            .add(new Step(new Patient(), new Prescription(new Drug("naloxone", "Naloxone", "naloxone"),
                     10.0, "ml"), new Tool(), (int)Calendar.getInstance().getTimeInMillis()));
   }
 
