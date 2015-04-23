@@ -72,7 +72,7 @@ public class Evaluator {
             "Face Mask", 100), (int)Calendar.getInstance().getTimeInMillis()));
     goldStandard
             .add(new Step(new Patient(), new Prescription(new Drug("naloxone", "Naloxone", "naloxone"),
-                    10.0, "ml"), new Tool(), (int)Calendar.getInstance().getTimeInMillis()));
+                    200.0, "mcg"), new Tool(), (int)Calendar.getInstance().getTimeInMillis()));
   }
 
   class Report {
