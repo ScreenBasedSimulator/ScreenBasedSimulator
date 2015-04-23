@@ -6,14 +6,25 @@ The final score John get is : 195.29
 The helpful steps and details John did is listed below : 
 
 Action Time	 Drug Used		 Drug Dose	 Drug Unit		    Action
+<<<<<<< HEAD
 	7		Default Drug		0.0		Default unit		Code Blue
 	8		Default Drug		0.0		Default unit		Face Mask
+=======
+	2		Default Drug		0.0		Default unit		Code Blue
+	6		Default Drug		0.0		Default unit		Face Mask
+>>>>>>> branch 'master' of https://github.com/ScreenBasedSimulator/ScreenBasedSimulator.git
 
 
 
 The actual steps and details John did is listed below : 
 
 Action Time	 Drug Used		 Drug Dose	 Drug Unit		    Action
+<<<<<<< HEAD
 	7		Default Drug		0.0		Default unit		Code Blue
 	8		Default Drug		0.0		Default unit		Face Mask
 	13		Naloxone		9.9		mL		Default name
+=======
+	2		Default Drug		0.0		Default unit		Code Blue
+	6		Default Drug		0.0		Default unit		Face Mask
+	9		Naloxone		10.0		mL		Default name
+>>>>>>> branch 'master' of https://github.com/ScreenBasedSimulator/ScreenBasedSimulator.git

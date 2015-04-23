@@ -104,7 +104,8 @@ public class Evaluator {
 
   public void receive(Patient patient, Calendar time) {
     currentStep.setPatient(patient);
-    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
+    System.out.print(curTime);
     currentStep.setTime(curTime);
     System.out.println("Patient added");
     updateStep();
@@ -112,7 +113,7 @@ public class Evaluator {
 
   public void receive(Prescription prescription, Calendar time) {
     currentStep.setPrescription(prescription);
-    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
     currentStep.setTime(curTime);
     System.out.println("Evaluator: USER ACTION: USE DRUG:" + prescription.getDrug().getName());
     updateStep();
@@ -129,14 +130,14 @@ public class Evaluator {
 
   public void receive(Tool tool, Calendar time) {
     currentStep.setTool(tool);
-    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
     currentStep.setTime(curTime);
     System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
     updateStep();
   }
 
   public void receive(Calendar time) {
-    int curTime = (int)(time.getTimeInMillis() - baseTimeInMills);
+    int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
     currentStep.setTime(curTime);
     updateStep();
 
@@ -155,7 +156,7 @@ public class Evaluator {
      int timeNow = currentStep.getTime();
      int timeLast = actual.get(actual.size()-1).getTime();
      Patient p = currentStep.getPatient();
-     return 10000 < timeNow-timeLast ||
+     return 10000 < timeNow-timeLast &&
              (p.getOxygenLevel().getOlNum() < .50 ||
                      p.getOxygenLevel().getOlNum()>.90);
   }
@@ -259,7 +260,13 @@ public class Evaluator {
       e.printStackTrace();
     }
     
-    return sb.toString();
+    // generate the txt report
+    String reportTxt = txtReportGenerator(score);
+    
+    
+    // TODO: Set the patient score.
+    // Where can I set the patie<nt score??
+    return reportTxt;
   }
 
   public static Path loadGS(String filepath) throws Exception{
@@ -284,9 +291,55 @@ public class Evaluator {
       }
       return gs;
   }
+
+  private String txtReportGenerator(double score){
+    String outputFile = "Report.txt";
+    String familyName = "Smith";
+    String firstName = "John";
+    StringBuilder output = new StringBuilder();
+    try {
+      BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile, false));
+      
+      output.append("\nHere is the report for ");
+      output.append(firstName + " " + familyName + ":" + "\n");
+      output.append("\nThe final score " + firstName + " get is : " 
+                      + String.format("%.2f\n\n", score));
+      
+      output.append("The helpful steps and details "  
+                      + firstName + " did is listed below : \n\n");
+      
+      output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+      
+      for (Step s : scoreDP.getBacktrack()) {
+        output.append(s.getStep());
+        // sb.append("\n");
+      }
+      
+      
+      output.append("\n\n\nThe actual steps and details "  
+              + firstName + " did is listed below : \n\n");
+
+      output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+      
+      for (Step s : actual) {
+        output.append(s.getStep());
+        // sb.append("\n");
+      }
+      
+      
+      bw.write(output.toString());
+      System.out.println(output);
+      
+      bw.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return output.toString();
+  }
   
   // Main method for testing
   public static void main(String[] args) {
+      // Test for generate the path gson for Xing Sun to write the json file. 
       Gson gson = new Gson();
       ArrayList<Step> a = new ArrayList<Step>();
       a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",

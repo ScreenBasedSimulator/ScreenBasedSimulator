@@ -1,20 +1,40 @@
 package edu.cmu.lti.bic.sbs.simulator;
 
 public class OxygenLevel implements MedicalParameter {
-	Double olNum;
+	private Double olNum;
+	private Double lowerBound;
+	private Double upperBound;
 
-	public OxygenLevel(Double olNum) {
+	public OxygenLevel(Double olNum, Double lowerBound, Double upperBound) {
 		super();
 		this.olNum = olNum;
+		this.lowerBound = lowerBound;
+		this.upperBound = upperBound;
+		validateParameter();
 	}
 
+	/*
+	 * Check if rate is in the range of lower and upper bound
+	 * must be called after changing rate data
+	 */
+	private void validateParameter(){
+		if(olNum > upperBound){
+			olNum = upperBound;
+		}
+		else if(olNum < lowerBound){
+			olNum = lowerBound;
+		}
+	}
+	
 	public Double getOlNum() {
 		return olNum;
 	}
 
-	public OxygenLevel setOlNum(Double olNum) {
+	//TODO: set return type to void
+	public void setOlNum(Double olNum) {
 		this.olNum = olNum;
-		return this;
+		validateParameter();
+		//return this;
 	}
 
 	public Double oxygenFunc(float prevLevel, float interval) {
