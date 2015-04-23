@@ -153,15 +153,15 @@ public class Evaluator {
   }
 
   public State lastHealthyState(){
-    int i = actual.size()-1;
+    int i = actual.size() - 1;
     while(actual.get(i).getPatient().isConditionBad()){
       i--;
-      if (i<0) return null;
+      if (i < 0) return null;
     }
     Step lastHealthy = actual.get(i);
     State result = new State();
     result.setPatient(lastHealthy.getPatient());
-    while(i>=0){
+    while(i >= 0){
       result.getPrescriptions().add(actual.get(i).getPrescription());
       result.getTools().add(actual.get(i).getTool());
     }
@@ -169,9 +169,9 @@ public class Evaluator {
   }
   
   public boolean isSimEnd() {
-    if (actual.size()==0) return false;
+    if (actual.size() == 0) return false;
      int timeNow = currentStep.getTime();
-     int timeLast = actual.get(actual.size()-1).getTime();
+     int timeLast = actual.get(actual.size() - 1).getTime();
      Patient p = currentStep.getPatient();
      return 60000 < timeNow-timeLast && (p.isConditionStable() || p.isConditionBad());
   }
@@ -186,11 +186,13 @@ public class Evaluator {
    */
 
   public void calculateScore() {
-    score = scoreDP.scoreDP(goldStandard, actual);
+    scoreDP.scoreDP(goldStandard, actual);
+    score = this.getPatientScore();
   }
 
   public void calculateScorePending() {
-    score = scoreDP.scoreDPpending(goldStandard, actual);
+    scoreDP.scoreDPpending(goldStandard, actual);
+    score = this.getPatientScore();
   }
 
   public double getScore() {

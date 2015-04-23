@@ -112,12 +112,6 @@ public class ScoreDP {
       }
     }
     
-    // this is only for the three step scenario score
-    if(score == 90.0)
-        score = 100;
-    else if(score == 30)
-        score = 10;
-    
     return score;
     
     // for(Pair p : backtrack)
