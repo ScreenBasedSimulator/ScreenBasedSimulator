@@ -132,8 +132,8 @@ public class Scenario {
 
 	public void useDrug(Drug drug, Double dose, Evaluator evaluator,
 			Simulator simulator, Calendar time, Prescription p) {
-		System.out.println("Scenario :Drug " + dose + " " + drug.getName()
-				+ "is used.");
+		System.out.println("Scenario: Drug " + dose + " " + drug.getName()
+				+ " is used.");
 		evaluator.receive(new Tool(), time);
 		evaluator.receive(p, time);
 		simulator.simWithDrugs(p);

@@ -131,7 +131,7 @@ public class Evaluator {
     currentStep.setTool(tool);
     int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
     currentStep.setTime(curTime);
-    System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
+    System.out.println("Evaluator: USER ACTION: USE TOOL:" + tool.getName());
     updateStep();
   }
 
