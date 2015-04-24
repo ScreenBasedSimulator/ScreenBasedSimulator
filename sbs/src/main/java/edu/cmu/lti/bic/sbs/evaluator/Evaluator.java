@@ -72,7 +72,7 @@ public class Evaluator {
             "Face Mask", 100), (int)Calendar.getInstance().getTimeInMillis()));
     goldStandard
             .add(new Step(new Patient(), new Prescription(new Drug("naloxone", "Naloxone", "naloxone"),
-                    10.0, "ml"), new Tool(), (int)Calendar.getInstance().getTimeInMillis()));
+                    200.0, "mcg"), new Tool(), (int)Calendar.getInstance().getTimeInMillis()));
   }
 
   class Report {
@@ -131,7 +131,7 @@ public class Evaluator {
     currentStep.setTool(tool);
     int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
     currentStep.setTime(curTime);
-    System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
+    System.out.println("Evaluator: USER ACTION: USE TOOL:" + tool.getName());
     updateStep();
   }
 
