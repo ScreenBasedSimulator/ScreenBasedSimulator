@@ -5,7 +5,7 @@ public class BreathHelper extends Tool {
   float startTime;
 
   public BreathHelper(String id, String name, String description, float startTime) {
-    super(id, name, description);
+    super(id, name, 0);
     this.startTime = startTime;
   }
 

@@ -25,20 +25,20 @@ import edu.cmu.lti.bic.sbs.ui.UserInterface;
 public class Scenario {
 	int ScenId;
 	String ScenName;
-	FileReader fileReader = null;
+	
 	UserInterface ui;
-	Patient pt;
+	Patient patient;
 	boolean isMonitorConnected;
+	
+	private FileReader fileReader = null;
 	private Gson gson = new Gson();
-	State state = null;
 
 	HashMap<String, Drug> drugMap = new HashMap<String, Drug>();
 	HashMap<String, Tool> toolMap = new HashMap<String, Tool>();
-	
+
 	public Scenario(UserInterface ui) {
-		// just for test
 		this.ui = ui;
-		this.ScenId = 1;
+		this.ScenId = 1; // just for test
 		System.out.println("I am a new Scenario~~~");
 
 	}
@@ -74,7 +74,6 @@ public class Scenario {
 	 * Interaction functions with all other packages, used by engine class
 	 */
 
-
 	public Drug[] readDrug() {
 		try {
 			fileReader = new FileReader("src/test/resources/drugTest.json");
@@ -86,13 +85,6 @@ public class Scenario {
 			drugMap.put(drug.getId(), drug);
 		}
 		return drugList;
-	}
-	public HashMap<String, Drug> getDrugMap() {
-		return drugMap;
-	}
-	
-	public HashMap<String, Tool> getToolMap() {
-		return toolMap;
 	}
 
 	public Patient readPatient() {
@@ -118,6 +110,14 @@ public class Scenario {
 		return toolList;
 	}
 
+	public HashMap<String, Drug> getDrugMap() {
+		return drugMap;
+	}
+
+	public HashMap<String, Tool> getToolMap() {
+		return toolMap;
+	}
+
 	public void connectMonitor() {
 		isMonitorConnected = true;
 	}
@@ -132,19 +132,18 @@ public class Scenario {
 
 	public void useDrug(Drug drug, Double dose, Evaluator evaluator,
 			Simulator simulator, Calendar time, Prescription p) {
-		System.out.println("Scenario :Drug " + dose + " " + drug.getName()
-				+ "is used.");
+		System.out.println("Scenario: Drug " + dose + " " + drug.getName()
+				+ " is used.");
 		evaluator.receive(new Tool(), time);
 		evaluator.receive(p, time);
 		simulator.simWithDrugs(p);
 	}
 
 	public void update(UserInterface ui, Evaluator evaluator,
-			Simulator simulator, State state, Calendar time) {
+			Simulator simulator, Calendar time) {
 
 		evaluator.receive(time);
 		Patient p = simulator.simPatient();
-		state.setCheckPoint(p.clone());
 		evaluator.regularUpdate(p, time);
 		if (Setting.LOCAL_MODE) {
 			if (isMonitorConnected) {
@@ -154,13 +153,11 @@ public class Scenario {
 		}
 	}
 
-	public void restart(Simulator simulator, State state) {
+	public void restart(Simulator simulator) {
 		// patient reset
-		pt = state.getCheckPointZero();
-		state.listOfPt.clear();
-		// simulation and evaluator reset
-		simulator.setPatient(pt);
-		
+		patient = readPatient();
+		// simulation and reset
+		simulator.setPatient(patient);
 	}
-	
+
 }

@@ -98,12 +98,12 @@ public class Patient implements Cloneable {
 	
 	public boolean isConditionStable(){
 	  // check heart rate
-	  boolean res = heartRate.getHrNum() > 60 && heartRate.getHrNum() < 100;
+	  boolean res = heartRate.getHrNum() > 60 && heartRate.getHrNum() < 151;
 	  // check respiratory rate
-	  res = res && respirationRate.getRrNum() > 12 && respirationRate.getRrNum() < 20;
+	  res = res && respirationRate.getRrNum() > 12 && respirationRate.getRrNum() < 20.1;
 	  // check blood pressure
 	  res = res && (bloodPressure.getDiastolicBloodPressure() 
-            + bloodPressure.getSystolicBloodPressure() < 260) &&
+            + bloodPressure.getSystolicBloodPressure() < 261) &&
             (bloodPressure.getDiastolicBloodPressure()
             + bloodPressure.getSystolicBloodPressure() > 140);
 	  // check oxygen level

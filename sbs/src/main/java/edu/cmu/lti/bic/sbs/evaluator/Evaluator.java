@@ -67,12 +67,12 @@ public class Evaluator {
     goldStandard = new Path();
     goldStandard.setTag("Gold Standard");
     goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-            ""), (int)Calendar.getInstance().getTimeInMillis()));
+            0), (int)Calendar.getInstance().getTimeInMillis()));
     goldStandard.add(new Step(new Patient(), new Prescription(), new Tool("OxygenMask",
-            "Face Mask", ""), (int)Calendar.getInstance().getTimeInMillis()));
+            "Face Mask", 100), (int)Calendar.getInstance().getTimeInMillis()));
     goldStandard
-            .add(new Step(new Patient(), new Prescription(new Drug("naloxone", "Naloxone", "1"),
-                    10.0, "ml"), new Tool(), (int)Calendar.getInstance().getTimeInMillis()));
+            .add(new Step(new Patient(), new Prescription(new Drug("naloxone", "Naloxone", "naloxone"),
+                    200.0, "mcg"), new Tool(), (int)Calendar.getInstance().getTimeInMillis()));
   }
 
   class Report {
@@ -131,7 +131,7 @@ public class Evaluator {
     currentStep.setTool(tool);
     int curTime = (int)(Calendar.getInstance().getTimeInMillis() - baseTimeInMills);
     currentStep.setTime(curTime);
-    System.out.println("Evaluator: USER ACTION: USE DRUG:" + tool.getName());
+    System.out.println("Evaluator: USER ACTION: USE TOOL:" + tool.getName());
     updateStep();
   }
 
@@ -152,10 +152,26 @@ public class Evaluator {
     }
   }
 
+  public State lastHealthyState(){
+    int i = actual.size() - 1;
+    while(actual.get(i).getPatient().isConditionBad()){
+      i--;
+      if (i < 0) return null;
+    }
+    Step lastHealthy = actual.get(i);
+    State result = new State();
+    result.setPatient(lastHealthy.getPatient());
+    while(i >= 0){
+      result.getPrescriptions().add(actual.get(i).getPrescription());
+      result.getTools().add(actual.get(i).getTool());
+    }
+    return result;
+  }
+  
   public boolean isSimEnd() {
-    if (actual.size()==0) return false;
+    if (actual.size() == 0) return false;
      int timeNow = currentStep.getTime();
-     int timeLast = actual.get(actual.size()-1).getTime();
+     int timeLast = actual.get(actual.size() - 1).getTime();
      Patient p = currentStep.getPatient();
      return 60000 < timeNow-timeLast && (p.isConditionStable() || p.isConditionBad());
   }
@@ -170,11 +186,13 @@ public class Evaluator {
    */
 
   public void calculateScore() {
-    score = scoreDP.scoreDP(goldStandard, actual);
+    scoreDP.scoreDP(goldStandard, actual);
+    score = this.getPatientScore();
   }
 
   public void calculateScorePending() {
-    score = scoreDP.scoreDPpending(goldStandard, actual);
+    scoreDP.scoreDPpending(goldStandard, actual);
+    score = this.getPatientScore();
   }
 
   public double getScore() {
@@ -272,13 +290,13 @@ public class Evaluator {
     try {
       BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile, false));
       
-      output.append("\nHere is the report for ");
+      output.append("Here is the report for ");
       output.append(userName + ":" + "\n");
-      output.append("\nThe final score " + userName + " get is : " 
-                      + String.format("%.2f\n\n", score));
+      output.append("The final score " + userName + " get is : " 
+                      + String.format("%.2f\n", score));
       
       output.append("The helpful steps and details "  
-                      + userName + " did is listed below : \n\n");
+                      + userName + " did is listed below : \n");
       
       output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
       
@@ -288,8 +306,8 @@ public class Evaluator {
       }
       
       
-      output.append("\n\n\nThe actual steps and details "  
-              + userName + " did is listed below : \n\n");
+      output.append("\nThe actual steps and details "  
+              + userName + " did is listed below : \n");
 
       output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
       
@@ -298,6 +316,22 @@ public class Evaluator {
         // sb.append("\n");
       }
       
+      // Print the patient state
+      if (actual.getBpHighTime()>0)
+        output.append("The patient's blood pressure is too high for " +actual.getBpHighTime()+ " seconds\n");
+      if (actual.getBpLowTime()>0)
+        output.append("The patient's blood pressure is too low for " +actual.getBpLowTime()+ " seconds\n");
+      if(actual.getHrHighTime()>0)
+        output.append("The patient's heart rate is too high for " +actual.getHrHighTime()+ " seconds\n");
+      if(actual.getHrLowTime()>0)
+        output.append("The patient's heart rate is too low for " +actual.getHrLowTime()+ " seconds\n");
+      if(actual.getOlTime()>0)
+        output.append("The patient's oxygen level is too low for " +actual.getOlTime()+ " seconds\n");
+      if(actual.getRrHighTime()>0)
+        output.append("The patient's respiratory rate is too high for " +actual.getRrHighTime()+ " seconds\n");
+      if(actual.getRrLowTime()>0)
+        output.append("The patient's respiratory rate is too low for " +actual.getRrLowTime()+ " seconds\n");
+
       
       bw.write(output.toString());
       System.out.println(output);
@@ -315,11 +349,11 @@ public class Evaluator {
       Gson gson = new Gson();
       ArrayList<Step> a = new ArrayList<Step>();
       a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-	            ""), (int)Calendar.getInstance().getTimeInMillis()));
+	            0), (int)Calendar.getInstance().getTimeInMillis()));
       a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-	            ""), (int)Calendar.getInstance().getTimeInMillis()));
+	            0), (int)Calendar.getInstance().getTimeInMillis()));
       a.add(new Step(new Patient(), new Prescription(), new Tool("codeblue", "Call Code",
-	            ""), (int)Calendar.getInstance().getTimeInMillis()));
+	            0), (int)Calendar.getInstance().getTimeInMillis()));
       System.out.println(gson.toJson(a));
   }
 }

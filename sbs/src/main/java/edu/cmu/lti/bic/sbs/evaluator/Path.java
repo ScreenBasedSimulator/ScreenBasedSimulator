@@ -9,8 +9,27 @@ import java.util.Iterator;
  *
  */
 public class Path extends ArrayList<Step> {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+
   String tag = ""; // tag the type of this path: goldStandard or actual
 
+  double rrLowTime = 0;
+  
+  double rrHighTime = 0;
+  
+  double hrLowTime = 0;
+  
+  double bpLowTime = 0;
+  
+  double hrHighTime = 0;
+  
+  double bpHighTime = 0;
+  
+  double olTime = 0;
+  
   /**
    * The method that use to calculate the score between two paths.
    * 
@@ -33,6 +52,52 @@ public class Path extends ArrayList<Step> {
       pScore += itrThis.next().stepScore(itrP2.next());
     }
     return pScore;
+  }
+  
+  /**
+   * 
+   * Update the patient record
+   * 
+   * @param s
+   *  the step to be added
+   *  
+   * @return
+   *  whether it is added successful
+   * 
+   */
+  public boolean add(Step s){
+    double prevTime = 0;
+    if (!this.isEmpty()){
+      prevTime = (double)this.get(this.size()-1).getTime()/1000.0;
+    }
+    double curTime = (double)s.getTime()/1000.0;
+    double time = (curTime-prevTime)/2.0;
+    // check oxygen level
+    if (s.getPatient().getOxygenLevel().getOlNum() - 79 < 0) {
+      olTime += time;
+    }
+    // check respiratory rate
+    if (11.9 - s.getPatient().getRepirationRate().getRrNum()>0) {
+      rrLowTime += time;
+    }else if(20.1 - s.getPatient().getRepirationRate().getRrNum()<0){
+      rrHighTime += time;
+    }
+    // check blood pressure
+    if (s.getPatient().getBloodPressure().getDiastolicBloodPressure() - 100
+            + s.getPatient().getBloodPressure().getSystolicBloodPressure() - 160>0) {
+      bpHighTime += time;
+    }else if(140 
+            - s.getPatient().getBloodPressure().getDiastolicBloodPressure() 
+            - s.getPatient().getBloodPressure().getSystolicBloodPressure()>0){
+      bpLowTime += time;
+    }
+    // check heart rate
+    if (s.getPatient().getHeartRate().getHrNum() - 100 > 0) {
+      hrHighTime += time;
+    }else if(60 - s.getPatient().getHeartRate().getHrNum()>0){
+      hrLowTime += time;
+    }
+    return super.add(s);
   }
 
   public double patientScore() {
@@ -83,6 +148,62 @@ public class Path extends ArrayList<Step> {
    */
   public void setTag(String tag) {
     this.tag = tag;
+  }
+
+  public double getRrLowTime() {
+    return rrLowTime;
+  }
+
+  public void setRrLowTime(double rrLowTime) {
+    this.rrLowTime = rrLowTime;
+  }
+
+  public double getRrHighTime() {
+    return rrHighTime;
+  }
+
+  public void setRrHighTime(double rrHighTime) {
+    this.rrHighTime = rrHighTime;
+  }
+
+  public double getHrLowTime() {
+    return hrLowTime;
+  }
+
+  public void setHrLowTime(double hrLowTime) {
+    this.hrLowTime = hrLowTime;
+  }
+
+  public double getBpLowTime() {
+    return bpLowTime;
+  }
+
+  public void setBpLowTime(double bpLowTime) {
+    this.bpLowTime = bpLowTime;
+  }
+
+  public double getHrHighTime() {
+    return hrHighTime;
+  }
+
+  public void setHrHighTime(double hrHighTime) {
+    this.hrHighTime = hrHighTime;
+  }
+
+  public double getBpHighTime() {
+    return bpHighTime;
+  }
+
+  public void setBpHighTime(double bpHighTime) {
+    this.bpHighTime = bpHighTime;
+  }
+
+  public double getOlTime() {
+    return olTime;
+  }
+
+  public void setOlTime(double olTime) {
+    this.olTime = olTime;
   }
 
 }

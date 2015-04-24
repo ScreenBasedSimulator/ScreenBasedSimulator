@@ -1,19 +1,20 @@
 package edu.cmu.lti.bic.sbs.engine;
 
+import edu.cmu.lti.bic.sbs.db.DBHelper;
 import edu.cmu.lti.bic.sbs.evaluator.Evaluator;
 import edu.cmu.lti.bic.sbs.gson.Drug;
 import edu.cmu.lti.bic.sbs.gson.Report;
 import edu.cmu.lti.bic.sbs.gson.Tool;
-
-import java.util.Calendar;
-import java.util.Timer;
-
+import edu.cmu.lti.bic.sbs.evaluator.State;
 import edu.cmu.lti.bic.sbs.gson.Prescription;
 import edu.cmu.lti.bic.sbs.gson.Patient;
 import edu.cmu.lti.bic.sbs.simulator.Simulator;
 import edu.cmu.lti.bic.sbs.ui.UserInterface;
 import edu.cmu.lti.bic.sbs.Setting;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Timer;
 /**
  * The Engine Class
  * 
@@ -26,16 +27,20 @@ public class Engine {
 	Simulator simulator = null;
 	Evaluator evaluator = null;
 	Scenario scenario = null;
-	State state = null;
 
 	Calendar time = Calendar.getInstance();
 	Timer timer = new Timer();
 
-	boolean isOver = false; 
+	boolean isOver = false;
 	private Report report = null;
+	private String debrief = null;
+	private String name = null;
+	private int id = 0;
+
+
 	/**
 	 * Constructor function, responsible for creating UserInterface, Simulator
-	 * and Evaluator
+	 * and Evaluator for the Scenario, as well as start time looping
 	 * 
 	 * @throws Exception
 	 */
@@ -65,9 +70,8 @@ public class Engine {
 			ui.addDrug(drugMap);
 			ui.setPatientInfo(patient);
 		}
-		// state for checkpoint
-		state = new State(patient);
-		//set simulator and evaluator
+
+		// set simulator and evaluator
 		simulator = new Simulator(patient);
 		evaluator = new Evaluator(this);
 		// Start looping
@@ -99,36 +103,9 @@ public class Engine {
 
 	public void update(int interval) {
 		time.add(Calendar.MILLISECOND, interval);
-		scenario.update(ui, evaluator, simulator, state, time);
-
-	}
-
-	public void recover(int index) {
-		//patient = state.getCheckpoint(index);
+		scenario.update(ui, evaluator, simulator, time);
 	}
 	
-	
-	// getters
-	public Patient getPatient() {
-		return simulator.getPatient();
-	}
-	public Calendar getTime(){
-		return time;
-	}
-	public Report getReport() {
-		return report;
-	}
-	public boolean isStop(){
-		return isOver;
-	}
-	public void restartSim() {
-		scenario.restart(simulator, state);
-		evaluator = new Evaluator(this);
-	}
-	
-	public void setName(String name) {
-		evaluator.receive(name);
-	}
 
 	public void simOver(double score, String content) {
 		timer.cancel();
@@ -136,20 +113,54 @@ public class Engine {
 		setReport(new Report(score, content));
 		if (Setting.LOCAL_MODE) {
 			ui.updateReport(score, content);
-		}
+		} 
+		this.id = DBHelper.insertResult(name, scenario.ScenId, score, content);
+	}
+	
+	public void recover(Evaluator eval) {
+		State state = eval.lastHealthyState();
+		Patient patient = state.getPatient();
+		ArrayList<Prescription> prescriptions = state.getPrescriptions();
+		ArrayList<Tool> tools= state.getTools();
+		simulator = new Simulator(patient, prescriptions, tools);
+		evaluator = new Evaluator(this);
 	}
 
+	public void restartSim() {
+		scenario.restart(simulator);
+		evaluator = new Evaluator(this);
+	}
 
+	
+	// setters and getters
+	public void setName(String username) {
+		evaluator.receive(username);
+		this.name = username;
+	}
 
 	private void setReport(Report report) {
 		this.report = report;
 	}
 
-	public void setDebrief(String queryParams) {
-		// TODO Auto-generated method stub
-		
+	public void setDebrief(String debriefing) {
+		this.debrief = debriefing;
+		DBHelper.updateDebrief(id, debriefing);
 	}
 
-	
-}
+	public Patient getPatient() {
+		return simulator.getPatient();
+	}
 
+	public Calendar getTime() {
+		return time;
+	}
+
+	public Report getReport() {
+		return report;
+	}
+
+	public boolean isStop() {
+		return isOver;
+	}
+
+}

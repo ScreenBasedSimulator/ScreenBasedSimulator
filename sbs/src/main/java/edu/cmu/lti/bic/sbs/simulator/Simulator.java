@@ -39,7 +39,6 @@ public class Simulator {
 		
 		/*patient = new Patient();
 		// pt.getBloodPressure().setBpNum(defaultBp);
-
 		patient.getBloodPressure().setSystolicBloodPressure(90.0);
 		patient.getBloodPressure().setDiastolicBloodPressure(60.0);
 		patient.getHeartRate().setHrNum(90.0);
@@ -111,6 +110,14 @@ public class Simulator {
 		this.patient = pt;
 		toolList = new ArrayList<Tool>();
 		prescriptionList = new ArrayList<Prescription>();
+	}
+	
+	public Simulator(Patient pt, ArrayList<Prescription> prescriptions, ArrayList<Tool> tools){
+		super();
+		initBound();
+		this.patient = pt;
+		toolList = tools;
+		prescriptionList = prescriptions;
 	}
 
 	// the engine can get patient info from simulator
