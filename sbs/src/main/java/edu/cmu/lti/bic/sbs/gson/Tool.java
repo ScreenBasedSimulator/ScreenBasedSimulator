@@ -7,12 +7,12 @@ package edu.cmu.lti.bic.sbs.gson;
  *
  */
 public class Tool {
-  private String name = "Default Tool";
+  private String name = "-";
 
   private String id = null;
 
   public Tool() {
-    this("Default id", "Default name", 100);
+    this("Default id", "-", 100);
   }
 
   private double value;
