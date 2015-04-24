@@ -202,7 +202,7 @@ public class Simulator {
 				// get the current prescription
 				Prescription currentPrescription = prescriptionList
 						.get(prescriptionList.size() - 1);
-				double currentDoes = currentPrescription.getDose();
+				double currentDoes = currentPrescription.getDose() / 20;
 
 				// get prescription information
 				if (currentPrescription.getDrug().getId().equals("naloxone")) {

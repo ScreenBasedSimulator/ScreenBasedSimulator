@@ -20,15 +20,15 @@ public class Patient implements Cloneable {
 	
 
 	private Condition cd;
-	//bloodPressure range from (100, 190) and (40, 70)
-	private BloodPressure bloodPressure = new BloodPressure(90.0, 100.0, 190.0, 60.0, 40.0, 70.0);
-	//heartRate range from (50, 150)
-	private HeartRate heartRate = new HeartRate(70.0, 50.0, 150.0);
+	//bloodPressure range from (100, 120) and (40, 80)
+	private BloodPressure bloodPressure = new BloodPressure(90.0, 100.0, 120.0, 60.0, 40.0, 80.0);
+	//heartRate range from (50, 100)
+	private HeartRate heartRate = new HeartRate(70.0, 50.0, 100.0);
 	//oxygenLevel range from (0.6, 1.0)
 	private OxygenLevel oxygenLevel = new OxygenLevel(0.8, 0.6, 1.0);
 
-	//respirationRate range from (10, 30)
-	private RespirationRate respirationRate = new RespirationRate(12.0, 10.0, 30.0);
+	//respirationRate range from (10, 20)
+	private RespirationRate respirationRate = new RespirationRate(12.0, 10.0, 20.0);
 	
 	GraphicDisplay graDisplay;
 	Status status;
