@@ -12,7 +12,7 @@ public class Tool {
   private String id = null;
 
   public Tool() {
-    this("Default id", "Default name", "Default description");
+    this("Default id", "Default name", 100);
   }
 
   private double value;
@@ -34,7 +34,7 @@ public class Tool {
     return name;
   }
 
-  public Tool(String id, String name, String description) {
+  public Tool(String id, String name, double value) {
 
     this.id = id;
     this.name = name;

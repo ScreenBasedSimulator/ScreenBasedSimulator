@@ -2,11 +2,20 @@ package edu.cmu.lti.bic.sbs.simulator;
 
 public class BloodPressure implements MedicalParameter {
 
-	Double systolicBloodPressure, systolicBloodPressureLowerBound,
-			systolicBloodPressureUpperBound;
-	
-	Double diastolicBloodPressure, diastolicBloodPressureLowerBound,
+	Double systolicBloodPressure, diastolicBloodPressure;
+
+	static Double systolicBloodPressureLowerBound,
+			systolicBloodPressureUpperBound, diastolicBloodPressureLowerBound,
 			diastolicBloodPressureUpperBound;
+
+	
+	
+	public BloodPressure(Double systolicBloodPressure,
+			Double diastolicBloodPressure) {
+		super();
+		this.systolicBloodPressure = systolicBloodPressure;
+		this.diastolicBloodPressure = diastolicBloodPressure;
+	}
 
 	// constructor function
 	public BloodPressure(Double systolicBloodPressure,
@@ -18,11 +27,11 @@ public class BloodPressure implements MedicalParameter {
 		super();
 
 		this.systolicBloodPressure = systolicBloodPressure;
-		this.systolicBloodPressureLowerBound = systolicBloodPressureLowerBound;
-		this.systolicBloodPressureUpperBound = systolicBloodPressureUpperBound;
+		BloodPressure.systolicBloodPressureLowerBound = systolicBloodPressureLowerBound;
+		BloodPressure.systolicBloodPressureUpperBound = systolicBloodPressureUpperBound;
 		this.diastolicBloodPressure = diastolicBloodPressure;
-		this.diastolicBloodPressureLowerBound = diastolicBloodPressureLowerBound;
-		this.diastolicBloodPressureUpperBound = diastolicBloodPressureUpperBound;
+		BloodPressure.diastolicBloodPressureLowerBound = diastolicBloodPressureLowerBound;
+		BloodPressure.diastolicBloodPressureUpperBound = diastolicBloodPressureUpperBound;
 		validateParameter();
 	}
 
@@ -31,16 +40,16 @@ public class BloodPressure implements MedicalParameter {
 	 * after changing rate data
 	 */
 	private void validateParameter() {
-		if (systolicBloodPressure > systolicBloodPressureUpperBound) {
-			systolicBloodPressure = systolicBloodPressureUpperBound;
-		} else if (systolicBloodPressure < systolicBloodPressureLowerBound) {
-			systolicBloodPressure = systolicBloodPressureLowerBound;
+		if (systolicBloodPressure > BloodPressure.systolicBloodPressureUpperBound) {
+			systolicBloodPressure = BloodPressure.systolicBloodPressureUpperBound;
+		} else if (systolicBloodPressure < BloodPressure.systolicBloodPressureLowerBound) {
+			systolicBloodPressure = BloodPressure.systolicBloodPressureLowerBound;
 		}
-		
-		if (diastolicBloodPressure > diastolicBloodPressureUpperBound) {
-			diastolicBloodPressure = diastolicBloodPressureUpperBound;
-		} else if (diastolicBloodPressure < diastolicBloodPressureLowerBound) {
-			diastolicBloodPressure = diastolicBloodPressureLowerBound;
+
+		if (diastolicBloodPressure > BloodPressure.diastolicBloodPressureUpperBound) {
+			diastolicBloodPressure = BloodPressure.diastolicBloodPressureUpperBound;
+		} else if (diastolicBloodPressure < BloodPressure.diastolicBloodPressureLowerBound) {
+			diastolicBloodPressure = BloodPressure.diastolicBloodPressureLowerBound;
 		}
 	}
 
@@ -60,5 +69,10 @@ public class BloodPressure implements MedicalParameter {
 	public void setDiastolicBloodPressure(Double bp) {
 		this.diastolicBloodPressure = bp;
 		validateParameter();
+	}
+	
+	@Override
+	public String toString(){
+		return "systolicBloodPressure: " + this.getSystolicBloodPressure() + " | diastolicBloodPressure: " + this.getDiastolicBloodPressure();
 	}
 }

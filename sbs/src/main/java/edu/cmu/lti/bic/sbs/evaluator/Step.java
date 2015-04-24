@@ -240,9 +240,9 @@ public class Step {
 
   public static void main(String[] args) {
     Step s = new Step(new Patient(), new Prescription(new Drug(), 10.0, "ml"), new Tool("0",
-            "Call Code", ""), (int)Calendar.getInstance().getTimeInMillis());
+            "Call Code", 0), (int)Calendar.getInstance().getTimeInMillis());
     Step a = new Step(new Patient(), new Prescription(new Drug(), 20.0, "ml"), new Tool("0",
-            "Call Code", ""), (int)Calendar.getInstance().getTimeInMillis());
+            "Call Code", 0), (int)Calendar.getInstance().getTimeInMillis());
     System.out.println(s.stepScore(a));
 
   }

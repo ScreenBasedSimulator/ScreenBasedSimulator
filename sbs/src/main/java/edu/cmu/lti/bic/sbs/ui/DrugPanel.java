@@ -20,7 +20,7 @@ public class DrugPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -8054193195906106046L;
-	String[] unit = { "ml", "mg" };
+	String[] unit = { "ml", "mmg" };
 	HashMap<String, String> drugInStore = new HashMap<String, String>();// name,
 																																			// id
 	UserInterface ui;
@@ -68,7 +68,7 @@ public class DrugPanel extends JPanel {
 		dosageLabel.setBounds(110, 70, 200, 50);
 		this.add(dosageLabel);
 
-		final SpinnerModel doseModel = new SpinnerNumberModel(9.9, 1, 15, 0.1);
+		final SpinnerModel doseModel = new SpinnerNumberModel(0, 0, 400, 0.1);
 		JSpinner doseSpinner = new JSpinner(doseModel);
 		doseSpinner.setBounds(110, 110, 75, 20);
 		this.add(doseSpinner);

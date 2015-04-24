@@ -95,4 +95,34 @@ public class Patient implements Cloneable {
 		}
 		return null;
 	}
+	
+	public boolean isConditionStable(){
+	  // check heart rate
+	  boolean res = heartRate.getHrNum() > 60 && heartRate.getHrNum() < 151;
+	  // check respiratory rate
+	  res = res && respirationRate.getRrNum() > 12 && respirationRate.getRrNum() < 20.1;
+	  // check blood pressure
+	  res = res && (bloodPressure.getDiastolicBloodPressure() 
+            + bloodPressure.getSystolicBloodPressure() < 261) &&
+            (bloodPressure.getDiastolicBloodPressure()
+            + bloodPressure.getSystolicBloodPressure() > 140);
+	  // check oxygen level
+	  res = res && oxygenLevel.getOlNum()>.90 ;
+	  return res;
+	}
+	
+	public boolean isConditionBad(){
+	  // check heart rate
+    boolean res = heartRate.getHrNum() < 10 || heartRate.getHrNum() > 180;
+    // check respiratory rate
+    res = res || respirationRate.getRrNum() > 50;
+    // check blood pressure
+    res = res || (bloodPressure.getDiastolicBloodPressure() 
+            + bloodPressure.getSystolicBloodPressure() > 360) ||
+            (bloodPressure.getDiastolicBloodPressure()
+            + bloodPressure.getSystolicBloodPressure() < 40);
+    // check oxygen level
+    res = res || oxygenLevel.getOlNum()<.50 ;
+    return res;
+	}
 }

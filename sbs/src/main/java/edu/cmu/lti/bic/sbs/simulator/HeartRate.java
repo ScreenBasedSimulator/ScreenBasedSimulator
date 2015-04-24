@@ -2,16 +2,22 @@ package edu.cmu.lti.bic.sbs.simulator;
 
 public class HeartRate implements MedicalParameter {
 	private Double hrNum;
-	private Double lowerBound;
-	private Double upperBound;	
+	private static Double lowerBound;
+	private static Double upperBound;	
+
+	public HeartRate(Double hrNum) {
+		super();
+		this.hrNum = hrNum;
+	}
 
 	public HeartRate(Double hrNum, Double lowerBound, Double upperBound) {
 		super();
 		this.hrNum = hrNum;		
-		this.lowerBound = lowerBound;
-		this.upperBound = upperBound;
+		HeartRate.lowerBound = lowerBound;
+		HeartRate.upperBound = upperBound;
 		validateParameter();
 	}
+	
 
 	/*
 	 * Check if rate is in the range of lower and upper bound
@@ -35,5 +41,10 @@ public class HeartRate implements MedicalParameter {
 		this.hrNum = hrNum;
 		validateParameter();
 		//return this;
+	}
+	
+	@Override
+	public String toString(){
+		return "HeartRate: " + this.getHrNum();
 	}
 }

@@ -4,8 +4,8 @@ public class OxygenMask extends Tool {
   double oxygenValue;
 
   // constructor function
-  public OxygenMask(String id, String name, String description, double oxygenValue) {
-    super(id, name, description);
+  public OxygenMask(String id, String name, double oxygenValue) {
+    super(id, name, 0);
     this.oxygenValue = oxygenValue;
   }
 
