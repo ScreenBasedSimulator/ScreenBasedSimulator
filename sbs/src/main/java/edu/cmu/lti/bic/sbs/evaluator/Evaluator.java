@@ -307,11 +307,20 @@ public class Evaluator {
       
       
       output.append("\nThe actual steps and details "  
-              + userName + " did is listed below : \n");
+              + userName + " did are listed below : \n");
 
       output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
       
       for (Step s : actual) {
+        output.append(s.getStep());
+        // sb.append("\n");
+      }
+      
+      output.append("\n The suggested actions are listed below : \n");
+      
+      output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+      
+      for (Step s : goldStandard) {
         output.append(s.getStep());
         // sb.append("\n");
       }
