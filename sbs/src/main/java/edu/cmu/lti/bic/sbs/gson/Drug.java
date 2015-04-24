@@ -8,7 +8,7 @@ public class Drug {
   private String id = "";
 
   public Drug() {
-    this.name = "Default Drug";
+    this.name = "-";
     this.description = "Default description";
     this.id = "Default id";
   }

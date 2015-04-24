@@ -20,8 +20,8 @@ public class Patient implements Cloneable {
 	
 
 	private Condition cd;
-	//bloodPressure range from (100, 120) and (40, 80)
-	private BloodPressure bloodPressure = new BloodPressure(90.0, 100.0, 120.0, 60.0, 40.0, 80.0);
+	//bloodPressure range from (60, 120) and (40, 80)
+	private BloodPressure bloodPressure = new BloodPressure(90.0, 60.0, 120.0, 60.0, 40.0, 80.0);
 	//heartRate range from (50, 100)
 	private HeartRate heartRate = new HeartRate(70.0, 50.0, 100.0);
 	//oxygenLevel range from (0.6, 1.0)

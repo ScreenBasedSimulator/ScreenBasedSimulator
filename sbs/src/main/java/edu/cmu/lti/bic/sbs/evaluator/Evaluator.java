@@ -307,7 +307,7 @@ public class Evaluator {
       
       
       output.append("\nThe actual steps and details "  
-              + userName + " did is listed below : \n");
+              + userName + " did are listed below : \n");
 
       output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
       
@@ -316,21 +316,30 @@ public class Evaluator {
         // sb.append("\n");
       }
       
+      output.append("\n The suggested actions are listed below : \n");
+      
+      output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+      
+      for (Step s : goldStandard) {
+        output.append(s.getStep());
+        // sb.append("\n");
+      }
+      
       // Print the patient state
       if (actual.getBpHighTime()>0)
-        output.append("The patient's blood pressure is too high for " +actual.getBpHighTime()+ " seconds\n");
+        output.append("The patient\'s blood pressure is too high for " +actual.getBpHighTime()+ " seconds\n");
       if (actual.getBpLowTime()>0)
-        output.append("The patient's blood pressure is too low for " +actual.getBpLowTime()+ " seconds\n");
+        output.append("The patient\'s blood pressure is too low for " +actual.getBpLowTime()+ " seconds\n");
       if(actual.getHrHighTime()>0)
-        output.append("The patient's heart rate is too high for " +actual.getHrHighTime()+ " seconds\n");
+        output.append("The patient\'s heart rate is too high for " +actual.getHrHighTime()+ " seconds\n");
       if(actual.getHrLowTime()>0)
-        output.append("The patient's heart rate is too low for " +actual.getHrLowTime()+ " seconds\n");
+        output.append("The patient\'s heart rate is too low for " +actual.getHrLowTime()+ " seconds\n");
       if(actual.getOlTime()>0)
-        output.append("The patient's oxygen level is too low for " +actual.getOlTime()+ " seconds\n");
+        output.append("The patient\'s oxygen level is too low for " +actual.getOlTime()+ " seconds\n");
       if(actual.getRrHighTime()>0)
-        output.append("The patient's respiratory rate is too high for " +actual.getRrHighTime()+ " seconds\n");
+        output.append("The patient\'s respiratory rate is too high for " +actual.getRrHighTime()+ " seconds\n");
       if(actual.getRrLowTime()>0)
-        output.append("The patient's respiratory rate is too low for " +actual.getRrLowTime()+ " seconds\n");
+        output.append("The patient\'s respiratory rate is too low for " +actual.getRrLowTime()+ " seconds\n");
 
       
       bw.write(output.toString());

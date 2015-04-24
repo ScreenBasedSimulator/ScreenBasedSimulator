@@ -226,6 +226,8 @@ public class Simulator {
 				}
 			}
 
+			
+			
 			// check the prescription
 			if (prescriptionList.size() > 0) {
 				// get the current prescription
@@ -241,9 +243,6 @@ public class Simulator {
 							lowerBoundDict.get("oxygenLevel"), upperBoundDict
 									.get("oxygenLevel")));
 					
-					
-					System.out.println("current does = " + currentDoes);
-					System.out.println("resultOxygenLevel = " + resultOxygenLevel);
 					
 					checkOxygenLevel = true;
 				}
@@ -281,18 +280,22 @@ public class Simulator {
 					// System.out.print("resultBR = " +
 					// resultRatioForBloodPressure);
 
+					
 					double resultSystolicBloodPressure = (1 + resultRatioForBloodPressure / 100)
 							* currentSystolicBloodPressure;
 					double resultDiastolicBloodPressure = (1 + resultRatioForBloodPressure / 100)
 							* currentDiastolicBloodPressure;
 
+					
+					
 					// System.out.print("patient's Systolic blood pressure:"+
 					// resultSystolicBloodPressure);
 					// System.out.println("patient's Diastolic blood pressure:"
 					// + resultDiastolicBloodPressure);
 
-					patient.getBloodPressure().setDiastolicBloodPressure(resultDiastolicBloodPressure);
 					patient.getBloodPressure().setSystolicBloodPressure(resultSystolicBloodPressure);
+					patient.getBloodPressure().setDiastolicBloodPressure(resultDiastolicBloodPressure);
+					
 				
 					checkBloodPressure = true;
 				}

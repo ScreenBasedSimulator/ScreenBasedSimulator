@@ -9,7 +9,7 @@ public class Prescription {
 
   // Default initializer that will ensure testing successfully using main method.
   public Prescription() {
-    this(new Drug(), 0.0, "Default unit");
+    this(new Drug(), 0.0, "-");
   }
 
   public Prescription(Drug drug, double dose, String unit) {
