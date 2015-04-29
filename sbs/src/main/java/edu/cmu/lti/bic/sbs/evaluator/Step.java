@@ -38,8 +38,8 @@ public class Step {
     System.out.println(timeUsed);
     StringBuilder output = new StringBuilder();
     if (needTime)
-    	output.append(timeUsed/1000);
-    output.append("\t\t" + prescriptionUsed.toString() + "\t\t" + toolUsed.toString() + "\n");
+    	output.append(timeUsed/1000+"\t\t");
+    output.append(prescriptionUsed.toString() + "\t\t" + toolUsed.toString() + "\n");
     return output.toString();
   }
 
