@@ -246,7 +246,7 @@ public class Evaluator {
     sb.append("The user's correct actions are :" + "\n");
 
     for (Step s : scoreDP.getBacktrack()) {
-      sb.append(s.getStep());
+      sb.append(s.getStep(true));
       // sb.append("\n");
     }
     System.out.println(sb.toString());
@@ -295,34 +295,31 @@ public class Evaluator {
       output.append("The final score " + userName + " get is : " 
                       + String.format("%.2f\n", score));
       
-      output.append("The helpful steps and details "  
-                      + userName + " did is listed below : \n");
-      
-      output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
-      
-      for (Step s : scoreDP.getBacktrack()) {
-        output.append(s.getStep());
-        // sb.append("\n");
-      }
-      
+//      output.append("The helpful steps and details "  
+//                      + userName + " did is listed below : \n");
+//      
+//      output.append("Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+//      
+//      for (Step s : scoreDP.getBacktrack()) {
+//        output.append(s.getStep(true));
+//      }
+//      
       
       output.append("\nThe actual steps and details "  
               + userName + " did are listed below : \n");
 
-      output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+      output.append("Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
       
       for (Step s : actual) {
-        output.append(s.getStep());
-        // sb.append("\n");
+        output.append(s.getStep(true));
       }
       
       output.append("\n The suggested actions are listed below : \n");
       
-      output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+      output.append("Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
       
       for (Step s : goldStandard) {
-        output.append(s.getStep());
-        // sb.append("\n");
+        output.append(s.getStep(false));
       }
       
       // Print the patient state

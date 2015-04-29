@@ -34,11 +34,13 @@ public class Step {
    * @return The step description in serialize string.
    *
    */
-  public String getStep() {
-    // return prescriptionUsed.toString() + "\t" + timeUsed.toString()
-    // + "\t" + toolUsed.toString() + "\n";
+  public String getStep(boolean needTime) {
     System.out.println(timeUsed);
-    return "\t" + timeUsed/1000 + "\t\t" + prescriptionUsed.toString() + "\t\t" + toolUsed.toString() + "\n";
+    StringBuilder output = new StringBuilder();
+    if (needTime)
+    	output.append("\t" + timeUsed/1000);
+    output.append("\t\t" + prescriptionUsed.toString() + "\t\t" + toolUsed.toString() + "\n");
+    return output.toString();
   }
 
   /**
