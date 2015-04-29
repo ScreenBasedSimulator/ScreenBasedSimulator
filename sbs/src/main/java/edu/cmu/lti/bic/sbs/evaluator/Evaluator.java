@@ -308,7 +308,7 @@ public class Evaluator {
       output.append("\nThe actual steps and details "  
               + userName + " did are listed below : \n");
 
-      output.append("Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+      output.append("Time\tDrug\t\tDose\t\tAction\n");
       
       for (Step s : actual) {
         output.append(s.getStep(true));
@@ -316,7 +316,7 @@ public class Evaluator {
       
       output.append("\n The suggested actions are listed below : \n");
       
-      output.append("Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+      output.append("Drug\t\tDose\t\tAction\n");
       
       for (Step s : goldStandard) {
         output.append(s.getStep(false));
