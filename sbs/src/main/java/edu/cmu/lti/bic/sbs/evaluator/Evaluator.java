@@ -308,7 +308,7 @@ public class Evaluator {
       output.append("\nThe actual steps and details "  
               + userName + " did are listed below : \n");
 
-      output.append("Time\tDrug\t\tDose\t\tAction\n");
+      output.append("Time\t\tDrug\t\tDose\t\tAction\n");
       
       for (Step s : actual) {
         output.append(s.getStep(true));
