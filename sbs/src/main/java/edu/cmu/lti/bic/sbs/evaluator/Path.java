@@ -151,7 +151,7 @@ public class Path extends ArrayList<Step> {
   }
 
   public double getRrLowTime() {
-    return rrLowTime;
+    return Math.round(rrLowTime);
   }
 
   public void setRrLowTime(double rrLowTime) {
