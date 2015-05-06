@@ -27,8 +27,8 @@ public class Patient implements Cloneable {
 	//oxygenLevel range from (0.6, 1.0)
 	private OxygenLevel oxygenLevel = new OxygenLevel(0.8, 0.6, 1.0);
 
-	//respirationRate range from (10, 20)
-	private RespirationRate respirationRate = new RespirationRate(12.0, 10.0, 20.0);
+	//respirationRate range from (0.6, 20)
+	private RespirationRate respirationRate = new RespirationRate(0.6, 0.0, 20.0);
 	
 	GraphicDisplay graDisplay;
 	Status status;

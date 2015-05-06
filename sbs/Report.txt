@@ -1,15 +1,16 @@
-Here is the report for cc:
-The final score cc get is : 60.00
-The helpful steps and details cc did is listed below : 
+Here is the report for null:
+The final score null get is : 100.00
+The helpful steps and details null did is listed below : 
 Action Time	 Drug Used		 Drug Dose	 Drug Unit		    Action
-	5		Default Drug		0.0		Default unit		Code Blue!
-	14		Default Drug		0.0		Default unit		Face Mask
 
-The actual steps and details cc did is listed below : 
+The actual steps and details null did are listed below : 
 Action Time	 Drug Used		 Drug Dose	 Drug Unit		    Action
-	4		Default Drug		0.0		Default unit		Code Blue!
-	5		Default Drug		0.0		Default unit		Code Blue!
-	14		Default Drug		0.0		Default unit		Face Mask
-	24		Naloxone		400.0		mg		Default name
-	37		Naloxone		231.8		mg		Default name
-	46		Default Drug		0.0		Default unit		Code Blue!
+	5		Naloxone		220.0		mL		-
+
+ The suggested actions are listed below : 
+Action Time	 Drug Used		 Drug Dose	 Drug Unit		    Action
+	576532		-		0.0		-		Call Code
+	576532		-		0.0		-		Face Mask
+	576532		naloxone		200.0		mcg		-
+The patient's oxygen level is too low for 2.826 seconds
+The patient's respiratory rate is too low for 2.826 seconds
