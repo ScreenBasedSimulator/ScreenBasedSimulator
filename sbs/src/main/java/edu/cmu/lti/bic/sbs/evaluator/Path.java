@@ -151,7 +151,7 @@ public class Path extends ArrayList<Step> {
   }
 
   public double getRrLowTime() {
-    return rrLowTime;
+    return Math.round(rrLowTime);
   }
 
   public void setRrLowTime(double rrLowTime) {
@@ -159,7 +159,7 @@ public class Path extends ArrayList<Step> {
   }
 
   public double getRrHighTime() {
-    return rrHighTime;
+    return Math.round(rrHighTime);
   }
 
   public void setRrHighTime(double rrHighTime) {
@@ -167,7 +167,7 @@ public class Path extends ArrayList<Step> {
   }
 
   public double getHrLowTime() {
-    return hrLowTime;
+    return Math.round(hrLowTime);
   }
 
   public void setHrLowTime(double hrLowTime) {
@@ -175,7 +175,7 @@ public class Path extends ArrayList<Step> {
   }
 
   public double getBpLowTime() {
-    return bpLowTime;
+    return Math.round(bpLowTime);
   }
 
   public void setBpLowTime(double bpLowTime) {
@@ -183,7 +183,7 @@ public class Path extends ArrayList<Step> {
   }
 
   public double getHrHighTime() {
-    return hrHighTime;
+    return Math.round(hrHighTime);
   }
 
   public void setHrHighTime(double hrHighTime) {
@@ -191,7 +191,7 @@ public class Path extends ArrayList<Step> {
   }
 
   public double getBpHighTime() {
-    return bpHighTime;
+    return Math.round(bpHighTime);
   }
 
   public void setBpHighTime(double bpHighTime) {
@@ -199,7 +199,7 @@ public class Path extends ArrayList<Step> {
   }
 
   public double getOlTime() {
-    return olTime;
+    return Math.round(olTime);
   }
 
   public void setOlTime(double olTime) {

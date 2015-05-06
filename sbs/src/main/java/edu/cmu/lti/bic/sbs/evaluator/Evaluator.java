@@ -246,7 +246,7 @@ public class Evaluator {
     sb.append("The user's correct actions are :" + "\n");
 
     for (Step s : scoreDP.getBacktrack()) {
-      sb.append(s.getStep());
+      sb.append(s.getStep(true));
       // sb.append("\n");
     }
     System.out.println(sb.toString());
@@ -295,51 +295,48 @@ public class Evaluator {
       output.append("The final score " + userName + " get is : " 
                       + String.format("%.2f\n", score));
       
-      output.append("The helpful steps and details "  
-                      + userName + " did is listed below : \n");
-      
-      output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
-      
-      for (Step s : scoreDP.getBacktrack()) {
-        output.append(s.getStep());
-        // sb.append("\n");
-      }
-      
+//      output.append("The helpful steps and details "  
+//                      + userName + " did is listed below : \n");
+//      
+//      output.append("Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+//      
+//      for (Step s : scoreDP.getBacktrack()) {
+//        output.append(s.getStep(true));
+//      }
+//      
       
       output.append("\nThe actual steps and details "  
               + userName + " did are listed below : \n");
 
-      output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+      output.append("Time\t\tDrug\t\tDose\t\tAction\n");
       
       for (Step s : actual) {
-        output.append(s.getStep());
-        // sb.append("\n");
+        output.append(s.getStep(true));
       }
       
       output.append("\n The suggested actions are listed below : \n");
       
-      output.append("Action Time\t Drug Used\t\t Drug Dose\t Drug Unit\t\t    Action\n");
+      output.append("Drug\t\tDose\t\tAction\n");
       
       for (Step s : goldStandard) {
-        output.append(s.getStep());
-        // sb.append("\n");
+        output.append(s.getStep(false));
       }
       
       // Print the patient state
       if (actual.getBpHighTime()>0)
-        output.append("The patient\'s blood pressure is too high for " +actual.getBpHighTime()+ " seconds\n");
+        output.append("The blood pressure is too high for " +actual.getBpHighTime()+ " seconds\n");
       if (actual.getBpLowTime()>0)
-        output.append("The patient\'s blood pressure is too low for " +actual.getBpLowTime()+ " seconds\n");
+        output.append("The blood pressure is too low for " +actual.getBpLowTime()+ " seconds\n");
       if(actual.getHrHighTime()>0)
-        output.append("The patient\'s heart rate is too high for " +actual.getHrHighTime()+ " seconds\n");
+        output.append("The heart rate is too high for " +actual.getHrHighTime()+ " seconds\n");
       if(actual.getHrLowTime()>0)
-        output.append("The patient\'s heart rate is too low for " +actual.getHrLowTime()+ " seconds\n");
+        output.append("The heart rate is too low for " +actual.getHrLowTime()+ " seconds\n");
       if(actual.getOlTime()>0)
-        output.append("The patient\'s oxygen level is too low for " +actual.getOlTime()+ " seconds\n");
+        output.append("The oxygen level is too low for " +actual.getOlTime()+ " seconds\n");
       if(actual.getRrHighTime()>0)
-        output.append("The patient\'s respiratory rate is too high for " +actual.getRrHighTime()+ " seconds\n");
+        output.append("The respiratory rate is too high for " +actual.getRrHighTime()+ " seconds\n");
       if(actual.getRrLowTime()>0)
-        output.append("The patient\'s respiratory rate is too low for " +actual.getRrLowTime()+ " seconds\n");
+        output.append("The respiratory rate is too low for " +actual.getRrLowTime()+ " seconds\n");
 
       
       bw.write(output.toString());

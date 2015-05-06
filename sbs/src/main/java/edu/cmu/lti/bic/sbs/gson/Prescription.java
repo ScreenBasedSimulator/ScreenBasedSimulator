@@ -46,6 +46,9 @@ public class Prescription {
   }
   
   public String toString(){
-    return drug.getName() + "\t\t" + dose + "\t\t" + unit;
+  	if(dose == 0) {
+  		return "-\t\t-";
+  	}
+    return drug.getName() + "\t" + dose + unit;
   }
 }

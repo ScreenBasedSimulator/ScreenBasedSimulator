@@ -33,7 +33,7 @@ public class Pair {
    */
 
   public String toString() {
-    return o2.getStep();
+    return o2.getStep(true);
   }
 
   /**
