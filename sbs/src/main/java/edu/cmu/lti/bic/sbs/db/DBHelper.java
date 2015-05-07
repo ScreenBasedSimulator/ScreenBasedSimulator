@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import edu.cmu.lti.bic.sbs.gson.Record;
 
 // Notice, do not import com.mysql.jdbc.*
 // or you will have problems!
@@ -16,7 +19,7 @@ public class DBHelper {
 	private static ResultSet resultSet = null;
 	private static Connection conn = null;
 	
-	public static void displayDataBase() throws Exception {
+	public static Record[] displayDataBase(String username) throws Exception {
 		try {
 			//establish connection
 			conn = DriverManager.getConnection("jdbc:mysql://localhost/sbs_db?"
@@ -25,8 +28,14 @@ public class DBHelper {
 			// Statements allow to issue SQL queries to the database
 			statement = conn.createStatement();
 
+			String sql = "select * from sbs_userdata";
+			if (username != null && !username.isEmpty()) {
+				sql += " where userName=\"" + username + "\"";
+			}
 			// Result set get the result of the SQL query
-			resultSet = statement.executeQuery("select * from sbs_userdata");
+			resultSet = statement.executeQuery(sql);
+			
+			ArrayList<Record> records = new ArrayList<Record>();
 			while (resultSet.next()) {
 				// It is possible to get the columns via name
 				// also possible to get the columns via the column number
@@ -46,7 +55,9 @@ public class DBHelper {
 				System.out.println("report: " + report);
 				System.out.println("debrief: " + debrief);
 				System.out.println("-----------------------------");
+				records.add(new Record(user, scenarioId, score, report, debrief));
 			}
+			return records.toArray(new Record[1]);
 		} catch (SQLException ex) {
 			// handle any errors
 			System.out.println("SQLException: " + ex.getMessage());
@@ -55,6 +66,7 @@ public class DBHelper {
 		} finally {
 			close();
 		}
+		return null;
 	}
 	/**
 	 * 

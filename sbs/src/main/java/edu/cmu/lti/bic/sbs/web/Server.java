@@ -3,9 +3,13 @@ package edu.cmu.lti.bic.sbs.web;
 import static spark.Spark.*;
 
 import java.util.HashMap;
+
 import com.google.gson.Gson;
+
+import edu.cmu.lti.bic.sbs.db.DBHelper;
 import edu.cmu.lti.bic.sbs.engine.Engine;
 import edu.cmu.lti.bic.sbs.gson.Patient;
+import edu.cmu.lti.bic.sbs.gson.Record;
 import edu.cmu.lti.bic.sbs.gson.Report;
 
 public class Server {
@@ -29,6 +33,15 @@ public class Server {
 	public void start() {
 		port(8080);
 		staticFileLocation("/public");
+		
+		post("/restart", (req, res) -> {
+			String code = req.queryParams("code");
+			if (code.equals("codeblue")) {
+				engineMap.clear();
+				return gson.toJson(new Acknowledgment(200, "OK"));
+			}
+			return gson.toJson(new Acknowledgment(400, "Wrong Password"));
+		});
 		
 		get("/:name/new-game", (req, res) -> {
 			Engine engine = new Engine();
@@ -66,6 +79,15 @@ public class Server {
 			} else {
 				return gson.toJson(report);
 			}
+		});
+		post("/history", (req, res) -> {
+			String name = req.queryParams("name");
+			Record[] records = DBHelper.displayDataBase(name);
+			StringBuilder sb = new StringBuilder();
+			for (Record r : records) {
+				sb.append(r.toString());
+			}
+			return sb.toString();
 		});
 
 		post("/:name/tool/:toolid",
