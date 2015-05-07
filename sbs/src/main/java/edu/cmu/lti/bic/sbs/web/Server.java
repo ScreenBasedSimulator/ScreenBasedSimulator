@@ -83,6 +83,9 @@ public class Server {
 		post("/history", (req, res) -> {
 			String name = req.queryParams("name");
 			Record[] records = DBHelper.displayDataBase(name);
+			if (records == null)
+				return gson.toJson(new Acknowledgment(400,
+						"History not found"));
 			StringBuilder sb = new StringBuilder();
 			for (Record r : records) {
 				sb.append(r.toString());
